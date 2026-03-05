@@ -288,7 +288,7 @@ def scrape_reddit() -> list[dict]:
     queries = ['"BusinessDen"']
 
     for q in queries:
-        url = f"https://www.reddit.com/search.rss?q={q}&sort=new&t=week"
+        url = f"https://www.reddit.com/search.rss?q={q}&sort=new&t=week&limit=25"
         print(f"  [REDDIT] Searching: {q}")
 
         try:
@@ -415,9 +415,25 @@ def scrape():
     print(f"   Subtotal: {len(medium)}")
 
     all_results = gnews + wp + reddit + medium
-    print(f"\nTotal results after filtering: {len(all_results)}")
+    print(f"\nTotal results after source filtering: {len(all_results)}")
 
+    # 48-hour cutoff — skip anything published more than 48 hours ago.
+    # Items with no publish date are allowed through (we don't want to
+    # discard results just because the date couldn't be parsed).
+    cutoff_48h = (now - timedelta(hours=48)).isoformat()
+    time_filtered = []
+    skipped_old = 0
     for item in all_results:
+        pub = item.get("published")
+        if pub and pub < cutoff_48h:
+            skipped_old += 1
+            continue
+        time_filtered.append(item)
+    if skipped_old:
+        print(f"Skipped {skipped_old} results older than 48 hours")
+    print(f"Results within 48-hour window: {len(time_filtered)}")
+
+    for item in time_filtered:
         article_id = make_id(item["url"])
         if article_id in existing_ids:
             continue
