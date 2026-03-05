@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reputation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 15px; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Outfit', -apple-system, sans-serif; background: #08090a; color: #c8cad0; line-height: 1.5; min-height: 100vh; overflow-x: hidden; }
+a { color: #3b82f6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+button { font-family: inherit; cursor: pointer; }
+input, select { font-family: inherit; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a2d35; border-radius: 3px; }
+#loading-screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #08090a; z-index: 9999; transition: opacity 0.4s ease; }
+#loading-screen.fade-out { opacity: 0; pointer-events: none; }
+.loading-spinner { width: 36px; height: 36px; border: 3px solid #2a2d35; border-top-color: #3b82f6; border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { margin-top: 12px; color: #555; font-size: 0.85rem; }
+.site-header { position: sticky; top: 0; z-index: 100; background: #08090a; border-bottom: 1px solid #1e2028; }
+.header-inner { max-width: 1400px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.header-left { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.brand-title { font-size: 18px; letter-spacing: -0.5px; white-space: nowrap; }
+.brand-title .bd { font-weight: 400; color: #c8cad0; }
+.brand-title .bd b { font-weight: 800; }
+.brand-title .tracker { font-weight: 500; color: #666; margin-left: 6px; }
+.header-right { display: flex; align-items: center; gap: 12px; }
+.header-updated { font-size: 0.72rem; color: #555; text-align: right; }
+.main-container { max-width: 1400px; margin: 0 auto; padding: 20px 24px 60px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.kpi-card { background: #0d0e12; border: 1px solid #1e2028; border-radius: 10px; padding: 16px 18px; position: relative; overflow: hidden; transition: all 0.2s; }
+.kpi-card:hover { border-color: #3a3d45; }
+.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.kpi-card.blue::before { background: #3b82f6; }
+.kpi-card.amber::before { background: #f5a623; }
+.kpi-card.green::before { background: #4caf50; }
+.kpi-card.purple::before { background: #a78bfa; }
+.kpi-card.red::before { background: #e85454; }
+.kpi-label { font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 4px; }
+.kpi-value { font-size: 1.6rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; letter-spacing: -0.03em; }
+.kpi-sub { font-size: 0.72rem; color: #555; margin-top: 2px; }
+.summary-card { background: #0d0e12; border: 1px solid #1e2028; border-radius: 10px; padding: 20px; margin-bottom: 20px; border-left: 3px solid #3b82f6; }
+.summary-card h3 { font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.summary-card .summary-date { font-size: 0.72rem; color: #555; font-weight: 400; }
+.summary-card p { font-size: 0.85rem; line-height: 1.6; color: #999; }
+.summary-card.has-content p { color: #c8cad0; }
+.chart-card { background: #0d0e12; border: 1px solid #1e2028; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.chart-card h3 { font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; }
+.chart-bars { display: flex; align-items: flex-end; gap: 2px; height: 140px; border-bottom: 1px solid #1e2028; padding-bottom: 1px; }
+.chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; cursor: pointer; }
+.chart-col .bar { width: 100%; min-width: 3px; border-radius: 2px 2px 0 0; transition: opacity 0.15s; }
+.chart-col:hover .bar { opacity: 0.7; }
+.bar.rss { background: #4caf50; }
+.bar.serper { background: #3b82f6; margin-top: 1px; }
+.chart-labels { display: flex; gap: 2px; margin-top: 8px; }
+.chart-labels span { flex: 1; font-size: 0.58rem; color: #444; text-align: center; white-space: nowrap; overflow: hidden; }
+.chart-legend { display: flex; gap: 18px; margin-top: 12px; font-size: 0.72rem; color: #555; }
+.chart-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+.chart-legend .rss { background: #4caf50; }
+.chart-legend .serper { background: #3b82f6; }
+.chart-tooltip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: #1a1d25; border: 1px solid #2a2d35; color: #c8cad0; font-size: 0.7rem; padding: 4px 10px; border-radius: 6px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 10; }
+.chart-col:hover .chart-tooltip { opacity: 1; }
+.filter-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-bar input[type="text"] { background: #0d0e12; border: 1px solid #1e2028; color: #c8cad0; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; transition: border-color 0.2s; outline: none; flex: 1; min-width: 180px; }
+.filter-bar input:focus { border-color: #3b82f6; }
+.filter-bar select { background: #0d0e12; border: 1px solid #1e2028; color: #c8cad0; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; transition: border-color 0.2s; outline: none; min-width: 130px; }
+.filter-bar select:focus { border-color: #3b82f6; }
+.filter-bar select option { background: #0d0e12; }
+.filter-label { font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; white-space: nowrap; }
+.result-count { font-size: 0.8rem; color: #555; margin-left: auto; white-space: nowrap; }
+.table-wrapper { overflow-x: auto; border: 1px solid #1e2028; border-radius: 10px; background: #0d0e12; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+thead th { background: #13151a; color: #555; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 14px; text-align: left; border-bottom: 1px solid #1e2028; white-space: nowrap; cursor: pointer; user-select: none; position: sticky; top: 0; z-index: 2; transition: color 0.15s; }
+thead th:hover { color: #999; }
+thead th .sort-arrow { margin-left: 4px; opacity: 0.4; font-size: 0.7rem; }
+thead th.sorted .sort-arrow { opacity: 1; color: #3b82f6; }
+thead th.sorted { color: #3b82f6; }
+tbody tr { border-bottom: 1px solid #1e2028; transition: background 0.15s; cursor: pointer; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #13151a; }
+tbody td { padding: 10px 14px; white-space: nowrap; max-width: 340px; overflow: hidden; text-overflow: ellipsis; }
+td.title-cell { max-width: 400px; white-space: normal; line-height: 1.35; }
+td.snippet-cell { max-width: 320px; white-space: normal; color: #777; font-size: 0.8rem; line-height: 1.4; }
+.mono { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+.badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+.badge-rss { background: rgba(76,175,80,0.15); color: #4caf50; }
+.badge-serper { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.badge-serper_news { background: rgba(167,139,250,0.15); color: #a78bfa; }
+mark { background: rgba(245,166,35,0.2); color: #f5a623; padding: 0 2px; border-radius: 2px; }
+.detail-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.detail-overlay.open { opacity: 1; pointer-events: auto; }
+.detail-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 520px; max-width: 100vw; background: #0d0e12; border-left: 1px solid #1e2028; z-index: 201; transform: translateX(100%); overflow-y: auto; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
+.detail-panel.open { transform: translateX(0); }
+.detail-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid #1e2028; position: sticky; top: 0; z-index: 1; background: #0d0e12; }
+.detail-header h2 { font-size: 1rem; font-weight: 600; }
+.detail-close { background: none; border: none; color: #666; font-size: 1.3rem; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: all 0.2s; }
+.detail-close:hover { background: #13151a; color: #c8cad0; }
+.detail-body { padding: 24px; }
+.detail-section { margin-bottom: 24px; }
+.detail-section-title { font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #1e2028; }
+.detail-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 0.85rem; }
+.detail-row .label { color: #666; }
+.detail-row .value { color: #c8cad0; font-weight: 500; text-align: right; max-width: 65%; }
+.detail-snippet { background: #13151a; border: 1px solid #1e2028; border-radius: 8px; padding: 16px; font-size: 0.85rem; line-height: 1.65; color: #c8cad0; }
+.detail-snippet mark { background: rgba(245,166,35,0.25); color: #f5a623; padding: 1px 3px; border-radius: 2px; }
+.detail-link { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #3b82f6; color: #fff; border-radius: 8px; font-size: 0.82rem; font-weight: 600; transition: background 0.2s; margin-top: 4px; }
+.detail-link:hover { background: #2563eb; text-decoration: none; }
+.site-footer { max-width: 1400px; margin: 0 auto; padding: 20px 24px; border-top: 1px solid #1e2028; font-size: 0.72rem; color: #555; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.empty-state { text-align: center; padding: 60px 20px; color: #555; }
+.empty-state p { font-size: 0.9rem; }
+@media (max-width: 768px) {
+  html { font-size: 14px; }
+  .header-inner { padding: 12px 16px; }
+  .brand-title { font-size: 16px; }
+  .main-container { padding: 14px 12px 40px; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .kpi-value { font-size: 1.3rem; }
+  .filter-bar { gap: 8px; }
+  .filter-bar input[type="text"] { min-width: 0; width: 100%; }
+  .filter-bar select { flex: 1; min-width: 0; }
+  .filter-label { display: none; }
+  .result-count { margin-left: 0; width: 100%; text-align: center; }
+  .detail-panel { width: 100vw; }
+  .table-wrapper { border: none; background: transparent; overflow: visible; }
+  table, thead, tbody, tr, th, td { display: block; }
+  thead { display: none; }
+  tbody tr { background: #0d0e12; border: 1px solid #1e2028; border-radius: 10px; margin-bottom: 10px; padding: 14px 16px; }
+  tbody td { padding: 3px 0; white-space: normal; max-width: none; display: flex; justify-content: space-between; align-items: baseline; }
+  tbody td::before { content: attr(data-label); font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; min-width: 80px; flex-shrink: 0; }
+  tbody td:first-child { font-weight: 600; font-size: 0.95rem; margin-bottom: 6px; border-bottom: 1px solid #1e2028; padding-bottom: 8px; }
+  .site-footer { padding: 16px 12px; flex-direction: column; text-align: center; }
+}
+@media (max-width: 400px) { .kpi-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="loading-screen"><div class="loading-spinner"></div><div class="loading-text">Loading mentions data…</div></div>
+<header class="site-header"><div class="header-inner">
+  <div class="header-left"><div class="brand-title"><span class="bd"><b>Business</b>Den</span><span class="tracker">Reputation</span></div></div>
+  <div class="header-right"><div class="header-updated" id="lastUpdated"></div></div>
+</div></header>
+<main class="main-container">
+  <div class="kpi-grid">
+    <div class="kpi-card blue"><div class="kpi-label">Total Mentions</div><div class="kpi-value" id="kTotal">–</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Unique Sources</div><div class="kpi-value" id="kSources">–</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">New This Run</div><div class="kpi-value" id="kNew">–</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Via Google News</div><div class="kpi-value" id="kRss">–</div></div>
+    <div class="kpi-card blue"><div class="kpi-label">Via Serper</div><div class="kpi-value" id="kSerper">–</div></div>
+  </div>
+  <div id="summarySection"></div>
+  <div class="chart-card">
+    <h3>Mentions Over Time</h3>
+    <div class="chart-bars" id="chartBars"></div>
+    <div class="chart-labels" id="chartLabels"></div>
+    <div class="chart-legend"><span><i class="rss"></i> Google News RSS</span><span><i class="serper"></i> Serper</span></div>
+  </div>
+  <div class="filter-bar">
+    <span class="filter-label">Search</span>
+    <input type="text" id="searchInput" placeholder="Filter by title, source, snippet…">
+    <span class="filter-label">Source</span>
+    <select id="sourceFilter"><option value="">All sources</option></select>
+    <span class="filter-label">Found via</span>
+    <select id="viaFilter"><option value="">All methods</option><option value="google_news_rss">Google News RSS</option><option value="serper">Serper (web)</option><option value="serper_news">Serper (news)</option></select>
+    <span class="result-count" id="resultCount"></span>
+  </div>
+  <div class="table-wrapper"><table>
+    <thead><tr>
+      <th data-col="published" class="sorted">Date <span class="sort-arrow">▼</span></th>
+      <th data-col="source">Source <span class="sort-arrow">▼</span></th>
+      <th data-col="title">Title <span class="sort-arrow">▼</span></th>
+      <th data-col="snippet">Context <span class="sort-arrow">▼</span></th>
+      <th data-col="found_via">Found Via <span class="sort-arrow">▼</span></th>
+    </tr></thead>
+    <tbody id="tableBody"><tr><td colspan="5" class="empty-state"><p>Loading…</p></td></tr></tbody>
+  </table></div>
+</main>
+<div class="detail-overlay" id="detailOverlay"></div>
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-header"><h2>Mention Detail</h2><button class="detail-close" id="detailClose">✕</button></div>
+  <div class="detail-body">
+    <div class="detail-section">
+      <div class="detail-section-title">Article</div>
+      <div class="detail-row"><span class="label">Title</span><span class="value" id="dTitle"></span></div>
+      <div class="detail-row"><span class="label">Source</span><span class="value" id="dSource"></span></div>
+      <div class="detail-row"><span class="label">Domain</span><span class="value" id="dDomain"></span></div>
+      <div class="detail-row"><span class="label">Published</span><span class="value" id="dDate"></span></div>
+      <div class="detail-row"><span class="label">Found via</span><span class="value" id="dVia"></span></div>
+      <div class="detail-row"><span class="label">First seen</span><span class="value" id="dSeen"></span></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">How BusinessDen Was Mentioned</div>
+      <div class="detail-snippet" id="dSnippet"></div>
+    </div>
+    <div class="detail-section"><a class="detail-link" id="dLink" href="#" target="_blank" rel="noopener">View Original Article →</a></div>
+  </div>
+</div>
+<footer class="site-footer"><span>Powered by Google News RSS + Serper.dev</span><span>Updated daily at 5 AM MT</span></footer>
+<script>
+let mentions=[], summaries=[], sortCol='published', sortDir='desc';
+async function init(){
+  try{ const r=await fetch('mentions-data.json'); const data=await r.json(); mentions=data.mentions||[]; summaries=data.summaries||[]; renderAll(data); }
+  catch(e){ document.getElementById('tableBody').innerHTML='<tr><td colspan="5" class="empty-state"><p>Failed to load mentions-data.json</p></td></tr>'; }
+  document.getElementById('loading-screen').classList.add('fade-out');
+  setTimeout(()=>document.getElementById('loading-screen').style.display='none',500);
+}
+function renderAll(data){
+  document.getElementById('kTotal').textContent=mentions.length;
+  document.getElementById('kSources').textContent=new Set(mentions.map(m=>m.source_domain)).size;
+  document.getElementById('kNew').textContent=data.new_this_run||0;
+  document.getElementById('kRss').textContent=mentions.filter(m=>m.found_via==='google_news_rss').length;
+  document.getElementById('kSerper').textContent=mentions.filter(m=>m.found_via.startsWith('serper')).length;
+  if(data.last_updated) document.getElementById('lastUpdated').textContent='Updated '+new Date(data.last_updated).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
+  const srcSel=document.getElementById('sourceFilter'), srcCounts={};
+  mentions.forEach(m=>{srcCounts[m.source]=(srcCounts[m.source]||0)+1;});
+  Object.entries(srcCounts).sort((a,b)=>b[1]-a[1]).forEach(([s,c])=>{const o=document.createElement('option');o.value=s;o.textContent=s+' ('+c+')';srcSel.appendChild(o);});
+  renderChart(); renderTable(); renderSummary();
+}
+function renderChart(){
+  const byDate={};
+  mentions.forEach(m=>{if(!m.published)return;const d=m.published.split('T')[0];if(!byDate[d])byDate[d]={rss:0,serper:0};m.found_via==='google_news_rss'?byDate[d].rss++:byDate[d].serper++;});
+  const dates=Object.keys(byDate).sort(),show=dates.slice(-30);if(!show.length)return;
+  const max=Math.max(...show.map(d=>byDate[d].rss+byDate[d].serper),1);
+  document.getElementById('chartBars').innerHTML=show.map(d=>{
+    const rH=Math.max(1,(byDate[d].rss/max)*130),sH=Math.max(0,(byDate[d].serper/max)*130),total=byDate[d].rss+byDate[d].serper;
+    return '<div class="chart-col"><div class="chart-tooltip">'+fmtShort(d)+': '+total+' mention'+(total!==1?'s':'')+' ('+byDate[d].rss+' RSS, '+byDate[d].serper+' Serper)</div><div class="bar serper" style="height:'+sH+'px"></div><div class="bar rss" style="height:'+rH+'px"></div></div>';
+  }).join('');
+  document.getElementById('chartLabels').innerHTML=show.map((d,i)=>{if(show.length>14&&i%3!==0)return'<span></span>';return'<span>'+fmtShort(d)+'</span>';}).join('');
+}
+function getFiltered(){
+  const q=document.getElementById('searchInput').value.toLowerCase(),src=document.getElementById('sourceFilter').value,via=document.getElementById('viaFilter').value;
+  return mentions.filter(m=>{if(src&&m.source!==src)return false;if(via&&!m.found_via.startsWith(via))return false;if(q&&!(m.title+' '+m.snippet+' '+m.source+' '+m.source_domain).toLowerCase().includes(q))return false;return true;});
+}
+function sortMentions(arr){
+  const dir=sortDir==='asc'?1:-1;
+  return[...arr].sort((a,b)=>{let va=a[sortCol]||'',vb=b[sortCol]||'';if(sortCol==='published')return((new Date(va)||0)-(new Date(vb)||0))*dir;return String(va).localeCompare(String(vb))*dir;});
+}
+function renderTable(){
+  const filtered=sortMentions(getFiltered());
+  document.getElementById('resultCount').textContent=filtered.length+' of '+mentions.length;
+  const tbody=document.getElementById('tableBody');
+  if(!filtered.length){tbody.innerHTML='<tr><td colspan="5" class="empty-state"><p>No mentions match your filters</p></td></tr>';return;}
+  const viaMap={google_news_rss:'rss',serper:'serper',serper_news:'serper_news'},viaLabel={google_news_rss:'RSS',serper:'Serper',serper_news:'Serper News'};
+  tbody.innerHTML=filtered.slice(0,200).map(m=>{const bc=viaMap[m.found_via]||'serper';
+    return'<tr data-id="'+m.id+'"><td data-label="Date" class="mono">'+fmtDate(m.published)+'</td><td data-label="Source">'+esc(m.source)+'</td><td data-label="Title" class="title-cell">'+esc(m.title)+'</td><td data-label="Context" class="snippet-cell">'+highlightBD(truncate(m.snippet,120))+'</td><td data-label="Found Via"><span class="badge badge-'+bc+'">'+(viaLabel[m.found_via]||m.found_via)+'</span></td></tr>';
+  }).join('');
+  document.querySelectorAll('thead th').forEach(th=>{th.classList.toggle('sorted',th.dataset.col===sortCol);const a=th.querySelector('.sort-arrow');if(th.dataset.col===sortCol)a.textContent=sortDir==='asc'?'▲':'▼';else a.textContent='▼';});
+}
+function renderSummary(){
+  const el=document.getElementById('summarySection');
+  if(!summaries.length){el.innerHTML='<div class="summary-card"><h3>Daily Summary</h3><p>AI-generated summaries will appear here once the Claude API integration is enabled.</p></div>';return;}
+  const latest=summaries[summaries.length-1];
+  el.innerHTML='<div class="summary-card has-content"><h3>Daily Summary <span class="summary-date">'+fmtDate(latest.date)+'</span></h3><p>'+esc(latest.text)+'</p></div>';
+}
+function openDetail(id){
+  const m=mentions.find(x=>x.id===id);if(!m)return;
+  document.getElementById('dTitle').textContent=m.title;
+  document.getElementById('dSource').textContent=m.source;
+  document.getElementById('dDomain').textContent=m.source_domain;
+  document.getElementById('dDate').textContent=fmtDate(m.published);
+  const vl={google_news_rss:'Google News RSS',serper:'Serper (web)',serper_news:'Serper (news)'};
+  document.getElementById('dVia').textContent=vl[m.found_via]||m.found_via;
+  document.getElementById('dSeen').textContent=fmtDate(m.first_seen);
+  document.getElementById('dSnippet').innerHTML=m.snippet?highlightBD(m.snippet):'<em style="color:#555">No snippet available</em>';
+  document.getElementById('dLink').href=m.url;
+  document.getElementById('detailOverlay').classList.add('open');
+  document.getElementById('detailPanel').classList.add('open');
+}
+function closeDetail(){document.getElementById('detailOverlay').classList.remove('open');document.getElementById('detailPanel').classList.remove('open');}
+document.getElementById('tableBody').addEventListener('click',e=>{const tr=e.target.closest('tr[data-id]');if(tr)openDetail(tr.dataset.id);});
+document.getElementById('detailOverlay').addEventListener('click',closeDetail);
+document.getElementById('detailClose').addEventListener('click',closeDetail);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail();});
+document.getElementById('searchInput').addEventListener('input',renderTable);
+document.getElementById('sourceFilter').addEventListener('change',renderTable);
+document.getElementById('viaFilter').addEventListener('change',renderTable);
+document.querySelectorAll('thead th[data-col]').forEach(th=>{th.addEventListener('click',()=>{const col=th.dataset.col;if(sortCol===col)sortDir=sortDir==='asc'?'desc':'asc';else{sortCol=col;sortDir=col==='published'?'desc':'asc';}renderTable();});});
+function fmtDate(iso){if(!iso)return'—';return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
+function fmtShort(d){return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});}
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+function highlightBD(t){if(!t)return'';return esc(t).replace(/(businessden)/gi,'<mark>$1</mark>');}
+function truncate(s,n){if(!s)return'';return s.length>n?s.slice(0,n)+'…':s;}
+init();
+</script>
+</body>
+</html>
