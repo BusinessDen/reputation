@@ -77,7 +77,6 @@ jobs:
         run: pip install feedparser
       - name: Run scraper
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
-        env:
         run: python3 scraper.py
       - name: Commit and push data
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
