@@ -74,7 +74,7 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
-        run: pip install feedparser
+        run: pip install feedparser requests
       - name: Run scraper
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
         run: python3 scraper.py
