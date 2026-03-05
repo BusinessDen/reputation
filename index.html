@@ -68,11 +68,16 @@ button{font-family:inherit;cursor:pointer}input,select{font-family:inherit}
 /* Chart */
 .chart-card{background:#0d0e12;border:1px solid #1e2028;border-radius:10px;padding:20px;margin-bottom:20px}
 .chart-card h3{font-size:.85rem;font-weight:600;margin-bottom:16px}
-.chart-bars{display:flex;align-items:flex-end;gap:2px;height:140px;border-bottom:1px solid #1e2028}
-.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;cursor:pointer}
+.chart-area{position:relative}
+.chart-bars{display:flex;align-items:flex-end;gap:2px;height:160px;border-bottom:1px solid #1e2028;position:relative}
+.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;cursor:pointer;gap:1px}
 .chart-col .bar{width:100%;min-width:3px;border-radius:2px 2px 0 0;transition:opacity .15s}
 .chart-col:hover .bar{opacity:.7}
 .bar.gnews{background:#4caf50}.bar.wp{background:#3b82f6}.bar.reddit{background:#f5a623}.bar.medium{background:#a78bfa}
+.bar.bd-pub{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-bottom:none}
+.chart-line-svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5}
+.chart-line-svg polyline{fill:none;stroke:#e85454;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.chart-line-svg circle{fill:#e85454}
 .chart-labels{display:flex;gap:2px;margin-top:8px}
 .chart-labels span{flex:1;font-size:.58rem;color:#444;text-align:center;overflow:hidden}
 .chart-legend{display:flex;gap:14px;margin-top:12px;font-size:.72rem;color:#555;flex-wrap:wrap}
@@ -254,14 +259,19 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
   <div id="dailySummary"></div>
 
   <div class="chart-card">
-    <h3>Mentions Over Time</h3>
-    <div class="chart-bars" id="chartBars"></div>
+    <h3>Mentions Over Time <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
+    <div class="chart-area">
+      <div class="chart-bars" id="chartBars"></div>
+      <svg class="chart-line-svg" id="chartLine" preserveAspectRatio="none"></svg>
+    </div>
     <div class="chart-labels" id="chartLabels"></div>
     <div class="chart-legend">
       <span><i style="background:#4caf50"></i> Google News</span>
       <span><i style="background:#3b82f6"></i> WordPress</span>
       <span><i style="background:#f5a623"></i> Reddit</span>
       <span><i style="background:#a78bfa"></i> Medium</span>
+      <span><i style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3)"></i> BD Published</span>
+      <span><i style="background:#e85454;border-radius:50%"></i> 30-Day Avg</span>
     </div>
   </div>
 
@@ -470,15 +480,105 @@ function renderDailySummary(){
 
 // ═══ CHART ═══
 function renderChart(){
+  // Build per-date data for mentions
   const byDate={};
-  mentions.forEach(m=>{if(!m.published)return;const d=m.published.split('T')[0];if(!byDate[d])byDate[d]={gnews:0,wp:0,reddit:0,medium:0};
-    if(m.found_via==='google_news_rss')byDate[d].gnews++;else if(m.found_via==='wordpress_api')byDate[d].wp++;
-    else if(m.found_via==='reddit_rss')byDate[d].reddit++;else if(m.found_via==='medium_rss')byDate[d].medium++;});
-  const dates=Object.keys(byDate).sort(),show=dates.slice(-30);if(!show.length)return;
-  const max=Math.max(...show.map(d=>{const v=byDate[d];return v.gnews+v.wp+v.reddit+v.medium;}),1);
-  document.getElementById('chartBars').innerHTML=show.map(d=>{const v=byDate[d],t=v.gnews+v.wp+v.reddit+v.medium;
-    return'<div class="chart-col"><div class="chart-tooltip">'+fmtShort(d)+': '+t+'</div><div class="bar medium" style="height:'+Math.max(0,v.medium/max*130)+'px"></div><div class="bar reddit" style="height:'+Math.max(0,v.reddit/max*130)+'px"></div><div class="bar wp" style="height:'+Math.max(0,v.wp/max*130)+'px"></div><div class="bar gnews" style="height:'+Math.max(1,v.gnews/max*130)+'px"></div></div>';}).join('');
-  document.getElementById('chartLabels').innerHTML=show.map((d,i)=>(show.length>14&&i%3)?'<span></span>':'<span>'+fmtShort(d)+'</span>').join('');
+  mentions.forEach(m=>{
+    if(!m.published)return;
+    const d=m.published.split('T')[0];
+    if(!byDate[d])byDate[d]={gnews:0,wp:0,reddit:0,medium:0,bdPub:0};
+    if(m.found_via==='google_news_rss')byDate[d].gnews++;
+    else if(m.found_via==='wordpress_api')byDate[d].wp++;
+    else if(m.found_via==='reddit_rss')byDate[d].reddit++;
+    else if(m.found_via==='medium_rss')byDate[d].medium++;
+  });
+  // Add BD articles published per day
+  bdArticles.forEach(a=>{
+    if(!a.published)return;
+    const d=a.published.split('T')[0];
+    if(!byDate[d])byDate[d]={gnews:0,wp:0,reddit:0,medium:0,bdPub:0};
+    byDate[d].bdPub++;
+  });
+
+  // Build 30-day window (fill missing days)
+  const today=new Date().toISOString().split('T')[0];
+  const show=[];
+  for(let i=29;i>=0;i--){
+    const dt=new Date(Date.now()-i*86400000);
+    const d=dt.toISOString().split('T')[0];
+    show.push(d);
+    if(!byDate[d])byDate[d]={gnews:0,wp:0,reddit:0,medium:0,bdPub:0};
+  }
+
+  // Calculate max for scaling (mentions + bd articles)
+  const maxMentions=Math.max(...show.map(d=>{const v=byDate[d];return v.gnews+v.wp+v.reddit+v.medium;}),1);
+  const maxBd=Math.max(...show.map(d=>byDate[d].bdPub),1);
+  const maxTotal=Math.max(maxMentions,maxBd,1);
+  const barH=150;
+
+  // Render bars
+  document.getElementById('chartBars').innerHTML=show.map(d=>{
+    const v=byDate[d];
+    const mentionTotal=v.gnews+v.wp+v.reddit+v.medium;
+    const gH=Math.max(0,(v.gnews/maxTotal)*barH);
+    const wH=Math.max(0,(v.wp/maxTotal)*barH);
+    const rH=Math.max(0,(v.reddit/maxTotal)*barH);
+    const mH=Math.max(0,(v.medium/maxTotal)*barH);
+    const bH=Math.max(0,(v.bdPub/maxTotal)*barH);
+    const tip=fmtShort(d)+': '+mentionTotal+' mention'+(mentionTotal!==1?'s':'')+', '+v.bdPub+' BD article'+(v.bdPub!==1?'s':'');
+    return '<div class="chart-col"><div class="chart-tooltip">'+tip+'</div>'+
+      '<div style="display:flex;gap:1px;align-items:flex-end;width:100%;height:100%">'+
+        '<div style="flex:1;display:flex;flex-direction:column;align-items:stretch">'+
+          (mH?'<div class="bar medium" style="height:'+mH+'px"></div>':'')+
+          (rH?'<div class="bar reddit" style="height:'+rH+'px"></div>':'')+
+          (wH?'<div class="bar wp" style="height:'+wH+'px"></div>':'')+
+          '<div class="bar gnews" style="height:'+Math.max(mentionTotal?1:0,gH)+'px"></div>'+
+        '</div>'+
+        (bH?'<div class="bar bd-pub" style="flex:0 0 40%;height:'+bH+'px"></div>':'')+
+      '</div></div>';
+  }).join('');
+
+  // Render labels
+  document.getElementById('chartLabels').innerHTML=show.map((d,i)=>{
+    if(i%3&&show.length>14)return'<span></span>';
+    return'<span>'+fmtShort(d)+'</span>';
+  }).join('');
+
+  // Render 30-day trailing average line
+  // Calculate trailing avg for each day in the window
+  const allDates=Object.keys(byDate).sort();
+  const avgPoints=show.map((d,i)=>{
+    // Average of mentions over trailing 30 days from this date
+    let sum=0,count=0;
+    for(let j=0;j<30;j++){
+      const lookback=new Date(new Date(d+'T12:00:00').getTime()-j*86400000).toISOString().split('T')[0];
+      if(byDate[lookback]){
+        const v=byDate[lookback];
+        sum+=v.gnews+v.wp+v.reddit+v.medium;
+      }
+      count++;
+    }
+    return sum/count;
+  });
+  const maxAvg=Math.max(...avgPoints,0.1);
+
+  // Draw SVG polyline over the chart
+  requestAnimationFrame(()=>{
+    const svg=document.getElementById('chartLine');
+    const container=document.getElementById('chartBars');
+    if(!container)return;
+    const W=container.offsetWidth;
+    const H=container.offsetHeight;
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+
+    const colW=W/show.length;
+    const points=avgPoints.map((avg,i)=>{
+      const x=colW*i+colW/2;
+      const y=H-((avg/maxTotal)*barH);
+      return x+','+y;
+    });
+
+    svg.innerHTML='<polyline points="'+points.join(' ')+'"/>';
+  });
 }
 
 // ═══ SIDEBAR (#7) ═══
@@ -645,14 +745,33 @@ function renderByline(){
     const rate=rd.total?Math.round(rd.pickedUp/rd.total*100):0;
     let articlesHtml='';
     if(rd.articles.length){
-      articlesHtml='<div style="margin-top:12px">';
-      rd.articles.forEach(a=>{
-        articlesHtml+='<div style="padding:6px 0;border-bottom:1px solid #1a1d25;font-size:.82rem">';
-        articlesHtml+='<span style="color:#c8cad0">'+esc(a.title)+'</span>';
-        articlesHtml+=' <span class="mono" style="color:#555">'+fmtDate(a.published)+'</span>';
-        articlesHtml+='<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span class="pub" style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+'</span>';
+      // Sort reverse chronological
+      const sorted=[...rd.articles].sort((a,b)=>(b.published||'').localeCompare(a.published||''));
+      const show5=sorted.slice(0,5);
+      const rest=sorted.slice(5);
+      const uid='byline-arts-'+name.replace(/\s/g,'-');
+
+      articlesHtml='<div style="margin-top:14px">';
+      show5.forEach(a=>{
+        articlesHtml+='<div style="padding:8px 0;border-bottom:1px solid #1a1d25;font-size:.82rem">';
+        articlesHtml+='<span style="color:#c8cad0;font-weight:500">'+esc(a.title)+'</span>';
+        articlesHtml+='<span style="color:#555;margin-left:12px;font-size:.75rem" class="mono">'+fmtDate(a.published)+'</span>';
+        articlesHtml+='<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+'</span>';
         articlesHtml+='</div>';
       });
+
+      if(rest.length){
+        articlesHtml+='<div id="'+uid+'" style="display:none">';
+        rest.forEach(a=>{
+          articlesHtml+='<div style="padding:8px 0;border-bottom:1px solid #1a1d25;font-size:.82rem">';
+          articlesHtml+='<span style="color:#c8cad0;font-weight:500">'+esc(a.title)+'</span>';
+          articlesHtml+='<span style="color:#555;margin-left:12px;font-size:.75rem" class="mono">'+fmtDate(a.published)+'</span>';
+          articlesHtml+='<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+'</span>';
+          articlesHtml+='</div>';
+        });
+        articlesHtml+='</div>';
+        articlesHtml+='<button class="expand-btn" style="margin-top:8px" onclick="var el=document.getElementById(\''+uid+'\');var open=el.style.display!==\'none\';el.style.display=open?\'none\':\'block\';this.textContent=open?\'Show all '+rd.articles.length+' articles\':\'Show fewer\'">Show all '+rd.articles.length+' articles</button>';
+      }
       articlesHtml+='</div>';
     }
     const aiText=aiSections[name];
