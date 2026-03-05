@@ -823,32 +823,31 @@ function renderByline(){
     const rate=rd.total?Math.round(rd.pickedUp/rd.total*100):0;
     let articlesHtml='';
     if(rd.articles.length){
-      // Sort reverse chronological
-      const sorted=[...rd.articles].sort((a,b)=>(b.published||'').localeCompare(a.published||''));
-      const show5=sorted.slice(0,5);
-      const rest=sorted.slice(5);
+      // Top 3 by mention count (all-time highest)
+      const byMentions=[...rd.articles].sort((a,b)=>b.mentions-a.mentions);
+      const top3=byMentions.slice(0,3);
+      // All articles in reverse chronological for the expand
+      const allChrono=[...rd.articles].sort((a,b)=>(b.published||'').localeCompare(a.published||''));
       const uid='byline-arts-'+name.replace(/\s/g,'-');
 
-      articlesHtml='<div style="margin-top:14px">';
-      show5.forEach(a=>{
-        articlesHtml+='<div style="padding:8px 0;border-bottom:1px solid #1a1d25;font-size:.82rem">';
-        articlesHtml+='<span style="color:#c8cad0;font-weight:500">'+esc(a.title)+'</span>';
-        articlesHtml+='<span style="color:#555;margin-left:12px;font-size:.75rem" class="mono">'+fmtDate(a.published)+'</span>';
-        articlesHtml+='<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+'</span>';
-        articlesHtml+='</div>';
-      });
+      const renderArticle=a=>{
+        return '<div style="padding:8px 0;border-bottom:1px solid #1a1d25;font-size:.82rem">'+
+          '<span style="color:#c8cad0;font-weight:500">'+esc(a.title)+'</span>'+
+          '<span style="color:#555;margin-left:12px;font-size:.75rem" class="mono">'+fmtDate(a.published)+'</span>'+
+          '<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+'</span>'+
+        '</div>';
+      };
 
-      if(rest.length){
+      articlesHtml='<div style="margin-top:14px">';
+      articlesHtml+='<div style="font-size:.68rem;color:#555;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:6px">Top stories by pickup</div>';
+      top3.forEach(a=>{articlesHtml+=renderArticle(a);});
+
+      if(rd.articles.length>3){
         articlesHtml+='<div id="'+uid+'" style="display:none">';
-        rest.forEach(a=>{
-          articlesHtml+='<div style="padding:8px 0;border-bottom:1px solid #1a1d25;font-size:.82rem">';
-          articlesHtml+='<span style="color:#c8cad0;font-weight:500">'+esc(a.title)+'</span>';
-          articlesHtml+='<span style="color:#555;margin-left:12px;font-size:.75rem" class="mono">'+fmtDate(a.published)+'</span>';
-          articlesHtml+='<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+'</span>';
-          articlesHtml+='</div>';
-        });
+        articlesHtml+='<div style="font-size:.68rem;color:#555;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin:12px 0 6px">All stories (newest first)</div>';
+        allChrono.forEach(a=>{articlesHtml+=renderArticle(a);});
         articlesHtml+='</div>';
-        articlesHtml+='<button class="expand-btn" style="margin-top:8px" onclick="var el=document.getElementById(\''+uid+'\');var open=el.style.display!==\'none\';el.style.display=open?\'none\':\'block\';this.textContent=open?\'Show all '+rd.articles.length+' articles\':\'Show fewer\'">Show all '+rd.articles.length+' articles</button>';
+        articlesHtml+='<button class="expand-btn" style="margin-top:8px" onclick="var el=document.getElementById(\''+uid+'\');var open=el.style.display!==\'none\';el.style.display=open?\'none\':\'block\';this.textContent=open?\'Show top 3\':\'Show more stories ('+(rd.articles.length-3)+')\'">Show more stories ('+(rd.articles.length-3)+')</button>';
       }
       articlesHtml+='</div>';
     }
