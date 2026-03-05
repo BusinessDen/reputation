@@ -397,58 +397,61 @@ document.getElementById('showAllBtn').addEventListener('click',()=>{kpiFilter=nu
 // ═══ DAILY SUMMARY ═══
 function formatSummary(text){
   if(!text)return'';
+
+  // Step 1: Clean raw text BEFORE any HTML processing
   let raw=text;
-  // Strip markdown bold **text**
-  raw=raw.replace(/\*\*([^*]+)\*\*/g,'$1');
-  // Clean legacy artifacts: "pub">Name and >Name patterns
-  raw=raw.replace(/"pub">/g,'');
-  raw=raw.replace(/>(\w)/g,'$1');
-  raw=raw.replace(/,\s*,/g,',');
-  raw=raw.replace(/\s{2,}/g,' ');
+  raw=raw.replace(/\*\*([^*]+)\*\*/g,'$1');   // strip **bold**
+  raw=raw.replace(/---+/g,'');                  // strip horizontal rules
 
   const pubs=['The Denver Post','Denver Post','Denverite','9News','Denver Gazette',
     'Colorado Springs Gazette','Hoodline','Axios','Denver7','Colorado Hometown Weekly',
     'Boulder Daily Camera','Longmont Times-Call','Greeley Tribune','Westword',
     'Colorado Public Radio','CPR News','Fort Collins Coloradoan','Colorado Sun',
-    'Richmond BizSense','Reddit','Medium','LinkedIn','Facebook','Instagram','x.com',
-    'MassLive.com','Broomfield Enterprise','Loveland Reporter-Herald','Fort Morgan Times',
-    'Sterling Journal-Advocate','Estes Park Trail-Gazette','Canon City Daily Record',
-    'WesternSlopeNow','Wire hub','SCNG','San Diego Union-Tribune'];
+    'Richmond BizSense','Reddit Denver','Reddit','Medium','LinkedIn','Facebook',
+    'Instagram','x.com','MassLive.com','Broomfield Enterprise','Loveland Reporter-Herald',
+    'Fort Morgan Times','Sterling Journal-Advocate','Estes Park Trail-Gazette',
+    'Canon City Daily Record','WesternSlopeNow','Wire hub','SCNG','San Diego Union-Tribune'];
 
   const negWords=['negative','critical','criticism','disputed','corrected','pushed back',
     'took issue','challenged','inaccurate','misleading','error','retraction','backlash'];
 
+  // Step 2: Process line by line
   const lines=raw.split('\n');
   let inList=false,out='';
 
   for(const line of lines){
     const trimmed=line.trim();
     if(!trimmed)continue;
-    const isBullet=trimmed.startsWith('•')||trimmed.startsWith('- ')||trimmed.startsWith('* ');
-    let content=isBullet?trimmed.replace(/^[•\-\*]\s*/,''):trimmed;
+    const isBullet=/^[•\-\*]\s/.test(trimmed);
+    let content=isBullet?trimmed.replace(/^[•\-\*]\s+/,''):trimmed;
 
-    // Escape HTML
+    // Step 3: Escape HTML special chars
     content=content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-    // Color publication names
-    for(const p of pubs){
-      const escaped=p.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-      content=content.replace(new RegExp('\\b('+escaped+')\\b','gi'),'<span class="pub">$1</span>');
+    // Step 4: Wrap publication names in orange (longest match first to avoid partial matches)
+    const sortedPubs=[...pubs].sort((a,b)=>b.length-a.length);
+    for(const p of sortedPubs){
+      const esc=p.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      content=content.replace(new RegExp('(?<![\\w>])'+esc+'(?!\\w)','gi'),
+        '<span class="pub">$&</span>');
     }
 
-    // Color story titles in quotes (green) — curly and straight quotes
-    content=content.replace(/[\u201c""]([^""\u201c\u201d\n]{6,}?)[\u201d""]/g,
+    // Step 5: Wrap quoted text in green
+    content=content.replace(/&quot;([^&]{6,}?)&quot;/g,
+      '&quot;<span class="story">$1</span>&quot;');
+    content=content.replace(/\u201c([^\u201d]{6,}?)\u201d/g,
       '\u201c<span class="story">$1</span>\u201d');
 
-    // Highlight negative language (red)
+    // Step 6: Highlight negative language in red
     for(const nw of negWords){
-      content=content.replace(new RegExp('\\b('+nw+')\\b','gi'),'<span class="neg">$1</span>');
+      content=content.replace(new RegExp('\\b('+nw+')\\b','gi'),
+        '<span class="neg">$1</span>');
     }
 
     if(isBullet){
       if(!inList){out+='<ul>';inList=true;}
       out+='<li>'+content+'</li>';
-    } else {
+    }else{
       if(inList){out+='</ul>';inList=false;}
       out+='<p>'+content+'</p>';
     }
