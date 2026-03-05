@@ -1,15 +1,23 @@
 #!/usr/bin/env python3
 """
-Reputation - Scraper
-1. Scrapes third-party mentions of BusinessDen (Google News RSS, WordPress API,
-   Reddit RSS, Medium RSS) — last 48 hours only.
-2. Ingests BusinessDen's own articles via RSS (since March 1, 2026).
-3. Generates AI summaries via Claude API:
-   - Daily summary of new mentions (every run with new mentions)
-   - Weekly summary (Mondays)
-   - Monthly summary (1st of month)
-   - Per-article reception summary (2 days, 7 days, 30 days after publish)
-   - Byline analysis (per reporter)
+Reputation v2 - Scraper
+Finds third-party mentions of BusinessDen and analyzes their impact.
+
+Sources (all free, no API keys):
+  1. Google News RSS (multiple queries, 48hr window)
+  2. WordPress.com Public API
+  3. Reddit RSS
+  4. Medium RSS
+  5. BusinessDen own RSS (article ingestion)
+
+AI features (requires ANTHROPIC_API_KEY):
+  - Claude-powered mention-to-article matching
+  - Sentiment tagging per mention
+  - Daily summary (pithy, bulleted, newspaper-style)
+  - Weekly summary (detailed)
+  - Monthly summary (comprehensive)
+  - Per-article reception at 2d/7d/30d
+  - Byline analysis per reporter
 
 Data is append-only for historical memory.
 """
@@ -23,6 +31,7 @@ import re
 import html
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlparse
+from difflib import SequenceMatcher
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -49,7 +58,7 @@ GNEWS_QUERIES = [
     '"Aaron Kremer" -site:businessden.com when:2d',
 ]
 
-REPORTERS = ["Thomas Gounley", "Justin Wingerter", "Matt Geiger", "Aaron Kremer"]
+CORE_REPORTERS = ["Thomas Gounley", "Justin Wingerter", "Matt Geiger", "Aaron Kremer"]
 BD_ARTICLES_SINCE = "2026-03-01T00:00:00+00:00"
 USER_AGENT = "ReputationTracker/1.0 (BusinessDen)"
 
@@ -59,6 +68,10 @@ RELEVANCE_KEYWORDS = [
     "denver", "colorado", "real estate", "commercial", "office",
     "restaurant", "brewery", "development", "developer",
 ]
+
+# Model selection: Haiku for cheap tasks, Sonnet for complex analysis
+MODEL_CHEAP = "claude-haiku-4-5-20251001"    # $1/$5 per MTok
+MODEL_SMART = "claude-sonnet-4-20250514"     # $3/$15 per MTok
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -81,6 +94,12 @@ def is_excluded(url: str) -> bool:
 def is_relevant(title: str, snippet: str) -> bool:
     text = (title + " " + snippet).lower()
     return any(kw in text for kw in RELEVANCE_KEYWORDS)
+
+def title_similar(a: str, b: str, threshold: float = 0.6) -> bool:
+    """Fuzzy title comparison for cross-source dedup."""
+    a_clean = re.sub(r'[^\w\s]', '', a.lower()).strip()
+    b_clean = re.sub(r'[^\w\s]', '', b.lower()).strip()
+    return SequenceMatcher(None, a_clean, b_clean).ratio() >= threshold
 
 def parse_rss_date(date_str: str) -> str | None:
     if not date_str: return None
@@ -107,28 +126,43 @@ def load_data() -> dict:
         with open(DATA_FILE, "r") as f:
             return json.load(f)
     return {
-        "mentions": [],
-        "bd_articles": [],
+        "mentions": [], "bd_articles": [],
         "summaries": {"daily": [], "weekly": [], "monthly": []},
-        "byline": [],
-        "article_reception": {},
-        "last_updated": None,
-        "run_log": [],
+        "byline": [], "article_reception": {},
+        "article_matches": {},
+        "last_updated": None, "run_log": [],
     }
 
 def save_data(data: dict):
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
+def ensure_structure(data: dict):
+    """Ensure all expected keys exist."""
+    defaults = {
+        "mentions": [], "bd_articles": [],
+        "summaries": {"daily": [], "weekly": [], "monthly": []},
+        "byline": [], "article_reception": {},
+        "article_matches": {},
+        "last_updated": None, "run_log": [],
+    }
+    for k, v in defaults.items():
+        if k not in data:
+            data[k] = v
+    if isinstance(data["summaries"], list):
+        data["summaries"] = {"daily": [], "weekly": [], "monthly": []}
+
 
 # ---------------------------------------------------------------------------
 # Claude API
 # ---------------------------------------------------------------------------
 
-def call_claude(prompt: str, max_tokens: int = 2000) -> str | None:
+def call_claude(prompt: str, model: str = None, max_tokens: int = 2000) -> str | None:
     if not ANTHROPIC_API_KEY:
-        print("    [AI] No ANTHROPIC_API_KEY set — skipping")
+        print("    [AI] No ANTHROPIC_API_KEY — skipping")
         return None
+    if model is None:
+        model = MODEL_SMART
     try:
         resp = requests.post(
             "https://api.anthropic.com/v1/messages",
@@ -138,18 +172,40 @@ def call_claude(prompt: str, max_tokens: int = 2000) -> str | None:
                 "content-type": "application/json",
             },
             json={
-                "model": "claude-sonnet-4-20250514",
+                "model": model,
                 "max_tokens": max_tokens,
                 "messages": [{"role": "user", "content": prompt}],
             },
-            timeout=60,
+            timeout=90,
         )
         resp.raise_for_status()
-        data = resp.json()
-        return data["content"][0]["text"]
+        return resp.json()["content"][0]["text"]
     except Exception as e:
         print(f"    [AI] Error: {e}")
         return None
+
+def call_claude_json(prompt: str, model: str = None, max_tokens: int = 2000) -> dict | None:
+    """Call Claude and parse JSON response."""
+    result = call_claude(prompt, model=model, max_tokens=max_tokens)
+    if not result:
+        return None
+    # Extract JSON from response (Claude sometimes wraps in markdown)
+    json_match = re.search(r'```json\s*(.*?)\s*```', result, re.DOTALL)
+    if json_match:
+        result = json_match.group(1)
+    # Also try raw
+    try:
+        return json.loads(result)
+    except:
+        # Try finding the first { ... } block
+        brace_match = re.search(r'\{.*\}', result, re.DOTALL)
+        if brace_match:
+            try:
+                return json.loads(brace_match.group())
+            except:
+                pass
+    print(f"    [AI] Failed to parse JSON from response")
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -258,7 +314,7 @@ def scrape_reddit() -> list[dict]:
         try:
             resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=15)
             if resp.status_code != 200:
-                print(f"           → HTTP {resp.status_code} (may be blocked from this IP)"); continue
+                print(f"           → HTTP {resp.status_code} (may work from GitHub Actions)"); continue
             feed = feedparser.parse(resp.text)
             count = 0
             for entry in feed.entries:
@@ -321,34 +377,71 @@ def scrape_medium() -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
+# Cross-source dedup
+# ---------------------------------------------------------------------------
+
+def dedup_results(results: list[dict], existing_mentions: list[dict]) -> list[dict]:
+    """Remove duplicates by URL hash AND fuzzy title similarity."""
+    existing_ids = {m["id"] for m in existing_mentions}
+    existing_titles = [m["title"].lower() for m in existing_mentions]
+
+    deduped = []
+    seen_ids = set()
+    seen_titles = []
+
+    for item in results:
+        aid = make_id(item["url"])
+
+        # Skip if URL already in database
+        if aid in existing_ids or aid in seen_ids:
+            continue
+
+        # Skip if title is very similar to an existing mention
+        item_title_lower = item["title"].lower()
+        is_dup = False
+        for et in existing_titles + seen_titles:
+            if title_similar(item_title_lower, et, threshold=0.75):
+                is_dup = True
+                break
+        if is_dup:
+            continue
+
+        seen_ids.add(aid)
+        seen_titles.append(item_title_lower)
+        deduped.append(item)
+
+    return deduped
+
+
+# ---------------------------------------------------------------------------
 # BusinessDen article ingestion
 # ---------------------------------------------------------------------------
 
-def ingest_bd_articles(data: dict):
-    """Fetch BusinessDen RSS and store articles since March 1, 2026."""
+def ingest_bd_articles(data: dict) -> list[str]:
+    """Fetch BusinessDen RSS, return list of all known reporters."""
     print("\n5. BusinessDen article ingestion")
     existing_urls = {a["url"] for a in data["bd_articles"]}
     new_count = 0
+    all_authors = set()
 
-    for page in range(1, 20):  # Up to 200 articles
+    for page in range(1, 30):
         url = f"https://businessden.com/feed/?paged={page}"
         feed = feedparser.parse(url)
-        if not feed.entries:
-            break
+        if not feed.entries: break
 
         reached_cutoff = False
         for entry in feed.entries:
             pub = parse_rss_date(entry.get("published", ""))
             if pub and pub < BD_ARTICLES_SINCE:
-                reached_cutoff = True
-                break
+                reached_cutoff = True; break
+
+            author = entry.get("author", "Unknown")
+            all_authors.add(author)
 
             link = entry.get("link", "")
-            if link in existing_urls:
-                continue
+            if link in existing_urls: continue
 
             title = strip_html(entry.get("title", ""))
-            author = entry.get("author", "Unknown")
             categories = [t.get("term", "") for t in entry.get("tags", [])]
             summary = strip_html(entry.get("summary", ""))
             content = ""
@@ -356,62 +449,112 @@ def ingest_bd_articles(data: dict):
                 content = strip_html(entry["content"][0].get("value", ""))
 
             data["bd_articles"].append({
-                "url": link,
-                "title": title,
-                "author": author,
-                "published": pub,
-                "categories": categories,
-                "summary": summary[:300],
-                "content_preview": content[:500],
+                "url": link, "title": title, "author": author,
+                "published": pub, "categories": categories,
+                "summary": summary[:300], "content_preview": content[:500],
                 "ingested": datetime.now(timezone.utc).isoformat(),
             })
             existing_urls.add(link)
             new_count += 1
 
-        if reached_cutoff:
-            break
+        if reached_cutoff: break
 
-    # Sort newest first
     data["bd_articles"].sort(key=lambda a: a.get("published") or "0000", reverse=True)
-    print(f"   {new_count} new articles ingested. {len(data['bd_articles'])} total since March 1.")
+    print(f"   {new_count} new articles. {len(data['bd_articles'])} total.")
+    print(f"   Reporters detected: {', '.join(sorted(all_authors))}")
+    return sorted(all_authors)
 
 
 # ---------------------------------------------------------------------------
-# AI: Match mentions to BD articles
+# AI: Claude-powered mention-to-article matching (#14)
 # ---------------------------------------------------------------------------
 
-def match_mentions_to_articles(data: dict) -> dict[str, list[dict]]:
-    """For each BD article, find mentions that reference it."""
-    matches = {}
-    for article in data["bd_articles"]:
-        art_url = article["url"]
-        art_title = article["title"].lower()
-        # Extract key phrases from title (3+ word chunks)
-        title_words = re.findall(r'\w+', art_title)
-        key_phrases = []
-        if len(title_words) >= 4:
-            key_phrases.append(" ".join(title_words[:4]))
-            key_phrases.append(" ".join(title_words[-4:]))
-        if len(title_words) >= 3:
-            key_phrases.append(" ".join(title_words[:3]))
+def ai_match_mentions_to_articles(data: dict, new_mentions: list[dict]):
+    """Use Claude to match new mentions to BD articles."""
+    if not new_mentions or not data["bd_articles"]:
+        return
 
-        article_mentions = []
-        for mention in data["mentions"]:
-            m_text = (mention.get("title", "") + " " + mention.get("snippet", "")).lower()
-            # Check for URL reference, title overlap, or key phrase match
-            if art_url.lower() in m_text:
-                article_mentions.append(mention)
-            elif any(phrase in m_text for phrase in key_phrases if len(phrase) > 12):
-                article_mentions.append(mention)
+    print("\n6. AI mention-to-article matching")
 
-        if article_mentions:
-            matches[art_url] = article_mentions
+    # Build compact article list
+    articles_text = ""
+    for i, a in enumerate(data["bd_articles"][:50]):
+        articles_text += f"{i}|{a['title']}|{a['author']}|{a.get('published','')[:10]}|{a['url']}\n"
 
-    return matches
+    # Build compact mention list
+    mentions_text = ""
+    for m in new_mentions[:40]:
+        mentions_text += f"{m['id']}|{m['title']}|{m['source']}|{m.get('snippet','')[:100]}\n"
+
+    prompt = f"""Match third-party mentions to the BusinessDen articles they reference.
+
+BUSINESSDEN ARTICLES (index|title|author|date|url):
+{articles_text}
+
+NEW MENTIONS (id|title|source|snippet):
+{mentions_text}
+
+For each mention that references a specific BD article, output a JSON object mapping mention_id to article_url. Only include matches where the mention clearly references or covers the same story as the BD article. Output ONLY valid JSON like:
+{{"mention_id_1": "article_url_1", "mention_id_2": "article_url_2"}}
+
+If no matches found, output: {{}}"""
+
+    result = call_claude_json(prompt, model=MODEL_CHEAP, max_tokens=1000)
+    if result and isinstance(result, dict):
+        if "article_matches" not in data:
+            data["article_matches"] = {}
+        for mention_id, article_url in result.items():
+            if article_url not in data["article_matches"]:
+                data["article_matches"][article_url] = []
+            if mention_id not in data["article_matches"][article_url]:
+                data["article_matches"][article_url].append(mention_id)
+        print(f"    → {len(result)} matches found")
+    else:
+        print(f"    → No matches returned")
 
 
 # ---------------------------------------------------------------------------
-# AI: Daily summary
+# AI: Sentiment tagging (#9)
+# ---------------------------------------------------------------------------
+
+def ai_tag_sentiment(data: dict, new_mentions: list[dict]):
+    """Tag new mentions with sentiment using Haiku."""
+    if not new_mentions:
+        return
+
+    print("\n7. AI sentiment tagging")
+
+    batch_text = ""
+    ids = []
+    for m in new_mentions[:40]:
+        batch_text += f"{m['id']}|{m['title']}|{m.get('snippet','')[:120]}\n"
+        ids.append(m["id"])
+
+    prompt = f"""Classify the sentiment of each mention of BusinessDen below as "positive", "neutral", or "negative".
+Positive = praise, citation as authoritative source, amplification of their reporting.
+Neutral = factual reference, syndication, passing mention.
+Negative = criticism, correction, dispute of their reporting.
+
+MENTIONS (id|title|snippet):
+{batch_text}
+
+Output ONLY valid JSON mapping id to sentiment like:
+{{"id1": "positive", "id2": "neutral"}}"""
+
+    result = call_claude_json(prompt, model=MODEL_CHEAP, max_tokens=800)
+    if result and isinstance(result, dict):
+        count = 0
+        for m in data["mentions"]:
+            if m["id"] in result:
+                m["sentiment"] = result[m["id"]]
+                count += 1
+        print(f"    → {count} mentions tagged")
+    else:
+        print(f"    → Sentiment tagging failed")
+
+
+# ---------------------------------------------------------------------------
+# AI: Daily summary — pithy, bulleted, newspaper-style (#13)
 # ---------------------------------------------------------------------------
 
 def generate_daily_summary(data: dict, new_mentions: list[dict], now: datetime):
@@ -419,251 +562,221 @@ def generate_daily_summary(data: dict, new_mentions: list[dict], now: datetime):
         print("\n  [AI] No new mentions — skipping daily summary")
         return
 
-    # Check if we already generated one today
     today = now.strftime("%Y-%m-%d")
-    existing_dates = [s["date"] for s in data["summaries"]["daily"]]
-    if today in existing_dates:
-        print(f"\n  [AI] Daily summary already exists for {today}")
+    if today in [s["date"] for s in data["summaries"]["daily"]]:
+        print(f"\n  [AI] Daily summary exists for {today}")
         return
 
-    print(f"\n  [AI] Generating daily summary for {today}...")
+    print(f"\n8. AI daily summary for {today}...")
 
     mentions_text = ""
-    for m in new_mentions[:40]:  # Cap context size
-        mentions_text += f"- [{m['source']}] \"{m['title']}\""
-        if m.get("snippet"):
-            mentions_text += f" — {m['snippet'][:150]}"
-        mentions_text += f" (via {m['found_via']})\n"
+    for m in new_mentions[:40]:
+        sentiment = m.get("sentiment", "")
+        mentions_text += f"• [{m['source']}] {m['title']}"
+        if m.get("snippet"): mentions_text += f" — {m['snippet'][:100]}"
+        if sentiment: mentions_text += f" ({sentiment})"
+        mentions_text += "\n"
 
-    prompt = f"""You are an analyst for BusinessDen, a Denver business news publication.
-Today is {today}. Below are {len(new_mentions)} new third-party mentions of BusinessDen found today.
+    prompt = f"""You are a media monitor for BusinessDen, a Denver business publication.
+Today is {today}. Write a pithy daily summary of today's {len(new_mentions)} third-party mentions.
 
-Provide a detailed daily summary covering:
-1. Which outlets mentioned BusinessDen today (name each one)
-2. Which BusinessDen stories/topics got picked up and by whom
-3. Which reporters' work was referenced (Thomas Gounley, Justin Wingerter, Matt Geiger, Aaron Kremer, or others)
-4. Any story getting outsized attention (multiple outlets covering it)
-5. Notable themes or patterns
-
-Be specific — name outlets, article topics, and reporters. Write 2-4 paragraphs.
+FORMAT: Write this like a wire-service brief — short, punchy, no filler.
+• Use bullet points
+• Name every outlet
+• Name the BD story/topic being referenced
+• Flag any story getting outsized pickup (3+ outlets)
+• Note the reporter whose work was cited, if identifiable
+• 8 bullet points maximum
+• No preamble, no sign-off
 
 TODAY'S MENTIONS:
 {mentions_text}"""
 
-    result = call_claude(prompt, max_tokens=1500)
+    result = call_claude(prompt, model=MODEL_SMART, max_tokens=800)
     if result:
         data["summaries"]["daily"].append({
-            "date": today,
-            "text": result,
+            "date": today, "text": result,
             "mention_count": len(new_mentions),
             "generated": now.isoformat(),
         })
-        print(f"    → Daily summary generated ({len(result)} chars)")
+        print(f"    → Generated ({len(result)} chars)")
 
 
 # ---------------------------------------------------------------------------
-# AI: Weekly summary (Mondays)
+# AI: Weekly summary (Mondays) — detailed
 # ---------------------------------------------------------------------------
 
 def generate_weekly_summary(data: dict, now: datetime):
-    if now.weekday() != 0:  # Monday = 0
-        return
+    if now.weekday() != 0: return
 
     week_start = (now - timedelta(days=7)).strftime("%Y-%m-%d")
     week_key = f"week-{week_start}"
-
-    existing_keys = [s["key"] for s in data["summaries"]["weekly"]]
-    if week_key in existing_keys:
-        print(f"\n  [AI] Weekly summary already exists for {week_key}")
+    if week_key in [s["key"] for s in data["summaries"]["weekly"]]:
+        print(f"\n  [AI] Weekly summary exists for {week_key}")
         return
 
-    # Gather last 7 days of mentions
     cutoff = (now - timedelta(days=7)).isoformat()
     week_mentions = [m for m in data["mentions"] if (m.get("published") or "") >= cutoff]
     if not week_mentions:
-        print("\n  [AI] No mentions in past week — skipping weekly summary")
+        print("\n  [AI] No mentions in past week")
         return
 
-    print(f"\n  [AI] Generating weekly summary ({len(week_mentions)} mentions)...")
+    print(f"\n9. AI weekly summary ({len(week_mentions)} mentions)...")
 
     mentions_text = ""
     for m in week_mentions[:60]:
-        mentions_text += f"- [{m['source']}] \"{m['title']}\" ({m.get('published','')[:10]})\n"
+        mentions_text += f"• [{m['source']}] {m['title']} ({m.get('published','')[:10]}) [{m.get('sentiment','')}]\n"
 
-    # Also include daily summaries from the week
     dailies_text = ""
     for d in data["summaries"]["daily"]:
         if d["date"] >= week_start:
             dailies_text += f"\n--- {d['date']} ---\n{d['text']}\n"
 
-    prompt = f"""You are an analyst for BusinessDen, a Denver business news publication.
-Write a detailed WEEKLY summary for the week of {week_start} to {now.strftime('%Y-%m-%d')}.
+    prompt = f"""You are a media analyst for BusinessDen, a Denver business publication.
+Write a detailed WEEKLY summary for {week_start} to {now.strftime('%Y-%m-%d')}.
 
-Cover:
-1. Total mentions and which outlets mentioned BusinessDen most frequently
-2. The biggest stories that got picked up — what topics dominated?
-3. Reporter performance — whose bylines appeared most in other outlets?
-4. Any trends: is coverage growing/shrinking? New outlets picking up BusinessDen?
-5. Notable individual mentions worth highlighting
+Cover in 4-6 paragraphs:
+1. Total mention volume and top outlets by count
+2. Biggest stories that got picked up — topics that dominated
+3. Reporter-by-reporter breakdown of whose work was referenced most
+4. Sentiment breakdown — mostly positive/neutral/negative?
+5. Any new outlets that started covering BusinessDen
+6. Trends or patterns worth noting
 
-Write 4-6 detailed paragraphs. Be specific with outlet names, story topics, and numbers.
+Be specific with outlet names, story topics, and numbers.
 
-DAILY SUMMARIES FROM THIS WEEK:
+DAILY SUMMARIES:
 {dailies_text}
 
-ALL MENTIONS THIS WEEK ({len(week_mentions)} total):
+ALL MENTIONS ({len(week_mentions)}):
 {mentions_text}"""
 
-    result = call_claude(prompt, max_tokens=2500)
+    result = call_claude(prompt, model=MODEL_SMART, max_tokens=2500)
     if result:
         data["summaries"]["weekly"].append({
-            "key": week_key,
-            "date": now.strftime("%Y-%m-%d"),
-            "week_start": week_start,
-            "text": result,
+            "key": week_key, "date": now.strftime("%Y-%m-%d"),
+            "week_start": week_start, "text": result,
             "mention_count": len(week_mentions),
             "generated": now.isoformat(),
         })
-        print(f"    → Weekly summary generated ({len(result)} chars)")
+        print(f"    → Generated ({len(result)} chars)")
 
 
 # ---------------------------------------------------------------------------
-# AI: Monthly summary (1st of month)
+# AI: Monthly summary (1st of month) — comprehensive
 # ---------------------------------------------------------------------------
 
 def generate_monthly_summary(data: dict, now: datetime):
-    if now.day != 1:
-        return
+    if now.day != 1: return
 
-    last_month = (now - timedelta(days=1))
+    last_month = now - timedelta(days=1)
     month_key = last_month.strftime("%Y-%m")
-    month_start = last_month.replace(day=1).isoformat()
-
-    existing_keys = [s["key"] for s in data["summaries"]["monthly"]]
-    if month_key in existing_keys:
-        print(f"\n  [AI] Monthly summary already exists for {month_key}")
+    if month_key in [s["key"] for s in data["summaries"]["monthly"]]:
+        print(f"\n  [AI] Monthly summary exists for {month_key}")
         return
 
     month_mentions = [m for m in data["mentions"] if (m.get("published") or "")[:7] == month_key]
     if not month_mentions:
-        print(f"\n  [AI] No mentions for {month_key} — skipping monthly summary")
+        print(f"\n  [AI] No mentions for {month_key}")
         return
 
-    print(f"\n  [AI] Generating monthly summary for {month_key} ({len(month_mentions)} mentions)...")
+    print(f"\n10. AI monthly summary for {month_key} ({len(month_mentions)} mentions)...")
 
-    # Source breakdown
     source_counts = {}
     for m in month_mentions:
         source_counts[m["source"]] = source_counts.get(m["source"], 0) + 1
     source_text = "\n".join(f"  {s}: {c}" for s, c in sorted(source_counts.items(), key=lambda x: -x[1])[:20])
 
-    # Weekly summaries from the month
+    sentiment_counts = {"positive": 0, "neutral": 0, "negative": 0}
+    for m in month_mentions:
+        s = m.get("sentiment", "neutral")
+        if s in sentiment_counts: sentiment_counts[s] += 1
+
     weeklies_text = ""
     for w in data["summaries"]["weekly"]:
         if w.get("week_start", "")[:7] == month_key:
             weeklies_text += f"\n--- Week of {w['week_start']} ---\n{w['text']}\n"
 
-    prompt = f"""You are an analyst for BusinessDen, a Denver business news publication.
-Write a comprehensive MONTHLY summary for {last_month.strftime('%B %Y')}.
+    prompt = f"""You are a media analyst for BusinessDen, a Denver business publication.
+Write a comprehensive MONTHLY analysis for {last_month.strftime('%B %Y')}.
 
-Cover:
-1. Overall mention volume and trend (compare to what you see in the data)
-2. Top outlets by mention count and any new outlets that started covering BusinessDen
-3. The month's biggest stories — which BusinessDen reporting got the most traction?
-4. Reporter-by-reporter breakdown of whose work was picked up most
-5. Themes and patterns across the month
-6. Recommendations or observations about BusinessDen's media footprint
-
-Write 5-8 detailed paragraphs with specific numbers, outlet names, and story references.
-
-SOURCE BREAKDOWN:
-{source_text}
+Cover in 5-8 paragraphs:
+1. Total mentions ({len(month_mentions)}) and trend analysis
+2. Top outlets: {source_text}
+3. Sentiment: {sentiment_counts}
+4. Biggest stories and which BD reporting got the most traction
+5. Reporter-by-reporter analysis
+6. New outlets that picked up BD coverage
+7. Themes and patterns
+8. Observations about BusinessDen's media footprint
 
 WEEKLY SUMMARIES:
-{weeklies_text}
+{weeklies_text}"""
 
-TOTAL MENTIONS: {len(month_mentions)}"""
-
-    result = call_claude(prompt, max_tokens=3500)
+    result = call_claude(prompt, model=MODEL_SMART, max_tokens=3500)
     if result:
         data["summaries"]["monthly"].append({
-            "key": month_key,
-            "date": now.strftime("%Y-%m-%d"),
-            "month": last_month.strftime("%B %Y"),
-            "text": result,
+            "key": month_key, "date": now.strftime("%Y-%m-%d"),
+            "month": last_month.strftime("%B %Y"), "text": result,
             "mention_count": len(month_mentions),
             "generated": now.isoformat(),
         })
-        print(f"    → Monthly summary generated ({len(result)} chars)")
+        print(f"    → Generated ({len(result)} chars)")
 
 
 # ---------------------------------------------------------------------------
-# AI: Per-article reception summary
+# AI: Per-article reception
 # ---------------------------------------------------------------------------
 
 def generate_article_reception(data: dict, now: datetime):
-    """Generate reception summaries at 2-day, 7-day, and 30-day marks."""
-    if "article_reception" not in data:
-        data["article_reception"] = {}
-
-    matches = match_mentions_to_articles(data)
+    """Generate at 2d/7d/30d marks for articles picked up elsewhere."""
+    if "article_reception" not in data: data["article_reception"] = {}
+    matches = data.get("article_matches", {})
     generated = 0
 
     for article in data["bd_articles"]:
         art_url = article["url"]
         pub = article.get("published")
-        if not pub:
-            continue
-
-        try:
-            pub_dt = datetime.fromisoformat(pub)
-        except:
-            continue
+        if not pub: continue
+        try: pub_dt = datetime.fromisoformat(pub)
+        except: continue
 
         age_days = (now - pub_dt).days
-        article_mentions = matches.get(art_url, [])
 
-        # Only generate if the article was picked up elsewhere
-        if not article_mentions:
-            continue
+        # Get matched mention IDs
+        matched_ids = matches.get(art_url, [])
+        if not matched_ids: continue
 
-        # Determine which tier(s) to generate
+        # Resolve to full mention objects
+        mention_lookup = {m["id"]: m for m in data["mentions"]}
+        article_mentions = [mention_lookup[mid] for mid in matched_ids if mid in mention_lookup]
+        if not article_mentions: continue
+
         reception = data["article_reception"].get(art_url, {})
         tiers = []
-        if age_days >= 2 and "2day" not in reception:
-            tiers.append(("2day", "2-day"))
-        if age_days >= 7 and "7day" not in reception:
-            tiers.append(("7day", "7-day"))
-        if age_days >= 30 and "30day" not in reception:
-            tiers.append(("30day", "30-day"))
+        if age_days >= 2 and "2day" not in reception: tiers.append(("2day", "2-day"))
+        if age_days >= 7 and "7day" not in reception: tiers.append(("7day", "7-day"))
+        if age_days >= 30 and "30day" not in reception: tiers.append(("30day", "30-day"))
 
         for tier_key, tier_label in tiers:
-            print(f"  [AI] Article reception ({tier_label}): {article['title'][:60]}...")
+            print(f"  [AI] Reception ({tier_label}): {article['title'][:55]}...")
 
             mentions_text = ""
             for m in article_mentions[:20]:
-                mentions_text += f"- [{m['source']}] \"{m['title']}\" ({m.get('published','')[:10]})"
-                if m.get("snippet"):
-                    mentions_text += f" — {m['snippet'][:120]}"
-                mentions_text += "\n"
+                mentions_text += f"• [{m['source']}] {m['title']}"
+                if m.get("snippet"): mentions_text += f" — {m['snippet'][:100]}"
+                mentions_text += f" [{m.get('sentiment','')}]\n"
 
-            prompt = f"""You are an analyst for BusinessDen, a Denver business news publication.
+            prompt = f"""Summarize the {tier_label} reception of this BusinessDen article in 2-4 sentences.
+Name which outlets picked it up, whether coverage was substantial or a brief mention, and note any framing differences.
 
-Below is a BusinessDen article and the third-party mentions it received within {tier_label} of publication.
-
-ARTICLE:
-Title: {article['title']}
-Author: {article['author']}
-Published: {article['published'][:10]}
+ARTICLE: "{article['title']}" by {article['author']} ({article['published'][:10]})
 Categories: {', '.join(article.get('categories', []))}
-Summary: {article.get('summary', '')[:200]}
 
-THIRD-PARTY MENTIONS ({len(article_mentions)} total):
-{mentions_text}
+THIRD-PARTY MENTIONS ({len(article_mentions)}):
+{mentions_text}"""
 
-Write a brief summary (2-4 sentences) of how this article was received. Name which outlets picked it up, whether the coverage was substantial or just a brief mention, and any notable framing differences."""
-
-            result = call_claude(prompt, max_tokens=500)
+            result = call_claude(prompt, model=MODEL_CHEAP, max_tokens=400)
             if result:
                 if art_url not in data["article_reception"]:
                     data["article_reception"][art_url] = {}
@@ -675,95 +788,88 @@ Write a brief summary (2-4 sentences) of how this article was received. Name whi
                 generated += 1
 
     if generated:
-        print(f"    → {generated} article reception summaries generated")
+        print(f"    → {generated} reception summaries generated")
 
 
 # ---------------------------------------------------------------------------
-# AI: Byline analysis
+# AI: Byline analysis (#5, #12)
 # ---------------------------------------------------------------------------
 
-def generate_byline_analysis(data: dict, now: datetime):
-    """Generate per-reporter analysis of article performance."""
+def generate_byline_analysis(data: dict, now: datetime, all_reporters: list[str]):
+    """Per-reporter analysis. Uses all detected reporters, not just hardcoded."""
     today = now.strftime("%Y-%m-%d")
-
-    # Only generate once per day
-    existing_dates = [b["date"] for b in data.get("byline", [])]
-    if today in existing_dates:
-        print(f"\n  [AI] Byline analysis already exists for {today}")
+    if today in [b["date"] for b in data.get("byline", [])]:
+        print(f"\n  [AI] Byline analysis exists for {today}")
         return
 
-    matches = match_mentions_to_articles(data)
+    matches = data.get("article_matches", {})
+    mention_lookup = {m["id"]: m for m in data["mentions"]}
     reporter_data = {}
 
     for article in data["bd_articles"]:
         author = article.get("author", "")
-        if not any(r.lower() in author.lower() for r in REPORTERS):
-            continue
+        if not author: continue
 
         art_url = article["url"]
-        article_mentions = matches.get(art_url, [])
-        reception = data.get("article_reception", {}).get(art_url, {})
+        matched_ids = matches.get(art_url, [])
+        article_mentions = [mention_lookup[mid] for mid in matched_ids if mid in mention_lookup]
 
-        # Get the most recent reception summary
-        latest_reception = ""
-        for tier in ["30day", "7day", "2day"]:
-            if tier in reception:
-                latest_reception = reception[tier]["text"]
-                break
+        if author not in reporter_data:
+            reporter_data[author] = {"total": 0, "picked_up": 0, "articles": []}
+        reporter_data[author]["total"] += 1
 
-        if not reporter_data.get(author):
-            reporter_data[author] = []
+        if article_mentions:
+            reporter_data[author]["picked_up"] += 1
+            reception = data.get("article_reception", {}).get(art_url, {})
+            latest_reception = ""
+            for tier in ["30day", "7day", "2day"]:
+                if tier in reception: latest_reception = reception[tier]["text"]; break
 
-        reporter_data[author].append({
-            "title": article["title"],
-            "published": article.get("published", "")[:10],
-            "mention_count": len(article_mentions),
-            "reception": latest_reception,
-            "outlets": list(set(m["source"] for m in article_mentions))[:10],
-        })
+            reporter_data[author]["articles"].append({
+                "title": article["title"],
+                "published": article.get("published", "")[:10],
+                "mention_count": len(article_mentions),
+                "outlets": list(set(m["source"] for m in article_mentions))[:8],
+                "reception": latest_reception,
+            })
 
-    if not reporter_data:
-        print("\n  [AI] No reporter data for byline analysis")
+    # Only include reporters with at least one pickup
+    active_reporters = {k: v for k, v in reporter_data.items() if v["picked_up"] > 0}
+    if not active_reporters:
+        print("\n  [AI] No reporters with pickups — skipping byline")
         return
 
-    print(f"\n  [AI] Generating byline analysis for {len(reporter_data)} reporters...")
+    print(f"\n12. AI byline analysis for {len(active_reporters)} reporters...")
 
     reporter_text = ""
-    for author, articles in reporter_data.items():
-        picked_up = [a for a in articles if a["mention_count"] > 0]
+    for author, rd in sorted(active_reporters.items()):
         reporter_text += f"\n## {author}\n"
-        reporter_text += f"Total articles: {len(articles)} | Picked up by others: {len(picked_up)}\n"
-        for a in picked_up[:10]:
-            reporter_text += f"- \"{a['title']}\" ({a['published']}) — {a['mention_count']} mentions"
-            if a["outlets"]:
-                reporter_text += f" from {', '.join(a['outlets'][:5])}"
-            reporter_text += "\n"
-            if a["reception"]:
-                reporter_text += f"  Reception: {a['reception'][:200]}\n"
+        reporter_text += f"Articles: {rd['total']} total, {rd['picked_up']} picked up by others\n"
+        for a in rd["articles"][:8]:
+            reporter_text += f"• \"{a['title']}\" ({a['published']}) — {a['mention_count']} mentions from {', '.join(a['outlets'][:4])}\n"
+            if a["reception"]: reporter_text += f"  Reception: {a['reception'][:200]}\n"
 
-    prompt = f"""You are an analyst for BusinessDen, a Denver business news publication.
+    prompt = f"""You are a media analyst for BusinessDen, a Denver business publication.
 Today is {today}. Write a byline analysis for each reporter below.
 
-For each reporter, summarize:
-1. How many of their recent articles were picked up by other outlets
+For each reporter with pickups:
+1. How many articles were picked up vs. total published
 2. Which articles got the most traction and where
-3. What themes or beats are generating the most external interest
-4. Any notable patterns in how their work is being covered
+3. What beats/themes generate the most external interest
+4. Notable patterns
 
-Only discuss articles that were picked up by other outlets. Write 1-2 paragraphs per reporter.
+Write 1-2 focused paragraphs per reporter. Only discuss articles picked up by other outlets.
 
-REPORTER DATA:
 {reporter_text}"""
 
-    result = call_claude(prompt, max_tokens=2000)
+    result = call_claude(prompt, model=MODEL_SMART, max_tokens=2000)
     if result:
         data["byline"].append({
-            "date": today,
-            "text": result,
-            "reporters": list(reporter_data.keys()),
+            "date": today, "text": result,
+            "reporters": list(active_reporters.keys()),
             "generated": now.isoformat(),
         })
-        print(f"    → Byline analysis generated ({len(result)} chars)")
+        print(f"    → Generated ({len(result)} chars)")
 
 
 # ---------------------------------------------------------------------------
@@ -772,24 +878,12 @@ REPORTER DATA:
 
 def scrape():
     data = load_data()
-    existing_ids = {m["id"] for m in data["mentions"]}
+    ensure_structure(data)
     new_mentions = []
     now = datetime.now(timezone.utc)
 
-    print(f"Reputation scraper — {now.strftime('%Y-%m-%d %H:%M UTC')}")
-    print(f"Existing: {len(data['mentions'])} mentions, {len(data.get('bd_articles', []))} BD articles\n")
-
-    # Ensure data structure
-    if "summaries" not in data or isinstance(data["summaries"], list):
-        data["summaries"] = {"daily": [], "weekly": [], "monthly": []}
-    if "bd_articles" not in data:
-        data["bd_articles"] = []
-    if "article_reception" not in data:
-        data["article_reception"] = {}
-    if "byline" not in data:
-        data["byline"] = []
-    if "run_log" not in data:
-        data["run_log"] = []
+    print(f"Reputation v2 — {now.strftime('%Y-%m-%d %H:%M UTC')}")
+    print(f"Existing: {len(data['mentions'])} mentions, {len(data['bd_articles'])} BD articles\n")
 
     # --- Scrape mentions ---
     print("1. Google News RSS")
@@ -809,30 +903,23 @@ def scrape():
     print(f"   Subtotal: {len(medium)}")
 
     all_results = gnews + wp + reddit + medium
-    print(f"\nTotal results after source filtering: {len(all_results)}")
+    print(f"\nTotal raw: {len(all_results)}")
 
     # 48-hour cutoff
     cutoff_48h = (now - timedelta(hours=48)).isoformat()
-    time_filtered = []
-    skipped_old = 0
-    for item in all_results:
-        pub = item.get("published")
-        if pub and pub < cutoff_48h:
-            skipped_old += 1
-            continue
-        time_filtered.append(item)
-    if skipped_old:
-        print(f"Skipped {skipped_old} results older than 48 hours")
-    print(f"Results within 48-hour window: {len(time_filtered)}")
+    time_filtered = [item for item in all_results if not item.get("published") or item["published"] >= cutoff_48h]
+    skipped = len(all_results) - len(time_filtered)
+    if skipped: print(f"Skipped {skipped} older than 48 hours")
 
-    # Dedup and store
-    for item in time_filtered:
-        article_id = make_id(item["url"])
-        if article_id in existing_ids:
-            continue
+    # Cross-source dedup (#2)
+    deduped = dedup_results(time_filtered, data["mentions"])
+    print(f"After dedup: {len(deduped)} new mentions")
+
+    # Store new mentions
+    for item in deduped:
         mention = {
-            "id": article_id, "title": item["title"],
-            "title_raw": item.get("title_raw", item["title"]),
+            "id": make_id(item["url"]),
+            "title": item["title"], "title_raw": item.get("title_raw", item["title"]),
             "url": item["url"], "snippet": item["snippet"],
             "source": item["source"], "source_url": item.get("source_url", ""),
             "source_domain": item["source_domain"],
@@ -845,9 +932,9 @@ def scrape():
             "wp_like_count": item.get("wp_like_count"),
             "wp_comment_count": item.get("wp_comment_count"),
             "entry_id": item.get("entry_id", ""),
+            "sentiment": "",  # Will be filled by AI
         }
         data["mentions"].append(mention)
-        existing_ids.add(article_id)
         new_mentions.append(mention)
         tag = f"[{item['found_via']}]"
         print(f"  NEW {tag:22s} {item['title'][:60]}  ({item['source']})")
@@ -855,19 +942,19 @@ def scrape():
     data["mentions"].sort(key=lambda m: m.get("published") or "0000", reverse=True)
 
     # --- Ingest BD articles ---
-    ingest_bd_articles(data)
+    all_reporters = ingest_bd_articles(data)
 
-    # --- AI summaries ---
-    print("\n6. AI summaries")
-    generate_daily_summary(data, new_mentions, now)
+    # --- AI pipeline ---
+    ai_match_mentions_to_articles(data, new_mentions)   # #14
+    ai_tag_sentiment(data, new_mentions)                 # #9
+    generate_daily_summary(data, new_mentions, now)      # #13
     generate_weekly_summary(data, now)
     generate_monthly_summary(data, now)
 
-    print("\n7. Article reception summaries")
+    print("\n11. Article reception summaries")
     generate_article_reception(data, now)
 
-    print("\n8. Byline analysis")
-    generate_byline_analysis(data, now)
+    generate_byline_analysis(data, now, all_reporters)   # #5, #12
 
     # --- Metadata ---
     data["last_updated"] = now.isoformat()
@@ -878,7 +965,7 @@ def scrape():
         "new_mentions": len(new_mentions),
         "total_mentions": len(data["mentions"]),
         "total_bd_articles": len(data["bd_articles"]),
-        "sources_checked": {
+        "sources": {
             "google_news_rss": len(gnews), "wordpress_api": len(wp),
             "reddit_rss": len(reddit), "medium_rss": len(medium),
         },
@@ -887,8 +974,9 @@ def scrape():
     data["run_log"] = [r for r in data["run_log"] if r["timestamp"] >= cutoff_log]
 
     save_data(data)
-    print(f"\nDone. {len(new_mentions)} new mentions. {len(data['mentions'])} total. "
-          f"{len(data['bd_articles'])} BD articles tracked.")
+    print(f"\nDone. {len(new_mentions)} new. {len(data['mentions'])} total. "
+          f"{len(data['bd_articles'])} BD articles. "
+          f"{len(data.get('article_matches', {}))} articles with matches.")
 
 
 if __name__ == "__main__":
