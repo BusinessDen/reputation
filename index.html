@@ -56,9 +56,10 @@ button{font-family:inherit;cursor:pointer}input,select{font-family:inherit}
 .ai-card{background:#0d0e12;border:1px solid #1e2028;border-radius:10px;padding:20px;margin-bottom:20px;border-left:3px solid #3b82f6}
 .ai-card h3{font-size:.85rem;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .ai-card .ai-date{font-size:.72rem;color:#555;font-weight:400}
-.ai-card .ai-body{font-size:.85rem;line-height:1.7;color:#c8cad0}
+.ai-card .ai-body{font-size:.85rem;line-height:1.5;color:#c8cad0}
 .ai-card .ai-body ul{list-style:disc;padding-left:18px;margin:0}
-.ai-card .ai-body li{margin-bottom:.35em}
+.ai-card .ai-body li{margin-bottom:.25em;line-height:1.5}
+.ai-card .ai-body p{margin-bottom:.5em}
 .ai-card .ai-body .pub{color:#f5a623;font-weight:700}
 .ai-card .ai-body .story{color:#4caf50;font-weight:700}
 .ai-card .ai-body .neg{color:#e85454;font-weight:600}
@@ -184,9 +185,10 @@ mark{background:rgba(245,166,35,.2);color:#f5a623;padding:0 2px;border-radius:2p
 .se-type.daily{background:rgba(59,130,246,.15);color:#3b82f6}
 .se-type.weekly{background:rgba(245,166,35,.15);color:#f5a623}
 .se-type.monthly{background:rgba(167,139,250,.15);color:#a78bfa}
-.se-body{font-size:.85rem;line-height:1.7;color:#c8cad0;margin-top:8px}
+.se-body{font-size:.85rem;line-height:1.5;color:#c8cad0;margin-top:8px}
 .se-body ul{list-style:disc;padding-left:18px;margin:0}
-.se-body li{margin-bottom:.35em}
+.se-body li{margin-bottom:.25em;line-height:1.5}
+.se-body p{margin-bottom:.5em}
 .se-body .pub{color:#f5a623;font-weight:700}
 .se-body .story{color:#4caf50;font-weight:700}
 .se-body .neg{color:#e85454;font-weight:600}
@@ -385,33 +387,64 @@ document.getElementById('showAllBtn').addEventListener('click',()=>{kpiFilter=nu
 
 // ═══ DAILY SUMMARY ═══
 function formatSummary(text){
-  // Convert Claude's markdown-style output into styled HTML
-  let h=esc(text);
-  // Remove ** wrapping (we use color instead of bold markdown)
-  h=h.replace(/\*\*([^*]+)\*\*/g,'$1');
-  // Wrap known publication names in orange bold
-  const pubs=['The Denver Post','Denver Post','Denverite','9News','Denver Gazette','Colorado Springs Gazette','Hoodline','Axios','Denver7','Colorado Hometown Weekly','Boulder Daily Camera','Longmont Times-Call','Greeley Tribune','Westword','Colorado Public Radio','CPR News','Fort Collins Coloradoan','Colorado Sun','Richmond BizSense','Reddit','Medium','LinkedIn','Facebook','instagram.com','x.com','MassLive.com'];
-  pubs.forEach(p=>{const re=new RegExp('('+p.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');h=h.replace(re,'<span class="pub">$1</span>');});
-  // Also catch any "Source Name" pattern after bullet points not already wrapped
-  h=h.replace(/•\s*(?:<span class="pub">)?([^<:•\n]+?)(?:<\/span>)?\s*(?:picked up|covered|reported|ran|published|referenced|cited|syndicated|mentioned)/gi,(match,name)=>{
-    if(match.includes('class="pub"'))return match;
-    return match.replace(name,'<span class="pub">'+name.trim()+'</span> ');
-  });
-  // Wrap story titles in green bold (text inside quotes or after "story about"/"article about")
-  h=h.replace(/[""\u201c]([^"""\u201d\n]{8,}?)[""\u201d]/g,'"<span class="story">$1</span>"');
-  // Highlight negative coverage in red
-  h=h.replace(/(negative|critical|criticism|disputed|corrected|pushed back|took issue|challenged|inaccurate)/gi,'<span class="neg">$1</span>');
-  // Convert bullet lines to proper HTML list
-  const lines=h.split('\n');
+  if(!text)return'';
+  // Work on raw text, build HTML carefully
+  // 1. Strip markdown bold
+  let raw=text.replace(/\*\*([^*]+)\*\*/g,'$1');
+
+  // 2. Known publication names (will be colored orange)
+  const pubs=['The Denver Post','Denver Post','Denverite','9News','Denver Gazette',
+    'Colorado Springs Gazette','Hoodline','Axios','Denver7','Colorado Hometown Weekly',
+    'Boulder Daily Camera','Longmont Times-Call','Greeley Tribune','Westword',
+    'Colorado Public Radio','CPR News','Fort Collins Coloradoan','Colorado Sun',
+    'Richmond BizSense','Reddit','Medium','LinkedIn','Facebook','Instagram','x.com',
+    'MassLive.com','Broomfield Enterprise','Loveland Reporter-Herald','Fort Morgan Times',
+    'Sterling Journal-Advocate','Estes Park Trail-Gazette','Canon City Daily Record',
+    'WesternSlopeNow','Colorado Hometown Weekly','Wire hub','SCNG','San Diego Union-Tribune'];
+
+  // 3. Negative keywords
+  const negWords=['negative','critical','criticism','disputed','corrected','pushed back',
+    'took issue','challenged','inaccurate','misleading','error','retraction','backlash'];
+
+  // 4. Process line by line
+  const lines=raw.split('\n');
   let inList=false,out='';
+
   for(const line of lines){
     const trimmed=line.trim();
-    if(trimmed.startsWith('•')||trimmed.startsWith('- ')||trimmed.startsWith('* ')){
+    if(!trimmed)continue;
+    const isBullet=trimmed.startsWith('•')||trimmed.startsWith('- ')||trimmed.startsWith('* ');
+    let content=isBullet?trimmed.replace(/^[•\-\*]\s*/,''):trimmed;
+
+    // Escape HTML entities in the content
+    content=content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+    // Color publication names (case-insensitive, whole-word)
+    for(const p of pubs){
+      const escaped=p.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      const re=new RegExp('\\b('+escaped+')\\b','gi');
+      content=content.replace(re,'<span class="pub">$1</span>');
+    }
+
+    // Color story titles in quotes (green)
+    content=content.replace(/["\u201c]([^"\u201d\n]{6,}?)["\u201d]/g,
+      '\u201c<span class="story">$1</span>\u201d');
+    // Also catch straight quotes
+    content=content.replace(/"([^"<\n]{6,}?)"/g,
+      '\u201c<span class="story">$1</span>\u201d');
+
+    // Highlight negative language (red)
+    for(const nw of negWords){
+      const re=new RegExp('\\b('+nw+')\\b','gi');
+      content=content.replace(re,'<span class="neg">$1</span>');
+    }
+
+    if(isBullet){
       if(!inList){out+='<ul>';inList=true;}
-      out+='<li>'+trimmed.replace(/^[•\-\*]\s*/,'')+'</li>';
+      out+='<li>'+content+'</li>';
     } else {
       if(inList){out+='</ul>';inList=false;}
-      if(trimmed)out+='<p>'+trimmed+'</p>';
+      out+='<p>'+content+'</p>';
     }
   }
   if(inList)out+='</ul>';
@@ -556,36 +589,74 @@ function toggleRefs(btn){const l=btn.nextElementSibling;const open=l.classList.t
 // ═══ BYLINE (#5) ═══
 function renderByline(){
   const el=document.getElementById('bylineContent');
-  const bylines=D.byline||[];
-  if(!bylines.length){el.innerHTML='<div class="empty-state"><p>Byline analysis will appear once the Claude API generates reporter performance data.</p></div>';return;}
-  // Parse the latest byline text into per-reporter sections
-  const latest=bylines[bylines.length-1];
-  const text=latest.text||'';
-  // Try to split by reporter name headers
-  const reporters=latest.reporters||[];
-  if(reporters.length>1){
-    // Split AI text into sections by reporter names
-    const sections=[];let current={name:'Overview',text:''};
-    const lines=text.split('\n');
-    for(const line of lines){
-      let matched=false;
-      for(const r of reporters){if(line.toLowerCase().includes(r.toLowerCase())&&(line.startsWith('#')||line.startsWith('**')||line.includes(':'))){
-        if(current.text.trim())sections.push(current);current={name:r,text:''};matched=true;break;}}
-      if(!matched)current.text+=line+'\n';
-    }
-    if(current.text.trim())sections.push(current);
-    // Count articles per reporter
-    const artCounts={};bdArticles.forEach(a=>{artCounts[a.author]=(artCounts[a.author]||0)+1;});
-    const matches=D.article_matches||{};
-    const pickupCounts={};bdArticles.forEach(a=>{if((matches[a.url]||[]).length>0)pickupCounts[a.author]=(pickupCounts[a.author]||0)+1;});
+  if(!bdArticles.length){el.innerHTML='<div class="empty-state"><p>No BusinessDen articles tracked yet.</p></div>';return;}
 
-    el.innerHTML=sections.filter(s=>s.name!=='Overview'||s.text.trim()).map(s=>{
-      const total=artCounts[s.name]||'?';const picked=pickupCounts[s.name]||0;
-      return'<div class="byline-card"><h3>'+esc(s.name)+'</h3>'+(s.name!=='Overview'?'<div class="byline-stats"><span>'+total+' articles</span><span>'+picked+' picked up</span></div>':'')+'<div class="byline-body">'+esc(s.text.trim())+'</div></div>';
-    }).join('');
-  } else {
-    el.innerHTML='<div class="ai-card"><h3>Byline Analysis <span class="ai-date">'+fmtDate(latest.date)+'</span></h3><div class="ai-body">'+esc(text)+'</div></div>';
+  // Build reporter stats from data (always works, no AI needed)
+  const reporterData={};
+  bdArticles.forEach(a=>{
+    const author=a.author||'Unknown';
+    if(!reporterData[author])reporterData[author]={total:0,pickedUp:0,articles:[]};
+    reporterData[author].total++;
+    const refs=getArticleMatches(a.url);
+    if(refs.length){
+      reporterData[author].pickedUp++;
+      reporterData[author].articles.push({
+        title:a.title, published:a.published,
+        mentions:refs.length,
+        outlets:refs.map(r=>r.source).filter((v,i,a)=>a.indexOf(v)===i).slice(0,6)
+      });
+    }
+  });
+
+  // Get AI text per reporter if available
+  const bylines=D.byline||[];
+  const latest=bylines.length?bylines[bylines.length-1]:null;
+  let aiSections={};
+  if(latest&&latest.text){
+    // Parse AI text into per-reporter sections
+    const reporters=latest.reporters||Object.keys(reporterData);
+    let currentName='',currentText='';
+    latest.text.split('\n').forEach(line=>{
+      let matched=false;
+      for(const r of reporters){
+        if(line.toLowerCase().includes(r.toLowerCase())&&(line.startsWith('#')||line.startsWith('**')||line.match(/^[A-Z]/))){
+          if(currentName&&currentText.trim())aiSections[currentName]=currentText.trim();
+          currentName=r;currentText='';matched=true;break;
+        }
+      }
+      if(!matched)currentText+=line+'\n';
+    });
+    if(currentName&&currentText.trim())aiSections[currentName]=currentText.trim();
   }
+
+  // Sort reporters: most pickups first
+  const sorted=Object.entries(reporterData).sort((a,b)=>b[1].pickedUp-a[1].pickedUp);
+
+  el.innerHTML=sorted.map(([name,rd])=>{
+    const rate=rd.total?Math.round(rd.pickedUp/rd.total*100):0;
+    let articlesHtml='';
+    if(rd.articles.length){
+      articlesHtml='<div style="margin-top:12px">';
+      rd.articles.forEach(a=>{
+        articlesHtml+='<div style="padding:6px 0;border-bottom:1px solid #1a1d25;font-size:.82rem">';
+        articlesHtml+='<span style="color:#c8cad0">'+esc(a.title)+'</span>';
+        articlesHtml+=' <span class="mono" style="color:#555">'+fmtDate(a.published)+'</span>';
+        articlesHtml+='<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span class="pub" style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+'</span>';
+        articlesHtml+='</div>';
+      });
+      articlesHtml+='</div>';
+    }
+    const aiText=aiSections[name];
+    return '<div class="byline-card"><h3>'+esc(name)+'</h3>'+
+      '<div class="byline-stats">'+
+        '<span>'+rd.total+' articles</span>'+
+        '<span>'+rd.pickedUp+' picked up</span>'+
+        '<span>'+rate+'% pickup rate</span>'+
+      '</div>'+
+      (aiText?'<div class="byline-body">'+formatSummary(aiText)+'</div>':'')+
+      articlesHtml+
+    '</div>';
+  }).join('');
 }
 
 // ═══ SUMMARIES ARCHIVE ═══
