@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
 Reputation - Scraper
-Finds third-party mentions of BusinessDen using two sources:
-  1. Google News RSS (free, no key required)
-  2. Serper.dev Google Search API (SERPER_API_KEY required)
+Finds third-party mentions of BusinessDen across the web using free sources:
+  1. Google News RSS (multiple query strategies, last 48 hours)
+  2. WordPress.com Public API (searches across all WP-powered sites)
+  3. Reddit RSS (search feed)
+  4. Medium RSS (tag feed)
 
 All results hosted on businessden.com are excluded.
-Only third-party references to BusinessDen are tracked.
+Data is append-only for historical memory.
 """
 
 import feedparser
@@ -15,6 +17,7 @@ import json
 import os
 import hashlib
 import re
+import html
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlparse
 
@@ -22,22 +25,45 @@ from urllib.parse import urlparse
 # Configuration
 # ---------------------------------------------------------------------------
 DATA_FILE = "mentions-data.json"
-SERPER_API_KEY = os.environ.get("SERPER_API_KEY", "")
 
 EXCLUDED_DOMAINS = [
     "businessden.com",
     "www.businessden.com",
 ]
 
-# Google News RSS queries (free, no auth)
-RSS_QUERIES = [
-    '"BusinessDen" -site:businessden.com',
+# Spam domains that show up in broad Google News RSS results
+SPAM_DOMAINS = [
+    "merriam-webster.com", "statmuse.com", "alltrails.com", "untappd.com",
+    "yelp.com", "tiktok.com", "lamamapasteis.com.br", "tomasiusa.com",
+    "univet.ee", "wisap.de", "facestudio.eu", "ingebjorg.no",
+    "rectificadosindustriales.com", "fernandopando.com", "cmarinho.com.br",
+    "prwe.com", "sigra.com", "educacioninnovadora.es", "lan-portal.uob.edu.ly",
+    "weterynarzjarocin.pl",
 ]
 
-# Serper.dev queries (uses 1 credit each)
-SERPER_QUERIES = [
-    '"BusinessDen" -site:businessden.com',
-    'BusinessDen Denver -site:businessden.com',
+# Google News RSS queries — each filtered to last 48 hours.
+GNEWS_QUERIES = [
+    # Direct exact-match mentions
+    '"BusinessDen" -site:businessden.com when:2d',
+    # Blog-focused results (surfaces different sources)
+    '"BusinessDen" blog -site:businessden.com when:2d',
+    # Reporter bylines — qualified to avoid false matches
+    # (Matt Geiger qualified with Denver to avoid NBA player)
+    '"Thomas Gounley" Denver -site:businessden.com when:2d',
+    '"Justin Wingerter" Denver -site:businessden.com when:2d',
+    '"Matt Geiger" Denver business -site:businessden.com when:2d',
+    '"Aaron Kremer" -site:businessden.com when:2d',
+]
+
+USER_AGENT = "ReputationTracker/1.0 (BusinessDen; github.com/businessden/Reputation)"
+
+# Relevance keywords — at least one must appear in title or snippet
+# for results from broad queries to be kept
+RELEVANCE_KEYWORDS = [
+    "businessden", "business den",
+    "thomas gounley", "justin wingerter", "matt geiger", "aaron kremer",
+    "denver", "colorado", "real estate", "commercial", "office",
+    "restaurant", "brewery", "development", "developer",
 ]
 
 # ---------------------------------------------------------------------------
@@ -46,242 +72,351 @@ SERPER_QUERIES = [
 
 def make_id(url: str) -> str:
     """Create a stable unique ID from the canonical URL."""
-    # Normalize URL for dedup
     normalized = url.lower().strip().rstrip("/")
-    # Remove tracking params
-    normalized = re.sub(r'[?&](utm_\w+|fbclid|gclid|ref)=[^&]*', '', normalized)
+    normalized = re.sub(r'[?&](utm_\w+|fbclid|gclid|ref|oc|source|medium|campaign)=[^&]*', '', normalized)
+    normalized = normalized.rstrip("?&")
     return hashlib.sha256(normalized.encode()).hexdigest()[:16]
 
 
 def is_excluded(url: str) -> bool:
-    """Check if a URL is on an excluded domain."""
+    """Check if URL is on an excluded or spam domain."""
     try:
         domain = urlparse(url).netloc.lower()
-        for excluded in EXCLUDED_DOMAINS:
-            if domain == excluded or domain.endswith("." + excluded):
+        if domain.startswith("www."):
+            domain = domain[4:]
+        for excl in EXCLUDED_DOMAINS + SPAM_DOMAINS:
+            if domain == excl or domain.endswith("." + excl):
                 return True
     except Exception:
         pass
     return False
 
 
-def parse_date(date_str: str) -> str | None:
-    """Parse various date formats into ISO 8601."""
+def is_relevant(title: str, snippet: str) -> bool:
+    """Check if content is relevant (has at least one relevance keyword)."""
+    text = (title + " " + snippet).lower()
+    return any(kw in text for kw in RELEVANCE_KEYWORDS)
+
+
+def parse_rss_date(date_str: str) -> str | None:
     if not date_str:
         return None
-    # RSS date format
     try:
         from email.utils import parsedate_to_datetime
-        dt = parsedate_to_datetime(date_str)
-        return dt.isoformat()
+        return parsedate_to_datetime(date_str).isoformat()
     except Exception:
-        pass
-    # ISO format already
-    if "T" in date_str or len(date_str) == 10:
         return date_str
-    # Serper sometimes returns "X days ago", "X hours ago", etc.
-    try:
-        now = datetime.now(timezone.utc)
-        if "hour" in date_str:
-            hours = int(re.search(r'(\d+)', date_str).group(1))
-            return (now - timedelta(hours=hours)).isoformat()
-        elif "day" in date_str:
-            days = int(re.search(r'(\d+)', date_str).group(1))
-            return (now - timedelta(days=days)).isoformat()
-        elif "week" in date_str:
-            weeks = int(re.search(r'(\d+)', date_str).group(1))
-            return (now - timedelta(weeks=weeks)).isoformat()
-        elif "month" in date_str:
-            months = int(re.search(r'(\d+)', date_str).group(1))
-            return (now - timedelta(days=months * 30)).isoformat()
-        elif "year" in date_str:
-            years = int(re.search(r'(\d+)', date_str).group(1))
-            return (now - timedelta(days=years * 365)).isoformat()
-    except Exception:
-        pass
-    return date_str
 
 
 def extract_domain(url: str) -> str:
-    """Extract a clean domain name from URL."""
     try:
-        domain = urlparse(url).netloc.lower()
-        if domain.startswith("www."):
-            domain = domain[4:]
-        return domain
+        d = urlparse(url).netloc.lower()
+        return d[4:] if d.startswith("www.") else d
     except Exception:
         return "unknown"
 
 
-def load_existing() -> dict:
-    """Load existing data file."""
+def strip_html(text: str) -> str:
+    clean = re.sub(r'<[^>]+>', '', text or "")
+    return html.unescape(clean).strip()
+
+
+def truncate(text: str, length: int = 500) -> str:
+    if not text:
+        return ""
+    return text[:length - 3] + "..." if len(text) > length else text
+
+
+def load_data() -> dict:
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r") as f:
             return json.load(f)
-    return {"mentions": [], "last_updated": None, "summaries": []}
+    return {"mentions": [], "last_updated": None, "summaries": [], "run_log": []}
 
 
 def save_data(data: dict):
-    """Save data file."""
     with open(DATA_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
 
 # ---------------------------------------------------------------------------
 # Source 1: Google News RSS
 # ---------------------------------------------------------------------------
 
-def scrape_google_news_rss() -> list[dict]:
-    """Fetch mentions from Google News RSS feeds."""
+def scrape_gnews_rss() -> list[dict]:
     results = []
+    seen_titles = set()
 
-    for query in RSS_QUERIES:
+    for query in GNEWS_QUERIES:
         encoded = requests.utils.quote(query)
         url = f"https://news.google.com/rss/search?q={encoded}&hl=en-US&gl=US&ceid=US:en"
-        print(f"  [RSS] Fetching: {query}")
+        print(f"  [GNEWS] {query}")
 
-        feed = feedparser.parse(url)
-        print(f"  [RSS] Got {len(feed.entries)} entries")
+        try:
+            feed = feedparser.parse(url)
+            count = 0
 
-        for entry in feed.entries:
-            title_raw = entry.get("title", "")
-            source_title = entry.get("source", {}).get("title", "Unknown")
-            source_href = entry.get("source", {}).get("href", "")
-            published = entry.get("published", "")
-            google_link = entry.get("link", "")
-            summary = entry.get("summary", "")
+            for entry in feed.entries:
+                source_title = entry.get("source", {}).get("title", "Unknown")
+                source_href = entry.get("source", {}).get("href", "")
+                google_link = entry.get("link", "")
 
-            # Skip if source is BusinessDen itself
-            if source_href and is_excluded(source_href):
-                continue
-            if source_title.lower().strip() == "businessden":
-                continue
+                if source_href and is_excluded(source_href):
+                    continue
+                if google_link and is_excluded(google_link):
+                    continue
+                if source_title.lower().strip() == "businessden":
+                    continue
 
-            # Clean title: remove " - Source Name" suffix
-            title = title_raw
-            if " - " in title:
-                title = title.rsplit(" - ", 1)[0].strip()
+                title_raw = entry.get("title", "")
+                title_key = title_raw.lower().strip()
+                if title_key in seen_titles:
+                    continue
+                seen_titles.add(title_key)
 
-            # Extract snippet from summary (RSS summary is HTML)
-            snippet = re.sub(r'<[^>]+>', '', summary).strip()
-            if len(snippet) > 400:
-                snippet = snippet[:397] + "..."
+                title = title_raw.rsplit(" - ", 1)[0].strip() if " - " in title_raw else title_raw.strip()
+                snippet = truncate(strip_html(entry.get("summary", "")))
 
-            results.append({
-                "title": title,
-                "url": google_link,
-                "snippet": snippet,
-                "source": source_title,
-                "source_domain": extract_domain(source_href) if source_href else source_title.lower(),
-                "published": parse_date(published),
-                "found_via": "google_news_rss",
-            })
+                # Relevance check
+                if not is_relevant(title, snippet):
+                    continue
+
+                results.append({
+                    "title": title,
+                    "title_raw": title_raw,
+                    "url": google_link,
+                    "snippet": snippet,
+                    "source": source_title,
+                    "source_url": source_href,
+                    "source_domain": extract_domain(source_href) if source_href else source_title.lower(),
+                    "published": parse_rss_date(entry.get("published", "")),
+                    "found_via": "google_news_rss",
+                    "query_used": query,
+                    "entry_id": entry.get("id", ""),
+                })
+                count += 1
+
+            print(f"         → {count} relevant entries (of {len(feed.entries)} raw)")
+        except Exception as e:
+            print(f"         → Error: {e}")
 
     return results
 
 
 # ---------------------------------------------------------------------------
-# Source 2: Serper.dev Google Search
+# Source 2: WordPress.com Public API
 # ---------------------------------------------------------------------------
 
-def scrape_serper() -> list[dict]:
-    """Fetch mentions from Serper.dev Google Search API."""
-    if not SERPER_API_KEY:
-        print("  [SERPER] No API key set — skipping Serper search")
-        return []
-
+def scrape_wordpress() -> list[dict]:
     results = []
-    headers = {
-        "X-API-KEY": SERPER_API_KEY,
-        "Content-Type": "application/json",
-    }
+    queries = ["BusinessDen", '"Aaron Kremer"']
 
-    for query in SERPER_QUERIES:
-        print(f"  [SERPER] Searching: {query}")
+    for q in queries:
+        print(f"  [WP] Searching: {q}")
         try:
-            # Web search
-            resp = requests.post(
-                "https://google.serper.dev/search",
-                headers=headers,
-                json={"q": query, "num": 20, "gl": "us", "hl": "en"},
+            resp = requests.get(
+                "https://public-api.wordpress.com/rest/v1.1/read/search",
+                params={"q": q, "number": 20},
+                headers={"User-Agent": USER_AGENT},
                 timeout=15,
             )
             resp.raise_for_status()
-            data = resp.json()
+            posts = resp.json().get("posts", [])
+            count = 0
 
-            organic = data.get("organic", [])
-            print(f"  [SERPER] Got {len(organic)} organic results")
-
-            for item in organic:
-                url = item.get("link", "")
-                if is_excluded(url):
+            for p in posts:
+                if not p or not isinstance(p, dict):
                     continue
 
-                results.append({
-                    "title": item.get("title", ""),
-                    "url": url,
-                    "snippet": item.get("snippet", ""),
-                    "source": item.get("source", extract_domain(url)),
-                    "source_domain": extract_domain(url),
-                    "published": parse_date(item.get("date", "")),
-                    "found_via": "serper",
-                })
-
-            # Also search Google News via Serper
-            print(f"  [SERPER] Searching news: {query}")
-            resp_news = requests.post(
-                "https://google.serper.dev/news",
-                headers=headers,
-                json={"q": query, "num": 20, "gl": "us", "hl": "en"},
-                timeout=15,
-            )
-            resp_news.raise_for_status()
-            news_data = resp_news.json()
-
-            news_items = news_data.get("news", [])
-            print(f"  [SERPER] Got {len(news_items)} news results")
-
-            for item in news_items:
-                url = item.get("link", "")
-                if is_excluded(url):
+                url = p.get("URL", "")
+                if not url or is_excluded(url):
                     continue
 
-                results.append({
-                    "title": item.get("title", ""),
-                    "url": url,
-                    "snippet": item.get("snippet", ""),
-                    "source": item.get("source", extract_domain(url)),
-                    "source_domain": extract_domain(url),
-                    "published": parse_date(item.get("date", "")),
-                    "found_via": "serper_news",
-                })
+                content_lower = (str(p.get("content", "")) + str(p.get("excerpt", ""))).lower()
+                if "businessden" not in content_lower and "aaron kremer" not in content_lower:
+                    continue
 
-        except requests.exceptions.RequestException as e:
-            print(f"  [SERPER] Error: {e}")
+                raw_excerpt = strip_html(str(p.get("excerpt", "")) or str(p.get("content", "")))
+                snippet = truncate(raw_excerpt)
+
+                # Find context sentence
+                context = ""
+                for s in re.split(r'(?<=[.!?])\s+', raw_excerpt):
+                    if "businessden" in s.lower() or "aaron kremer" in s.lower():
+                        context = s.strip()
+                        break
+
+                author_data = p.get("author")
+                author_name = ""
+                if isinstance(author_data, dict):
+                    author_name = author_data.get("name", "")
+
+                results.append({
+                    "title": strip_html(str(p.get("title", ""))),
+                    "title_raw": str(p.get("title", "")),
+                    "url": url,
+                    "snippet": context or snippet,
+                    "source": str(p.get("site_name", "")) or extract_domain(url),
+                    "source_url": str(p.get("site_URL", "")),
+                    "source_domain": extract_domain(str(p.get("site_URL", url))),
+                    "published": p.get("date"),
+                    "found_via": "wordpress_api",
+                    "query_used": q,
+                    "wp_site_id": p.get("site_ID"),
+                    "wp_post_id": p.get("ID"),
+                    "wp_like_count": p.get("like_count", 0),
+                    "wp_comment_count": p.get("comment_count", 0),
+                    "author": author_name,
+                    "tags": list((p.get("tags") or {}).keys())[:10],
+                    "categories": list((p.get("categories") or {}).keys())[:10],
+                })
+                count += 1
+
+            print(f"         → {count} mentions (of {len(posts)} results)")
+        except Exception as e:
+            print(f"         → Error: {e}")
 
     return results
 
 
 # ---------------------------------------------------------------------------
-# Main scraper
+# Source 3: Reddit RSS
+# ---------------------------------------------------------------------------
+
+def scrape_reddit() -> list[dict]:
+    results = []
+    queries = ["BusinessDen", "Aaron+Kremer"]
+
+    for q in queries:
+        url = f"https://www.reddit.com/search.rss?q={q}&sort=new&t=week"
+        print(f"  [REDDIT] Searching: {q}")
+
+        try:
+            resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=15)
+            if resp.status_code != 200:
+                print(f"           → HTTP {resp.status_code} (may be blocked from this IP — will work from GitHub Actions)")
+                continue
+
+            feed = feedparser.parse(resp.text)
+            count = 0
+
+            for entry in feed.entries:
+                link = entry.get("link", "")
+                if is_excluded(link):
+                    continue
+
+                title = strip_html(entry.get("title", ""))
+                content = strip_html(entry.get("summary", ""))
+                snippet = truncate(content)
+
+                sub_match = re.search(r'reddit\.com/r/(\w+)', link)
+                subreddit = sub_match.group(1) if sub_match else ""
+
+                results.append({
+                    "title": title,
+                    "title_raw": entry.get("title", ""),
+                    "url": link,
+                    "snippet": snippet,
+                    "source": f"r/{subreddit}" if subreddit else "Reddit",
+                    "source_url": f"https://www.reddit.com/r/{subreddit}" if subreddit else "https://www.reddit.com",
+                    "source_domain": "reddit.com",
+                    "published": parse_rss_date(entry.get("published", "")),
+                    "found_via": "reddit_rss",
+                    "query_used": q,
+                    "author": entry.get("author", ""),
+                    "subreddit": subreddit,
+                })
+                count += 1
+
+            print(f"           → {count} results")
+        except Exception as e:
+            print(f"           → Error: {e}")
+
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Source 4: Medium RSS
+# ---------------------------------------------------------------------------
+
+def scrape_medium() -> list[dict]:
+    results = []
+    tags = ["businessden", "denver-business", "denver-real-estate"]
+
+    for tag in tags:
+        url = f"https://medium.com/feed/tag/{tag}"
+        print(f"  [MEDIUM] Tag: {tag}")
+
+        try:
+            feed = feedparser.parse(url)
+            count = 0
+
+            for entry in feed.entries:
+                link = entry.get("link", "")
+                if is_excluded(link):
+                    continue
+
+                title = strip_html(entry.get("title", ""))
+                content = strip_html(entry.get("summary", ""))
+
+                if tag != "businessden" and "businessden" not in (title + content).lower():
+                    continue
+
+                results.append({
+                    "title": title,
+                    "title_raw": entry.get("title", ""),
+                    "url": link,
+                    "snippet": truncate(content),
+                    "source": "Medium",
+                    "source_url": "https://medium.com",
+                    "source_domain": "medium.com",
+                    "published": parse_rss_date(entry.get("published", "")),
+                    "found_via": "medium_rss",
+                    "query_used": f"tag:{tag}",
+                    "author": entry.get("author", ""),
+                    "tags": [t.get("term", "") for t in entry.get("tags", [])][:10],
+                })
+                count += 1
+
+            print(f"           → {count} results (of {len(feed.entries)} in feed)")
+        except Exception as e:
+            print(f"           → Error: {e}")
+
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Main
 # ---------------------------------------------------------------------------
 
 def scrape():
-    data = load_existing()
+    data = load_data()
     existing_ids = {m["id"] for m in data["mentions"]}
     new_mentions = []
+    now = datetime.now(timezone.utc)
 
-    # Collect from both sources
-    print("Scraping Google News RSS...")
-    rss_results = scrape_google_news_rss()
+    print(f"Reputation scraper — {now.strftime('%Y-%m-%d %H:%M UTC')}")
+    print(f"Existing mentions in database: {len(data['mentions'])}\n")
 
-    print("Scraping Serper.dev...")
-    serper_results = scrape_serper()
+    print("1. Google News RSS")
+    gnews = scrape_gnews_rss()
+    print(f"   Subtotal: {len(gnews)}")
 
-    all_results = rss_results + serper_results
-    print(f"\nTotal raw results: {len(all_results)}")
+    print("\n2. WordPress.com API")
+    wp = scrape_wordpress()
+    print(f"   Subtotal: {len(wp)}")
 
-    # Deduplicate and add new mentions
+    print("\n3. Reddit RSS")
+    reddit = scrape_reddit()
+    print(f"   Subtotal: {len(reddit)}")
+
+    print("\n4. Medium RSS")
+    medium = scrape_medium()
+    print(f"   Subtotal: {len(medium)}")
+
+    all_results = gnews + wp + reddit + medium
+    print(f"\nTotal results after filtering: {len(all_results)}")
+
     for item in all_results:
         article_id = make_id(item["url"])
         if article_id in existing_ids:
@@ -290,34 +425,58 @@ def scrape():
         mention = {
             "id": article_id,
             "title": item["title"],
+            "title_raw": item.get("title_raw", item["title"]),
             "url": item["url"],
             "snippet": item["snippet"],
             "source": item["source"],
+            "source_url": item.get("source_url", ""),
             "source_domain": item["source_domain"],
             "published": item["published"],
             "found_via": item["found_via"],
-            "first_seen": datetime.now(timezone.utc).isoformat(),
+            "query_used": item.get("query_used", ""),
+            "first_seen": now.isoformat(),
+            "author": item.get("author", ""),
+            "subreddit": item.get("subreddit", ""),
+            "tags": item.get("tags", []),
+            "categories": item.get("categories", []),
+            "wp_site_id": item.get("wp_site_id"),
+            "wp_post_id": item.get("wp_post_id"),
+            "wp_like_count": item.get("wp_like_count"),
+            "wp_comment_count": item.get("wp_comment_count"),
+            "entry_id": item.get("entry_id", ""),
         }
 
         data["mentions"].append(mention)
         existing_ids.add(article_id)
         new_mentions.append(mention)
-        print(f"  NEW [{item['found_via']:18s}] {item['title'][:65]}  ({item['source']})")
+        tag = f"[{item['found_via']}]"
+        print(f"  NEW {tag:22s} {item['title'][:60]}  ({item['source']})")
 
-    # Sort by published date (newest first), nulls last
-    data["mentions"].sort(
-        key=lambda m: m.get("published") or "0000",
-        reverse=True,
-    )
+    # Sort newest first
+    data["mentions"].sort(key=lambda m: m.get("published") or "0000", reverse=True)
 
-    # Update metadata
-    data["last_updated"] = datetime.now(timezone.utc).isoformat()
+    data["last_updated"] = now.isoformat()
     data["new_this_run"] = len(new_mentions)
 
-    save_data(data)
-    print(f"\nDone. {len(new_mentions)} new mentions. {len(data['mentions'])} total.")
+    # Run log
+    if "run_log" not in data:
+        data["run_log"] = []
+    data["run_log"].append({
+        "timestamp": now.isoformat(),
+        "new_mentions": len(new_mentions),
+        "total_mentions": len(data["mentions"]),
+        "sources_checked": {
+            "google_news_rss": len(gnews),
+            "wordpress_api": len(wp),
+            "reddit_rss": len(reddit),
+            "medium_rss": len(medium),
+        },
+    })
+    cutoff = (now - timedelta(days=90)).isoformat()
+    data["run_log"] = [r for r in data["run_log"] if r["timestamp"] >= cutoff]
 
-    return new_mentions
+    save_data(data)
+    print(f"\nDone. {len(new_mentions)} new mentions. {len(data['mentions'])} total in database.")
 
 
 if __name__ == "__main__":
