@@ -400,10 +400,11 @@ function formatSummary(text){
   let raw=text;
   // Strip markdown bold **text**
   raw=raw.replace(/\*\*([^*]+)\*\*/g,'$1');
-  // Clean up legacy artifacts from old formatter: >"pub">Name, >Name, "pub">Name
-  raw=raw.replace(/,?\s*"pub">/g,', ');
-  raw=raw.replace(/>\s*(?=[A-Z])/g,'');
-  raw=raw.replace(/"pub"/g,'');
+  // Clean legacy artifacts: "pub">Name and >Name patterns
+  raw=raw.replace(/"pub">/g,'');
+  raw=raw.replace(/>(\w)/g,'$1');
+  raw=raw.replace(/,\s*,/g,',');
+  raw=raw.replace(/\s{2,}/g,' ');
 
   const pubs=['The Denver Post','Denver Post','Denverite','9News','Denver Gazette',
     'Colorado Springs Gazette','Hoodline','Axios','Denver7','Colorado Hometown Weekly',
