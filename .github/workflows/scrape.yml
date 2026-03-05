@@ -1,8 +1,6 @@
 name: Reputation
 on:
   schedule:
-    # 5am MST (Nov-Mar) = 12:00 UTC
-    # 5am MDT (Mar-Nov) = 11:00 UTC
     - cron: '0 11 * * *'
     - cron: '0 12 * * *'
   workflow_dispatch:
@@ -48,7 +46,7 @@ jobs:
   scrape:
     needs: deploy-first
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Check DST
         id: dst_check
@@ -77,6 +75,8 @@ jobs:
         run: pip install feedparser requests
       - name: Run scraper
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python3 scraper.py
       - name: Commit and push data
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
