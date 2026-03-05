@@ -175,7 +175,10 @@ mark{background:rgba(245,166,35,.2);color:#f5a623;padding:0 2px;border-radius:2p
 /* Byline */
 .byline-card{background:#0d0e12;border:1px solid #1e2028;border-radius:10px;padding:20px;margin-bottom:16px}
 .byline-card h3{font-size:.95rem;font-weight:600;margin-bottom:4px;color:#3b82f6}
-.byline-stats{font-size:.72rem;color:#555;margin-bottom:12px;display:flex;gap:14px}
+.byline-stats{font-size:.72rem;color:#555;margin-bottom:14px;display:flex;gap:20px;flex-wrap:wrap}
+.byline-stat{display:flex;flex-direction:column;gap:1px}
+.byline-stat .bs-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:#c8cad0}
+.byline-stat .bs-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.05em;font-weight:600;color:#555}
 .byline-body{font-size:.85rem;line-height:1.7;color:#c8cad0;white-space:pre-line}
 
 /* Summaries archive */
@@ -236,11 +239,11 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
 <!-- ═══ TAB 1: DASHBOARD ═══ -->
 <div class="tab-panel active" id="panel-dashboard">
   <div class="kpi-grid">
+    <div class="kpi-card amber" data-kpi="today"><div class="kpi-label">New Today</div><div class="kpi-value" id="kNew">–</div><div class="kpi-sub">last run</div></div>
     <div class="kpi-card blue" data-kpi="all"><div class="kpi-label">Total Mentions</div><div class="kpi-value" id="kTotal">–</div><div class="kpi-sub">all time</div></div>
-    <div class="kpi-card green" data-kpi="today"><div class="kpi-label">New Today</div><div class="kpi-value" id="kNew">–</div><div class="kpi-sub">last run</div></div>
-    <div class="kpi-card amber" data-kpi="positive"><div class="kpi-label">Positive</div><div class="kpi-value" id="kPos">–</div><div class="kpi-sub">sentiment</div></div>
-    <div class="kpi-card purple" data-kpi="sources"><div class="kpi-label">Sources</div><div class="kpi-value" id="kSources">–</div><div class="kpi-sub">unique outlets</div></div>
-    <div class="kpi-card blue" data-kpi="articles"><div class="kpi-label">BD Articles</div><div class="kpi-value" id="kArticles">–</div><div class="kpi-sub">tracked</div></div>
+    <div class="kpi-card green" data-kpi="articles"><div class="kpi-label">BD Articles</div><div class="kpi-value" id="kArticles">–</div><div class="kpi-sub">tracked</div></div>
+    <div class="kpi-card purple"><div class="kpi-label">Avg. Mentions / Article</div><div class="kpi-value" id="kAvgMentions">–</div><div class="kpi-sub">per BD article</div></div>
+    <div class="kpi-card blue" data-kpi="sources7d"><div class="kpi-label">Sources (7 Days)</div><div class="kpi-value" id="kSources7d">–</div><div class="kpi-sub">unique outlets</div></div>
   </div>
 
   <div class="show-all-bar" id="showAllBar">
@@ -369,9 +372,15 @@ document.querySelectorAll('.tab-btn').forEach(b=>{b.addEventListener('click',()=
 function renderKPIs(){
   document.getElementById('kTotal').textContent=mentions.length;
   document.getElementById('kNew').textContent=D.new_this_run||0;
-  document.getElementById('kPos').textContent=mentions.filter(m=>m.sentiment==='positive').length;
-  document.getElementById('kSources').textContent=new Set(mentions.map(m=>m.source_domain)).size;
   document.getElementById('kArticles').textContent=bdArticles.length;
+  // Avg mentions per article
+  const artWithPickup=bdArticles.filter(a=>getArticleMatches(a.url).length>0);
+  const totalPickupMentions=bdArticles.reduce((s,a)=>s+getArticleMatches(a.url).length,0);
+  document.getElementById('kAvgMentions').textContent=bdArticles.length?(totalPickupMentions/bdArticles.length).toFixed(1):'–';
+  // Sources in past 7 days
+  const cutoff7d=new Date(Date.now()-7*86400000).toISOString();
+  const recent=mentions.filter(m=>(m.published||'')>=cutoff7d);
+  document.getElementById('kSources7d').textContent=new Set(recent.map(m=>m.source_domain)).size;
 }
 document.querySelectorAll('.kpi-card[data-kpi]').forEach(c=>{c.addEventListener('click',()=>{
   const k=c.dataset.kpi;
@@ -379,7 +388,7 @@ document.querySelectorAll('.kpi-card[data-kpi]').forEach(c=>{c.addEventListener(
   document.querySelectorAll('.kpi-card').forEach(x=>x.classList.remove('active-filter'));
   if(kpiFilter)c.classList.add('active-filter');
   const bar=document.getElementById('showAllBar'),tag=document.getElementById('filterTag');
-  if(kpiFilter){bar.classList.add('visible');const labels={today:'New today',positive:'Positive sentiment',sources:'By source',articles:'BD articles'};tag.textContent='Showing: '+(labels[kpiFilter]||kpiFilter);}
+  if(kpiFilter){bar.classList.add('visible');const labels={today:'New today',articles:'BD articles',sources7d:'Sources (7 days)'};tag.textContent='Showing: '+(labels[kpiFilter]||kpiFilter);}
   else bar.classList.remove('visible');
   renderTable();
 });});
@@ -388,11 +397,14 @@ document.getElementById('showAllBtn').addEventListener('click',()=>{kpiFilter=nu
 // ═══ DAILY SUMMARY ═══
 function formatSummary(text){
   if(!text)return'';
-  // Work on raw text, build HTML carefully
-  // 1. Strip markdown bold
-  let raw=text.replace(/\*\*([^*]+)\*\*/g,'$1');
+  let raw=text;
+  // Strip markdown bold **text**
+  raw=raw.replace(/\*\*([^*]+)\*\*/g,'$1');
+  // Clean up legacy artifacts from old formatter: >"pub">Name, >Name, "pub">Name
+  raw=raw.replace(/,?\s*"pub">/g,', ');
+  raw=raw.replace(/>\s*(?=[A-Z])/g,'');
+  raw=raw.replace(/"pub"/g,'');
 
-  // 2. Known publication names (will be colored orange)
   const pubs=['The Denver Post','Denver Post','Denverite','9News','Denver Gazette',
     'Colorado Springs Gazette','Hoodline','Axios','Denver7','Colorado Hometown Weekly',
     'Boulder Daily Camera','Longmont Times-Call','Greeley Tribune','Westword',
@@ -400,13 +412,11 @@ function formatSummary(text){
     'Richmond BizSense','Reddit','Medium','LinkedIn','Facebook','Instagram','x.com',
     'MassLive.com','Broomfield Enterprise','Loveland Reporter-Herald','Fort Morgan Times',
     'Sterling Journal-Advocate','Estes Park Trail-Gazette','Canon City Daily Record',
-    'WesternSlopeNow','Colorado Hometown Weekly','Wire hub','SCNG','San Diego Union-Tribune'];
+    'WesternSlopeNow','Wire hub','SCNG','San Diego Union-Tribune'];
 
-  // 3. Negative keywords
   const negWords=['negative','critical','criticism','disputed','corrected','pushed back',
     'took issue','challenged','inaccurate','misleading','error','retraction','backlash'];
 
-  // 4. Process line by line
   const lines=raw.split('\n');
   let inList=false,out='';
 
@@ -416,27 +426,22 @@ function formatSummary(text){
     const isBullet=trimmed.startsWith('•')||trimmed.startsWith('- ')||trimmed.startsWith('* ');
     let content=isBullet?trimmed.replace(/^[•\-\*]\s*/,''):trimmed;
 
-    // Escape HTML entities in the content
+    // Escape HTML
     content=content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-    // Color publication names (case-insensitive, whole-word)
+    // Color publication names
     for(const p of pubs){
       const escaped=p.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-      const re=new RegExp('\\b('+escaped+')\\b','gi');
-      content=content.replace(re,'<span class="pub">$1</span>');
+      content=content.replace(new RegExp('\\b('+escaped+')\\b','gi'),'<span class="pub">$1</span>');
     }
 
-    // Color story titles in quotes (green)
-    content=content.replace(/["\u201c]([^"\u201d\n]{6,}?)["\u201d]/g,
-      '\u201c<span class="story">$1</span>\u201d');
-    // Also catch straight quotes
-    content=content.replace(/"([^"<\n]{6,}?)"/g,
+    // Color story titles in quotes (green) — curly and straight quotes
+    content=content.replace(/[\u201c""]([^""\u201c\u201d\n]{6,}?)[\u201d""]/g,
       '\u201c<span class="story">$1</span>\u201d');
 
     // Highlight negative language (red)
     for(const nw of negWords){
-      const re=new RegExp('\\b('+nw+')\\b','gi');
-      content=content.replace(re,'<span class="neg">$1</span>');
+      content=content.replace(new RegExp('\\b('+nw+')\\b','gi'),'<span class="neg">$1</span>');
     }
 
     if(isBullet){
@@ -493,8 +498,8 @@ function getFiltered(){
   const to=document.getElementById('fDateTo').value;
   const today=new Date().toISOString().split('T')[0];
   return mentions.filter(m=>{
-    if(kpiFilter==='today'&&(m.published||'').split('T')[0]!==today)return false;
-    if(kpiFilter==='positive'&&m.sentiment!=='positive')return false;
+    if(kpiFilter==='today'&&(m.published||'').split('T')[0]!==new Date().toISOString().split('T')[0])return false;
+    if(kpiFilter==='sources7d'){const c7=new Date(Date.now()-7*86400000).toISOString();if((m.published||'')<c7)return false;}
     if(sidebarSource&&m.source!==sidebarSource)return false;
     if(via&&m.found_via!==via)return false;
     if(sent&&m.sentiment!==sent)return false;
@@ -647,11 +652,23 @@ function renderByline(){
       articlesHtml+='</div>';
     }
     const aiText=aiSections[name];
+    // Calculate avg articles per week
+    const pubDates=bdArticles.filter(a=>a.author===name).map(a=>a.published).filter(Boolean).sort();
+    let avgPerWeek='–';
+    if(pubDates.length>=2){
+      const first=new Date(pubDates[0]),last=new Date(pubDates[pubDates.length-1]);
+      const weeks=Math.max(1,(last-first)/(7*86400000));
+      avgPerWeek=(rd.total/weeks).toFixed(1);
+    } else if(pubDates.length===1){avgPerWeek=rd.total.toFixed(1);}
+    const totalMentions=rd.articles.reduce((s,a)=>s+a.mentions,0);
+    const avgMentions=rd.total?(totalMentions/rd.total).toFixed(1):'0';
+
     return '<div class="byline-card"><h3>'+esc(name)+'</h3>'+
       '<div class="byline-stats">'+
-        '<span>'+rd.total+' articles</span>'+
-        '<span>'+rd.pickedUp+' picked up</span>'+
-        '<span>'+rate+'% pickup rate</span>'+
+        '<div class="byline-stat"><span class="bs-val">'+rd.total+'</span><span class="bs-label">Articles tracked</span></div>'+
+        '<div class="byline-stat"><span class="bs-val">'+totalMentions+'</span><span class="bs-label">Total mentions</span></div>'+
+        '<div class="byline-stat"><span class="bs-val">'+avgMentions+'</span><span class="bs-label">Avg. mentions/article</span></div>'+
+        '<div class="byline-stat"><span class="bs-val">'+avgPerWeek+'</span><span class="bs-label">Avg. articles/week</span></div>'+
       '</div>'+
       (aiText?'<div class="byline-body">'+formatSummary(aiText)+'</div>':'')+
       articlesHtml+
