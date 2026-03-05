@@ -56,7 +56,12 @@ button{font-family:inherit;cursor:pointer}input,select{font-family:inherit}
 .ai-card{background:#0d0e12;border:1px solid #1e2028;border-radius:10px;padding:20px;margin-bottom:20px;border-left:3px solid #3b82f6}
 .ai-card h3{font-size:.85rem;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .ai-card .ai-date{font-size:.72rem;color:#555;font-weight:400}
-.ai-card .ai-body{font-size:.85rem;line-height:1.7;color:#c8cad0;white-space:pre-line}
+.ai-card .ai-body{font-size:.85rem;line-height:1.7;color:#c8cad0}
+.ai-card .ai-body ul{list-style:disc;padding-left:18px;margin:0}
+.ai-card .ai-body li{margin-bottom:.35em}
+.ai-card .ai-body .pub{color:#f5a623;font-weight:700}
+.ai-card .ai-body .story{color:#4caf50;font-weight:700}
+.ai-card .ai-body .neg{color:#e85454;font-weight:600}
 .ai-card.empty .ai-body{color:#555;font-style:italic}
 
 /* Chart */
@@ -179,7 +184,12 @@ mark{background:rgba(245,166,35,.2);color:#f5a623;padding:0 2px;border-radius:2p
 .se-type.daily{background:rgba(59,130,246,.15);color:#3b82f6}
 .se-type.weekly{background:rgba(245,166,35,.15);color:#f5a623}
 .se-type.monthly{background:rgba(167,139,250,.15);color:#a78bfa}
-.se-body{font-size:.85rem;line-height:1.7;color:#c8cad0;white-space:pre-line;margin-top:8px}
+.se-body{font-size:.85rem;line-height:1.7;color:#c8cad0;margin-top:8px}
+.se-body ul{list-style:disc;padding-left:18px;margin:0}
+.se-body li{margin-bottom:.35em}
+.se-body .pub{color:#f5a623;font-weight:700}
+.se-body .story{color:#4caf50;font-weight:700}
+.se-body .neg{color:#e85454;font-weight:600}
 
 .empty-state{text-align:center;padding:60px 20px;color:#555}.empty-state p{font-size:.9rem}
 .site-footer{max-width:1400px;margin:0 auto;padding:20px 24px;border-top:1px solid #1e2028;font-size:.72rem;color:#555;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
@@ -374,12 +384,46 @@ document.querySelectorAll('.kpi-card[data-kpi]').forEach(c=>{c.addEventListener(
 document.getElementById('showAllBtn').addEventListener('click',()=>{kpiFilter=null;document.querySelectorAll('.kpi-card').forEach(x=>x.classList.remove('active-filter'));document.getElementById('showAllBar').classList.remove('visible');renderTable();});
 
 // ═══ DAILY SUMMARY ═══
+function formatSummary(text){
+  // Convert Claude's markdown-style output into styled HTML
+  let h=esc(text);
+  // Remove ** wrapping (we use color instead of bold markdown)
+  h=h.replace(/\*\*([^*]+)\*\*/g,'$1');
+  // Wrap known publication names in orange bold
+  const pubs=['The Denver Post','Denver Post','Denverite','9News','Denver Gazette','Colorado Springs Gazette','Hoodline','Axios','Denver7','Colorado Hometown Weekly','Boulder Daily Camera','Longmont Times-Call','Greeley Tribune','Westword','Colorado Public Radio','CPR News','Fort Collins Coloradoan','Colorado Sun','Richmond BizSense','Reddit','Medium','LinkedIn','Facebook','instagram.com','x.com','MassLive.com'];
+  pubs.forEach(p=>{const re=new RegExp('('+p.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');h=h.replace(re,'<span class="pub">$1</span>');});
+  // Also catch any "Source Name" pattern after bullet points not already wrapped
+  h=h.replace(/•\s*(?:<span class="pub">)?([^<:•\n]+?)(?:<\/span>)?\s*(?:picked up|covered|reported|ran|published|referenced|cited|syndicated|mentioned)/gi,(match,name)=>{
+    if(match.includes('class="pub"'))return match;
+    return match.replace(name,'<span class="pub">'+name.trim()+'</span> ');
+  });
+  // Wrap story titles in green bold (text inside quotes or after "story about"/"article about")
+  h=h.replace(/[""\u201c]([^"""\u201d\n]{8,}?)[""\u201d]/g,'"<span class="story">$1</span>"');
+  // Highlight negative coverage in red
+  h=h.replace(/(negative|critical|criticism|disputed|corrected|pushed back|took issue|challenged|inaccurate)/gi,'<span class="neg">$1</span>');
+  // Convert bullet lines to proper HTML list
+  const lines=h.split('\n');
+  let inList=false,out='';
+  for(const line of lines){
+    const trimmed=line.trim();
+    if(trimmed.startsWith('•')||trimmed.startsWith('- ')||trimmed.startsWith('* ')){
+      if(!inList){out+='<ul>';inList=true;}
+      out+='<li>'+trimmed.replace(/^[•\-\*]\s*/,'')+'</li>';
+    } else {
+      if(inList){out+='</ul>';inList=false;}
+      if(trimmed)out+='<p>'+trimmed+'</p>';
+    }
+  }
+  if(inList)out+='</ul>';
+  return out;
+}
+
 function renderDailySummary(){
   const el=document.getElementById('dailySummary');
   const dailies=(D.summaries&&D.summaries.daily)||[];
   if(!dailies.length){el.innerHTML='<div class="ai-card empty"><h3>Today\'s Summary</h3><div class="ai-body">AI daily summaries will appear once the Claude API key is configured.</div></div>';return;}
   const latest=dailies[dailies.length-1];
-  el.innerHTML='<div class="ai-card"><h3>Today\'s Summary <span class="ai-date">'+fmtDate(latest.date)+'</span></h3><div class="ai-body">'+esc(latest.text)+'</div></div>';
+  el.innerHTML='<div class="ai-card"><h3>Today\'s Summary <span class="ai-date">'+fmtDate(latest.date)+'</span></h3><div class="ai-body">'+formatSummary(latest.text)+'</div></div>';
 }
 
 // ═══ CHART ═══
@@ -538,7 +582,7 @@ function renderSummariesTab(){
   if(!all.length){el.innerHTML='<div class="empty-state"><p>AI summaries will appear once the Claude API is configured.</p></div>';return;}
   el.innerHTML=all.map(s=>{const tl={daily:'Daily',weekly:'Weekly',monthly:'Monthly'}[s.type];
     const title=s.type==='daily'?s.date:s.type==='weekly'?'Week of '+(s.week_start||s.date):s.month||s.date;
-    return'<div class="summary-entry"><h4><span class="se-type '+s.type+'">'+tl+'</span> '+esc(title)+'</h4><div class="se-body">'+esc(s.text)+'</div></div>';}).join('');
+    return'<div class="summary-entry"><h4><span class="se-type '+s.type+'">'+tl+'</span> '+esc(title)+'</h4><div class="se-body ai-body">'+formatSummary(s.text)+'</div></div>';}).join('');
 }
 
 // ═══ DETAIL PANEL ═══

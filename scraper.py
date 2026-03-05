@@ -581,13 +581,14 @@ def generate_daily_summary(data: dict, new_mentions: list[dict], now: datetime):
 Today is {today}. Write a pithy daily summary of today's {len(new_mentions)} third-party mentions.
 
 FORMAT: Write this like a wire-service brief — short, punchy, no filler.
-• Use bullet points
-• Name every outlet
-• Name the BD story/topic being referenced
+• Use bullet points (start each with •)
+• Name every outlet plainly — do NOT wrap in ** or any markdown formatting
+• Put BusinessDen story titles in "quotes"
 • Flag any story getting outsized pickup (3+ outlets)
 • Note the reporter whose work was cited, if identifiable
+• If coverage is negative or critical, say so explicitly
 • 8 bullet points maximum
-• No preamble, no sign-off
+• No preamble, no sign-off, no markdown formatting
 
 TODAY'S MENTIONS:
 {mentions_text}"""
