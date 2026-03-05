@@ -74,11 +74,10 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
-        run: pip install feedparser requests
+        run: pip install feedparser
       - name: Run scraper
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
         env:
-          SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
         run: python3 scraper.py
       - name: Commit and push data
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
