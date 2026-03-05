@@ -1,6 +1,54 @@
 {
   "mentions": [
     {
+      "id": "bba0c3532b70b21a",
+      "title": "Denver Remodel Boss Says Partners Turned Firm Into ‘Prison,’ Asks Judge To Pull Plug On Cubex",
+      "title_raw": "Denver Remodel Boss Says Partners Turned Firm Into ‘Prison,’ Asks Judge To Pull Plug On Cubex - Hoodline",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOY0ZZQVZYeFBlcndMLUVud3Izd05lNEFJSHlPVE95OGdPNjhYYVpxV04ta2w4VUZSMWZ0SDNNaTV2dGNlOTR6OVpMSnZ1eVliRTc0Q2tzd0FLUklfR0tXbWM3MUpPRi1Cb3N2SUM1MDlLRGZOTFhpdzhNNE1iNU9GVjZNa1UzdTFTTTBaYVBmM0M2cm9rYlVKeXVUWjdDWTJyOEFPUkl4eXk4Um1aUElLQ0xUMmVPSEZvU0NGdA?oc=5",
+      "snippet": "Denver Remodel Boss Says Partners Turned Firm Into ‘Prison,’ Asks Judge To Pull Plug On Cubex  Hoodline",
+      "source": "Hoodline",
+      "source_url": "https://hoodline.com",
+      "source_domain": "hoodline.com",
+      "published": "2026-03-05T17:06:43+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-05T17:36:20.749532+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMivAFBVV95cUxOY0ZZQVZYeFBlcndMLUVud3Izd05lNEFJSHlPVE95OGdPNjhYYVpxV04ta2w4VUZSMWZ0SDNNaTV2dGNlOTR6OVpMSnZ1eVliRTc0Q2tzd0FLUklfR0tXbWM3MUpPRi1Cb3N2SUM1MDlLRGZOTFhpdzhNNE1iNU9GVjZNa1UzdTFTTTBaYVBmM0M2cm9rYlVKeXVUWjdDWTJyOEFPUkl4eXk4Um1aUElLQ0xUMmVPSEZvU0NGdA",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "1908fcbb0d6c34f8",
+      "title": "‘Sex and the City’ fashion, Denver Restaurant Week, and more things to do this weekend",
+      "title_raw": "‘Sex and the City’ fashion, Denver Restaurant Week, and more things to do this weekend - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBNWHVWYU1oOHBaMEhqVnctTC1aV2xXVlVaLVJWeWxtaFNXNl9oa3NDaHFoQlR3MmN6TklYeUlkTVl0Vm9nWGJkVm1KWVozcDA?oc=5",
+      "snippet": "‘Sex and the City’ fashion, Denver Restaurant Week, and more things to do this weekend  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-05T13:50:19+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"Thomas Gounley\" Denver -site:businessden.com when:2d",
+      "first_seen": "2026-03-05T17:36:20.749532+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiT0FVX3lxTFBNWHVWYU1oOHBaMEhqVnctTC1aV2xXVlVaLVJWeWxtaFNXNl9oa3NDaHFoQlR3MmN6TklYeUlkTVl0Vm9nWGJkVm1KWVozcDA",
+      "sentiment": "neutral"
+    },
+    {
       "id": "71a3c58cb5affd4c",
       "title": "Hotel, credit union next to Central Park homeless shelter find a buyer",
       "title_raw": "Hotel, credit union next to Central Park homeless shelter find a buyer - The Denver Post",
@@ -813,9 +861,12 @@
     ],
     "https://businessden.com/2026/03/04/hotel-credit-union-next-to-central-park-homeless-shelter-find-a-buyer/": [
       "71a3c58cb5affd4c"
+    ],
+    "https://businessden.com/2026/03/05/construction-firm-owner-captive-in-his-own-company-asks-judge-to-close-it/": [
+      "bba0c3532b70b21a"
     ]
   },
-  "last_updated": "2026-03-05T13:59:03.963138+00:00",
+  "last_updated": "2026-03-05T17:36:20.749532+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -948,7 +999,19 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-05T17:36:20.749532+00:00",
+      "new_mentions": 2,
+      "total_mentions": 23,
+      "total_bd_articles": 17,
+      "sources": {
+        "google_news_rss": 36,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 3
+  "new_this_run": 2
 }
