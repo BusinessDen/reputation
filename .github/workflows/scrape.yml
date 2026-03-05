@@ -1,8 +1,14 @@
 name: Reputation
 on:
   schedule:
+    # 5am MST (Nov-Mar) = 12:00 UTC
+    # 5am MDT (Mar-Nov) = 11:00 UTC
     - cron: '0 11 * * *'
     - cron: '0 12 * * *'
+    # 12pm MST (Nov-Mar) = 19:00 UTC
+    # 12pm MDT (Mar-Nov) = 18:00 UTC
+    - cron: '0 18 * * *'
+    - cron: '0 19 * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -17,7 +23,7 @@ jobs:
         run: |
           HOUR_MT=$(TZ=America/Denver date +%H)
           echo "Mountain Time hour: $HOUR_MT"
-          if [ "$HOUR_MT" = "05" ]; then
+          if [ "$HOUR_MT" = "05" ] || [ "$HOUR_MT" = "12" ]; then
             echo "skip=false" >> $GITHUB_OUTPUT
           else
             echo "skip=true" >> $GITHUB_OUTPUT
@@ -52,7 +58,7 @@ jobs:
         id: dst_check
         run: |
           HOUR_MT=$(TZ=America/Denver date +%H)
-          if [ "$HOUR_MT" = "05" ]; then
+          if [ "$HOUR_MT" = "05" ] || [ "$HOUR_MT" = "12" ]; then
             echo "skip=false" >> $GITHUB_OUTPUT
           else
             echo "skip=true" >> $GITHUB_OUTPUT
