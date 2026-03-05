@@ -25,6 +25,54 @@
       "sentiment": "neutral"
     },
     {
+      "id": "69de52b007a0001e",
+      "title": "A credit union and hotel that flank a homeless shelter at the edge of Denver’s Central Park neighborhood have sold to the same buyer.",
+      "title_raw": "A credit union and hotel that flank a homeless shelter at the edge of Denver’s Central Park neighborhood have sold to the same buyer. - facebook.com",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPdXVhYjBKNFBPbEI2dXF6bmdhUHd5dkNxWTRlMGthdEFHMzhiWGc0dm1BRkxFa0huMjIweFVPUVNtVEFDa0FkbVhwQ0RvMUItc2pPRTVYMG12ckR4WlJwWjcwTlJ3STBWWWRQYXBVZ0d1SV9jNV9RaUxQYjZHeWp2VlV6MXprVzgyRG9XY045VkxLVktCc1lJcGZhMnJNSnI0WGoyMDdoNmEybU95VmNaTXVPRTJwVFAtWDVmYTczTnhtWklrR2VIY25vOTdTaUh4WVQwZlN4QQ?oc=5",
+      "snippet": "A credit union and hotel that flank a homeless shelter at the edge of Denver’s Central Park neighborhood have sold to the same buyer.  facebook.com",
+      "source": "facebook.com",
+      "source_url": "https://www.facebook.com",
+      "source_domain": "facebook.com",
+      "published": "2026-03-05T16:07:06+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-05T19:12:07.263689+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMi1wFBVV95cUxPdXVhYjBKNFBPbEI2dXF6bmdhUHd5dkNxWTRlMGthdEFHMzhiWGc0dm1BRkxFa0huMjIweFVPUVNtVEFDa0FkbVhwQ0RvMUItc2pPRTVYMG12ckR4WlJwWjcwTlJ3STBWWWRQYXBVZ0d1SV9jNV9RaUxQYjZHeWp2VlV6MXprVzgyRG9XY045VkxLVktCc1lJcGZhMnJNSnI0WGoyMDdoNmEybU95VmNaTXVPRTJwVFAtWDVmYTczTnhtWklrR2VIY25vOTdTaUh4WVQwZlN4QQ",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "53fe9e2adbf12436",
+      "title": "The Brown Palace, Denver’s iconic hotel, is reportedly up for sale.",
+      "title_raw": "The Brown Palace, Denver’s iconic hotel, is reportedly up for sale. - facebook.com",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOblhXTVJIczRKcEN3MnZuZjNKLTNPWlVGanJYVzB6OW5ZTGZIM1l0WHcyeHo3S2Z2ZmlWZ3VoazdhY01ERUt6UW00b212RzJ5c0ZGTGxBNTFJSXh3Ry1FaDg5ZE9xWEJuQ1lVSWlNUnVYOTJTdFpyVnNyZzRUdURmbWUxMG9fM2dDel80WDd0ZXBrcW5XWjhFWHZhcy1FVnA3UFpkdU5rSXRsMUUwQ3NPeE94ZnROVWZUTFMwdTJjNWVOaTRLeGppZGpoYXQ?oc=5",
+      "snippet": "The Brown Palace, Denver’s iconic hotel, is reportedly up for sale.  facebook.com",
+      "source": "facebook.com",
+      "source_url": "https://www.facebook.com",
+      "source_domain": "facebook.com",
+      "published": "2026-03-05T14:30:06+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-05T19:12:07.263689+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMizAFBVV95cUxOblhXTVJIczRKcEN3MnZuZjNKLTNPWlVGanJYVzB6OW5ZTGZIM1l0WHcyeHo3S2Z2ZmlWZ3VoazdhY01ERUt6UW00b212RzJ5c0ZGTGxBNTFJSXh3Ry1FaDg5ZE9xWEJuQ1lVSWlNUnVYOTJTdFpyVnNyZzRUdURmbWUxMG9fM2dDel80WDd0ZXBrcW5XWjhFWHZhcy1FVnA3UFpkdU5rSXRsMUUwQ3NPeE94ZnROVWZUTFMwdTJjNWVOaTRLeGppZGpoYXQ",
+      "sentiment": "neutral"
+    },
+    {
       "id": "1908fcbb0d6c34f8",
       "title": "‘Sex and the City’ fashion, Denver Restaurant Week, and more things to do this weekend",
       "title_raw": "‘Sex and the City’ fashion, Denver Restaurant Week, and more things to do this weekend - The Denver Post",
@@ -854,19 +902,21 @@
       "a0cf755d4ef83030",
       "d600e538ea167849",
       "9d3f5bbff83afe22",
-      "d12764e821474b4d"
+      "d12764e821474b4d",
+      "53fe9e2adbf12436"
     ],
     "https://businessden.com/2026/03/04/modular-builder-fading-west-demands-millions-from-developer-of-granby-project/": [
       "e149aff4434d019a"
     ],
     "https://businessden.com/2026/03/04/hotel-credit-union-next-to-central-park-homeless-shelter-find-a-buyer/": [
-      "71a3c58cb5affd4c"
+      "71a3c58cb5affd4c",
+      "69de52b007a0001e"
     ],
     "https://businessden.com/2026/03/05/construction-firm-owner-captive-in-his-own-company-asks-judge-to-close-it/": [
       "bba0c3532b70b21a"
     ]
   },
-  "last_updated": "2026-03-05T17:36:20.749532+00:00",
+  "last_updated": "2026-03-05T19:12:07.263689+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -1007,6 +1057,18 @@
       "total_bd_articles": 17,
       "sources": {
         "google_news_rss": 36,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
+    },
+    {
+      "timestamp": "2026-03-05T19:12:07.263689+00:00",
+      "new_mentions": 2,
+      "total_mentions": 25,
+      "total_bd_articles": 17,
+      "sources": {
+        "google_news_rss": 34,
         "wordpress_api": 16,
         "reddit_rss": 1,
         "medium_rss": 0
