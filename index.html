@@ -490,9 +490,26 @@ document.querySelectorAll('thead th[data-col]').forEach(th=>{th.addEventListener
 
 // ═══ OUR STORIES (#4) ═══
 function getArticleMatches(artUrl){
+  // Use Claude matches if available
   const matchedIds=(D.article_matches||{})[artUrl]||[];
   const lookup={};mentions.forEach(m=>{lookup[m.id]=m;});
-  return matchedIds.map(id=>lookup[id]).filter(Boolean);
+  let results=matchedIds.map(id=>lookup[id]).filter(Boolean);
+  // Fallback: keyword matching if no Claude matches
+  if(!results.length){
+    const art=bdArticles.find(a=>a.url===artUrl);
+    if(art){
+      const words=art.title.toLowerCase().replace(/[^\w\s]/g,'').split(/\s+/).filter(w=>w.length>3);
+      const phrases=[];
+      if(words.length>=4)phrases.push(words.slice(0,4).join(' '));
+      if(words.length>=3)phrases.push(words.slice(0,3).join(' '));
+      results=mentions.filter(m=>{
+        const mt=(m.title+' '+m.snippet).toLowerCase();
+        if(artUrl.toLowerCase().replace(/\/$/,'')===(m.url||'').toLowerCase().replace(/\/$/,''))return false;
+        return phrases.some(p=>p.length>12&&mt.includes(p));
+      });
+    }
+  }
+  return results;
 }
 function renderStories(){
   const el=document.getElementById('storiesList');

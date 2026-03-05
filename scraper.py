@@ -733,6 +733,7 @@ def generate_article_reception(data: dict, now: datetime):
     """Generate at 2d/7d/30d marks for articles picked up elsewhere."""
     if "article_reception" not in data: data["article_reception"] = {}
     matches = data.get("article_matches", {})
+    mention_lookup = {m["id"]: m for m in data["mentions"]}
     generated = 0
 
     for article in data["bd_articles"]:
@@ -744,13 +745,22 @@ def generate_article_reception(data: dict, now: datetime):
 
         age_days = (now - pub_dt).days
 
-        # Get matched mention IDs
+        # Use Claude matches if available, otherwise fall back to keyword matching
         matched_ids = matches.get(art_url, [])
-        if not matched_ids: continue
-
-        # Resolve to full mention objects
-        mention_lookup = {m["id"]: m for m in data["mentions"]}
         article_mentions = [mention_lookup[mid] for mid in matched_ids if mid in mention_lookup]
+
+        if not article_mentions:
+            title_words = re.findall(r'\w+', article["title"].lower())
+            key_phrases = []
+            if len(title_words) >= 4:
+                key_phrases.append(" ".join(title_words[:4]))
+            if len(title_words) >= 3:
+                key_phrases.append(" ".join(title_words[:3]))
+            for m in data["mentions"]:
+                mt = (m.get("title", "") + " " + m.get("snippet", "")).lower()
+                if any(p in mt for p in key_phrases if len(p) > 12):
+                    article_mentions.append(m)
+
         if not article_mentions: continue
 
         reception = data["article_reception"].get(art_url, {})
@@ -812,8 +822,23 @@ def generate_byline_analysis(data: dict, now: datetime, all_reporters: list[str]
         if not author: continue
 
         art_url = article["url"]
+
+        # Use Claude matches if available, otherwise fall back to keyword matching
         matched_ids = matches.get(art_url, [])
         article_mentions = [mention_lookup[mid] for mid in matched_ids if mid in mention_lookup]
+
+        # Fallback: keyword matching if no Claude matches exist
+        if not article_mentions and not matches:
+            title_words = re.findall(r'\w+', article["title"].lower())
+            key_phrases = []
+            if len(title_words) >= 4:
+                key_phrases.append(" ".join(title_words[:4]))
+            if len(title_words) >= 3:
+                key_phrases.append(" ".join(title_words[:3]))
+            for m in data["mentions"]:
+                mt = (m.get("title", "") + " " + m.get("snippet", "")).lower()
+                if any(p in mt for p in key_phrases if len(p) > 12):
+                    article_mentions.append(m)
 
         if author not in reporter_data:
             reporter_data[author] = {"total": 0, "picked_up": 0, "articles": []}
