@@ -656,7 +656,7 @@
       "e149aff4434d019a"
     ]
   },
-  "last_updated": "2026-03-05T05:12:32.901366+00:00",
+  "last_updated": "2026-03-05T05:26:15.222704+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -737,6 +737,18 @@
       "total_bd_articles": 12,
       "sources": {
         "google_news_rss": 22,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
+    },
+    {
+      "timestamp": "2026-03-05T05:26:15.222704+00:00",
+      "new_mentions": 0,
+      "total_mentions": 18,
+      "total_bd_articles": 12,
+      "sources": {
+        "google_news_rss": 23,
         "wordpress_api": 16,
         "reddit_rss": 1,
         "medium_rss": 0
