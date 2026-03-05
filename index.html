@@ -311,6 +311,12 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
 
 <!-- ═══ TAB 2: OUR STORIES ═══ -->
 <div class="tab-panel" id="panel-stories">
+  <div class="chart-card">
+    <h3>Articles Published <span style="font-weight:400;color:#555;font-size:.75rem">(30 days, by topic)</span></h3>
+    <div class="chart-bars" id="storiesChartBars" style="height:120px"></div>
+    <div class="chart-labels" id="storiesChartLabels"></div>
+    <div class="chart-legend" id="storiesChartLegend"></div>
+  </div>
   <div class="stories-filters">
     <input type="text" id="sfSearch" placeholder="Search articles…">
     <select id="sfAuthor"><option value="">All reporters</option></select>
@@ -656,12 +662,84 @@ function getArticleMatches(artUrl){
 function renderStories(){
   const el=document.getElementById('storiesList');
   if(!bdArticles.length){el.innerHTML='<div class="empty-state"><p>No BusinessDen articles tracked yet.</p></div>';return;}
-  // Populate author dropdown (#4)
   const authors=new Set(bdArticles.map(a=>a.author).filter(Boolean));
   const sel=document.getElementById('sfAuthor');
   sel.innerHTML='<option value="">All reporters</option>';
   [...authors].sort().forEach(a=>{const o=document.createElement('option');o.value=a;o.textContent=a;sel.appendChild(o);});
+  renderStoriesChart();
   doRenderStories();
+}
+
+function renderStoriesChart(){
+  // Topic color map
+  const topicColors={
+    'Commercial Real Estate':'#3b82f6',
+    'Restaurants':'#f5a623',
+    'Brewing':'#f5a623',
+    'Retail':'#a78bfa',
+    'Startups':'#22c55e',
+    'Government':'#e85454',
+    'Residential Real Estate':'#06b6d4',
+    'Legal':'#fb923c',
+  };
+  const defaultColor='#555';
+
+  // Build 30-day window
+  const days=[];
+  for(let i=29;i>=0;i--){
+    days.push(new Date(Date.now()-i*86400000).toISOString().split('T')[0]);
+  }
+
+  // Collect all categories and count per day
+  const allCats=new Set();
+  const byDate={};
+  days.forEach(d=>{byDate[d]={};});
+  bdArticles.forEach(a=>{
+    if(!a.published)return;
+    const d=a.published.split('T')[0];
+    if(!byDate[d])return;
+    const cat=(a.categories&&a.categories[0])||'Other';
+    allCats.add(cat);
+    byDate[d][cat]=(byDate[d][cat]||0)+1;
+  });
+
+  // Sort categories by total count
+  const catTotals={};
+  allCats.forEach(c=>{catTotals[c]=0;});
+  days.forEach(d=>{Object.entries(byDate[d]).forEach(([c,n])=>{catTotals[c]=(catTotals[c]||0)+n;});});
+  const sortedCats=Object.entries(catTotals).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
+
+  // Max per day
+  const maxDay=Math.max(...days.map(d=>{let s=0;sortedCats.forEach(c=>{s+=(byDate[d][c]||0);});return s;}),1);
+  const barH=110;
+
+  // Render bars
+  document.getElementById('storiesChartBars').innerHTML=days.map(d=>{
+    let total=0;sortedCats.forEach(c=>{total+=(byDate[d][c]||0);});
+    const tip=fmtShort(d)+': '+total+' article'+(total!==1?'s':'');
+    let barsHtml='';
+    // Stack from bottom: most common category first
+    sortedCats.forEach(c=>{
+      const n=byDate[d][c]||0;
+      if(!n)return;
+      const h=Math.max(2,(n/maxDay)*barH);
+      const color=topicColors[c]||defaultColor;
+      barsHtml+='<div style="width:100%;height:'+h+'px;background:'+color+';border-radius:2px 2px 0 0;min-width:3px"></div>';
+    });
+    return'<div class="chart-col"><div class="chart-tooltip">'+tip+'</div>'+barsHtml+'</div>';
+  }).join('');
+
+  // Labels
+  document.getElementById('storiesChartLabels').innerHTML=days.map((d,i)=>{
+    if(i%3&&days.length>14)return'<span></span>';
+    return'<span>'+fmtShort(d)+'</span>';
+  }).join('');
+
+  // Legend — only show categories that appear
+  document.getElementById('storiesChartLegend').innerHTML=sortedCats.filter(c=>catTotals[c]>0).map(c=>{
+    const color=topicColors[c]||defaultColor;
+    return'<span><i style="background:'+color+'"></i> '+esc(c)+' ('+catTotals[c]+')</span>';
+  }).join('');
 }
 function doRenderStories(){
   const q=document.getElementById('sfSearch').value.toLowerCase();
