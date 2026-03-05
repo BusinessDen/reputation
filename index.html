@@ -389,10 +389,8 @@ function renderKPIs(){
   document.getElementById('kTotal').textContent=mentions.length;
   document.getElementById('kNew').textContent=D.new_this_run||0;
   document.getElementById('kArticles').textContent=bdArticles.length;
-  // Avg mentions per article
-  const artWithPickup=bdArticles.filter(a=>getArticleMatches(a.url).length>0);
-  const totalPickupMentions=bdArticles.reduce((s,a)=>s+getArticleMatches(a.url).length,0);
-  document.getElementById('kAvgMentions').textContent=bdArticles.length?(totalPickupMentions/bdArticles.length).toFixed(1):'–';
+  // Avg mentions per article = total third-party mentions / BD articles published
+  document.getElementById('kAvgMentions').textContent=bdArticles.length?(mentions.length/bdArticles.length).toFixed(1):'–';
   // Sources in past 7 days
   const cutoff7d=new Date(Date.now()-7*86400000).toISOString();
   const recent=mentions.filter(m=>(m.published||'')>=cutoff7d);
