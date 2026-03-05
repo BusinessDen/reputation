@@ -285,7 +285,7 @@ def scrape_wordpress() -> list[dict]:
 
 def scrape_reddit() -> list[dict]:
     results = []
-    queries = ["BusinessDen"]
+    queries = ['"BusinessDen"']
 
     for q in queries:
         url = f"https://www.reddit.com/search.rss?q={q}&sort=new&t=week"
