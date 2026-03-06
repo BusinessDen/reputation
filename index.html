@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:15px;-webkit-text-size-adjust:100%}
+html{font-size:17px;-webkit-text-size-adjust:100%}
 body{font-family:'Outfit',-apple-system,sans-serif;background:#08090a;color:#c8cad0;line-height:1.5;min-height:100vh;overflow-x:hidden}
 a{color:#3b82f6;text-decoration:none}a:hover{text-decoration:underline}
 button{font-family:inherit;cursor:pointer}input,select{font-family:inherit}
@@ -35,17 +35,17 @@ button{font-family:inherit;cursor:pointer}input,select{font-family:inherit}
 .tab-panel{display:none}.tab-panel.active{display:block}
 
 /* KPI */
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:20px}
-.kpi-card{background:#0d0e12;border:1px solid #1e2028;border-radius:10px;padding:16px 18px;position:relative;overflow:hidden;transition:all .2s;cursor:pointer;user-select:none}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:20px}
+.kpi-card{background:#0d0e12;border:1px solid #1e2028;border-radius:10px;padding:18px 20px;position:relative;overflow:hidden;transition:all .2s;cursor:pointer;user-select:none;text-align:center}
 .kpi-card:hover{border-color:#3a3d45}
 .kpi-card.active-filter{border-color:#3b82f6;background:#0f1425}
 .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
 .kpi-card.blue::before{background:#3b82f6}.kpi-card.amber::before{background:#f5a623}
 .kpi-card.green::before{background:#4caf50}.kpi-card.purple::before{background:#a78bfa}
 .kpi-card.red::before{background:#e85454}
-.kpi-label{font-size:.7rem;color:#555;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:4px}
-.kpi-value{font-size:1.5rem;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:-.03em}
-.kpi-sub{font-size:.72rem;color:#555;margin-top:2px}
+.kpi-label{font-size:.78rem;color:#999;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:6px}
+.kpi-value{font-size:1.8rem;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:-.03em;color:#fff}
+.kpi-sub{font-size:.75rem;color:#666;margin-top:4px}
 .show-all-bar{display:none;margin-bottom:16px;align-items:center;gap:12px}
 .show-all-bar.visible{display:flex}
 .show-all-btn{background:#1a1d25;border:1px solid #3b82f6;color:#3b82f6;padding:6px 16px;border-radius:8px;font-size:.82rem;font-weight:600;transition:all .2s}
@@ -161,6 +161,9 @@ mark{background:rgba(245,166,35,.2);color:#f5a623;padding:0 2px;border-radius:2p
 .sc-author{color:#3b82f6;font-weight:500}
 .sc-reception{background:#13151a;border:1px solid #1e2028;border-radius:8px;padding:12px 14px;font-size:.82rem;line-height:1.6;color:#999;margin-bottom:8px}
 .sc-reception.has-data{color:#c8cad0}
+.sc-reception .pub{color:#f5a623;font-weight:700}
+.sc-reception .story{color:#4caf50;font-weight:700}
+.sc-reception .neg{color:#e85454;font-weight:600}
 .tier-label{font-size:.65rem;color:#555;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:4px}
 .expand-btn{background:none;border:1px solid #1e2028;color:#3b82f6;padding:5px 14px;border-radius:6px;font-size:.78rem;font-weight:600;transition:all .2s}
 .expand-btn:hover{background:#13151a;border-color:#3b82f6}
@@ -275,6 +278,18 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
     </div>
   </div>
 
+  <div class="chart-card">
+    <h3>Outlet Pickup <span style="font-weight:400;color:#666;font-size:.75rem" id="outletChartScope">all time</span></h3>
+    <div style="overflow-x:auto">
+      <div id="outletChartBars" style="display:flex;align-items:flex-end;gap:3px;height:140px;border-bottom:1px solid #1e2028;min-width:0"></div>
+      <div id="outletChartLabels" style="display:flex;gap:3px;margin-top:6px"></div>
+    </div>
+    <div class="chart-legend" style="margin-top:10px">
+      <span><i style="background:#3b82f6"></i> Syndication (BD byline)</span>
+      <span><i style="background:#f5a623"></i> Reference (other byline)</span>
+    </div>
+  </div>
+
   <div class="dash-layout">
     <div>
       <div class="filter-bar">
@@ -321,6 +336,27 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
     <input type="text" id="sfSearch" placeholder="Search articles…">
     <select id="sfAuthor"><option value="">All reporters</option></select>
     <select id="sfPickup"><option value="">All articles</option><option value="yes">Picked up</option><option value="no">Not picked up</option></select>
+    <select id="sfSort1">
+      <option value="rank-desc">Sort: Ranking (high → low)</option>
+      <option value="rank-asc">Ranking (low → high)</option>
+      <option value="date-desc">Date (newest first)</option>
+      <option value="date-asc">Date (oldest first)</option>
+      <option value="author-asc">Author (A → Z)</option>
+      <option value="author-desc">Author (Z → A)</option>
+      <option value="title-asc">Title (A → Z)</option>
+      <option value="title-desc">Title (Z → A)</option>
+    </select>
+    <select id="sfSort2">
+      <option value="">Then by…</option>
+      <option value="rank-desc">Ranking (high → low)</option>
+      <option value="rank-asc">Ranking (low → high)</option>
+      <option value="date-desc">Date (newest first)</option>
+      <option value="date-asc">Date (oldest first)</option>
+      <option value="author-asc">Author (A → Z)</option>
+      <option value="author-desc">Author (Z → A)</option>
+      <option value="title-asc">Title (A → Z)</option>
+      <option value="title-desc">Title (Z → A)</option>
+    </select>
   </div>
   <div id="storiesList"><div class="empty-state"><p>Loading…</p></div></div>
 </div>
@@ -372,7 +408,7 @@ async function init(){
 }
 
 function renderAll(){
-  renderKPIs();renderDailySummary();renderChart();renderTable();renderSidebar();
+  renderKPIs();renderDailySummary();renderChart();renderOutletChart();renderTable();renderSidebar();
   renderStories();renderByline();renderSummariesTab();
   if(D.last_updated)document.getElementById('lastUpdated').textContent='Updated '+new Date(D.last_updated).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
 }
@@ -387,11 +423,13 @@ document.querySelectorAll('.tab-btn').forEach(b=>{b.addEventListener('click',()=
 // ═══ KPIs + KPI FILTER (#6) ═══
 function renderKPIs(){
   document.getElementById('kTotal').textContent=mentions.length;
-  document.getElementById('kNew').textContent=D.new_this_run||0;
+  // New Today = mentions first seen since midnight Mountain Time
+  const mtNow=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Denver'}));
+  const midnightMT=new Date(mtNow.getFullYear(),mtNow.getMonth(),mtNow.getDate()).toISOString();
+  const newToday=mentions.filter(m=>(m.first_seen||'')>=midnightMT).length;
+  document.getElementById('kNew').textContent=newToday;
   document.getElementById('kArticles').textContent=bdArticles.length;
-  // Avg mentions per article = total third-party mentions / BD articles published
   document.getElementById('kAvgMentions').textContent=bdArticles.length?(mentions.length/bdArticles.length).toFixed(1):'–';
-  // Sources in past 7 days
   const cutoff7d=new Date(Date.now()-7*86400000).toISOString();
   const recent=mentions.filter(m=>(m.published||'')>=cutoff7d);
   document.getElementById('kSources7d').textContent=new Set(recent.map(m=>m.source_domain)).size;
@@ -585,6 +623,71 @@ function renderChart(){
   });
 }
 
+// ═══ OUTLET PICKUP CHART (#2) ═══
+function renderOutletChart(){
+  // Detect BD reporters from articles
+  const bdReporters=new Set();
+  bdArticles.forEach(a=>{if(a.author)bdReporters.add(a.author.toLowerCase());});
+  // Also add core reporters
+  ['thomas gounley','justin wingerter','matt geiger','aaron kremer','max scheinblum'].forEach(r=>bdReporters.add(r));
+
+  // Apply date filters if set
+  const from=document.getElementById('fDateFrom').value;
+  const to=document.getElementById('fDateTo').value;
+  let filtered=mentions;
+  if(from||to){
+    filtered=mentions.filter(m=>{
+      const p=(m.published||'').split('T')[0];
+      if(from&&p&&p<from)return false;
+      if(to&&p&&p>to)return false;
+      return true;
+    });
+    const scope=[];
+    if(from)scope.push(fmtDate(from));
+    if(to)scope.push(fmtDate(to));
+    document.getElementById('outletChartScope').textContent=scope.join(' – ');
+  } else {
+    document.getElementById('outletChartScope').textContent='all time';
+  }
+
+  // Classify each mention as syndication or reference
+  const outlets={};
+  filtered.forEach(m=>{
+    const src=m.source||'Unknown';
+    if(!outlets[src])outlets[src]={syndication:0,reference:0};
+    const author=(m.author||'').toLowerCase().trim();
+    if(author&&[...bdReporters].some(r=>author.includes(r)||r.includes(author))){
+      outlets[src].syndication++;
+    } else {
+      outlets[src].reference++;
+    }
+  });
+
+  // Sort by total descending
+  const sorted=Object.entries(outlets).sort((a,b)=>(b[1].syndication+b[1].reference)-(a[1].syndication+a[1].reference));
+  if(!sorted.length){document.getElementById('outletChartBars').innerHTML='';return;}
+
+  const maxVal=Math.max(...sorted.map(([,v])=>v.syndication+v.reference),1);
+  const barH=130;
+
+  document.getElementById('outletChartBars').innerHTML=sorted.map(([src,v])=>{
+    const total=v.syndication+v.reference;
+    const sH=Math.max(0,(v.syndication/maxVal)*barH);
+    const rH=Math.max(0,(v.reference/maxVal)*barH);
+    const tip=esc(src)+': '+v.syndication+' syndication, '+v.reference+' reference';
+    return '<div style="flex:1;min-width:28px;max-width:60px;display:flex;flex-direction:column;align-items:center;position:relative;cursor:pointer" class="chart-col">'+
+      '<div class="chart-tooltip">'+tip+'</div>'+
+      (sH?'<div style="width:100%;height:'+sH+'px;background:#3b82f6;border-radius:2px 2px 0 0"></div>':'')+
+      '<div style="width:100%;height:'+Math.max(total?1:0,rH)+'px;background:#f5a623;border-radius:'+(sH?'0':'2px 2px')+' 0 0"></div>'+
+    '</div>';
+  }).join('');
+
+  document.getElementById('outletChartLabels').innerHTML=sorted.map(([src])=>{
+    const short=src.length>12?src.slice(0,11)+'…':src;
+    return '<span style="flex:1;min-width:28px;max-width:60px;font-size:.55rem;color:#555;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+esc(short)+'</span>';
+  }).join('');
+}
+
 // ═══ SIDEBAR (#7) ═══
 function renderSidebar(){
   const sc={},mc={};
@@ -606,7 +709,7 @@ function getFiltered(){
   const to=document.getElementById('fDateTo').value;
   const today=new Date().toISOString().split('T')[0];
   return mentions.filter(m=>{
-    if(kpiFilter==='today'&&(m.published||'').split('T')[0]!==new Date().toISOString().split('T')[0])return false;
+    if(kpiFilter==='today'){const mt=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Denver'}));const mid=new Date(mt.getFullYear(),mt.getMonth(),mt.getDate()).toISOString();if((m.first_seen||'')<mid)return false;}
     if(kpiFilter==='sources7d'){const c7=new Date(Date.now()-7*86400000).toISOString();if((m.published||'')<c7)return false;}
     if(sidebarSource&&m.source!==sidebarSource)return false;
     if(via&&m.found_via!==via)return false;
@@ -631,7 +734,7 @@ function renderTable(){
   }).join('');
   document.querySelectorAll('thead th').forEach(th=>{th.classList.toggle('sorted',th.dataset.col===sortCol);const a=th.querySelector('.sort-arrow');if(th.dataset.col===sortCol)a.textContent=sortDir==='asc'?'▲':'▼';else a.textContent='▼';});
 }
-['fSearch','fVia','fSentiment','fDateFrom','fDateTo'].forEach(id=>{document.getElementById(id).addEventListener(id.startsWith('fDate')?'change':'input',renderTable);});
+['fSearch','fVia','fSentiment','fDateFrom','fDateTo'].forEach(id=>{document.getElementById(id).addEventListener(id.startsWith('fDate')?'change':'input',()=>{renderTable();if(id.startsWith('fDate'))renderOutletChart();});});
 document.querySelectorAll('thead th[data-col]').forEach(th=>{th.addEventListener('click',()=>{const c=th.dataset.col;if(sortCol===c)sortDir=sortDir==='asc'?'desc':'asc';else{sortCol=c;sortDir=c==='published'?'desc':'asc';}renderTable();});});
 
 // ═══ OUR STORIES (#4) ═══
@@ -743,16 +846,51 @@ function doRenderStories(){
   const q=document.getElementById('sfSearch').value.toLowerCase();
   const auth=document.getElementById('sfAuthor').value;
   const pickup=document.getElementById('sfPickup').value;
+  const sort1=document.getElementById('sfSort1').value;
+  const sort2=document.getElementById('sfSort2').value;
   const reception=D.article_reception||{};
   const el=document.getElementById('storiesList');
 
-  const filtered=bdArticles.filter(a=>{
+  // Compute global ranking by mention count (all articles)
+  const allRanked=[...bdArticles].map(a=>({...a,mentionCount:getArticleMatches(a.url).length}));
+  allRanked.sort((a,b)=>b.mentionCount-a.mentionCount);
+  const globalRank={};
+  allRanked.forEach((a,i)=>{globalRank[a.url]=i+1;});
+
+  // Filter
+  let filtered=bdArticles.map(a=>({...a,mentionCount:getArticleMatches(a.url).length,rank:globalRank[a.url]||0}));
+  filtered=filtered.filter(a=>{
     if(auth&&a.author!==auth)return false;
     if(q&&!(a.title+' '+a.author+' '+(a.categories||[]).join(' ')).toLowerCase().includes(q))return false;
-    const refs=getArticleMatches(a.url);
-    if(pickup==='yes'&&!refs.length)return false;
-    if(pickup==='no'&&refs.length)return false;
+    if(pickup==='yes'&&!a.mentionCount)return false;
+    if(pickup==='no'&&a.mentionCount)return false;
     return true;
+  });
+
+  // Sort helper
+  function cmpVal(a,key,dir){
+    if(key==='rank')return dir==='desc'?a.mentionCount:-a.mentionCount;
+    if(key==='date')return dir==='desc'?-(a.published||'').localeCompare('z'):(a.published||'').localeCompare('');
+    if(key==='author')return 0;
+    if(key==='title')return 0;
+    return 0;
+  }
+  function sortFn(sortStr){
+    if(!sortStr)return null;
+    const[key,dir]=sortStr.split('-');
+    return(a,b)=>{
+      if(key==='rank')return dir==='desc'?b.mentionCount-a.mentionCount:a.mentionCount-b.mentionCount;
+      if(key==='date')return dir==='desc'?(b.published||'').localeCompare(a.published||''):(a.published||'').localeCompare(b.published||'');
+      if(key==='author')return dir==='asc'?(a.author||'').localeCompare(b.author||''):(b.author||'').localeCompare(a.author||'');
+      if(key==='title')return dir==='asc'?(a.title||'').localeCompare(b.title||''):(b.title||'').localeCompare(a.title||'');
+      return 0;
+    };
+  }
+  const fn1=sortFn(sort1), fn2=sortFn(sort2);
+  filtered.sort((a,b)=>{
+    const r1=fn1?fn1(a,b):0;
+    if(r1!==0||!fn2)return r1;
+    return fn2(a,b);
   });
 
   if(!filtered.length){el.innerHTML='<div class="empty-state"><p>No articles match filters</p></div>';return;}
@@ -763,18 +901,24 @@ function doRenderStories(){
     let recText='',recTier='';
     for(const t of['30day','7day','2day']){if(artRec[t]){recText=artRec[t].text;recTier=t;break;}}
     const tierLabels={'2day':'2-Day Reception','7day':'1-Week Reception','30day':'1-Month Reception'};
-    return'<div class="story-card"><div class="sc-header"><div class="sc-title"><a href="'+esc(a.url)+'" target="_blank">'+esc(a.title)+'</a></div></div><div class="sc-meta"><span class="sc-author">'+esc(a.author)+'</span><span>'+fmtDate(a.published)+'</span><span>'+esc((a.categories||[]).join(', '))+'</span></div>'+
-      (recText?'<div class="sc-reception has-data"><div class="tier-label">'+(tierLabels[recTier]||'Reception')+'</div>'+esc(recText)+'</div>':(refs.length?'<div class="sc-reception">AI reception summary pending (generated at 2-day, 7-day, 30-day marks).</div>':'<div class="no-pickup">No third-party pickup detected</div>'))+
+    const rank=a.rank;
+    return'<div class="story-card"><div class="sc-header"><span style="font-family:JetBrains Mono;font-size:.75rem;color:#555;min-width:30px">#'+rank+'</span><div class="sc-title"><a href="'+esc(a.url)+'" target="_blank">'+esc(a.title)+'</a></div></div><div class="sc-meta"><span class="sc-author">'+esc(a.author)+'</span><span>'+fmtDate(a.published)+'</span><span>'+a.mentionCount+' mention'+(a.mentionCount!==1?'s':'')+'</span><span>'+esc((a.categories||[]).join(', '))+'</span></div>'+
+      (recText?'<div class="sc-reception has-data"><div class="tier-label">'+(tierLabels[recTier]||'Reception')+'</div>'+formatSummary(recText)+'</div>':(refs.length?'<div class="sc-reception">AI reception summary pending (generated at 2-day, 7-day, 30-day marks).</div>':'<div class="no-pickup">No third-party pickup detected</div>'))+
       (refs.length?'<button class="expand-btn" onclick="toggleRefs(this)">View online references ('+refs.length+')</button><div class="ref-list">'+refs.map(r=>'<a href="'+esc(r.url)+'" target="_blank">'+esc(r.title)+'<span class="ref-source">'+esc(r.source)+'</span></a>').join('')+'</div>':'')+'</div>';
   }).join('');
 }
-['sfSearch','sfAuthor','sfPickup'].forEach(id=>{document.getElementById(id).addEventListener(id==='sfSearch'?'input':'change',doRenderStories);});
+['sfSearch','sfAuthor','sfPickup','sfSort1','sfSort2'].forEach(id=>{document.getElementById(id).addEventListener(id==='sfSearch'?'input':'change',doRenderStories);});
 function toggleRefs(btn){const l=btn.nextElementSibling;const open=l.classList.toggle('open');btn.textContent=open?'Hide references':'View online references ('+l.children.length+')';}
 
 // ═══ BYLINE (#5) ═══
 function renderByline(){
   const el=document.getElementById('bylineContent');
   if(!bdArticles.length){el.innerHTML='<div class="empty-state"><p>No BusinessDen articles tracked yet.</p></div>';return;}
+
+  // Compute global ranking by mention count
+  const globalRanked=[...bdArticles].map(a=>({url:a.url,title:a.title,author:a.author,mentions:getArticleMatches(a.url).length}));
+  globalRanked.sort((a,b)=>b.mentions-a.mentions);
+  const globalRank={};globalRanked.forEach((a,i)=>{globalRank[a.url]=i+1;});
 
   // Build reporter stats from data (always works, no AI needed)
   const reporterData={};
@@ -786,11 +930,18 @@ function renderByline(){
     if(refs.length){
       reporterData[author].pickedUp++;
       reporterData[author].articles.push({
-        title:a.title, published:a.published,
+        title:a.title, published:a.published, url:a.url,
         mentions:refs.length,
         outlets:refs.map(r=>r.source).filter((v,i,a)=>a.indexOf(v)===i).slice(0,6)
       });
     }
+  });
+
+  // Compute per-author rankings
+  const authorRank={};
+  Object.entries(reporterData).forEach(([name,rd])=>{
+    const sorted=[...rd.articles].sort((a,b)=>b.mentions-a.mentions);
+    sorted.forEach((a,i)=>{authorRank[a.url]=i+1;});
   });
 
   // Get AI text per reporter if available
@@ -828,11 +979,20 @@ function renderByline(){
       const allChrono=[...rd.articles].sort((a,b)=>(b.published||'').localeCompare(a.published||''));
       const uid='byline-arts-'+name.replace(/\s/g,'-');
 
+      const firstName=name.split(' ')[0];
       const renderArticle=a=>{
-        return '<div style="padding:8px 0;border-bottom:1px solid #1a1d25;font-size:.82rem">'+
-          '<span style="color:#c8cad0;font-weight:500">'+esc(a.title)+'</span>'+
-          '<span style="color:#555;margin-left:12px;font-size:.75rem" class="mono">'+fmtDate(a.published)+'</span>'+
-          '<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+'</span>'+
+        const gR=globalRank[a.url]||'–';
+        const aR=authorRank[a.url]||'–';
+        return '<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1a1d25;font-size:.82rem;align-items:flex-start">'+
+          '<div style="min-width:52px;display:flex;flex-direction:column;gap:2px;flex-shrink:0;padding-top:2px">'+
+            '<span style="font-family:JetBrains Mono;font-size:.72rem;color:#3b82f6;font-weight:600">#'+gR+'</span>'+
+            '<span style="font-family:JetBrains Mono;font-size:.65rem;color:#555">'+firstName+' #'+aR+'</span>'+
+          '</div>'+
+          '<div style="flex:1">'+
+            '<span style="color:#c8cad0;font-weight:500">'+esc(a.title)+'</span>'+
+            '<span style="color:#555;margin-left:12px;font-size:.75rem" class="mono">'+fmtDate(a.published)+'</span>'+
+            '<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+'</span>'+
+          '</div>'+
         '</div>';
       };
 
