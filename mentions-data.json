@@ -1,6 +1,54 @@
 {
   "mentions": [
     {
+      "id": "b46d97cef96a917b",
+      "title": "Duplexes eyed for Shops at Northfield site where apartments were proposed",
+      "title_raw": "Duplexes eyed for Shops at Northfield site where apartments were proposed - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1DbEV1ZWozaWFlUFdGU0RZU1JmXzVXTXU0a2FIclNZcWNtZjlycndsY3NNRUQxaFBBQWJyZ1V6SkxTNTkybW9nRDNack9iZ1JPcThtQXdiSGNWLVFHd2J0MFdEVUpsdjNpMFlhWHdkRmJLM0NLN1VRVHFyZ0NCeTg?oc=5",
+      "snippet": "Duplexes eyed for Shops at Northfield site where apartments were proposed  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-05T22:00:50+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-06T05:02:25.712742+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMif0FVX3lxTE1DbEV1ZWozaWFlUFdGU0RZU1JmXzVXTXU0a2FIclNZcWNtZjlycndsY3NNRUQxaFBBQWJyZ1V6SkxTNTkybW9nRDNack9iZ1JPcThtQXdiSGNWLVFHd2J0MFdEVUpsdjNpMFlhWHdkRmJLM0NLN1VRVHFyZ0NCeTg",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "e0363840a9c41e3f",
+      "title": "Construction firm owner ‘captive in his own company,’ asks judge to close it",
+      "title_raw": "Construction firm owner ‘captive in his own company,’ asks judge to close it - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOOGFOWU5fb21fbW9DRWNGQmVieFdWMnM5Z18wMzI2RE5Da29VQ2xkeXlvaVRrdlhSSUV3TV9JSUtBZ2tEVkticjktZkQwUnU3UVdBMTlzSGFNXzQzbVlaM3BESVExS3N5bGRFNmhsVTVvUVlhTTZMUzR1ZkdNWVloMFBBUklzNjZSY0VrZjZhOWxNQ1cyZzB5azRVVEwtVXJmVURRaHUtenZZcFBNVG42WkJ3?oc=5",
+      "snippet": "Construction firm owner ‘captive in his own company,’ asks judge to close it  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-05T22:00:00+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-06T05:02:25.712742+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMisgFBVV95cUxOOGFOWU5fb21fbW9DRWNGQmVieFdWMnM5Z18wMzI2RE5Da29VQ2xkeXlvaVRrdlhSSUV3TV9JSUtBZ2tEVkticjktZkQwUnU3UVdBMTlzSGFNXzQzbVlaM3BESVExS3N5bGRFNmhsVTVvUVlhTTZMUzR1ZkdNWVloMFBBUklzNjZSY0VrZjZhOWxNQ1cyZzB5azRVVEwtVXJmVURRaHUtenZZcFBNVG42WkJ3",
+      "sentiment": "neutral"
+    },
+    {
       "id": "bba0c3532b70b21a",
       "title": "Denver Remodel Boss Says Partners Turned Firm Into ‘Prison,’ Asks Judge To Pull Plug On Cubex",
       "title_raw": "Denver Remodel Boss Says Partners Turned Firm Into ‘Prison,’ Asks Judge To Pull Plug On Cubex - Hoodline",
@@ -825,6 +873,12 @@
         "text": "• **Denver Post** cited 7 BD stories: Fentress Broadway sale, coworking golf expansion, Luzzatto conversion project, ex-Avs defenseman beer launch, Ramos Law office purchase, Fading West-Granby dispute, dumpling bracket\n\n• **Brown Palace sale getting major pickup** — Denver Post, Denverite, 9News, Denver Gazette all covering BD's story on historic hotel listing\n\n• **Hoodline** aggregated 3 BD stories: Fentress Broadway sale, Lowry sewer issues, Colorado lender consolidation\n\n• **Social media amplification** — Multiple Instagram and Facebook posts citing BD's Brown Palace and Avalanche bourbon stories\n\n• **9News, Denver Gazette** picked up Brown Palace hotel sale story\n\n• **Denverite** covered Brown Palace sale with \"Want to buy?\" angle\n\n• **Reddit Denver** shared BD story on Rocky Mountain High topic\n\n• No reporter bylines identifiable in third-party coverage",
         "mention_count": 18,
         "generated": "2026-03-05T04:36:48.740563+00:00"
+      },
+      {
+        "date": "2026-03-06",
+        "text": "• The Denver Post covered construction firm owner seeking court-ordered closure, describing himself as 'captive in his own company'\n\n• The Denver Post reported on duplex development plans for Shops at Northfield site previously slated for apartments",
+        "mention_count": 2,
+        "generated": "2026-03-06T05:02:25.712742+00:00"
       }
     ],
     "weekly": [],
@@ -841,6 +895,17 @@
         "Justin Wingerter"
       ],
       "generated": "2026-03-05T04:36:48.740563+00:00"
+    },
+    {
+      "date": "2026-03-06",
+      "text": "## Justin Wingerter\nWingerter achieved a 50% pickup rate (2 of 4 articles), with both successful pieces focusing on construction industry legal disputes. His story about the construction firm owner seeking judicial closure of his own company generated the strongest traction, earning coverage from both The Denver Post and Hoodline. The modular builder conflict over the Granby project also caught The Denver Post's attention, suggesting outlets find value in Wingerter's coverage of construction sector litigation and business disputes.\n\nThe pattern emerging from Wingerter's pickups indicates that stories combining legal drama with construction industry dysfunction resonate particularly well with other media outlets. Both picked-up pieces involved companies in distress or conflict, suggesting this niche of troubled construction businesses provides compelling content that other newsrooms want to amplify.\n\n## Matt Geiger\nGeiger achieved perfect pickup performance with all 4 articles gaining external coverage, though exclusively from The Denver Post. His stories span commercial real estate development and office sales, with the $300M Luzzatto downtown project representing the highest-value deal covered. The range includes everything from large-scale residential development (duplexes at Northfield) to niche business concepts (golf-centric coworking), demonstrating broad appeal across real estate sectors.\n\nThe consistent Post pickup rate suggests Geiger has established a reliable pipeline for commercial real estate news that complements rather than competes with the Post's coverage. His beat appears to generate steady, if not spectacular, external interest across diverse property types and deal sizes, indicating strong sourcing and news judgment in the commercial real estate space.\n\n## Max Scheinblum\nScheinblum had a 25% pickup rate (1 of 4 articles), with his former Avalanche defenseman beer brand launch story gaining attention from The Denver Post. This represents his only external pickup during the period, suggesting his coverage areas may be more specialized or that his other stories didn't align with what other outlets were seeking.\n\nThe single pickup focusing on a sports celebrity's business venture indicates that stories combining recognizable personalities with local business launches have appeal beyond BusinessDen's readership, though Scheinblum's other coverage during this period didn't generate similar external interest.\n\n## Thomas Gounley\nGounley posted the strongest pickup performance with 3 of 5 articles gaining external coverage, generating 10 total mentions across multiple outlets. His Brown Palace sale story dominated with 6 pickups spanning television (9News), print (Denver Gazette), and social media platforms, while his other real estate stories earned coverage from The Denver Post and Hoodline. The hotel/credit union sale near the Central Park homeless shelter also gained Facebook traction, suggesting social media interest in stories with community impact angles.\n\nGounley's success pattern reveals that high-value, iconic real estate transactions generate the most widespread coverage, particularly when involving Denver landmarks like the Brown Palace. His beat consistently produces content that other outlets find valuable, with a clear hierarchy where prestigious property sales vastly outperform routine commercial transactions in terms of external pickup and reach.",
+      "reporters": [
+        "Justin Wingerter",
+        "Thomas Gounley",
+        "Max Scheinblum",
+        "Matt Geiger"
+      ],
+      "generated": "2026-03-06T05:02:25.712742+00:00"
     }
   ],
   "article_reception": {
@@ -913,10 +978,14 @@
       "69de52b007a0001e"
     ],
     "https://businessden.com/2026/03/05/construction-firm-owner-captive-in-his-own-company-asks-judge-to-close-it/": [
-      "bba0c3532b70b21a"
+      "bba0c3532b70b21a",
+      "e0363840a9c41e3f"
+    ],
+    "https://businessden.com/2026/03/05/duplexes-eyed-for-shops-at-northfield-site-where-apartments-were-proposed/": [
+      "b46d97cef96a917b"
     ]
   },
-  "last_updated": "2026-03-05T19:50:50.530403+00:00",
+  "last_updated": "2026-03-06T05:02:25.712742+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -1085,7 +1154,19 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-06T05:02:25.712742+00:00",
+      "new_mentions": 2,
+      "total_mentions": 27,
+      "total_bd_articles": 17,
+      "sources": {
+        "google_news_rss": 41,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 0
+  "new_this_run": 2
 }
