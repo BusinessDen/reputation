@@ -313,6 +313,30 @@
       "sentiment": "neutral"
     },
     {
+      "id": "2fd77cd13255542d",
+      "title": "Former Punch Bowl Social exec succeeds Padró as CEO of restaurant group",
+      "title_raw": "Former Punch Bowl Social exec succeeds Padró as CEO of restaurant group - x.com",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFAxOXl3ajZWeW9GSDVac0V6RnpFeTE2VnJfZU9uZEhILTZHWS1ycndCT01Ccks5OHl2R2Flakx4c1FTNzJCWEpseTZ5dlltQkt3ZjI3SnFySkZLZ0ZlU2FNNG04UQ?oc=5",
+      "snippet": "Former Punch Bowl Social exec succeeds Padró as CEO of restaurant group  x.com",
+      "source": "x.com",
+      "source_url": "https://x.com",
+      "source_domain": "x.com",
+      "published": "2026-03-04T17:37:30+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-06T05:54:02.865444+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiY0FVX3lxTFAxOXl3ajZWeW9GSDVac0V6RnpFeTE2VnJfZU9uZEhILTZHWS1ycndCT01Ccks5OHl2R2Flakx4c1FTNzJCWEpseTZ5dlltQkt3ZjI3SnFySkZLZ0ZlU2FNNG04UQ",
+      "sentiment": "neutral"
+    },
+    {
       "id": "b530d25c22967a2c",
       "title": "🏒 Colorado Avalanche fans, this one’s for you. Our Woody Creek Distillers Colorado Avalanche Bourbon is now available for pre-order online. First 100 orders get an exclusive WCD x Avalanche beanie. Go Avs Go. Link in bio.",
       "title_raw": "🏒 Colorado Avalanche fans, this one’s for you. Our Woody Creek Distillers Colorado Avalanche Bourbon is now available for pre-order online. First 100 orders get an exclusive WCD x Avalanche beanie. Go Avs Go. Link in bio. - instagram.com",
@@ -983,9 +1007,12 @@
     ],
     "https://businessden.com/2026/03/05/duplexes-eyed-for-shops-at-northfield-site-where-apartments-were-proposed/": [
       "b46d97cef96a917b"
+    ],
+    "https://businessden.com/2026/03/04/former-punch-bowl-social-exec-succeeds-padro-as-ceo-of-restaurant-group/": [
+      "2fd77cd13255542d"
     ]
   },
-  "last_updated": "2026-03-06T05:02:25.712742+00:00",
+  "last_updated": "2026-03-06T05:54:02.865444+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -1166,7 +1193,19 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-06T05:54:02.865444+00:00",
+      "new_mentions": 1,
+      "total_mentions": 28,
+      "total_bd_articles": 17,
+      "sources": {
+        "google_news_rss": 42,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 2
+  "new_this_run": 1
 }
