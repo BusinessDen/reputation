@@ -337,6 +337,30 @@
       "sentiment": "neutral"
     },
     {
+      "id": "121501a0e48e1bea",
+      "title": "Attorney Joe Ramos doesn’t have a downtown corner office. But in southeast Denver, he’ll have an office on a corner.",
+      "title_raw": "Attorney Joe Ramos doesn’t have a downtown corner office. But in southeast Denver, he’ll have an office on a corner. - x.com",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1QMjYwd25CVWJOdjBiY3k0X0dXQ2xDdXliN1ZnaDhSbjNrd3JOdFdaOXVXQ0ZWN3RWRDZBRUlOQlBhSHpTZ0VzRnFpRnQ5b3FPMGFtdVBJWFg5NlZNeFJBUWRhSQ?oc=5",
+      "snippet": "Attorney Joe Ramos doesn’t have a downtown corner office. But in southeast Denver, he’ll have an office on a corner.  x.com",
+      "source": "x.com",
+      "source_url": "https://x.com",
+      "source_domain": "x.com",
+      "published": "2026-03-04T16:55:59+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-06T12:56:53.383782+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiY0FVX3lxTE1QMjYwd25CVWJOdjBiY3k0X0dXQ2xDdXliN1ZnaDhSbjNrd3JOdFdaOXVXQ0ZWN3RWRDZBRUlOQlBhSHpTZ0VzRnFpRnQ5b3FPMGFtdVBJWFg5NlZNeFJBUWRhSQ",
+      "sentiment": "neutral"
+    },
+    {
       "id": "b530d25c22967a2c",
       "title": "🏒 Colorado Avalanche fans, this one’s for you. Our Woody Creek Distillers Colorado Avalanche Bourbon is now available for pre-order online. First 100 orders get an exclusive WCD x Avalanche beanie. Go Avs Go. Link in bio.",
       "title_raw": "🏒 Colorado Avalanche fans, this one’s for you. Our Woody Creek Distillers Colorado Avalanche Bourbon is now available for pre-order online. First 100 orders get an exclusive WCD x Avalanche beanie. Go Avs Go. Link in bio. - instagram.com",
@@ -675,6 +699,54 @@
   ],
   "bd_articles": [
     {
+      "url": "https://businessden.com/2026/03/06/9m-country-club-sale-tops-february-home-transactions/",
+      "title": "$9M Country Club sale tops February home transactions",
+      "author": "Sara B. Hansen",
+      "published": "2026-03-06T12:01:46+00:00",
+      "categories": [
+        "Residential Real Estate"
+      ],
+      "summary": "Castle Rock and Wash Park mansions rounded out the top 5.",
+      "content_preview": "181 Race St. (Photos courtesy of REColorado)\nA renovated and expanded 1927 Denver Country Club mansion sold for its $9 million asking price, making it February’s highest priced metro home sale.\nOther standout luxury sales last month included a Castle Rock equestrian estate, a newly built home near Washington Park and two mansions in Cherry Hills Village.\nWhen the Blake O’Shaughnessy 2006 Trust purchased 181 Race St. for $3.8 million in January 2020, the 7,500-square-foot home had already been gu",
+      "ingested": "2026-03-06T12:57:00.498756+00:00"
+    },
+    {
+      "url": "https://businessden.com/2026/03/06/hopes-of-revitalization-for-a-derelict-thornton-shopping-center-we-need-to-have-a-gathering-space/",
+      "title": "Hopes of revitalization for a derelict Thornton shopping center: ‘We need to have a gathering space’",
+      "author": "John Aguilar",
+      "published": "2026-03-06T12:01:27+00:00",
+      "categories": [
+        "Commercial Real Estate"
+      ],
+      "summary": "The city plans to remove contaminated soils, then find developer to breathe new life into site.",
+      "content_preview": "An aerial view of the former Thornton Shopping Center in Thornton on Feb. 25, 2026. (Hyoung Chang/The Denver Post)\nThornton is staring 1955 in the face and saying, “No thanks.”\nThat was the year the Thornton Shopping Center first sprouted on a 15-acre parcel at the corner of East 88th Avenue and Washington Street. It was a marvel of post-war suburban America — complete with a Woolworth’s and Miller’s Market.\nBut time took its toll, rendering the strip mall a crumbling, blighted mess as the city ",
+      "ingested": "2026-03-06T12:57:00.498826+00:00"
+    },
+    {
+      "url": "https://businessden.com/2026/03/06/farbers-sell-lohi-apartment-development-site-for-9-5m/",
+      "title": "Farbers sell LoHi apartment development site for $9.5M",
+      "author": "Thomas Gounley",
+      "published": "2026-03-06T12:01:05+00:00",
+      "categories": [
+        "Commercial Real Estate"
+      ],
+      "summary": "The buyer said a groundbreaking is imminent.",
+      "content_preview": "The lot at 3301-3333 Mariposa St. in Denver on March 5, 2026. (Thomas Gounley/BusinessDen)\nThe Farber brothers have sold a site in LoHi with approved development plans, and a groundbreaking is imminent.\nElevation Development Group, founded by Brent, Brad and Gregg Farber, sold 0.68 acre at 3301-3333 Mariposa St. in Denver on Wednesday to Greenwood Village-based Century Communities.\nCentury, a large homebuilder that also develops apartments, paid $9.5 million, records show. That works out to $322",
+      "ingested": "2026-03-06T12:57:00.498864+00:00"
+    },
+    {
+      "url": "https://businessden.com/2026/03/06/five-takeaways-from-denvers-restaurant-report/",
+      "title": "Five takeaways from Denver’s restaurant report",
+      "author": "Max Scheinblum",
+      "published": "2026-03-06T12:00:38+00:00",
+      "categories": [
+        "Restaurants"
+      ],
+      "summary": "Costs are up while employment and profit are down.",
+      "content_preview": "Marlee Brown serves guests at Trybal African Speakeasy in Denver on Feb. 25, 2026. (Kevin Mohatt/Special to The Denver Post)\nDenver’s restaurant scene is in crisis.\nSo much so that the city, VisitDenver and Austin, Texas-based restaurant financing company InKind commissioned a report to detail the industry.\nDenver’s rising tipped minimum wage, which has more than doubled since 2019 and sits at $16.27 an hour, was the biggest complaint of local restaurateurs. But the 67-page document outlined a h",
+      "ingested": "2026-03-06T12:57:00.498914+00:00"
+    },
+    {
       "url": "https://businessden.com/2026/03/05/the-docket-real-estate-lawsuit-roundup-for-3-5-26/",
       "title": "The Docket: Real estate lawsuit roundup for 3.5.26",
       "author": "Justin Wingerter",
@@ -967,6 +1039,34 @@
         "mention_count": 1,
         "generated": "2026-03-05T13:59:03.963138+00:00"
       }
+    },
+    "https://businessden.com/2026/03/04/ramos-law-buys-southeast-denver-office-for-3m/": {
+      "2day": {
+        "text": "# Summary of Article Reception\n\nThe BusinessDen article about Ramos Law's $3M southeast Denver office purchase received limited pickup over two days, with mentions from The Denver Post and X.com. Both outlets provided only brief mentions rather than substantial coverage, simply reprinting or referencing the core transaction details. The framing remained neutral across all sources, with no meaningful differences in how the story was presented.",
+        "mention_count": 2,
+        "generated": "2026-03-06T12:56:53.383782+00:00"
+      }
+    },
+    "https://businessden.com/2026/03/04/hotel-credit-union-next-to-central-park-homeless-shelter-find-a-buyer/": {
+      "2day": {
+        "text": "# Summary\n\nBusinessDen's article about a hotel and credit union sale near Central Park's homeless shelter received minimal pickup within 2 days. The Denver Post republished the story with identical framing, while a Facebook post provided a brief mention of the sale. Both outlets maintained neutral coverage without reframing the original reporting by Thomas Gounley.",
+        "mention_count": 2,
+        "generated": "2026-03-06T12:56:53.383782+00:00"
+      }
+    },
+    "https://businessden.com/2026/03/04/former-punch-bowl-social-exec-succeeds-padro-as-ceo-of-restaurant-group/": {
+      "2day": {
+        "text": "# Summary\n\nThe BusinessDen article about the CEO succession at a restaurant group received minimal third-party coverage in its first two days. Only X (formerly Twitter) picked up the story, and only with a brief mention that simply repeated the headline without additional reporting or analysis. There were no notable framing differences, as the X post maintained a neutral tone identical to the original article's framing.",
+        "mention_count": 1,
+        "generated": "2026-03-06T12:56:53.383782+00:00"
+      }
+    },
+    "https://businessden.com/2026/03/04/modular-builder-fading-west-demands-millions-from-developer-of-granby-project/": {
+      "2day": {
+        "text": "# Summary\n\nThe BusinessDen article about modular builder Fading West's legal demands against a Granby project developer received minimal third-party pickup within its first two days. Only The Denver Post picked up the story, running it as a brief mention with the same headline rather than substantial independent coverage. Both outlets maintained neutral framing of the dispute without adding interpretive commentary or additional reporting.",
+        "mention_count": 1,
+        "generated": "2026-03-06T12:56:53.383782+00:00"
+      }
     }
   },
   "article_matches": {
@@ -984,7 +1084,8 @@
       "9f0be8e47e1c87ff"
     ],
     "https://businessden.com/2026/03/04/ramos-law-buys-southeast-denver-office-for-3m/": [
-      "0c05d45f0a0c2402"
+      "0c05d45f0a0c2402",
+      "121501a0e48e1bea"
     ],
     "https://businessden.com/2026/03/02/brown-palace-hotel-denver-for-sale/": [
       "7b796662a5fa6f0e",
@@ -1012,7 +1113,7 @@
       "2fd77cd13255542d"
     ]
   },
-  "last_updated": "2026-03-06T05:54:02.865444+00:00",
+  "last_updated": "2026-03-06T12:56:53.383782+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -1201,6 +1302,18 @@
       "total_bd_articles": 17,
       "sources": {
         "google_news_rss": 42,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
+    },
+    {
+      "timestamp": "2026-03-06T12:56:53.383782+00:00",
+      "new_mentions": 1,
+      "total_mentions": 29,
+      "total_bd_articles": 21,
+      "sources": {
+        "google_news_rss": 43,
         "wordpress_api": 16,
         "reddit_rss": 1,
         "medium_rss": 0
