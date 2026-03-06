@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:17px;-webkit-text-size-adjust:100%}
+html{font-size:19px;-webkit-text-size-adjust:100%}
 body{font-family:'Outfit',-apple-system,sans-serif;background:#08090a;color:#c8cad0;line-height:1.5;min-height:100vh;overflow-x:hidden}
 a{color:#3b82f6;text-decoration:none}a:hover{text-decoration:underline}
 button{font-family:inherit;cursor:pointer}input,select{font-family:inherit}
@@ -66,6 +66,21 @@ button{font-family:inherit;cursor:pointer}input,select{font-family:inherit}
 .ai-card.empty .ai-body{color:#555;font-style:italic}
 
 /* Chart */
+/* Horizontal bar chart */
+.hbar-row{display:flex;align-items:center;gap:10px;padding:5px 0;cursor:pointer;border-radius:6px;transition:opacity .2s}
+.hbar-row:hover{background:#13151a}
+.hbar-row.dimmed{opacity:.3}
+.hbar-row.selected{opacity:1}
+.hbar-label{min-width:140px;font-size:.82rem;color:#ddd;font-weight:500;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbar-track{flex:1;display:flex;height:22px;border-radius:4px;overflow:hidden;position:relative}
+.hbar-seg{height:100%;transition:width .3s}
+.hbar-seg.syndication{background:#5b9bf5}
+.hbar-seg.reference{background:#ffbf47}
+.hbar-count{min-width:36px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#999;text-align:left}
+.hbar-tooltip{position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:#1a1d25;border:1px solid #2a2d35;color:#ddd;font-size:.72rem;padding:3px 10px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10}
+.hbar-row:hover .hbar-tooltip{opacity:1}
+
+/* Chart card */
 .chart-card{background:#0d0e12;border:1px solid #1e2028;border-radius:10px;padding:20px;margin-bottom:20px}
 .chart-card h3{font-size:.85rem;font-weight:600;margin-bottom:16px}
 .chart-area{position:relative}
@@ -280,13 +295,10 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
 
   <div class="chart-card">
     <h3>Outlet Pickup <span style="font-weight:400;color:#666;font-size:.75rem" id="outletChartScope">all time</span></h3>
-    <div style="overflow-x:auto">
-      <div id="outletChartBars" style="display:flex;align-items:flex-end;gap:3px;height:140px;border-bottom:1px solid #1e2028;min-width:0"></div>
-      <div id="outletChartLabels" style="display:flex;gap:3px;margin-top:6px"></div>
-    </div>
-    <div class="chart-legend" style="margin-top:10px">
-      <span><i style="background:#3b82f6"></i> Syndication (BD byline)</span>
-      <span><i style="background:#f5a623"></i> Reference (other byline)</span>
+    <div id="outletChartBars"></div>
+    <div class="chart-legend" style="margin-top:12px">
+      <span><i style="background:#5b9bf5"></i> Syndication (BD byline)</span>
+      <span><i style="background:#ffbf47"></i> Reference (other byline)</span>
     </div>
   </div>
 
@@ -398,7 +410,7 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
 <footer class="site-footer"><span>Powered by Google News RSS · WordPress API · Reddit · Medium</span><span>Updated daily at 5 AM MT</span></footer>
 
 <script>
-let D={},mentions=[],bdArticles=[],sortCol='published',sortDir='desc',kpiFilter=null,sidebarSource='';
+let D={},mentions=[],bdArticles=[],sortCol='published',sortDir='desc',kpiFilter=null,sidebarSource='',outletFilter='';
 
 async function init(){
   try{const r=await fetch('mentions-data.json?_='+Date.now());D=await r.json();mentions=D.mentions||[];bdArticles=D.bd_articles||[];renderAll();}
@@ -625,13 +637,10 @@ function renderChart(){
 
 // ═══ OUTLET PICKUP CHART (#2) ═══
 function renderOutletChart(){
-  // Detect BD reporters from articles
   const bdReporters=new Set();
   bdArticles.forEach(a=>{if(a.author)bdReporters.add(a.author.toLowerCase());});
-  // Also add core reporters
   ['thomas gounley','justin wingerter','matt geiger','aaron kremer','max scheinblum'].forEach(r=>bdReporters.add(r));
 
-  // Apply date filters if set
   const from=document.getElementById('fDateFrom').value;
   const to=document.getElementById('fDateTo').value;
   let filtered=mentions;
@@ -650,7 +659,6 @@ function renderOutletChart(){
     document.getElementById('outletChartScope').textContent='all time';
   }
 
-  // Classify each mention as syndication or reference
   const outlets={};
   filtered.forEach(m=>{
     const src=m.source||'Unknown';
@@ -663,29 +671,36 @@ function renderOutletChart(){
     }
   });
 
-  // Sort by total descending
   const sorted=Object.entries(outlets).sort((a,b)=>(b[1].syndication+b[1].reference)-(a[1].syndication+a[1].reference));
-  if(!sorted.length){document.getElementById('outletChartBars').innerHTML='';return;}
+  const container=document.getElementById('outletChartBars');
+  if(!sorted.length){container.innerHTML='';return;}
 
   const maxVal=Math.max(...sorted.map(([,v])=>v.syndication+v.reference),1);
-  const barH=130;
 
-  document.getElementById('outletChartBars').innerHTML=sorted.map(([src,v])=>{
+  container.innerHTML=sorted.map(([src,v])=>{
     const total=v.syndication+v.reference;
-    const sH=Math.max(0,(v.syndication/maxVal)*barH);
-    const rH=Math.max(0,(v.reference/maxVal)*barH);
-    const tip=esc(src)+': '+v.syndication+' syndication, '+v.reference+' reference';
-    return '<div style="flex:1;min-width:28px;max-width:60px;display:flex;flex-direction:column;align-items:center;position:relative;cursor:pointer" class="chart-col">'+
-      '<div class="chart-tooltip">'+tip+'</div>'+
-      (sH?'<div style="width:100%;height:'+sH+'px;background:#3b82f6;border-radius:2px 2px 0 0"></div>':'')+
-      '<div style="width:100%;height:'+Math.max(total?1:0,rH)+'px;background:#f5a623;border-radius:'+(sH?'0':'2px 2px')+' 0 0"></div>'+
+    const sW=Math.max(0,(v.syndication/maxVal)*100);
+    const rW=Math.max(0,(v.reference/maxVal)*100);
+    const sel=outletFilter===src?'selected':outletFilter?'dimmed':'';
+    return '<div class="hbar-row '+sel+'" data-outlet="'+esc(src)+'">'+
+      '<div class="hbar-label">'+esc(src)+'</div>'+
+      '<div class="hbar-track">'+
+        (v.syndication?'<div class="hbar-seg syndication" style="width:'+sW+'%"></div>':'')+
+        (v.reference?'<div class="hbar-seg reference" style="width:'+rW+'%"></div>':'')+
+        '<div class="hbar-tooltip">'+v.syndication+' syndication, '+v.reference+' reference</div>'+
+      '</div>'+
+      '<div class="hbar-count">'+total+'</div>'+
     '</div>';
   }).join('');
 
-  document.getElementById('outletChartLabels').innerHTML=sorted.map(([src])=>{
-    const short=src.length>12?src.slice(0,11)+'…':src;
-    return '<span style="flex:1;min-width:28px;max-width:60px;font-size:.55rem;color:#555;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+esc(short)+'</span>';
-  }).join('');
+  container.querySelectorAll('.hbar-row').forEach(row=>{
+    row.addEventListener('click',()=>{
+      const src=row.dataset.outlet;
+      outletFilter=(outletFilter===src)?'':src;
+      renderOutletChart();
+      renderTable();
+    });
+  });
 }
 
 // ═══ SIDEBAR (#7) ═══
@@ -712,6 +727,7 @@ function getFiltered(){
     if(kpiFilter==='today'){const mt=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Denver'}));const mid=new Date(mt.getFullYear(),mt.getMonth(),mt.getDate()).toISOString();if((m.first_seen||'')<mid)return false;}
     if(kpiFilter==='sources7d'){const c7=new Date(Date.now()-7*86400000).toISOString();if((m.published||'')<c7)return false;}
     if(sidebarSource&&m.source!==sidebarSource)return false;
+    if(outletFilter&&m.source!==outletFilter)return false;
     if(via&&m.found_via!==via)return false;
     if(sent&&m.sentiment!==sent)return false;
     if(q&&!(m.title+' '+m.snippet+' '+m.source+' '+m.source_domain).toLowerCase().includes(q))return false;

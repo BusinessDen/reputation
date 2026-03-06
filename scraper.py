@@ -32,6 +32,13 @@ import html
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlparse
 from difflib import SequenceMatcher
+from zoneinfo import ZoneInfo
+
+MT = ZoneInfo("America/Denver")
+
+def mt_today(now: datetime) -> str:
+    """Return today's date string in Mountain Time."""
+    return now.astimezone(MT).strftime("%Y-%m-%d")
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -562,7 +569,7 @@ def generate_daily_summary(data: dict, new_mentions: list[dict], now: datetime):
         print("\n  [AI] No new mentions — skipping daily summary")
         return
 
-    today = now.strftime("%Y-%m-%d")
+    today = mt_today(now)
     if today in [s["date"] for s in data["summaries"]["daily"]]:
         print(f"\n  [AI] Daily summary exists for {today}")
         return
@@ -608,9 +615,10 @@ TODAY'S MENTIONS:
 # ---------------------------------------------------------------------------
 
 def generate_weekly_summary(data: dict, now: datetime):
-    if now.weekday() != 0: return
+    mt_now = now.astimezone(MT)
+    if mt_now.weekday() != 0: return
 
-    week_start = (now - timedelta(days=7)).strftime("%Y-%m-%d")
+    week_start = (mt_now - timedelta(days=7)).strftime("%Y-%m-%d")
     week_key = f"week-{week_start}"
     if week_key in [s["key"] for s in data["summaries"]["weekly"]]:
         print(f"\n  [AI] Weekly summary exists for {week_key}")
@@ -634,7 +642,7 @@ def generate_weekly_summary(data: dict, now: datetime):
             dailies_text += f"\n--- {d['date']} ---\n{d['text']}\n"
 
     prompt = f"""You are a media analyst for BusinessDen, a Denver business publication.
-Write a detailed WEEKLY summary for {week_start} to {now.strftime('%Y-%m-%d')}.
+Write a detailed WEEKLY summary for {week_start} to {mt_today(now)}.
 
 Cover in 4-6 paragraphs:
 1. Total mention volume and top outlets by count
@@ -655,7 +663,7 @@ ALL MENTIONS ({len(week_mentions)}):
     result = call_claude(prompt, model=MODEL_SMART, max_tokens=2500)
     if result:
         data["summaries"]["weekly"].append({
-            "key": week_key, "date": now.strftime("%Y-%m-%d"),
+            "key": week_key, "date": mt_today(now),
             "week_start": week_start, "text": result,
             "mention_count": len(week_mentions),
             "generated": now.isoformat(),
@@ -668,9 +676,10 @@ ALL MENTIONS ({len(week_mentions)}):
 # ---------------------------------------------------------------------------
 
 def generate_monthly_summary(data: dict, now: datetime):
-    if now.day != 1: return
+    mt_now = now.astimezone(MT)
+    if mt_now.day != 1: return
 
-    last_month = now - timedelta(days=1)
+    last_month = mt_now - timedelta(days=1)
     month_key = last_month.strftime("%Y-%m")
     if month_key in [s["key"] for s in data["summaries"]["monthly"]]:
         print(f"\n  [AI] Monthly summary exists for {month_key}")
@@ -717,7 +726,7 @@ WEEKLY SUMMARIES:
     result = call_claude(prompt, model=MODEL_SMART, max_tokens=3500)
     if result:
         data["summaries"]["monthly"].append({
-            "key": month_key, "date": now.strftime("%Y-%m-%d"),
+            "key": month_key, "date": mt_today(now),
             "month": last_month.strftime("%B %Y"), "text": result,
             "mention_count": len(month_mentions),
             "generated": now.isoformat(),
@@ -808,7 +817,7 @@ THIRD-PARTY MENTIONS ({len(article_mentions)}):
 
 def generate_byline_analysis(data: dict, now: datetime, all_reporters: list[str]):
     """Per-reporter analysis. Uses all detected reporters, not just hardcoded."""
-    today = now.strftime("%Y-%m-%d")
+    today = mt_today(now)
     if today in [b["date"] for b in data.get("byline", [])]:
         print(f"\n  [AI] Byline analysis exists for {today}")
         return
