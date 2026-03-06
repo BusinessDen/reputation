@@ -1,6 +1,126 @@
 {
   "mentions": [
     {
+      "id": "2e5371046fec5114",
+      "title": "Denver Landlord Dangles $50K Carrot To Fill Golden Triangle Flats",
+      "title_raw": "Denver Landlord Dangles $50K Carrot To Fill Golden Triangle Flats - Hoodline",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNdG1JV2FSeTI2cExlWG5XZFJSbTJzWjc3N0NsV2NtV3RqZDQ2N2swLVZfbDVyRXhMc1FkdFY5UTRaZUJ4QUdTOWlHMDZVTERLUlQyUnBEb3BBZlJTdE1PRVVRTzNvM1huby1lVkNyWXFOQUw1akxtMUNWZE5OdXdjMnZxaFJhWjltbk5qNGlFYnhEbVk5SGFWRzNR?oc=5",
+      "snippet": "Denver Landlord Dangles $50K Carrot To Fill Golden Triangle Flats  Hoodline",
+      "source": "Hoodline",
+      "source_url": "https://hoodline.com",
+      "source_domain": "hoodline.com",
+      "published": "2026-03-06T19:02:59+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-06T19:32:26.569848+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMimgFBVV95cUxNdG1JV2FSeTI2cExlWG5XZFJSbTJzWjc3N0NsV2NtV3RqZDQ2N2swLVZfbDVyRXhMc1FkdFY5UTRaZUJ4QUdTOWlHMDZVTERLUlQyUnBEb3BBZlJTdE1PRVVRTzNvM1huby1lVkNyWXFOQUw1akxtMUNWZE5OdXdjMnZxaFJhWjltbk5qNGlFYnhEbVk5SGFWRzNR",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "110a7e86a2c720d1",
+      "title": "March 6, 2026",
+      "title_raw": "March 6, 2026 - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBqSEQ0dWdlTlI4YlhWWVdRN3pFeVdvRXdMTGJIQ3BmV184WTlhRWZ6dzZYUndIQXVmSHhpemdEOFZLdDRTcUctTllyRF8yaGc?oc=5",
+      "snippet": "March 6, 2026  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-06T13:48:44+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-06T19:32:26.569848+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiT0FVX3lxTFBqSEQ0dWdlTlI4YlhWWVdRN3pFeVdvRXdMTGJIQ3BmV184WTlhRWZ6dzZYUndIQXVmSHhpemdEOFZLdDRTcUctTllyRF8yaGc",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "68135f876e311520",
+      "title": "Wash Park ice cream shop closes after a year",
+      "title_raw": "Wash Park ice cream shop closes after a year - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOcVp2ZE1UUk5MYXBmSmpzVEY1QlA5Uk1xWkJlMEc3aG5jMUdlYmRVdzBSRU1Ja044UXc0VzZwSWs1X3JuUVhFOG1SQngwUVZ6N0U1Q0lGMWNXd1dIQTlYTXRwYnNBSU1CQVFPeW01MUtJN0VVLUpkbW5wSHlILUJfNHRIXzNwbDdMWlh3?oc=5",
+      "snippet": "Wash Park ice cream shop closes after a year  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-06T13:00:09+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-06T19:32:26.569848+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiiwFBVV95cUxOcVp2ZE1UUk5MYXBmSmpzVEY1QlA5Uk1xWkJlMEc3aG5jMUdlYmRVdzBSRU1Ja044UXc0VzZwSWs1X3JuUVhFOG1SQngwUVZ6N0U1Q0lGMWNXd1dIQTlYTXRwYnNBSU1CQVFPeW01MUtJN0VVLUpkbW5wSHlILUJfNHRIXzNwbDdMWlh3",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "b9b52ca402bce635",
+      "title": "denver escort couple - dorchester couple to make prime time debut on hgtv renovation wbur",
+      "title_raw": "denver escort couple - dorchester couple to make prime time debut on hgtv renovation wbur - dugast.ch",
+      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE1zRnNaVWlFMHBnX1dhLXRRTmFXTDk2OU1tNV9YRk1GdGpFNm1zV05pc082cUpYak5RMXN3c2tJNDRYMGRFQmc?oc=5",
+      "snippet": "denver escort couple - dorchester couple to make prime time debut on hgtv renovation wbur  dugast.ch",
+      "source": "dugast.ch",
+      "source_url": "https://www.dugast.ch",
+      "source_domain": "dugast.ch",
+      "published": "2026-03-06T04:15:55+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-06T19:32:26.569848+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiRkFVX3lxTE1zRnNaVWlFMHBnX1dhLXRRTmFXTDk2OU1tNV9YRk1GdGpFNm1zV05pc082cUpYak5RMXN3c2tJNDRYMGRFQmc",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "df550ac8c6fb77bb",
+      "title": "Home – Page 20",
+      "title_raw": "Home – Page 20 - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5PN3pua081ZUFaNEJzb3ZheVZwWXJPek5RU3d0Y1FFdDFHMnk0MnpNMFVpTkl3ZDVqLWtyWnVHeGJhSUwtSjlDczhqeVdqNU9pbV8zMEJUVQ?oc=5",
+      "snippet": "Home – Page 20  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-06T00:47:26+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"Thomas Gounley\" Denver -site:businessden.com when:2d",
+      "first_seen": "2026-03-06T19:32:26.569848+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiV0FVX3lxTE5PN3pua081ZUFaNEJzb3ZheVZwWXJPek5RU3d0Y1FFdDFHMnk0MnpNMFVpTkl3ZDVqLWtyWnVHeGJhSUwtSjlDczhqeVdqNU9pbV8zMEJUVQ",
+      "sentiment": "neutral"
+    },
+    {
       "id": "b46d97cef96a917b",
       "title": "Duplexes eyed for Shops at Northfield site where apartments were proposed",
       "title_raw": "Duplexes eyed for Shops at Northfield site where apartments were proposed - The Denver Post",
@@ -70,6 +190,30 @@
       "wp_like_count": null,
       "wp_comment_count": null,
       "entry_id": "CBMivAFBVV95cUxOY0ZZQVZYeFBlcndMLUVud3Izd05lNEFJSHlPVE95OGdPNjhYYVpxV04ta2w4VUZSMWZ0SDNNaTV2dGNlOTR6OVpMSnZ1eVliRTc0Q2tzd0FLUklfR0tXbWM3MUpPRi1Cb3N2SUM1MDlLRGZOTFhpdzhNNE1iNU9GVjZNa1UzdTFTTTBaYVBmM0M2cm9rYlVKeXVUWjdDWTJyOEFPUkl4eXk4Um1aUElLQ0xUMmVPSEZvU0NGdA",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "4d6a0b07cbf8962b",
+      "title": "Colorado Coalition for the Homeless to develop DHA site along Federal",
+      "title_raw": "Colorado Coalition for the Homeless to develop DHA site along Federal - x.com",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5ZQktCQWNoOVVkRmlqNW5uekhZSU8xOEloT0RCckZZMFBmTk5wcmwxN1JDVGhQNVFlaXNoLXhtX09JS1VnRzQ3NkxOY2RNaXZxSGFmN3BtYjdKYkU1eHRaMWFKNA?oc=5",
+      "snippet": "Colorado Coalition for the Homeless to develop DHA site along Federal  x.com",
+      "source": "x.com",
+      "source_url": "https://x.com",
+      "source_domain": "x.com",
+      "published": "2026-03-05T16:52:08+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-06T19:32:26.569848+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiY0FVX3lxTE5ZQktCQWNoOVVkRmlqNW5uekhZSU8xOEloT0RCckZZMFBmTk5wcmwxN1JDVGhQNVFlaXNoLXhtX09JS1VnRzQ3NkxOY2RNaXZxSGFmN3BtYjdKYkU1eHRaMWFKNA",
       "sentiment": "neutral"
     },
     {
@@ -1111,9 +1255,15 @@
     ],
     "https://businessden.com/2026/03/04/former-punch-bowl-social-exec-succeeds-padro-as-ceo-of-restaurant-group/": [
       "2fd77cd13255542d"
+    ],
+    "https://businessden.com/2026/03/05/wash-park-ice-cream-shop-closes-after-a-year/": [
+      "68135f876e311520"
+    ],
+    "https://businessden.com/2026/03/05/colorado-coalition-for-the-homeless-to-develop-dha-site-along-federal/": [
+      "4d6a0b07cbf8962b"
     ]
   },
-  "last_updated": "2026-03-06T12:56:53.383782+00:00",
+  "last_updated": "2026-03-06T19:32:26.569848+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -1318,7 +1468,19 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-06T19:32:26.569848+00:00",
+      "new_mentions": 6,
+      "total_mentions": 35,
+      "total_bd_articles": 21,
+      "sources": {
+        "google_news_rss": 41,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 1
+  "new_this_run": 6
 }
