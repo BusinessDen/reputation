@@ -25,6 +25,30 @@
       "sentiment": "neutral"
     },
     {
+      "id": "af4f250b70b89a83",
+      "title": "court – Page 83",
+      "title_raw": "court – Page 83 - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9lWlN6NlllbVRYY2hjOHVKeHB5ZFlDd0pXdFc2SHl0eXphSC14OWppN3hGc0pGdWZDRjlIeWpXT3QxMmVQR1dNYlhLWTZudU90NUowT0JqTzM?oc=5",
+      "snippet": "court – Page 83  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-06T16:46:20+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"Justin Wingerter\" Denver -site:businessden.com when:2d",
+      "first_seen": "2026-03-07T12:47:29.637379+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiWEFVX3lxTE9lWlN6NlllbVRYY2hjOHVKeHB5ZFlDd0pXdFc2SHl0eXphSC14OWppN3hGc0pGdWZDRjlIeWpXT3QxMmVQR1dNYlhLWTZudU90NUowT0JqTzM",
+      "sentiment": "neutral"
+    },
+    {
       "id": "110a7e86a2c720d1",
       "title": "March 6, 2026",
       "title_raw": "March 6, 2026 - The Denver Post",
@@ -94,6 +118,30 @@
       "wp_like_count": null,
       "wp_comment_count": null,
       "entry_id": "CBMiRkFVX3lxTE1zRnNaVWlFMHBnX1dhLXRRTmFXTDk2OU1tNV9YRk1GdGpFNm1zV05pc082cUpYak5RMXN3c2tJNDRYMGRFQmc",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "44d783a86fe4b30d",
+      "title": "Denver co. selling business for $1.5B cash >> See the full article below ⬇️",
+      "title_raw": "Denver co. selling business for $1.5B cash >> See the full article below ⬇️ - facebook.com",
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNUTJnN0tILURnSnRYbnFsamdBSG5uMDJMb0kyX0VWc0Jvam93TjYweFpqb0dzbHNJY2p2V0gwOU1HSF9vbnhrUXJzbUlscllrRWlUUkpLWGFWNm1HRU5QMjRXYmw5aWY0bUU4QlZlaEJaeWJkdEIteTMweFZnMkQ0c3ZWUnFZNTNhLWpZQTBoMHhKWnJnOEZVaGVubElQSXBpWlEwNzBTdTJEWXo3cVhIYkc3TG1HaTcyMko1UnM4b0p0bXAxVnJudkhxT01od21PY3Q3dmluNA?oc=5",
+      "snippet": "Denver co. selling business for $1.5B cash >> See the full article below ⬇️  facebook.com",
+      "source": "facebook.com",
+      "source_url": "https://www.facebook.com",
+      "source_domain": "facebook.com",
+      "published": "2026-03-06T03:00:27+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-07T12:47:29.637379+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMi1wFBVV95cUxNUTJnN0tILURnSnRYbnFsamdBSG5uMDJMb0kyX0VWc0Jvam93TjYweFpqb0dzbHNJY2p2V0gwOU1HSF9vbnhrUXJzbUlscllrRWlUUkpLWGFWNm1HRU5QMjRXYmw5aWY0bUU4QlZlaEJaeWJkdEIteTMweFZnMkQ0c3ZWUnFZNTNhLWpZQTBoMHhKWnJnOEZVaGVubElQSXBpWlEwNzBTdTJEWXo3cVhIYkc3TG1HaTcyMko1UnM4b0p0bXAxVnJudkhxT01od21PY3Q3dmluNA",
       "sentiment": "neutral"
     },
     {
@@ -1119,6 +1167,12 @@
         "text": "• The Denver Post covered construction firm owner seeking court-ordered closure, describing himself as 'captive in his own company'\n\n• The Denver Post reported on duplex development plans for Shops at Northfield site previously slated for apartments",
         "mention_count": 2,
         "generated": "2026-03-06T05:02:25.712742+00:00"
+      },
+      {
+        "date": "2026-03-07",
+        "text": "• Facebook post references \"Denver co. selling business for $1.5B cash\" story but provides no additional context or commentary\n\n• The Denver Post includes BusinessDen content on page 83 of court section, though specific story details not provided in mention",
+        "mention_count": 2,
+        "generated": "2026-03-07T12:47:29.637379+00:00"
       }
     ],
     "weekly": [],
@@ -1146,6 +1200,17 @@
         "Matt Geiger"
       ],
       "generated": "2026-03-06T05:02:25.712742+00:00"
+    },
+    {
+      "date": "2026-03-07",
+      "text": "## Justin Wingerter\nWingerter achieved a 50% pickup rate with 2 of his 4 articles generating external interest. His construction company closure story performed best with coverage from both The Denver Post and Hoodline, while his Fading West legal dispute piece caught The Denver Post's attention. Both stories involved legal proceedings and business distress, suggesting Wingerter's legal/business conflict reporting resonates with other outlets. The pattern indicates that stories combining legal drama with business operations tend to generate the most external traction for his work.\n\n## Matt Geiger\nGeiger posted a perfect 100% pickup rate with all 4 articles receiving external coverage, primarily from The Denver Post. His real estate beat generated consistent interest across different property types and price points, from the $3M Ramos Law office purchase (which also gained social media traction on X.com) to development projects like the Northfield duplexes and Luzzatto's $300M downtown project. The consistent pickup pattern demonstrates that Denver's commercial real estate market is a reliable source of external interest, with The Denver Post serving as the primary aggregator of his real estate coverage.\n\n## Max Scheinblum\nScheinblum achieved a 60% pickup rate with 3 of 5 articles picked up by other outlets. His coverage spans lifestyle and business leadership stories, with The Denver Post picking up both his Wash Park ice cream shop closure and former Avalanche player's beer brand launch. The restaurant industry executive appointment story gained traction on X.com, indicating social media interest in executive moves. His beat appears to focus on consumer-facing businesses and executive transitions, with local interest stories performing particularly well.\n\n## Thomas Gounley\nGounley delivered a 67% pickup rate with 4 of 6 articles receiving external coverage, including his standout Brown Palace sale story that generated 6 mentions across major Denver outlets including 9News, Denverite, and Denver Gazette. His real estate and development beat consistently attracts attention, particularly stories involving high-profile properties or social issues like homelessness. The $13M Fentress Broadway sale and Central Park homeless shelter area hotel sale both received multi-outlet pickup. Gounley's coverage pattern shows that major real estate transactions, especially those involving iconic Denver properties or social impact angles, generate the broadest external interest.",
+      "reporters": [
+        "Thomas Gounley",
+        "Max Scheinblum",
+        "Justin Wingerter",
+        "Matt Geiger"
+      ],
+      "generated": "2026-03-07T12:47:29.637379+00:00"
     }
   ],
   "article_reception": {
@@ -1211,6 +1276,34 @@
         "mention_count": 1,
         "generated": "2026-03-06T12:56:53.383782+00:00"
       }
+    },
+    "https://businessden.com/2026/03/05/colorado-coalition-for-the-homeless-to-develop-dha-site-along-federal/": {
+      "2day": {
+        "text": "I don't have access to the actual BusinessDen article or sufficient third-party coverage data to provide an accurate summary. Based on the information provided, I can only confirm that the story received minimal pickup—just one mention on X.com (Twitter) with neutral framing that simply repeated the headline. To give you a complete 2-4 sentence summary of the 2-day reception including outlet names, coverage depth, and framing differences, I would need access to additional coverage sources and the full article content.",
+        "mention_count": 1,
+        "generated": "2026-03-07T12:47:29.637379+00:00"
+      }
+    },
+    "https://businessden.com/2026/03/05/wash-park-ice-cream-shop-closes-after-a-year/": {
+      "2day": {
+        "text": "I don't have access to the actual article content or detailed information about its 2-day reception beyond what's shown in your data. Based on the limited information provided, I can only note that The Denver Post picked up the BusinessDen story with a straightforward headline that appears identical to the original, suggesting a brief mention rather than substantial coverage. The framing appears neutral across both outlets. To provide a complete summary of the reception, I would need additional details about other outlets that covered the story or more context about the depth of The Denver Post's coverage.",
+        "mention_count": 1,
+        "generated": "2026-03-07T12:47:29.637379+00:00"
+      }
+    },
+    "https://businessden.com/2026/03/05/construction-firm-owner-captive-in-his-own-company-asks-judge-to-close-it/": {
+      "2day": {
+        "text": "# 2-Day Reception Summary\n\nBusinessDen's article about a construction firm owner seeking to close his company received modest pickup, with two outlets covering the story within two days. Both Hoodline and The Denver Post picked up the story, though coverage appears to have been brief mentions rather than substantial reporting. While Hoodline reframed the narrative using more dramatic language (\"Prison\"), The Denver Post reproduced BusinessDen's original headline and framing, both maintaining neutral tones overall.",
+        "mention_count": 2,
+        "generated": "2026-03-07T12:47:29.637379+00:00"
+      }
+    },
+    "https://businessden.com/2026/03/05/duplexes-eyed-for-shops-at-northfield-site-where-apartments-were-proposed/": {
+      "2day": {
+        "text": "# Reception Summary\n\nThe BusinessDen article about duplex plans at the Shops at Northfield site received minimal third-party coverage within two days, picked up only by The Denver Post. The Denver Post's coverage appears to have been a brief mention rather than substantial reporting, using the same headline as the original BusinessDen piece. Both outlets maintained neutral framing of the development proposal.",
+        "mention_count": 1,
+        "generated": "2026-03-07T12:47:29.637379+00:00"
+      }
     }
   },
   "article_matches": {
@@ -1263,7 +1356,7 @@
       "4d6a0b07cbf8962b"
     ]
   },
-  "last_updated": "2026-03-06T19:32:26.569848+00:00",
+  "last_updated": "2026-03-07T12:47:29.637379+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -1480,7 +1573,19 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-07T12:47:29.637379+00:00",
+      "new_mentions": 2,
+      "total_mentions": 37,
+      "total_bd_articles": 21,
+      "sources": {
+        "google_news_rss": 25,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 6
+  "new_this_run": 2
 }
