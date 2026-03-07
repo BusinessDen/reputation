@@ -1,6 +1,54 @@
 {
   "mentions": [
     {
+      "id": "8219963e554ba2bc",
+      "title": "$9M Country Club sale tops February home transactions",
+      "title_raw": "$9M Country Club sale tops February home transactions - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQaTR0MDNOS19pMzZWRmVNRUQ3VmFCb1R2YUZUUkdQMEZIemt0d1Y4TlZhZDFhOXVIOGpzTjJaUUhFM2JIa1drVnF3aDNmSXMtc0syMkg5djh4amd3VXFRQ1gtazVBU09wQUZNTldXWWl4S1Zpb0JoZnBCdXlnYWRmeDJqZ2pLT3diU2c?oc=5",
+      "snippet": "$9M Country Club sale tops February home transactions  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-07T13:00:03+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-07T19:19:32.998314+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiigFBVV95cUxQaTR0MDNOS19pMzZWRmVNRUQ3VmFCb1R2YUZUUkdQMEZIemt0d1Y4TlZhZDFhOXVIOGpzTjJaUUhFM2JIa1drVnF3aDNmSXMtc0syMkg5djh4amd3VXFRQ1gtazVBU09wQUZNTldXWWl4S1Zpb0JoZnBCdXlnYWRmeDJqZ2pLT3diU2c",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "4baee7a23f43d920",
+      "title": "Palantir leaves Denver for Miami",
+      "title_raw": "Palantir leaves Denver for Miami - MSN",
+      "url": "https://news.google.com/rss/articles/CBMiuAJBVV95cUxOSmwzaHlkbVZTT2Jfem1meXZGRnF2eXlHYmpDSTlucm5kTm9CeDViRnVTVFZxYXNNdnZCVnBiQ0YwU1RScjVRYlBGQXAwRXdzWmRERy04N3JpdmlWZjNnSmttU1prM19KME1CaDgwMjkzOF9uZUFLR1g2eVFFN0VSRV8xSlRmYzJQUVQycGtCTzFYMUVNUmRSdk1XNnBqWUNoXzNhZUp3YkNoY1NySWtlTjAxVEUyMVQzOVhxSXB0WFY5VXZqZmktT0JGWHFsYl8yaVc4UTF2UGZyWHF3X1NfcVJSNndocWtyZ3dTSlcxWGNPdms0clF3WXJWTjhXQXFzMzJ3eF9McURBY3hlaFh4ODRQcm8yNkxhZ2ZiM0FKTWlUTWUtb0ZJbmlObW1mMGNWRTRYajQxd2k?oc=5",
+      "snippet": "Palantir leaves Denver for Miami  MSN",
+      "source": "MSN",
+      "source_url": "http://www.msn.com",
+      "source_domain": "msn.com",
+      "published": "2026-03-07T04:55:50+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-07T19:19:32.998314+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiuAJBVV95cUxOSmwzaHlkbVZTT2Jfem1meXZGRnF2eXlHYmpDSTlucm5kTm9CeDViRnVTVFZxYXNNdnZCVnBiQ0YwU1RScjVRYlBGQXAwRXdzWmRERy04N3JpdmlWZjNnSmttU1prM19KME1CaDgwMjkzOF9uZUFLR1g2eVFFN0VSRV8xSlRmYzJQUVQycGtCTzFYMUVNUmRSdk1XNnBqWUNoXzNhZUp3YkNoY1NySWtlTjAxVEUyMVQzOVhxSXB0WFY5VXZqZmktT0JGWHFsYl8yaVc4UTF2UGZyWHF3X1NfcVJSNndocWtyZ3dTSlcxWGNPdms0clF3WXJWTjhXQXFzMzJ3eF9McURBY3hlaFh4ODRQcm8yNkxhZ2ZiM0FKTWlUTWUtb0ZJbmlObW1mMGNWRTRYajQxd2k",
+      "sentiment": "neutral"
+    },
+    {
       "id": "2e5371046fec5114",
       "title": "Denver Landlord Dangles $50K Carrot To Fill Golden Triangle Flats",
       "title_raw": "Denver Landlord Dangles $50K Carrot To Fill Golden Triangle Flats - Hoodline",
@@ -1354,9 +1402,12 @@
     ],
     "https://businessden.com/2026/03/05/colorado-coalition-for-the-homeless-to-develop-dha-site-along-federal/": [
       "4d6a0b07cbf8962b"
+    ],
+    "https://businessden.com/2026/03/06/9m-country-club-sale-tops-february-home-transactions/": [
+      "8219963e554ba2bc"
     ]
   },
-  "last_updated": "2026-03-07T12:47:29.637379+00:00",
+  "last_updated": "2026-03-07T19:19:32.998314+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -1581,6 +1632,18 @@
       "total_bd_articles": 21,
       "sources": {
         "google_news_rss": 25,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
+    },
+    {
+      "timestamp": "2026-03-07T19:19:32.998314+00:00",
+      "new_mentions": 2,
+      "total_mentions": 39,
+      "total_bd_articles": 21,
+      "sources": {
+        "google_news_rss": 20,
         "wordpress_api": 16,
         "reddit_rss": 1,
         "medium_rss": 0
