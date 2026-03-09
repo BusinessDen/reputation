@@ -1,6 +1,30 @@
 {
   "mentions": [
     {
+      "id": "4e5be8f45384691d",
+      "title": "Pepsi Money Train Hits Tennyson, Supercharges Bao's Denver Debut",
+      "title_raw": "Pepsi Money Train Hits Tennyson, Supercharges Bao's Denver Debut - Hoodline",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQWFZMX1lGU0dvZXg4VkhrNzR6Ui1Uc0x4Y0VIUmFmTGxUWHl1X0k4Qk9PZUJ2TlBTQ2RRRnZiYmdDQmhzUGlVd2ZBSHB3MjFxaGNSVzNNNzdfQ2ZRUlhXdEJKSUJ5OVplN0RqUUFhZnVrdy1YRmptSWlQWDJaYldjek1WRjhOZkpmbDBCRkxFbzNZeTNiaGc5Vg?oc=5",
+      "snippet": "Pepsi Money Train Hits Tennyson, Supercharges Bao's Denver Debut  Hoodline",
+      "source": "Hoodline",
+      "source_url": "https://hoodline.com",
+      "source_domain": "hoodline.com",
+      "published": "2026-03-09T18:00:00+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-09T18:43:46.355732+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMimAFBVV95cUxQWFZMX1lGU0dvZXg4VkhrNzR6Ui1Uc0x4Y0VIUmFmTGxUWHl1X0k4Qk9PZUJ2TlBTQ2RRRnZiYmdDQmhzUGlVd2ZBSHB3MjFxaGNSVzNNNzdfQ2ZRUlhXdEJKSUJ5OVplN0RqUUFhZnVrdy1YRmptSWlQWDJaYldjek1WRjhOZkpmbDBCRkxFbzNZeTNiaGc5Vg",
+      "sentiment": "neutral"
+    },
+    {
       "id": "9bf3c2a70b845149",
       "title": "Denver – Page 1686",
       "title_raw": "Denver – Page 1686 - The Denver Post",
@@ -1494,6 +1518,11 @@
         "text": "I don't have access to the actual BusinessDen article or detailed reception data from the 2-day period following its March 2, 2026 publication. Based solely on the third-party mention provided, I can only note that The Denver Post picked up the story with a neutral framing, though the mention appears to be brief rather than substantial coverage.\n\nTo provide an accurate summary of the 2-day reception, I would need additional information about other outlets that covered the story and details about the extent and nature of that coverage.",
         "mention_count": 1,
         "generated": "2026-03-05T04:36:48.740563+00:00"
+      },
+      "7day": {
+        "text": "# Summary\n\nThe BusinessDen article about a golf-centric coworking business expanding to a second location received minimal pickup during its first week, with only one third-party mention. The Denver Post picked up the story with a brief mention rather than substantial coverage, using a nearly identical headline and maintaining neutral framing consistent with the original BusinessDen reporting.",
+        "mention_count": 1,
+        "generated": "2026-03-09T18:43:46.355732+00:00"
       }
     },
     "https://businessden.com/2026/03/02/brown-palace-hotel-denver-for-sale/": {
@@ -1501,6 +1530,11 @@
         "text": "# Summary of 2-Day Reception\n\nBusinessDen's Brown Palace sale story received broad coverage across five outlets including major local news (9News, Denverite, Denver Gazette), social media (Instagram), and local press, with all mentions maintaining neutral framing. Coverage was primarily brief—mostly headlines and short mentions rather than substantial reporting—focusing on the basic fact that Crescent Real Estate had listed the iconic hotel and adjacent Holiday Inn Express for sale through Newmark. No outlets notably reframed the story differently; all presented it as straightforward real estate news without emphasizing BusinessDen's reporting on Crescent's \"rocky ownership run.\"",
         "mention_count": 5,
         "generated": "2026-03-05T04:36:48.740563+00:00"
+      },
+      "7day": {
+        "text": "# 7-Day Reception Summary\n\nThe BusinessDen article about the Brown Palace's sale listing received substantial pickup across Denver media outlets, including 9News, Denverite, and the Denver Gazette, along with social media mentions on Instagram and Facebook. Coverage was consistent rather than in-depth, with most outlets running brief announcements of the listing itself. All framing remained neutral, with outlets emphasizing the hotel's iconic status and historical significance (132 years old, presidential guests, famous atrium) rather than engaging with the \"rocky ownership run\" angle that BusinessDen had highlighted.",
+        "mention_count": 7,
+        "generated": "2026-03-09T18:43:46.355732+00:00"
       }
     },
     "https://businessden.com/2026/03/03/fentress-sells-broadway-buildings-to-magnetic-for-13m/": {
@@ -1652,7 +1686,7 @@
       "9d51fe1587d781c5"
     ]
   },
-  "last_updated": "2026-03-09T11:33:17.187347+00:00",
+  "last_updated": "2026-03-09T18:43:46.355732+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -1929,7 +1963,19 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-09T18:43:46.355732+00:00",
+      "new_mentions": 1,
+      "total_mentions": 46,
+      "total_bd_articles": 24,
+      "sources": {
+        "google_news_rss": 25,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 2
+  "new_this_run": 1
 }
