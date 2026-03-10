@@ -1,6 +1,102 @@
 {
   "mentions": [
     {
+      "id": "98c766889f345b7f",
+      "title": "Industrial building in Littleton sells for more than $20 million",
+      "title_raw": "Industrial building in Littleton sells for more than $20 million - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1pOXRmNWRiLWZ6dnpQaFFNNkRqbDhsZ0YzLUZWZktvem9hdC1PdlZXMHZsNExPRmR0STNaTWhRdzFGTkh6TE95alpuaDMya0pWWVhQRjJObHpHUEtGS3JpNEkyOVl1SHBGenBHRDdyaXAxcHhVV2FUMldQVV9zZk0?oc=5",
+      "snippet": "Industrial building in Littleton sells for more than $20 million  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-10T18:33:19+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"Matt Geiger\" Denver business -site:businessden.com when:2d",
+      "first_seen": "2026-03-10T18:39:59.866461+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMif0FVX3lxTE1pOXRmNWRiLWZ6dnpQaFFNNkRqbDhsZ0YzLUZWZktvem9hdC1PdlZXMHZsNExPRmR0STNaTWhRdzFGTkh6TE95alpuaDMya0pWWVhQRjJObHpHUEtGS3JpNEkyOVl1SHBGenBHRDdyaXAxcHhVV2FUMldQVV9zZk0",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "135e23efdece40f0",
+      "title": "A persistent sewer odor at Denver’s Lowry Town Center is raising concerns among business owners and city officials, with some tenants reportedly leaving because of the smell. According to KUSA, complaints about the odor date back to at least 2018, and the",
+      "title_raw": "A persistent sewer odor at Denver’s Lowry Town Center is raising concerns among business owners and city officials, with some tenants reportedly leaving because of the smell. According to KUSA, complaints about the odor date back to at least 2018, and the - instagram.com",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1GT2tpQnd6V0tZdzY1dFNYbUFLMHF4NjVPRUdwaFh5eUdINUgtR2FLTzJwY25IOUxteHRyb2dBd1kzVFlNeHFmOEwxMjlmcXJnYkE?oc=5",
+      "snippet": "A persistent sewer odor at Denver’s Lowry Town Center is raising concerns among business owners and city officials, with some tenants reportedly leaving because of the smell. According to KUSA, complaints about the odor date back to at least 2018, and the  instagram.com",
+      "source": "instagram.com",
+      "source_url": "https://www.instagram.com",
+      "source_domain": "instagram.com",
+      "published": "2026-03-10T17:17:38+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-10T18:39:59.866461+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiUkFVX3lxTE1GT2tpQnd6V0tZdzY1dFNYbUFLMHF4NjVPRUdwaFh5eUdINUgtR2FLTzJwY25IOUxteHRyb2dBd1kzVFlNeHFmOEwxMjlmcXJnYkE",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "68ddce4ea85df5a4",
+      "title": "What’s Next for Denver’s Sports Facilities and Stadium Development",
+      "title_raw": "What’s Next for Denver’s Sports Facilities and Stadium Development - Brownstein Hyatt Farber Schreck",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOQ282ejZpTmVmbWhHTkJYUVZ0SFllQTZ2RzRuRjg0bnlULVN5d1VkUzVoSFJrTU40QnBodk1xZFZKVmpESTZ1Z1otX0hSeHF5ZTB4QThYcFBIOUJzZk9zTmp3WkZhUFM3WTJsNjNNZkczUWdCRU5mUnF1aEpPcm5MY003UTBCblFLMEJLUERVcUU2OW5kbDFfVkpR?oc=5",
+      "snippet": "What’s Next for Denver’s Sports Facilities and Stadium Development  Brownstein Hyatt Farber Schreck",
+      "source": "Brownstein Hyatt Farber Schreck",
+      "source_url": "https://www.bhfs.com",
+      "source_domain": "bhfs.com",
+      "published": "2026-03-10T16:40:02+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-10T18:39:59.866461+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMimgFBVV95cUxOQ282ejZpTmVmbWhHTkJYUVZ0SFllQTZ2RzRuRjg0bnlULVN5d1VkUzVoSFJrTU40QnBodk1xZFZKVmpESTZ1Z1otX0hSeHF5ZTB4QThYcFBIOUJzZk9zTmp3WkZhUFM3WTJsNjNNZkczUWdCRU5mUnF1aEpPcm5MY003UTBCblFLMEJLUERVcUU2OW5kbDFfVkpR",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "68f3137623e09adb",
+      "title": "LoHi beer garden adding second location in east Denver",
+      "title_raw": "LoHi beer garden adding second location in east Denver - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOV2hKWkFiVnhINlBoSnUtYXlfRUxWT2ltdEZZMmhiN3lQUkNiRmFWYVp4MDVQOXpOOFFCT3d4YWRQVnp1U0ozT1JrZEc1eHJFRVcxa3hHUmdTVmwyOXhjbUNhTUx1WnpSNENRU2JLWlRhMkFScXlZWUQ5ejBhSFp4ZzkwMU4tZG1mTXNPR0lpQm0zYzBwMGYyYVRB?oc=5",
+      "snippet": "LoHi beer garden adding second location in east Denver  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-10T12:00:42+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-10T18:39:59.866461+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMimgFBVV95cUxOV2hKWkFiVnhINlBoSnUtYXlfRUxWT2ltdEZZMmhiN3lQUkNiRmFWYVp4MDVQOXpOOFFCT3d4YWRQVnp1U0ozT1JrZEc1eHJFRVcxa3hHUmdTVmwyOXhjbUNhTUx1WnpSNENRU2JLWlRhMkFScXlZWUQ5ejBhSFp4ZzkwMU4tZG1mTXNPR0lpQm0zYzBwMGYyYVRB",
+      "sentiment": "neutral"
+    },
+    {
       "id": "5150791303d8c295",
       "title": "It could be anywhere in the Denver Tech Center — a six-floor office building surrounded by parking lots and roundabouts. Yet the 30-year-old structure on Technology Way could soon become a dramatic example of the changes sweeping the city’s real-estate",
       "title_raw": "It could be anywhere in the Denver Tech Center — a six-floor office building surrounded by parking lots and roundabouts. Yet the 30-year-old structure on Technology Way could soon become a dramatic example of the changes sweeping the city’s real-estate - instagram.com",
@@ -46,6 +142,30 @@
       "wp_like_count": null,
       "wp_comment_count": null,
       "entry_id": "CBMikAFBVV95cUxPWm9feVZhZUZvQVZaZGEtM2R0RXE5V241dk5halVzczh4NXpNeGVWaG1yUVhmTW1fUXdLN3ptM0J1LVZ6MUw1M1lJUGVCVU5UcThRWnpXYWtkUUFJc29pR2JZUjhhNFRmRlFWNkRjT3dURFNmTnhTVjRYa0ZYblZjTjVfYVdCLWlXcUlkOXl1elg",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "a849e4eef400e6a7",
+      "title": "JBS workers in Greeley to go on strike next week, union announces",
+      "title_raw": "JBS workers in Greeley to go on strike next week, union announces - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE80dVlUcnJuRWx0X1Q5RXBnenhOakJCYlhmTm9fZTNvVWFQYThDZlpuS1Q1ZmJNWjItb1JkTHI4TnplYXBSYm9tUGFqcF9OcUhDVnBvbWpBRWpGWjdpbVV2LUNFZ2k0QkVXQlpVblpqWUMzdw?oc=5",
+      "snippet": "JBS workers in Greeley to go on strike next week, union announces  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-09T20:04:58+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"Matt Geiger\" Denver business -site:businessden.com when:2d",
+      "first_seen": "2026-03-10T18:39:59.866461+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMickFVX3lxTE80dVlUcnJuRWx0X1Q5RXBnenhOakJCYlhmTm9fZTNvVWFQYThDZlpuS1Q1ZmJNWjItb1JkTHI4TnplYXBSYm9tUGFqcF9OcUhDVnBvbWpBRWpGWjdpbVV2LUNFZ2k0QkVXQlpVblpqWUMzdw",
       "sentiment": "neutral"
     },
     {
@@ -1683,6 +1803,11 @@
         "text": "# 2-Day Reception Summary\n\nThe BusinessDen article about Fentress's $13M Broadway property sale received pickup from two outlets within two days. The Denver Post ran a straightforward match of the original headline, while Hoodline reframed it more dramatically as a \"Broadway Shakeup,\" though both maintained neutral coverage. Both mentions appear to be brief citations rather than substantial original reporting.",
         "mention_count": 2,
         "generated": "2026-03-05T13:59:03.963138+00:00"
+      },
+      "7day": {
+        "text": "# 7-Day Reception Summary\n\nThe BusinessDen article about Fentress's $13M sale of Broadway buildings to Magnetic Capital received coverage from two outlets within seven days. The Denver Post republished the story with identical framing as a straightforward real estate transaction, while Hoodline picked it up with slightly more dramatic language (\"Broadway Shakeup\"), though both maintained neutral tones. Coverage was brief mentions rather than substantial independent reporting, with outlets primarily echoing the original BusinessDen reporting.",
+        "mention_count": 2,
+        "generated": "2026-03-10T18:39:59.866461+00:00"
       }
     },
     "https://businessden.com/2026/03/03/former-avs-defenseman-launches-beer-brand-in-denver/": {
@@ -1690,6 +1815,11 @@
         "text": "I don't have access to the actual article content or detailed reception metrics from BusinessDen, so I cannot provide an accurate summary of the 2-day reception based on what you've shared.\n\nHowever, based on the limited information provided, I can note that **The Denver Post** picked up the story with a brief mention (the identical headline suggests a straightforward republication rather than substantial original coverage). The framing appears neutral across both outlets.\n\nTo give you a proper summary of reception, I would need additional information such as:\n- Social media engagement metrics\n- Other outlets that covered it\n- Details about article length/depth in each publication\n- Reader comments or industry response\n\nDo you have access to more comprehensive coverage data?",
         "mention_count": 1,
         "generated": "2026-03-05T13:59:03.963138+00:00"
+      },
+      "7day": {
+        "text": "I don't have access to the actual article content or reception data you're referencing. To provide an accurate summary of the 7-day reception, I would need:\n\n1. The full article text\n2. Specific data about which outlets covered it and when\n3. Details about the extent of coverage from each outlet\n4. Any differences in how outlets framed the story\n\nFrom what you've provided, I can only note that The Denver Post picked up the story with a neutral framing and the same headline as BusinessDen. However, I cannot assess whether this was substantial coverage or a brief mention without seeing the actual articles, nor can I identify other outlets that may have covered it.\n\nIf you can share more details about the coverage metrics or additional outlets that reported on this story, I'd be happy to help summarize the reception.",
+        "mention_count": 1,
+        "generated": "2026-03-10T18:39:59.866461+00:00"
       }
     },
     "https://businessden.com/2026/03/03/luzzatto-clears-ground-lease-hurdle-for-300m-downtown-project/": {
@@ -1697,6 +1827,11 @@
         "text": "# 2-Day Reception Summary\n\nThe BusinessDen article about Luzzatto's $300M downtown project generated limited coverage, with only **The Denver Post** picking it up. The Denver Post's coverage appears to have been a **brief mention** rather than substantial reporting, as indicated by the truncated headline text. Both outlets maintained **neutral framing**, focusing on the ground lease approval as a procedural milestone in the office-to-residential conversion project without apparent editorial commentary or analysis differences.",
         "mention_count": 1,
         "generated": "2026-03-05T13:59:03.963138+00:00"
+      },
+      "7day": {
+        "text": "I don't have access to the full article content or comprehensive third-party coverage data needed to provide an accurate summary of its 7-day reception. Based on the limited information provided, I can only confirm that The Denver Post picked up the story with what appears to be a brief mention (the truncated headline suggests a straightforward report rather than substantial analysis). \n\nTo give you a meaningful summary of coverage breadth, outlets involved, and framing differences, I would need access to the complete article text and a more complete list of third-party mentions from that 7-day period.",
+        "mention_count": 1,
+        "generated": "2026-03-10T18:39:59.866461+00:00"
       }
     },
     "https://businessden.com/2026/03/04/ramos-law-buys-southeast-denver-office-for-3m/": {
@@ -1774,6 +1909,11 @@
         "text": "# Summary\n\nThe BusinessDen article received minimal pickup within its 2-day reception window, with only one third-party mention identified. An Instagram account covering the 2777 Zuni Street project shared a brief mention of the demolition, presenting the story neutrally without editorial framing. The social media coverage simply reported the basic facts—demolition underway, developer name, purchase price, and intended use—mirroring the original article's informational approach rather than adding distinct perspective.",
         "mention_count": 1,
         "generated": "2026-03-10T11:30:59.638362+00:00"
+      },
+      "7day": {
+        "text": "# 7-Day Reception Summary\n\nThe BusinessDen article received minimal third-party coverage, with only one mention during the initial week. An Instagram account (@2777 Zuni Street) provided a brief mention of the demolition, sharing factual details about the project's location, developer, and purchase price in a neutral tone. No major news outlets picked up the story, suggesting limited broader media interest in this real estate development during the measurement period.",
+        "mention_count": 1,
+        "generated": "2026-03-10T18:39:59.866461+00:00"
       }
     }
   },
@@ -1838,9 +1978,12 @@
     ],
     "https://businessden.com/2026/03/03/residence-inn-marriott-lohi-denver-demolition-kairoi/": [
       "e2af1e724c37b88e"
+    ],
+    "https://businessden.com/2026/03/09/lohi-beer-garden-adding-second-location-in-east-denver/": [
+      "68f3137623e09adb"
     ]
   },
-  "last_updated": "2026-03-10T11:30:59.638362+00:00",
+  "last_updated": "2026-03-10T18:39:59.866461+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -2141,7 +2284,19 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-10T18:39:59.866461+00:00",
+      "new_mentions": 5,
+      "total_mentions": 54,
+      "total_bd_articles": 28,
+      "sources": {
+        "google_news_rss": 26,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 3
+  "new_this_run": 5
 }
