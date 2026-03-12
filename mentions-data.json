@@ -1,6 +1,80 @@
 {
   "mentions": [
     {
+      "id": "6453179b8c2ed4b9",
+      "title": "Cherry Creek West Shakeup: Denver Developer Swings Wrecking Ball At Mall’s West End",
+      "title_raw": "Cherry Creek West Shakeup: Denver Developer Swings Wrecking Ball At Mall’s West End - Hoodline",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOTmhqemtPZGpzQzBXaVZsaFRYOFBIT2xCcUFKNzdDcllVZWFMbjZwLV9hX19Ka0lmblYtOUN5b2p4TUNZNFEtM1Y4dHVJWWxLcmxrSGx6NGtsVXNLclZQUmpCUkY3YnlHM2VGZWpHZEp1VjdGM09IeFBDenc2a3AzTllmajVVSzQ3ZVZKY3k5TjdEalhheUlpc3ozMUozaU53SWZtRy1OaGp3TTZWMGV5VUVR?oc=5",
+      "snippet": "Cherry Creek West Shakeup: Denver Developer Swings Wrecking Ball At Mall’s West End  Hoodline",
+      "source": "Hoodline",
+      "source_url": "https://hoodline.com",
+      "source_domain": "hoodline.com",
+      "published": "2026-03-12T18:31:22+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-12T18:45:01.339613+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMisgFBVV95cUxOTmhqemtPZGpzQzBXaVZsaFRYOFBIT2xCcUFKNzdDcllVZWFMbjZwLV9hX19Ka0lmblYtOUN5b2p4TUNZNFEtM1Y4dHVJWWxLcmxrSGx6NGtsVXNLclZQUmpCUkY3YnlHM2VGZWpHZEp1VjdGM09IeFBDenc2a3AzTllmajVVSzQ3ZVZKY3k5TjdEalhheUlpc3ozMUozaU53SWZtRy1OaGp3TTZWMGV5VUVR",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "9f737180538dabfe",
+      "title": "RiNo burger bar closes after six years",
+      "title_raw": "RiNo burger bar closes after six years - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1nSGJFejNhQ1RQampBZTVmelhPQnliaWdLeDlYODZaWDlDVnQybHVUUmRZY19BeG9HQks2YXJ1VTk1bTVaSlpCMzRldm1mcjEzUzVrQkZwM3h0RjZjOVRwRzczTzVrQWJJU2lDd0s5cUhNRzZTdjEtRw?oc=5",
+      "snippet": "RiNo burger bar closes after six years  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-12T12:00:22+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-12T18:45:01.339613+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMieEFVX3lxTE1nSGJFejNhQ1RQampBZTVmelhPQnliaWdLeDlYODZaWDlDVnQybHVUUmRZY19BeG9HQks2YXJ1VTk1bTVaSlpCMzRldm1mcjEzUzVrQkZwM3h0RjZjOVRwRzczTzVrQWJJU2lDd0s5cUhNRzZTdjEtRw",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "e2b8eb898cf0db52",
+      "title": "Broncos plan three phases of stadium development, team attorney says",
+      "title_raw": "Broncos plan three phases of stadium development, team attorney says",
+      "url": "https://wirehub.medianewsgroup.com/2026/03/12/broncos-plan-three-phases-of-stadium-development-team-attorney-says/",
+      "snippet": "Denver Broncos General Counsel Tim Aragon was among the panelists at BusinessDen’s State of the Stadiums event this week.",
+      "source": "Wire hub",
+      "source_url": "http://wirehub.medianewsgroup.com",
+      "source_domain": "wirehub.medianewsgroup.com",
+      "published": "2026-03-12T11:00:54+00:00",
+      "found_via": "wordpress_api",
+      "query_used": "BusinessDen",
+      "first_seen": "2026-03-12T18:45:01.339613+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [
+        "BusinessDen"
+      ],
+      "wp_site_id": 118145788,
+      "wp_post_id": 29184348,
+      "wp_like_count": 0,
+      "wp_comment_count": 0,
+      "entry_id": "",
+      "sentiment": "positive"
+    },
+    {
       "id": "53bbcc7d10b40cf7",
       "title": "Founder of steel firm says her siblings are scaring away suppliers",
       "title_raw": "Founder of steel firm says her siblings are scaring away suppliers - The Denver Post",
@@ -2370,6 +2444,11 @@
         "text": "I don't have access to the actual BusinessDen article or sufficient third-party coverage data to provide an accurate summary. Based on the information provided, I can only confirm that the story received minimal pickup—just one mention on X.com (Twitter) with neutral framing that simply repeated the headline. To give you a complete 2-4 sentence summary of the 2-day reception including outlet names, coverage depth, and framing differences, I would need access to additional coverage sources and the full article content.",
         "mention_count": 1,
         "generated": "2026-03-07T12:47:29.637379+00:00"
+      },
+      "7day": {
+        "text": "I don't have access to the article content or its full reception data beyond what you've provided. Based on the single third-party mention listed, the article received minimal coverage in its first 7 days—only a neutral repost on X.com (formerly Twitter). Without additional mentions from other outlets or details about their framing, I cannot provide the comprehensive summary you've requested. To complete this analysis, I would need information about coverage from other news outlets or media platforms that picked up this story.",
+        "mention_count": 1,
+        "generated": "2026-03-12T18:45:01.339613+00:00"
       }
     },
     "https://businessden.com/2026/03/05/wash-park-ice-cream-shop-closes-after-a-year/": {
@@ -2377,6 +2456,11 @@
         "text": "I don't have access to the actual article content or detailed information about its 2-day reception beyond what's shown in your data. Based on the limited information provided, I can only note that The Denver Post picked up the BusinessDen story with a straightforward headline that appears identical to the original, suggesting a brief mention rather than substantial coverage. The framing appears neutral across both outlets. To provide a complete summary of the reception, I would need additional details about other outlets that covered the story or more context about the depth of The Denver Post's coverage.",
         "mention_count": 1,
         "generated": "2026-03-07T12:47:29.637379+00:00"
+      },
+      "7day": {
+        "text": "# Summary\n\nThe BusinessDen article about a Wash Park ice cream shop closure received minimal third-party pickup during its first week. Only The Denver Post picked up the story, and it appears to have been a brief mention rather than substantial coverage, using the same headline as the original BusinessDen piece. Both outlets maintained a neutral framing of the closure.",
+        "mention_count": 1,
+        "generated": "2026-03-12T18:45:01.339613+00:00"
       }
     },
     "https://businessden.com/2026/03/05/construction-firm-owner-captive-in-his-own-company-asks-judge-to-close-it/": {
@@ -2384,6 +2468,11 @@
         "text": "# 2-Day Reception Summary\n\nBusinessDen's article about a construction firm owner seeking to close his company received modest pickup, with two outlets covering the story within two days. Both Hoodline and The Denver Post picked up the story, though coverage appears to have been brief mentions rather than substantial reporting. While Hoodline reframed the narrative using more dramatic language (\"Prison\"), The Denver Post reproduced BusinessDen's original headline and framing, both maintaining neutral tones overall.",
         "mention_count": 2,
         "generated": "2026-03-07T12:47:29.637379+00:00"
+      },
+      "7day": {
+        "text": "# 7-Day Reception Summary\n\nThe BusinessDen article received limited pickup, with two outlets covering the story within seven days. Both The Denver Post and Hoodline ran the story with neutral framing, though Hoodline used more dramatic language—characterizing the situation as a \"prison\" rather than BusinessDen's \"captive\"—while The Denver Post adopted the original headline verbatim. Coverage appears to have been substantial republication rather than brief mentions, as both outlets ran full article versions.",
+        "mention_count": 2,
+        "generated": "2026-03-12T18:45:01.339613+00:00"
       }
     },
     "https://businessden.com/2026/03/05/duplexes-eyed-for-shops-at-northfield-site-where-apartments-were-proposed/": {
@@ -2391,6 +2480,11 @@
         "text": "# Reception Summary\n\nThe BusinessDen article about duplex plans at the Shops at Northfield site received minimal third-party coverage within two days, picked up only by The Denver Post. The Denver Post's coverage appears to have been a brief mention rather than substantial reporting, using the same headline as the original BusinessDen piece. Both outlets maintained neutral framing of the development proposal.",
         "mention_count": 1,
         "generated": "2026-03-07T12:47:29.637379+00:00"
+      },
+      "7day": {
+        "text": "# Summary\n\nThe BusinessDen article about proposed duplexes at the Shops at Northfield site received minimal third-party coverage during its first seven days, with only **The Denver Post** picking it up. The Denver Post's coverage appears to have been a **brief mention** rather than substantial reporting, using the same headline as the original BusinessDen piece. Both outlets maintained a **neutral framing** of the development proposal without apparent editorial bias.",
+        "mention_count": 1,
+        "generated": "2026-03-12T18:45:01.339613+00:00"
       }
     },
     "https://businessden.com/2026/03/06/9m-country-club-sale-tops-february-home-transactions/": {
@@ -2546,13 +2640,20 @@
       "583fb5e877575b1c"
     ],
     "https://businessden.com/2026/03/12/tim-aragon-talks-burnham-yard-denver-project/": [
-      "48309139fd7ccada"
+      "48309139fd7ccada",
+      "e2b8eb898cf0db52"
     ],
     "https://businessden.com/2026/03/11/founder-of-steel-firm-says-her-siblings-are-scaring-away-suppliers/": [
       "53bbcc7d10b40cf7"
+    ],
+    "https://businessden.com/2026/03/11/rino-burger-bar-closes-after-six-years/": [
+      "9f737180538dabfe"
+    ],
+    "https://businessden.com/2026/03/12/demolition-cherry-creek-west-shopping-center-project/": [
+      "6453179b8c2ed4b9"
     ]
   },
-  "last_updated": "2026-03-12T11:30:07.700250+00:00",
+  "last_updated": "2026-03-12T18:45:01.339613+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -2901,7 +3002,19 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-12T18:45:01.339613+00:00",
+      "new_mentions": 3,
+      "total_mentions": 71,
+      "total_bd_articles": 37,
+      "sources": {
+        "google_news_rss": 34,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 8
+  "new_this_run": 3
 }
