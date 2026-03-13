@@ -31,7 +31,7 @@ jobs:
           fi
       - name: Checkout repo
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: main
       - name: Pull latest
@@ -39,7 +39,7 @@ jobs:
         run: git pull origin main
       - name: Setup Pages
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
       - name: Upload artifact
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
         uses: actions/upload-pages-artifact@v3
@@ -65,7 +65,7 @@ jobs:
           fi
       - name: Checkout repo
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Pull latest
@@ -106,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: main
       - name: Pull latest data
@@ -116,7 +116,7 @@ jobs:
         with:
           name: github-pages
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
