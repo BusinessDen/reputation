@@ -78,11 +78,13 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
-        run: pip install feedparser requests
+        run: pip install feedparser requests google-auth
       - name: Run scraper
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GA4_SERVICE_ACCOUNT_KEY: ${{ secrets.GA4_SERVICE_ACCOUNT_KEY }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
         run: python3 scraper.py
       - name: Commit and push data
         if: steps.dst_check.outputs.skip != 'true' || github.event_name == 'workflow_dispatch'
