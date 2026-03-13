@@ -10,6 +10,8 @@ on:
     - cron: '0 18 * * *'
     - cron: '0 19 * * *'
   workflow_dispatch:
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 permissions:
   contents: write
   pages: write
