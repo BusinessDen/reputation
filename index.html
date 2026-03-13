@@ -918,7 +918,11 @@ function doRenderStories(){
     for(const t of['30day','7day','2day']){if(artRec[t]){recText=artRec[t].text;recTier=t;break;}}
     const tierLabels={'2day':'2-Day Reception','7day':'1-Week Reception','30day':'1-Month Reception'};
     const rank=a.rank;
-    return'<div class="story-card"><div class="sc-header"><span style="font-family:JetBrains Mono;font-size:.75rem;color:#555;min-width:30px">#'+rank+'</span><div class="sc-title"><a href="'+esc(a.url)+'" target="_blank">'+esc(a.title)+'</a></div></div><div class="sc-meta"><span class="sc-author">'+esc(a.author)+'</span><span>'+fmtDate(a.published)+'</span><span>'+a.mentionCount+' mention'+(a.mentionCount!==1?'s':'')+'</span><span>'+esc((a.categories||[]).join(', '))+'</span></div>'+
+    const ga4=(D.ga4&&D.ga4.article_stats&&D.ga4.article_stats[a.url])||{};
+    const viewsStr=ga4.views?ga4.views.toLocaleString()+' views':'';
+    const subsStr=ga4.subscriptions?ga4.subscriptions+' subscriber'+(ga4.subscriptions!==1?'s':''):'';
+    const ga4Meta=[viewsStr,subsStr].filter(Boolean).join(' · ');
+    return'<div class="story-card"><div class="sc-header"><span style="font-family:JetBrains Mono;font-size:.75rem;color:#555;min-width:30px">#'+rank+'</span><div class="sc-title"><a href="'+esc(a.url)+'" target="_blank">'+esc(a.title)+'</a></div></div><div class="sc-meta"><span class="sc-author">'+esc(a.author)+'</span><span>'+fmtDate(a.published)+'</span><span>'+a.mentionCount+' mention'+(a.mentionCount!==1?'s':'')+'</span>'+(ga4Meta?'<span style="color:#4caf50">'+ga4Meta+'</span>':'')+'<span>'+esc((a.categories||[]).join(', '))+'</span></div>'+
       (recText?'<div class="sc-reception has-data"><div class="tier-label">'+(tierLabels[recTier]||'Reception')+'</div>'+formatSummary(recText)+'</div>':(refs.length?'<div class="sc-reception">AI reception summary pending (generated at 2-day, 7-day, 30-day marks).</div>':'<div class="no-pickup">No third-party pickup detected</div>'))+
       (refs.length?'<button class="expand-btn" onclick="toggleRefs(this)">View online references ('+refs.length+')</button><div class="ref-list">'+refs.map(r=>'<a href="'+esc(r.url)+'" target="_blank">'+esc(r.title)+'<span class="ref-source">'+esc(r.source)+'</span></a>').join('')+'</div>':'')+'</div>';
   }).join('');
@@ -999,6 +1003,11 @@ function renderByline(){
       const renderArticle=a=>{
         const gR=globalRank[a.url]||'–';
         const aR=authorRank[a.url]||'–';
+        const ga4=(D.ga4&&D.ga4.article_stats&&D.ga4.article_stats[a.url])||{};
+        const ga4Bits=[];
+        if(ga4.views)ga4Bits.push(ga4.views.toLocaleString()+' views');
+        if(ga4.subscriptions)ga4Bits.push(ga4.subscriptions+' sub'+(ga4.subscriptions!==1?'s':''));
+        const ga4Str=ga4Bits.length?' · <span style="color:#4caf50">'+ga4Bits.join(', ')+'</span>':'';
         return '<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1a1d25;font-size:.82rem;align-items:flex-start">'+
           '<div style="min-width:52px;display:flex;flex-direction:column;gap:2px;flex-shrink:0;padding-top:2px">'+
             '<span style="font-family:JetBrains Mono;font-size:.72rem;color:#3b82f6;font-weight:600">#'+gR+'</span>'+
@@ -1007,7 +1016,7 @@ function renderByline(){
           '<div style="flex:1">'+
             '<span style="color:#c8cad0;font-weight:500">'+esc(a.title)+'</span>'+
             '<span style="color:#555;margin-left:12px;font-size:.75rem" class="mono">'+fmtDate(a.published)+'</span>'+
-            '<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+'</span>'+
+            '<br><span style="color:#555;font-size:.72rem">'+a.mentions+' mention'+(a.mentions!==1?'s':'')+' — '+a.outlets.map(o=>'<span style="color:#f5a623;font-weight:600">'+esc(o)+'</span>').join(', ')+ga4Str+'</span>'+
           '</div>'+
         '</div>';
       };

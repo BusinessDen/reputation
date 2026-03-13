@@ -45,6 +45,8 @@ def mt_today(now: datetime) -> str:
 # ---------------------------------------------------------------------------
 DATA_FILE = "mentions-data.json"
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+GA4_SERVICE_ACCOUNT_KEY = os.environ.get("GA4_SERVICE_ACCOUNT_KEY", "")
+GA4_PROPERTY_ID = os.environ.get("GA4_PROPERTY_ID", "")
 
 EXCLUDED_DOMAINS = ["businessden.com", "www.businessden.com"]
 SPAM_DOMAINS = [
@@ -908,6 +910,128 @@ Write 1-2 focused paragraphs per reporter. Only discuss articles picked up by ot
 
 
 # ---------------------------------------------------------------------------
+# GA4: Article pageviews and subscription attribution
+# ---------------------------------------------------------------------------
+
+def fetch_ga4_data(data: dict, now: datetime):
+    """Pull per-article pageviews and subscription event attribution from GA4 via REST API."""
+    if not GA4_SERVICE_ACCOUNT_KEY or not GA4_PROPERTY_ID:
+        print("\n  [GA4] No GA4 credentials — skipping")
+        return
+
+    print("\n13. GA4 article analytics")
+
+    try:
+        from google.oauth2 import service_account
+        from google.auth.transport.requests import Request
+    except ImportError:
+        print("    [GA4] google-auth not installed — skipping")
+        return
+
+    try:
+        key_data = json.loads(GA4_SERVICE_ACCOUNT_KEY)
+        credentials = service_account.Credentials.from_service_account_info(
+            key_data, scopes=["https://www.googleapis.com/auth/analytics.readonly"]
+        )
+        credentials.refresh(Request())
+        token = credentials.token
+        url = f"https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY_ID}:runReport"
+        headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+    except Exception as e:
+        print(f"    [GA4] Auth error: {e}")
+        return
+
+    # --- Query 1: Per-article pageviews (last 30 days) ---
+    pageviews = {}
+    try:
+        resp = requests.post(url, headers=headers, json={
+            "dateRanges": [{"startDate": "30daysAgo", "endDate": "today"}],
+            "dimensions": [{"name": "pagePath"}],
+            "metrics": [
+                {"name": "screenPageViews"},
+                {"name": "totalUsers"},
+                {"name": "sessions"},
+            ],
+            "dimensionFilter": {
+                "filter": {
+                    "fieldName": "pagePath",
+                    "stringFilter": {"matchType": "CONTAINS", "value": "/20"}
+                }
+            },
+            "orderBys": [{"metric": {"metricName": "screenPageViews"}, "desc": True}],
+            "limit": 500
+        }, timeout=30)
+        resp.raise_for_status()
+        for row in resp.json().get("rows", []):
+            path = row["dimensionValues"][0]["value"]
+            views = int(row["metricValues"][0]["value"])
+            users = int(row["metricValues"][1]["value"])
+            sessions = int(row["metricValues"][2]["value"])
+            pageviews[path] = {"views": views, "users": users, "sessions": sessions}
+        print(f"    → {len(pageviews)} article paths with pageview data")
+    except Exception as e:
+        print(f"    [GA4] Pageview query error: {e}")
+
+    # --- Query 2: Subscription events with landing page ---
+    subscriptions = {}
+    try:
+        resp2 = requests.post(url, headers=headers, json={
+            "dateRanges": [{"startDate": "90daysAgo", "endDate": "today"}],
+            "dimensions": [{"name": "landingPage"}, {"name": "eventName"}],
+            "metrics": [{"name": "eventCount"}],
+            "dimensionFilter": {
+                "filter": {
+                    "fieldName": "eventName",
+                    "stringFilter": {"matchType": "EXACT", "value": "subscription"}
+                }
+            },
+            "limit": 200
+        }, timeout=30)
+        resp2.raise_for_status()
+        for row in resp2.json().get("rows", []):
+            path = row["dimensionValues"][0]["value"]
+            count = int(row["metricValues"][0]["value"])
+            subscriptions[path] = subscriptions.get(path, 0) + count
+        print(f"    → {len(subscriptions)} landing pages with subscription events")
+        print(f"    → {sum(subscriptions.values())} total subscription events")
+    except Exception as e:
+        print(f"    [GA4] Subscription query error: {e}")
+
+    # --- Match GA4 data to BD articles ---
+    if "ga4" not in data:
+        data["ga4"] = {}
+
+    data["ga4"]["last_fetched"] = now.isoformat()
+    data["ga4"]["article_stats"] = {}
+
+    matched = 0
+    for article in data["bd_articles"]:
+        art_url = article["url"]
+        try:
+            path = urlparse(art_url).path.rstrip("/") + "/"
+        except:
+            continue
+
+        stats = {}
+        if path in pageviews:
+            stats.update(pageviews[path])
+        else:
+            path_no_slash = path.rstrip("/")
+            if path_no_slash in pageviews:
+                stats.update(pageviews[path_no_slash])
+
+        for sub_path, count in subscriptions.items():
+            if path.rstrip("/") == sub_path.rstrip("/"):
+                stats["subscriptions"] = count
+
+        if stats:
+            data["ga4"]["article_stats"][art_url] = stats
+            matched += 1
+
+    print(f"    → {matched} BD articles matched with GA4 data")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -990,6 +1114,9 @@ def scrape():
     generate_article_reception(data, now)
 
     generate_byline_analysis(data, now, all_reporters)   # #5, #12
+
+    # --- GA4 Analytics ---
+    fetch_ga4_data(data, now)
 
     # --- Metadata ---
     data["last_updated"] = now.isoformat()
