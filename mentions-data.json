@@ -1,6 +1,30 @@
 {
   "mentions": [
     {
+      "id": "dfced01d2b5d4b70",
+      "title": "Architect lists custom-built Mediterranean-style villa in historic Denver neighborhood on 7th Ave.",
+      "title_raw": "Architect lists custom-built Mediterranean-style villa in historic Denver neighborhood on 7th Ave. - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOZjU2MlhpMzQyeXBtRTNfQWJ0RmVveEtKYWtvU3pJNHhYb2ZPTTd0VTdmcjBtdGtRVlkzUFNpNV84LW4tYXlpQkQtLVBjSGNyNmg0YTJ3Mlo3eDVRaURqSWxXNEVxVWlQYTdJTnRDTllCcFFWbkl4aTFnLW1JcWhPTmlfejQ?oc=5",
+      "snippet": "Architect lists custom-built Mediterranean-style villa in historic Denver neighborhood on 7th Ave.  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-14T12:00:48+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-14T18:30:16.646831+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMihAFBVV95cUxOZjU2MlhpMzQyeXBtRTNfQWJ0RmVveEtKYWtvU3pJNHhYb2ZPTTd0VTdmcjBtdGtRVlkzUFNpNV84LW4tYXlpQkQtLVBjSGNyNmg0YTJ3Mlo3eDVRaURqSWxXNEVxVWlQYTdJTnRDTllCcFFWbkl4aTFnLW1JcWhPTmlfejQ",
+      "sentiment": "neutral"
+    },
+    {
       "id": "a605928bba9186e8",
       "title": "Colorado – Page 16",
       "title_raw": "Colorado – Page 16 - The Denver Post",
@@ -22,6 +46,30 @@
       "wp_like_count": null,
       "wp_comment_count": null,
       "entry_id": "CBMiY0FVX3lxTE9DOE9WS1VZT0Zwbk9zbWNLSjRxVldya2hRalBKcTRES3Rqcmozei1zM3JTV1U5WjUxTW5DMkoycUJSZGxuY1BtUDYyTy14NGxBYjc3WlhmVWVzcmFEQjM3R2xycw",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "050509ebdbe615f1",
+      "title": "The developer that owns the former Denver7 block at Speer Boulevard and Lincoln Street no longer plans to build there itself.",
+      "title_raw": "The developer that owns the former Denver7 block at Speer Boulevard and Lincoln Street no longer plans to build there itself. - x.com",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE8xYktNRDJ5LXo4a1prU25PX24xN0d2cWo1bVlaQ0FUQWh0ZjZNbzF2UDkyNS1hdEZqei1BSkd5Y0oxZElWM19wTm0yVHF6NkdMeWxxSlRZbXZjYWhtQmc?oc=5",
+      "snippet": "The developer that owns the former Denver7 block at Speer Boulevard and Lincoln Street no longer plans to build there itself.  x.com",
+      "source": "x.com",
+      "source_url": "https://x.com",
+      "source_domain": "x.com",
+      "published": "2026-03-13T15:40:26+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-14T18:30:16.646831+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiXkFVX3lxTE8xYktNRDJ5LXo4a1prU25PX24xN0d2cWo1bVlaQ0FUQWh0ZjZNbzF2UDkyNS1hdEZqei1BSkd5Y0oxZElWM19wTm0yVHF6NkdMeWxxSlRZbXZjYWhtQmc",
       "sentiment": "neutral"
     },
     {
@@ -2998,16 +3046,20 @@
       "6453179b8c2ed4b9"
     ],
     "https://businessden.com/2026/03/13/developer-looks-to-sell-denver7-lot-at-speer-and-lincoln/": [
-      "520b1d01b2318d04"
+      "520b1d01b2318d04",
+      "050509ebdbe615f1"
     ],
     "https://businessden.com/2026/03/12/denver-data-commercial-construction-activity-up-in-2025-but-still-below-recent-peak/": [
       "ce0cde53dee92294"
     ],
     "https://businessden.com/2026/03/12/denver-bitcoin-pioneers-fall-out-amid-25m-crypto-clash/": [
       "cb96bc93f7836152"
+    ],
+    "https://businessden.com/2026/03/13/architect-lists-7th-ave-new-build-that-replaced-1950s-eyesore/": [
+      "dfced01d2b5d4b70"
     ]
   },
-  "last_updated": "2026-03-14T11:21:52.422788+00:00",
+  "last_updated": "2026-03-14T18:30:16.646831+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -3416,41 +3468,53 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-14T18:30:16.646831+00:00",
+      "new_mentions": 2,
+      "total_mentions": 81,
+      "total_bd_articles": 41,
+      "sources": {
+        "google_news_rss": 20,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
   "new_this_run": 2,
   "ga4": {
-    "last_fetched": "2026-03-14T11:21:52.422788+00:00",
+    "last_fetched": "2026-03-14T18:30:16.646831+00:00",
     "article_stats": {
       "https://businessden.com/2026/03/13/architect-lists-7th-ave-new-build-that-replaced-1950s-eyesore/": {
-        "views": 1252,
-        "users": 1067,
-        "sessions": 1182
+        "views": 1263,
+        "users": 1076,
+        "sessions": 1195
       },
       "https://businessden.com/2026/03/13/grocery-startup-nude-foods-bags-250k-on-shark-tank/": {
-        "views": 962,
-        "users": 873,
-        "sessions": 947
+        "views": 964,
+        "users": 875,
+        "sessions": 950
       },
       "https://businessden.com/2026/03/13/the-pipeline-commercial-real-estate-deals-for-3-13-26/": {
-        "views": 401,
-        "users": 355,
-        "sessions": 398
+        "views": 408,
+        "users": 361,
+        "sessions": 404
       },
       "https://businessden.com/2026/03/13/developer-looks-to-sell-denver7-lot-at-speer-and-lincoln/": {
-        "views": 990,
-        "users": 875,
-        "sessions": 961
+        "views": 1000,
+        "users": 880,
+        "sessions": 971
       },
       "https://businessden.com/2026/03/12/demolition-cherry-creek-west-shopping-center-project/": {
-        "views": 1176,
-        "users": 1001,
-        "sessions": 1125
+        "views": 1178,
+        "users": 1002,
+        "sessions": 1126
       },
       "https://businessden.com/2026/03/12/denver-bitcoin-pioneers-fall-out-amid-25m-crypto-clash/": {
-        "views": 668,
-        "users": 619,
-        "sessions": 664
+        "views": 669,
+        "users": 620,
+        "sessions": 665
       },
       "https://businessden.com/2026/03/12/denver-data-commercial-construction-activity-up-in-2025-but-still-below-recent-peak/": {
         "views": 449,
@@ -3458,20 +3522,20 @@
         "sessions": 434
       },
       "https://businessden.com/2026/03/12/tim-aragon-talks-burnham-yard-denver-project/": {
-        "views": 2641,
-        "users": 2228,
-        "sessions": 2441,
+        "views": 2658,
+        "users": 2243,
+        "sessions": 2467,
         "subscriptions": 1
       },
       "https://businessden.com/2026/03/12/the-docket-real-estate-lawsuit-roundup-for-3-12-26/": {
-        "views": 445,
-        "users": 377,
-        "sessions": 425
+        "views": 447,
+        "users": 379,
+        "sessions": 428
       },
       "https://businessden.com/2026/03/11/lodo-tasting-menu-restaurant-closes-event-space-to-follow/": {
-        "views": 1170,
-        "users": 968,
-        "sessions": 1096,
+        "views": 1173,
+        "users": 971,
+        "sessions": 1099,
         "subscriptions": 1
       },
       "https://businessden.com/2026/03/11/founder-of-steel-firm-says-her-siblings-are-scaring-away-suppliers/": {
@@ -3490,9 +3554,9 @@
         "sessions": 649
       },
       "https://businessden.com/2026/03/10/rino-coworking-and-retail-spot-closing-up-ahead-of-downtown-debut/": {
-        "views": 1146,
-        "users": 941,
-        "sessions": 1100
+        "views": 1147,
+        "users": 942,
+        "sessions": 1101
       },
       "https://businessden.com/2026/03/10/neighboring-nursing-homes-squabble-over-spiked-8-5m-sale/": {
         "views": 718,
@@ -3511,9 +3575,9 @@
         "sessions": 804
       },
       "https://businessden.com/2026/03/09/lohi-beer-garden-adding-second-location-in-east-denver/": {
-        "views": 1725,
+        "views": 1728,
         "users": 1457,
-        "sessions": 1615
+        "sessions": 1617
       },
       "https://businessden.com/2026/03/09/homebuilder-loses-lawsuit-calling-denver-affordable-housing-fee-extortion/": {
         "views": 1645,
@@ -3521,9 +3585,9 @@
         "sessions": 1571
       },
       "https://businessden.com/2026/03/09/downtown-denver-office-losses-top-a-billion-with-more-to-come/": {
-        "views": 4677,
-        "users": 4088,
-        "sessions": 4555
+        "views": 4678,
+        "users": 4089,
+        "sessions": 4552
       },
       "https://businessden.com/2026/03/06/9m-country-club-sale-tops-february-home-transactions/": {
         "views": 1329,
@@ -3543,14 +3607,14 @@
         "sessions": 1838
       },
       "https://businessden.com/2026/03/06/five-takeaways-from-denvers-restaurant-report/": {
-        "views": 928,
+        "views": 929,
         "users": 778,
-        "sessions": 948
+        "sessions": 949
       },
       "https://businessden.com/2026/03/05/the-docket-real-estate-lawsuit-roundup-for-3-5-26/": {
-        "views": 922,
-        "users": 689,
-        "sessions": 861,
+        "views": 923,
+        "users": 690,
+        "sessions": 862,
         "subscriptions": 1
       },
       "https://businessden.com/2026/03/05/colorado-coalition-for-the-homeless-to-develop-dha-site-along-federal/": {
@@ -3592,9 +3656,9 @@
         "sessions": 1116
       },
       "https://businessden.com/2026/03/04/modular-builder-fading-west-demands-millions-from-developer-of-granby-project/": {
-        "views": 622,
-        "users": 528,
-        "sessions": 640
+        "views": 623,
+        "users": 529,
+        "sessions": 641
       },
       "https://businessden.com/2026/03/03/fentress-sells-broadway-buildings-to-magnetic-for-13m/": {
         "views": 1279,
@@ -3608,7 +3672,7 @@
         "sessions": 670
       },
       "https://businessden.com/2026/03/03/former-avs-defenseman-launches-beer-brand-in-denver/": {
-        "views": 1490,
+        "views": 1491,
         "users": 1261,
         "sessions": 1412
       },
@@ -3629,9 +3693,9 @@
         "subscriptions": 2
       },
       "https://businessden.com/2026/03/02/golf-centric-coworking-business-adding-second-location/": {
-        "views": 1253,
-        "users": 1019,
-        "sessions": 1166
+        "views": 1254,
+        "users": 1020,
+        "sessions": 1167
       },
       "https://businessden.com/2026/03/02/brown-palace-hotel-denver-for-sale/": {
         "views": 2405,
