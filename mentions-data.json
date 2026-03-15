@@ -3201,7 +3201,7 @@
       "8f77f42a360e56ce"
     ]
   },
-  "last_updated": "2026-03-15T11:23:47.868567+00:00",
+  "last_updated": "2026-03-15T18:31:01.684591+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -3634,31 +3634,43 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-15T18:31:01.684591+00:00",
+      "new_mentions": 0,
+      "total_mentions": 85,
+      "total_bd_articles": 41,
+      "sources": {
+        "google_news_rss": 20,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 4,
+  "new_this_run": 0,
   "ga4": {
-    "last_fetched": "2026-03-15T11:23:47.868567+00:00",
+    "last_fetched": "2026-03-15T18:31:01.684591+00:00",
     "article_stats": {
       "https://businessden.com/2026/03/13/architect-lists-7th-ave-new-build-that-replaced-1950s-eyesore/": {
-        "views": 1395,
-        "users": 1185,
-        "sessions": 1323
+        "views": 1399,
+        "users": 1187,
+        "sessions": 1329
       },
       "https://businessden.com/2026/03/13/grocery-startup-nude-foods-bags-250k-on-shark-tank/": {
-        "views": 1031,
-        "users": 929,
-        "sessions": 1017
+        "views": 1038,
+        "users": 934,
+        "sessions": 1022
       },
       "https://businessden.com/2026/03/13/the-pipeline-commercial-real-estate-deals-for-3-13-26/": {
-        "views": 469,
-        "users": 416,
-        "sessions": 465
+        "views": 472,
+        "users": 419,
+        "sessions": 468
       },
       "https://businessden.com/2026/03/13/developer-looks-to-sell-denver7-lot-at-speer-and-lincoln/": {
-        "views": 1074,
-        "users": 935,
-        "sessions": 1046
+        "views": 1081,
+        "users": 939,
+        "sessions": 1050
       },
       "https://businessden.com/2026/03/12/demolition-cherry-creek-west-shopping-center-project/": {
         "views": 1215,
@@ -3666,9 +3678,9 @@
         "sessions": 1163
       },
       "https://businessden.com/2026/03/12/denver-bitcoin-pioneers-fall-out-amid-25m-crypto-clash/": {
-        "views": 681,
-        "users": 630,
-        "sessions": 677
+        "views": 682,
+        "users": 631,
+        "sessions": 678
       },
       "https://businessden.com/2026/03/12/denver-data-commercial-construction-activity-up-in-2025-but-still-below-recent-peak/": {
         "views": 461,
@@ -3676,15 +3688,15 @@
         "sessions": 446
       },
       "https://businessden.com/2026/03/12/tim-aragon-talks-burnham-yard-denver-project/": {
-        "views": 2712,
+        "views": 2713,
         "users": 2277,
-        "sessions": 2520,
+        "sessions": 2518,
         "subscriptions": 1
       },
       "https://businessden.com/2026/03/12/the-docket-real-estate-lawsuit-roundup-for-3-12-26/": {
-        "views": 468,
-        "users": 394,
-        "sessions": 447
+        "views": 469,
+        "users": 395,
+        "sessions": 448
       },
       "https://businessden.com/2026/03/11/lodo-tasting-menu-restaurant-closes-event-space-to-follow/": {
         "views": 1180,
@@ -3713,9 +3725,9 @@
         "sessions": 1105
       },
       "https://businessden.com/2026/03/10/neighboring-nursing-homes-squabble-over-spiked-8-5m-sale/": {
-        "views": 720,
-        "users": 601,
-        "sessions": 676
+        "views": 721,
+        "users": 602,
+        "sessions": 678
       },
       "https://businessden.com/2026/03/10/even-hotel-7380-clinton-foreclosure/": {
         "views": 598,
@@ -3741,7 +3753,7 @@
       "https://businessden.com/2026/03/09/downtown-denver-office-losses-top-a-billion-with-more-to-come/": {
         "views": 4695,
         "users": 4100,
-        "sessions": 4576
+        "sessions": 4586
       },
       "https://businessden.com/2026/03/06/9m-country-club-sale-tops-february-home-transactions/": {
         "views": 1332,
@@ -3761,9 +3773,9 @@
         "sessions": 1841
       },
       "https://businessden.com/2026/03/06/five-takeaways-from-denvers-restaurant-report/": {
-        "views": 930,
+        "views": 931,
         "users": 779,
-        "sessions": 950
+        "sessions": 951
       },
       "https://businessden.com/2026/03/05/the-docket-real-estate-lawsuit-roundup-for-3-5-26/": {
         "views": 927,
@@ -3854,7 +3866,7 @@
       "https://businessden.com/2026/03/02/brown-palace-hotel-denver-for-sale/": {
         "views": 2412,
         "users": 1983,
-        "sessions": 2283
+        "sessions": 2282
       }
     }
   }
