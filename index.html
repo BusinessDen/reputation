@@ -250,6 +250,7 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
     <div class="tab-group">
       <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
       <button class="tab-btn" data-tab="stories">Our Stories</button>
+      <button class="tab-btn" data-tab="subscriptions">Subscriptions</button>
       <button class="tab-btn" data-tab="byline">Byline</button>
       <button class="tab-btn" data-tab="summaries">Daily Summaries</button>
     </div>
@@ -351,6 +352,10 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
     <select id="sfSort1">
       <option value="rank-desc">Sort: Ranking (high → low)</option>
       <option value="rank-asc">Ranking (low → high)</option>
+      <option value="views-desc">Views (most first)</option>
+      <option value="views-asc">Views (fewest first)</option>
+      <option value="subs-desc">Subscribers (most first)</option>
+      <option value="subs-asc">Subscribers (fewest first)</option>
       <option value="date-desc">Date (newest first)</option>
       <option value="date-asc">Date (oldest first)</option>
       <option value="author-asc">Author (A → Z)</option>
@@ -362,6 +367,10 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
       <option value="">Then by…</option>
       <option value="rank-desc">Ranking (high → low)</option>
       <option value="rank-asc">Ranking (low → high)</option>
+      <option value="views-desc">Views (most first)</option>
+      <option value="views-asc">Views (fewest first)</option>
+      <option value="subs-desc">Subscribers (most first)</option>
+      <option value="subs-asc">Subscribers (fewest first)</option>
       <option value="date-desc">Date (newest first)</option>
       <option value="date-asc">Date (oldest first)</option>
       <option value="author-asc">Author (A → Z)</option>
@@ -373,7 +382,21 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
   <div id="storiesList"><div class="empty-state"><p>Loading…</p></div></div>
 </div>
 
-<!-- ═══ TAB 3: BYLINE ═══ -->
+<!-- ═══ TAB 3: SUBSCRIPTIONS ═══ -->
+<div class="tab-panel" id="panel-subscriptions">
+  <div class="stories-filters">
+    <select id="subAuthor"><option value="">All reporters</option></select>
+    <select id="subTopic"><option value="">All topics</option></select>
+    <span class="filter-label">From</span>
+    <input type="date" id="subDateFrom">
+    <span class="filter-label">To</span>
+    <input type="date" id="subDateTo">
+  </div>
+  <div id="subsList"><div class="empty-state"><p>Loading…</p></div></div>
+  <div id="subsDetail" style="display:none"></div>
+</div>
+
+<!-- ═══ TAB 4: BYLINE ═══ -->
 <div class="tab-panel" id="panel-byline">
   <div id="bylineContent"><div class="empty-state"><p>Loading…</p></div></div>
 </div>
@@ -421,7 +444,7 @@ async function init(){
 
 function renderAll(){
   renderKPIs();renderDailySummary();renderChart();renderOutletChart();renderTable();renderSidebar();
-  renderStories();renderByline();renderSummariesTab();
+  renderStories();renderSubscriptions();renderByline();renderSummariesTab();
   if(D.last_updated)document.getElementById('lastUpdated').textContent='Updated '+new Date(D.last_updated).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
 }
 
@@ -874,7 +897,12 @@ function doRenderStories(){
   allRanked.forEach((a,i)=>{globalRank[a.url]=i+1;});
 
   // Filter
-  let filtered=bdArticles.map(a=>({...a,mentionCount:getArticleMatches(a.url).length,rank:globalRank[a.url]||0}));
+  const ga4Stats=(D.ga4&&D.ga4.article_stats)||{};
+  let filtered=bdArticles.map(a=>{
+    const ga4=ga4Stats[a.url]||{};
+    return{...a,mentionCount:getArticleMatches(a.url).length,rank:globalRank[a.url]||0,
+      views:ga4.views||0,subs:ga4.subscriptions||0};
+  });
   filtered=filtered.filter(a=>{
     if(auth&&a.author!==auth)return false;
     if(q&&!(a.title+' '+a.author+' '+(a.categories||[]).join(' ')).toLowerCase().includes(q))return false;
@@ -884,18 +912,13 @@ function doRenderStories(){
   });
 
   // Sort helper
-  function cmpVal(a,key,dir){
-    if(key==='rank')return dir==='desc'?a.mentionCount:-a.mentionCount;
-    if(key==='date')return dir==='desc'?-(a.published||'').localeCompare('z'):(a.published||'').localeCompare('');
-    if(key==='author')return 0;
-    if(key==='title')return 0;
-    return 0;
-  }
   function sortFn(sortStr){
     if(!sortStr)return null;
     const[key,dir]=sortStr.split('-');
     return(a,b)=>{
       if(key==='rank')return dir==='desc'?b.mentionCount-a.mentionCount:a.mentionCount-b.mentionCount;
+      if(key==='views')return dir==='desc'?b.views-a.views:a.views-b.views;
+      if(key==='subs')return dir==='desc'?b.subs-a.subs:a.subs-b.subs;
       if(key==='date')return dir==='desc'?(b.published||'').localeCompare(a.published||''):(a.published||'').localeCompare(b.published||'');
       if(key==='author')return dir==='asc'?(a.author||'').localeCompare(b.author||''):(b.author||'').localeCompare(a.author||'');
       if(key==='title')return dir==='asc'?(a.title||'').localeCompare(b.title||''):(b.title||'').localeCompare(a.title||'');
@@ -1045,12 +1068,19 @@ function renderByline(){
     } else if(pubDates.length===1){avgPerWeek=rd.total.toFixed(1);}
     const totalMentions=rd.articles.reduce((s,a)=>s+a.mentions,0);
     const avgMentions=rd.total?(totalMentions/rd.total).toFixed(1):'0';
+    // Subscriber stats from GA4
+    const ga4Stats=(D.ga4&&D.ga4.article_stats)||{};
+    const authorArticles=bdArticles.filter(a=>a.author===name);
+    const totalSubs=authorArticles.reduce((s,a)=>{const g=ga4Stats[a.url]||{};return s+(g.subscriptions||0);},0);
+    const avgSubs=rd.total?(totalSubs/rd.total).toFixed(1):'0';
 
     return '<div class="byline-card"><h3>'+esc(name)+'</h3>'+
       '<div class="byline-stats">'+
         '<div class="byline-stat"><span class="bs-val">'+rd.total+'</span><span class="bs-label">Articles tracked</span></div>'+
         '<div class="byline-stat"><span class="bs-val">'+totalMentions+'</span><span class="bs-label">Total mentions</span></div>'+
         '<div class="byline-stat"><span class="bs-val">'+avgMentions+'</span><span class="bs-label">Avg. mentions/article</span></div>'+
+        '<div class="byline-stat"><span class="bs-val" style="color:#4caf50">'+totalSubs+'</span><span class="bs-label">Total subscribers</span></div>'+
+        '<div class="byline-stat"><span class="bs-val" style="color:#4caf50">'+avgSubs+'</span><span class="bs-label">Avg. subs/article</span></div>'+
         '<div class="byline-stat"><span class="bs-val">'+avgPerWeek+'</span><span class="bs-label">Avg. articles/week</span></div>'+
       '</div>'+
       (aiText?'<div class="byline-body">'+formatSummary(aiText)+'</div>':'')+
@@ -1072,6 +1102,158 @@ function renderSummariesTab(){
     const title=s.type==='daily'?s.date:s.type==='weekly'?'Week of '+(s.week_start||s.date):s.month||s.date;
     return'<div class="summary-entry"><h4><span class="se-type '+s.type+'">'+tl+'</span> '+esc(title)+'</h4><div class="se-body ai-body">'+formatSummary(s.text)+'</div></div>';}).join('');
 }
+
+// ═══ SUBSCRIPTIONS TAB ═══
+function renderSubscriptions(){
+  const el=document.getElementById('subsList');
+  const detailEl=document.getElementById('subsDetail');
+  const ga4Stats=(D.ga4&&D.ga4.article_stats)||{};
+
+  // Populate dropdowns
+  const authors=new Set(bdArticles.map(a=>a.author).filter(Boolean));
+  const topics=new Set();
+  bdArticles.forEach(a=>(a.categories||[]).forEach(c=>topics.add(c)));
+  const authSel=document.getElementById('subAuthor');
+  authSel.innerHTML='<option value="">All reporters</option>';
+  [...authors].sort().forEach(a=>{const o=document.createElement('option');o.value=a;o.textContent=a;authSel.appendChild(o);});
+  const topicSel=document.getElementById('subTopic');
+  topicSel.innerHTML='<option value="">All topics</option>';
+  [...topics].sort().forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;topicSel.appendChild(o);});
+  doRenderSubs();
+}
+
+function doRenderSubs(){
+  const el=document.getElementById('subsList');
+  const detailEl=document.getElementById('subsDetail');
+  detailEl.style.display='none';
+  const ga4Stats=(D.ga4&&D.ga4.article_stats)||{};
+  const auth=document.getElementById('subAuthor').value;
+  const topic=document.getElementById('subTopic').value;
+  const from=document.getElementById('subDateFrom').value;
+  const to=document.getElementById('subDateTo').value;
+
+  // Build list of articles with subscription data
+  let articles=bdArticles.map(a=>{
+    const ga4=ga4Stats[a.url]||{};
+    let totalSubs=ga4.subscriptions||0;
+    // If date filters, count from daily_subs
+    if((from||to)&&ga4.daily_subs){
+      totalSubs=0;
+      Object.entries(ga4.daily_subs).forEach(([d,c])=>{
+        if(from&&d<from)return;
+        if(to&&d>to)return;
+        totalSubs+=c;
+      });
+    }
+    return{...a,subs:totalSubs,views:ga4.views||0,ga4:ga4};
+  }).filter(a=>{
+    if(!a.subs)return false;
+    if(auth&&a.author!==auth)return false;
+    if(topic&&!(a.categories||[]).includes(topic))return false;
+    return true;
+  });
+
+  articles.sort((a,b)=>b.subs-a.subs);
+
+  if(!articles.length){
+    el.innerHTML='<div class="empty-state"><p>No articles with subscription data yet. GA4 subscription events will appear after the next scrape.</p></div>';
+    return;
+  }
+
+  el.innerHTML=articles.map((a,i)=>{
+    return '<div class="story-card" style="display:flex;align-items:center;gap:16px;cursor:pointer" data-sub-url="'+esc(a.url)+'">'+
+      '<div style="min-width:36px;text-align:center"><span style="font-family:JetBrains Mono;font-size:.72rem;color:#555">#'+(i+1)+'</span></div>'+
+      '<div style="flex:1">'+
+        '<div style="font-weight:600;font-size:.92rem">'+esc(a.title)+'</div>'+
+        '<div style="font-size:.78rem;color:#666;margin-top:3px"><span style="color:#3b82f6">'+esc(a.author)+'</span> · '+fmtDate(a.published)+' · '+(a.categories||[]).join(', ')+'</div>'+
+      '</div>'+
+      '<div style="min-width:80px;text-align:center;background:#0f1425;border:1px solid #1e2028;border-radius:10px;padding:10px 14px">'+
+        '<div style="font-family:JetBrains Mono;font-size:1.4rem;font-weight:700;color:#4caf50">'+a.subs+'</div>'+
+        '<div style="font-size:.65rem;color:#666;text-transform:uppercase">subscriber'+(a.subs!==1?'s':'')+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  // Click handler
+  el.querySelectorAll('[data-sub-url]').forEach(card=>{
+    card.addEventListener('click',()=>showSubDetail(card.dataset.subUrl));
+  });
+}
+
+function showSubDetail(artUrl){
+  const el=document.getElementById('subsDetail');
+  const listEl=document.getElementById('subsList');
+  const ga4Stats=(D.ga4&&D.ga4.article_stats)||{};
+  const ga4=ga4Stats[artUrl]||{};
+  const article=bdArticles.find(a=>a.url===artUrl);
+  if(!article){el.style.display='none';return;}
+
+  const dailySubs=ga4.daily_subs||{};
+  const dailyViews=ga4.daily_views||{};
+  const now=new Date();
+
+  // Compute time-windowed counts
+  function countSince(data,daysAgo){
+    const cutoff=new Date(now-daysAgo*86400000).toISOString().split('T')[0];
+    let s=0;Object.entries(data).forEach(([d,c])=>{if(d>=cutoff)s+=c;});return s;
+  }
+
+  const sub1d=countSince(dailySubs,1);
+  const sub7d=countSince(dailySubs,7);
+  const sub30d=countSince(dailySubs,30);
+  const subAll=ga4.subscriptions||0;
+  const view1d=countSince(dailyViews,1);
+  const view7d=countSince(dailyViews,7);
+  const view30d=countSince(dailyViews,30);
+  const viewAll=ga4.views||0;
+
+  // Build daily chart data (subs + views since publication)
+  const pubDate=(article.published||'').split('T')[0];
+  const allDates=new Set([...Object.keys(dailySubs),...Object.keys(dailyViews)]);
+  const sortedDates=[...allDates].filter(d=>!pubDate||d>=pubDate).sort();
+  const maxSub=Math.max(...sortedDates.map(d=>dailySubs[d]||0),1);
+  const maxView=Math.max(...sortedDates.map(d=>dailyViews[d]||0),1);
+
+  let chartHtml='';
+  if(sortedDates.length){
+    const barH=100;
+    chartHtml='<div style="margin-top:16px"><div style="font-size:.72rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:8px">Daily activity since publication</div>'+
+      '<div style="display:flex;align-items:flex-end;gap:2px;height:'+barH+'px;border-bottom:1px solid #1e2028">';
+    sortedDates.forEach(d=>{
+      const sv=dailySubs[d]||0, vv=dailyViews[d]||0;
+      const sH=Math.max(0,(sv/maxSub)*barH*0.5);
+      const vH=Math.max(0,(vv/maxView)*barH*0.5);
+      chartHtml+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;position:relative" class="chart-col">'+
+        '<div class="chart-tooltip">'+fmtShort(d)+': '+sv+' sub'+(sv!==1?'s':'')+', '+vv+' views</div>'+
+        '<div style="width:100%;height:'+Math.max(sv?2:0,sH)+'px;background:#4caf50;border-radius:2px 2px 0 0"></div>'+
+        '<div style="width:100%;height:'+Math.max(vv?1:0,vH)+'px;background:#3b82f6;border-radius:2px 2px 0 0"></div>'+
+      '</div>';
+    });
+    chartHtml+='</div><div class="chart-legend" style="margin-top:8px"><span><i style="background:#4caf50"></i> Subscribers</span><span><i style="background:#3b82f6"></i> Pageviews</span></div></div>';
+  }
+
+  listEl.style.display='none';
+  el.style.display='block';
+  el.innerHTML='<div style="margin-bottom:16px"><button class="expand-btn" onclick="document.getElementById(\'subsList\').style.display=\'block\';document.getElementById(\'subsDetail\').style.display=\'none\'">← Back to list</button></div>'+
+    '<div class="story-card">'+
+      '<div style="font-weight:700;font-size:1rem;margin-bottom:4px">'+esc(article.title)+'</div>'+
+      '<div style="font-size:.82rem;color:#666;margin-bottom:16px"><span style="color:#3b82f6">'+esc(article.author)+'</span> · '+fmtDate(article.published)+' · '+(article.categories||[]).join(', ')+'</div>'+
+      '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">'+
+        '<div style="text-align:center;background:#13151a;border-radius:8px;padding:12px"><div style="font-family:JetBrains Mono;font-size:1.3rem;font-weight:700;color:#4caf50">'+sub1d+'</div><div style="font-size:.65rem;color:#666;text-transform:uppercase">Subs (1d)</div></div>'+
+        '<div style="text-align:center;background:#13151a;border-radius:8px;padding:12px"><div style="font-family:JetBrains Mono;font-size:1.3rem;font-weight:700;color:#4caf50">'+sub7d+'</div><div style="font-size:.65rem;color:#666;text-transform:uppercase">Subs (7d)</div></div>'+
+        '<div style="text-align:center;background:#13151a;border-radius:8px;padding:12px"><div style="font-family:JetBrains Mono;font-size:1.3rem;font-weight:700;color:#4caf50">'+sub30d+'</div><div style="font-size:.65rem;color:#666;text-transform:uppercase">Subs (30d)</div></div>'+
+        '<div style="text-align:center;background:#13151a;border-radius:8px;padding:12px"><div style="font-family:JetBrains Mono;font-size:1.3rem;font-weight:700;color:#4caf50">'+subAll+'</div><div style="font-size:.65rem;color:#666;text-transform:uppercase">Subs (all)</div></div>'+
+      '</div>'+
+      '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">'+
+        '<div style="text-align:center;background:#13151a;border-radius:8px;padding:12px"><div style="font-family:JetBrains Mono;font-size:1.3rem;font-weight:700;color:#3b82f6">'+view1d.toLocaleString()+'</div><div style="font-size:.65rem;color:#666;text-transform:uppercase">Views (1d)</div></div>'+
+        '<div style="text-align:center;background:#13151a;border-radius:8px;padding:12px"><div style="font-family:JetBrains Mono;font-size:1.3rem;font-weight:700;color:#3b82f6">'+view7d.toLocaleString()+'</div><div style="font-size:.65rem;color:#666;text-transform:uppercase">Views (7d)</div></div>'+
+        '<div style="text-align:center;background:#13151a;border-radius:8px;padding:12px"><div style="font-family:JetBrains Mono;font-size:1.3rem;font-weight:700;color:#3b82f6">'+view30d.toLocaleString()+'</div><div style="font-size:.65rem;color:#666;text-transform:uppercase">Views (30d)</div></div>'+
+        '<div style="text-align:center;background:#13151a;border-radius:8px;padding:12px"><div style="font-family:JetBrains Mono;font-size:1.3rem;font-weight:700;color:#3b82f6">'+viewAll.toLocaleString()+'</div><div style="font-size:.65rem;color:#666;text-transform:uppercase">Views (all)</div></div>'+
+      '</div>'+
+      chartHtml+
+    '</div>';
+}
+['subAuthor','subTopic','subDateFrom','subDateTo'].forEach(id=>{document.getElementById(id).addEventListener(id.startsWith('sub')?'change':'change',doRenderSubs);});
 
 // ═══ DETAIL PANEL ═══
 function openDetail(id){

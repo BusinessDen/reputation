@@ -914,7 +914,7 @@ Write 1-2 focused paragraphs per reporter. Only discuss articles picked up by ot
 # ---------------------------------------------------------------------------
 
 def fetch_ga4_data(data: dict, now: datetime):
-    """Pull per-article pageviews and subscription event attribution from GA4 via REST API."""
+    """Pull per-article pageviews, subscriptions, and daily breakdowns from GA4."""
     if not GA4_SERVICE_ACCOUNT_KEY or not GA4_PROPERTY_ID:
         print("\n  [GA4] No GA4 credentials — skipping")
         return
@@ -941,61 +941,110 @@ def fetch_ga4_data(data: dict, now: datetime):
         print(f"    [GA4] Auth error: {e}")
         return
 
-    # --- Query 1: Per-article pageviews (last 30 days) ---
-    pageviews = {}
-    try:
-        resp = requests.post(url, headers=headers, json={
-            "dateRanges": [{"startDate": "30daysAgo", "endDate": "today"}],
-            "dimensions": [{"name": "pagePath"}],
-            "metrics": [
-                {"name": "screenPageViews"},
-                {"name": "totalUsers"},
-                {"name": "sessions"},
-            ],
-            "dimensionFilter": {
-                "filter": {
-                    "fieldName": "pagePath",
-                    "stringFilter": {"matchType": "CONTAINS", "value": "/20"}
-                }
-            },
-            "orderBys": [{"metric": {"metricName": "screenPageViews"}, "desc": True}],
-            "limit": 500
-        }, timeout=30)
-        resp.raise_for_status()
-        for row in resp.json().get("rows", []):
-            path = row["dimensionValues"][0]["value"]
-            views = int(row["metricValues"][0]["value"])
-            users = int(row["metricValues"][1]["value"])
-            sessions = int(row["metricValues"][2]["value"])
-            pageviews[path] = {"views": views, "users": users, "sessions": sessions}
-        print(f"    → {len(pageviews)} article paths with pageview data")
-    except Exception as e:
-        print(f"    [GA4] Pageview query error: {e}")
+    def ga4_query(payload: dict) -> dict | None:
+        try:
+            resp = requests.post(url, headers=headers, json=payload, timeout=30)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception as e:
+            print(f"    [GA4] Query error: {e}")
+            return None
 
-    # --- Query 2: Subscription events with landing page ---
-    subscriptions = {}
-    try:
-        resp2 = requests.post(url, headers=headers, json={
-            "dateRanges": [{"startDate": "90daysAgo", "endDate": "today"}],
-            "dimensions": [{"name": "landingPage"}, {"name": "eventName"}],
-            "metrics": [{"name": "eventCount"}],
-            "dimensionFilter": {
-                "filter": {
-                    "fieldName": "eventName",
-                    "stringFilter": {"matchType": "EXACT", "value": "subscription"}
-                }
-            },
-            "limit": 200
-        }, timeout=30)
-        resp2.raise_for_status()
-        for row in resp2.json().get("rows", []):
+    # --- Query 1: Per-article pageviews (last 30 days, aggregate) ---
+    pageviews = {}
+    result = ga4_query({
+        "dateRanges": [{"startDate": "30daysAgo", "endDate": "today"}],
+        "dimensions": [{"name": "pagePath"}],
+        "metrics": [
+            {"name": "screenPageViews"},
+            {"name": "totalUsers"},
+            {"name": "sessions"},
+        ],
+        "dimensionFilter": {
+            "filter": {"fieldName": "pagePath", "stringFilter": {"matchType": "CONTAINS", "value": "/20"}}
+        },
+        "orderBys": [{"metric": {"metricName": "screenPageViews"}, "desc": True}],
+        "limit": 500
+    })
+    if result:
+        for row in result.get("rows", []):
             path = row["dimensionValues"][0]["value"]
-            count = int(row["metricValues"][0]["value"])
-            subscriptions[path] = subscriptions.get(path, 0) + count
+            pageviews[path] = {
+                "views": int(row["metricValues"][0]["value"]),
+                "users": int(row["metricValues"][1]["value"]),
+                "sessions": int(row["metricValues"][2]["value"]),
+            }
+        print(f"    → {len(pageviews)} article paths with pageview data")
+
+    # --- Query 2: Subscription events with landing page (aggregate) ---
+    subscriptions = {}
+    result = ga4_query({
+        "dateRanges": [{"startDate": "2026-03-01", "endDate": "today"}],
+        "dimensions": [{"name": "landingPage"}],
+        "metrics": [{"name": "eventCount"}],
+        "dimensionFilter": {
+            "filter": {"fieldName": "eventName", "stringFilter": {"matchType": "EXACT", "value": "subscription"}}
+        },
+        "limit": 500
+    })
+    if result:
+        for row in result.get("rows", []):
+            path = row["dimensionValues"][0]["value"]
+            subscriptions[path] = int(row["metricValues"][0]["value"])
         print(f"    → {len(subscriptions)} landing pages with subscription events")
         print(f"    → {sum(subscriptions.values())} total subscription events")
-    except Exception as e:
-        print(f"    [GA4] Subscription query error: {e}")
+
+    # --- Query 3: Daily subscriptions per landing page (time series) ---
+    daily_subs = {}  # {path: {date: count}}
+    result = ga4_query({
+        "dateRanges": [{"startDate": "2026-03-01", "endDate": "today"}],
+        "dimensions": [{"name": "date"}, {"name": "landingPage"}],
+        "metrics": [{"name": "eventCount"}],
+        "dimensionFilter": {
+            "filter": {"fieldName": "eventName", "stringFilter": {"matchType": "EXACT", "value": "subscription"}}
+        },
+        "limit": 5000
+    })
+    if result:
+        rows = result.get("rows", [])
+        print(f"    → Query 3 returned {len(rows)} rows")
+        for row in rows:
+            d = row["dimensionValues"][0]["value"]  # YYYYMMDD
+            date_str = f"{d[:4]}-{d[4:6]}-{d[6:8]}"
+            path = row["dimensionValues"][1]["value"]
+            count = int(row["metricValues"][0]["value"])
+            if path not in daily_subs:
+                daily_subs[path] = {}
+            daily_subs[path][date_str] = daily_subs[path].get(date_str, 0) + count
+        print(f"    → {len(daily_subs)} paths with daily subscription data")
+    else:
+        print("    → Query 3 returned no result")
+
+    # --- Query 4: Daily pageviews per article (time series) ---
+    daily_views = {}  # {path: {date: count}}
+    result = ga4_query({
+        "dateRanges": [{"startDate": "2026-03-01", "endDate": "today"}],
+        "dimensions": [{"name": "date"}, {"name": "pagePath"}],
+        "metrics": [{"name": "screenPageViews"}],
+        "dimensionFilter": {
+            "filter": {"fieldName": "pagePath", "stringFilter": {"matchType": "CONTAINS", "value": "/20"}}
+        },
+        "limit": 10000
+    })
+    if result:
+        rows = result.get("rows", [])
+        print(f"    → Query 4 returned {len(rows)} rows")
+        for row in rows:
+            d = row["dimensionValues"][0]["value"]
+            date_str = f"{d[:4]}-{d[4:6]}-{d[6:8]}"
+            path = row["dimensionValues"][1]["value"]
+            count = int(row["metricValues"][0]["value"])
+            if path not in daily_views:
+                daily_views[path] = {}
+            daily_views[path][date_str] = daily_views[path].get(date_str, 0) + count
+        print(f"    → {len(daily_views)} paths with daily pageview data")
+    else:
+        print("    → Query 4 returned no result")
 
     # --- Match GA4 data to BD articles ---
     if "ga4" not in data:
@@ -1004,25 +1053,42 @@ def fetch_ga4_data(data: dict, now: datetime):
     data["ga4"]["last_fetched"] = now.isoformat()
     data["ga4"]["article_stats"] = {}
 
+    def match_path(art_url: str, lookup: dict) -> dict | None:
+        try:
+            path = urlparse(art_url).path.rstrip("/")
+        except:
+            return None
+        for p in [path + "/", path]:
+            if p in lookup:
+                return lookup[p]
+        return None
+
     matched = 0
     for article in data["bd_articles"]:
         art_url = article["url"]
+        stats = {}
+
+        pv = match_path(art_url, pageviews)
+        if pv:
+            stats.update(pv)
+
         try:
-            path = urlparse(art_url).path.rstrip("/") + "/"
+            path = urlparse(art_url).path.rstrip("/")
         except:
             continue
 
-        stats = {}
-        if path in pageviews:
-            stats.update(pageviews[path])
-        else:
-            path_no_slash = path.rstrip("/")
-            if path_no_slash in pageviews:
-                stats.update(pageviews[path_no_slash])
-
         for sub_path, count in subscriptions.items():
-            if path.rstrip("/") == sub_path.rstrip("/"):
+            if path == sub_path.rstrip("/"):
                 stats["subscriptions"] = count
+
+        # Daily time series
+        ds = match_path(art_url, daily_subs)
+        if ds:
+            stats["daily_subs"] = ds
+
+        dv = match_path(art_url, daily_views)
+        if dv:
+            stats["daily_views"] = dv
 
         if stats:
             data["ga4"]["article_stats"][art_url] = stats
