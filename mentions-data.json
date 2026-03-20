@@ -1,6 +1,78 @@
 {
   "mentions": [
     {
+      "id": "235abad8e858cfc5",
+      "title": "Colorado's A.G. sues to block a TV merger in Denver between FOX31 and 9NEWS, but...",
+      "title_raw": "Colorado's A.G. sues to block a TV merger in Denver between FOX31 and 9NEWS, but... - Inside the News in Colorado",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNZ29LTFIyYVktbklGVmxGS1VzaWNPWDFUdzFIM3V6YzBUMkVBYUVKaVhWZGUwVmdIdHUzbVBfLWhMSXpFemVoVUc2VS1lLVBpMnlpMWxtMlRWU3BCYm04RWQ1dGVDZGhQa09IM3BuVmlUOVNlS3RrWUo4SC1wX3MyYg?oc=5",
+      "snippet": "Colorado's A.G. sues to block a TV merger in Denver between FOX31 and 9NEWS, but...  Inside the News in Colorado",
+      "source": "Inside the News in Colorado",
+      "source_url": "https://coloradomedia.substack.com",
+      "source_domain": "coloradomedia.substack.com",
+      "published": "2026-03-20T17:18:53+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-20T18:40:06.718914+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMigAFBVV95cUxNZ29LTFIyYVktbklGVmxGS1VzaWNPWDFUdzFIM3V6YzBUMkVBYUVKaVhWZGUwVmdIdHUzbVBfLWhMSXpFemVoVUc2VS1lLVBpMnlpMWxtMlRWU3BCYm04RWQ1dGVDZGhQa09IM3BuVmlUOVNlS3RrWUo4SC1wX3MyYg",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "1bfe62d6b818618d",
+      "title": "Theater backed by DDA delays opening after convoluted city loan process",
+      "title_raw": "Theater backed by DDA delays opening after convoluted city loan process - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNYXJGdktITHNrQ2pGX0p0VHJIYV9mR3EwcU81YmtYX19rYXpPcXpyNlUxRnRON1puRmkxS2JGSFV1eHBVX1h0R3B2dkkySmZqSzlFRWlqTDJMVnlYSHRlVTNqNEF4TnJpek9HS1B3dllQQW9zU2hKZmJkYm9FUS1WbW5LeUVnZUJLZWstV2F2ZUk0ZjA?oc=5",
+      "snippet": "Theater backed by DDA delays opening after convoluted city loan process  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-20T12:00:24+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-20T18:40:06.718914+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMikwFBVV95cUxNYXJGdktITHNrQ2pGX0p0VHJIYV9mR3EwcU81YmtYX19rYXpPcXpyNlUxRnRON1puRmkxS2JGSFV1eHBVX1h0R3B2dkkySmZqSzlFRWlqTDJMVnlYSHRlVTNqNEF4TnJpek9HS1B3dllQQW9zU2hKZmJkYm9FUS1WbW5LeUVnZUJLZWstV2F2ZUk0ZjA",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "6748e54e5ae0cee4",
+      "title": "financial – Page 64",
+      "title_raw": "financial – Page 64 - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1YcExmbkNvd1I0UWpsN0xsbldIS1pGbUlXd194bjgxR3pzWG8xXzJaTEtoQmo2dGZwLWxOaUsteWxNMjI0NkZ1YUw3eDMtUkFENVpvOHRnYzhxOExDVUE?oc=5",
+      "snippet": "financial – Page 64  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-20T10:35:23+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"Justin Wingerter\" Denver -site:businessden.com when:2d",
+      "first_seen": "2026-03-20T18:40:06.718914+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiXkFVX3lxTE1YcExmbkNvd1I0UWpsN0xsbldIS1pGbUlXd194bjgxR3pzWG8xXzJaTEtoQmo2dGZwLWxOaUsteWxNMjI0NkZ1YUw3eDMtUkFENVpvOHRnYzhxOExDVUE",
+      "sentiment": "neutral"
+    },
+    {
       "id": "5a8cd428225c65b2",
       "title": "A proposed underground tunnel from Ball Arena has been named a finalist in a contest run by Elon Musk’s The Boring Company. The Denver project this month was highlighted as one of the 16 finalists selected from 487 entries in the “Tunnel Vision” contest, a",
       "title_raw": "A proposed underground tunnel from Ball Arena has been named a finalist in a contest run by Elon Musk’s The Boring Company. The Denver project this month was highlighted as one of the 16 finalists selected from 487 entries in the “Tunnel Vision” contest, a - instagram.com",
@@ -4474,9 +4546,12 @@
     ],
     "https://businessden.com/2026/03/19/cherry-hills-members-golf-investment-firm-shifts-to-private-equity-model/": [
       "2c7b09a1f0be30ea"
+    ],
+    "https://businessden.com/2026/03/19/first-downtown-businesses-getting-ddda-money-after-convoluted-process/": [
+      "1bfe62d6b818618d"
     ]
   },
-  "last_updated": "2026-03-20T11:29:54.195835+00:00",
+  "last_updated": "2026-03-20T18:40:06.718914+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -5041,62 +5116,117 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-20T18:40:06.718914+00:00",
+      "new_mentions": 3,
+      "total_mentions": 118,
+      "total_bd_articles": 63,
+      "sources": {
+        "google_news_rss": 36,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 6,
+  "new_this_run": 3,
   "ga4": {
-    "last_fetched": "2026-03-20T11:29:54.195835+00:00",
+    "last_fetched": "2026-03-20T18:40:06.718914+00:00",
     "article_stats": {
+      "https://businessden.com/2026/03/20/the-pipeline-commercial-real-estate-deals-for-3-20-26/": {
+        "views": 126,
+        "users": 127,
+        "sessions": 128,
+        "daily_views": {
+          "2026-03-20": 126
+        }
+      },
+      "https://businessden.com/2026/03/20/doctor-selling-cheesman-park-penthouse-says-view-will-leave-buyer-sleepless/": {
+        "views": 289,
+        "users": 279,
+        "sessions": 283,
+        "daily_views": {
+          "2026-03-20": 289
+        }
+      },
+      "https://businessden.com/2026/03/20/judge-says-he-will-consider-receiver-for-small-uptown-office-if-it-isnt-sold/": {
+        "views": 157,
+        "users": 164,
+        "sessions": 166,
+        "daily_views": {
+          "2026-03-20": 157
+        }
+      },
+      "https://businessden.com/2026/03/20/all-in-hotel-restaurant-opening-on-colfax/": {
+        "views": 156,
+        "users": 161,
+        "sessions": 166,
+        "daily_views": {
+          "2026-03-20": 156
+        }
+      },
+      "https://businessden.com/2026/03/20/nonprofit-putting-final-touches-on-new-hq-with-help-from-local-developers/": {
+        "views": 144,
+        "users": 146,
+        "sessions": 151,
+        "daily_views": {
+          "2026-03-20": 144
+        }
+      },
       "https://businessden.com/2026/03/19/syndeo-institute-cable-center-university-denver-deal-possible-move/": {
-        "views": 938,
-        "users": 829,
-        "sessions": 898,
+        "views": 954,
+        "users": 841,
+        "sessions": 915,
         "daily_views": {
           "2026-03-19": 936,
-          "2026-03-20": 2
+          "2026-03-20": 18
         }
       },
       "https://businessden.com/2026/03/19/highland-jeweler-bankrupt-after-merchant-cash-advances-spiraled/": {
-        "views": 489,
-        "users": 439,
-        "sessions": 472,
+        "views": 500,
+        "users": 447,
+        "sessions": 483,
         "daily_views": {
-          "2026-03-19": 489
+          "2026-03-19": 489,
+          "2026-03-20": 11
         }
       },
       "https://businessden.com/2026/03/19/first-downtown-businesses-getting-ddda-money-after-convoluted-process/": {
-        "views": 508,
-        "users": 417,
-        "sessions": 462,
+        "views": 564,
+        "users": 467,
+        "sessions": 513,
         "daily_views": {
-          "2026-03-19": 508
+          "2026-03-19": 508,
+          "2026-03-20": 56
         }
       },
       "https://businessden.com/2026/03/19/cherry-hills-members-golf-investment-firm-shifts-to-private-equity-model/": {
-        "views": 1216,
-        "users": 972,
-        "sessions": 1107,
+        "views": 1309,
+        "users": 1059,
+        "sessions": 1209,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-19": 1
         },
         "daily_views": {
           "2026-03-19": 1207,
-          "2026-03-20": 9
+          "2026-03-20": 102
         }
       },
       "https://businessden.com/2026/03/19/the-docket-real-estate-lawsuit-roundup-for-3-19-26/": {
-        "views": 355,
-        "users": 308,
-        "sessions": 346,
+        "views": 359,
+        "users": 312,
+        "sessions": 349,
         "daily_views": {
-          "2026-03-19": 354
+          "2026-03-19": 354,
+          "2026-03-20": 5
         }
       },
       "https://businessden.com/2026/03/18/apartment-developer-breaks-ground-on-full-city-block-in-rino/": {
-        "views": 1175,
-        "users": 979,
-        "sessions": 1079,
+        "views": 1190,
+        "users": 994,
+        "sessions": 1093,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-18": 1
@@ -5104,36 +5234,37 @@
         "daily_views": {
           "2026-03-18": 930,
           "2026-03-19": 242,
-          "2026-03-20": 3
+          "2026-03-20": 18
         }
       },
       "https://businessden.com/2026/03/18/cu-benson-hotel-anschutz-fitzsimons-owner/": {
-        "views": 1204,
-        "users": 1110,
-        "sessions": 1162,
+        "views": 1338,
+        "users": 1236,
+        "sessions": 1290,
         "daily_views": {
           "2026-03-19": 664,
           "2026-03-18": 512,
-          "2026-03-20": 28
+          "2026-03-20": 162
         }
       },
       "https://businessden.com/2026/03/18/denver-could-extend-key-deadline-for-languishing-apartment-projects/": {
-        "views": 1046,
-        "users": 858,
-        "sessions": 983,
+        "views": 1050,
+        "users": 859,
+        "sessions": 990,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-18": 1
         },
         "daily_views": {
           "2026-03-18": 794,
-          "2026-03-19": 251
+          "2026-03-19": 251,
+          "2026-03-20": 5
         }
       },
       "https://businessden.com/2026/03/18/city-seeks-receiver-for-under-contract-cathedral-high-campus-in-uptown/": {
-        "views": 984,
+        "views": 985,
         "users": 789,
-        "sessions": 906,
+        "sessions": 905,
         "daily_views": {
           "2026-03-18": 829,
           "2026-03-19": 155
@@ -5150,13 +5281,14 @@
         }
       },
       "https://businessden.com/2026/03/17/these-are-the-contractors-with-the-most-denver-work-in-2025/": {
-        "views": 1293,
-        "users": 1057,
-        "sessions": 1214,
+        "views": 1296,
+        "users": 1060,
+        "sessions": 1217,
         "daily_views": {
           "2026-03-17": 847,
           "2026-03-18": 365,
-          "2026-03-19": 80
+          "2026-03-19": 80,
+          "2026-03-20": 4
         }
       },
       "https://businessden.com/2026/03/17/1509-blake-denver-campos-epc-sale/": {
@@ -5170,9 +5302,9 @@
         }
       },
       "https://businessden.com/2026/03/17/daytime-homeless-shelter-cuts-after-hours-security-without-telling-neighbors/": {
-        "views": 4374,
-        "users": 3878,
-        "sessions": 4084,
+        "views": 4379,
+        "users": 3883,
+        "sessions": 4095,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-17": 1
@@ -5181,7 +5313,7 @@
           "2026-03-18": 1818,
           "2026-03-19": 1382,
           "2026-03-17": 1172,
-          "2026-03-20": 2
+          "2026-03-20": 7
         }
       },
       "https://businessden.com/2026/03/16/denver-summit-rob-cohen-stadium-womens-soccer/": {
@@ -5213,7 +5345,7 @@
       "https://businessden.com/2026/03/16/private-school-says-it-suffered-significant-damage-from-bookkeeper/": {
         "views": 1607,
         "users": 1350,
-        "sessions": 1493,
+        "sessions": 1492,
         "daily_views": {
           "2026-03-16": 1325,
           "2026-03-18": 154,
@@ -5222,14 +5354,15 @@
         }
       },
       "https://businessden.com/2026/03/16/south-broadway-gym-expanding-to-highlands/": {
-        "views": 663,
+        "views": 664,
         "users": 560,
-        "sessions": 634,
+        "sessions": 635,
         "daily_views": {
           "2026-03-16": 556,
           "2026-03-18": 62,
           "2026-03-17": 26,
-          "2026-03-19": 18
+          "2026-03-19": 18,
+          "2026-03-20": 2
         }
       },
       "https://businessden.com/2026/03/13/architect-lists-7th-ave-new-build-that-replaced-1950s-eyesore/": {
@@ -5277,7 +5410,7 @@
       "https://businessden.com/2026/03/13/developer-looks-to-sell-denver7-lot-at-speer-and-lincoln/": {
         "views": 1257,
         "users": 1078,
-        "sessions": 1224,
+        "sessions": 1225,
         "daily_views": {
           "2026-03-13": 988,
           "2026-03-16": 118,
@@ -5323,9 +5456,9 @@
         }
       },
       "https://businessden.com/2026/03/12/denver-data-commercial-construction-activity-up-in-2025-but-still-below-recent-peak/": {
-        "views": 496,
-        "users": 423,
-        "sessions": 483,
+        "views": 498,
+        "users": 425,
+        "sessions": 485,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-16": 1
@@ -5338,7 +5471,8 @@
           "2026-03-15": 7,
           "2026-03-19": 5,
           "2026-03-18": 4,
-          "2026-03-17": 2
+          "2026-03-17": 2,
+          "2026-03-20": 2
         }
       },
       "https://businessden.com/2026/03/12/tim-aragon-talks-burnham-yard-denver-project/": {
@@ -5502,9 +5636,9 @@
         }
       },
       "https://businessden.com/2026/03/09/lohi-beer-garden-adding-second-location-in-east-denver/": {
-        "views": 1752,
+        "views": 1753,
         "users": 1472,
-        "sessions": 1644,
+        "sessions": 1645,
         "daily_views": {
           "2026-03-09": 1223,
           "2026-03-10": 394,
@@ -5537,9 +5671,9 @@
         }
       },
       "https://businessden.com/2026/03/09/downtown-denver-office-losses-top-a-billion-with-more-to-come/": {
-        "views": 4861,
-        "users": 4236,
-        "sessions": 4758,
+        "views": 4864,
+        "users": 4239,
+        "sessions": 4768,
         "daily_views": {
           "2026-03-09": 2633,
           "2026-03-10": 1454,
@@ -5551,13 +5685,14 @@
           "2026-03-17": 32,
           "2026-03-15": 31,
           "2026-03-19": 21,
-          "2026-03-14": 17
+          "2026-03-14": 17,
+          "2026-03-20": 4
         }
       },
       "https://businessden.com/2026/03/06/9m-country-club-sale-tops-february-home-transactions/": {
-        "views": 1343,
+        "views": 1344,
         "users": 1068,
-        "sessions": 1225,
+        "sessions": 1226,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-06": 1
@@ -5699,9 +5834,9 @@
         }
       },
       "https://businessden.com/2026/03/05/construction-firm-owner-captive-in-his-own-company-asks-judge-to-close-it/": {
-        "views": 399,
-        "users": 343,
-        "sessions": 381,
+        "views": 400,
+        "users": 344,
+        "sessions": 382,
         "daily_views": {
           "2026-03-05": 345,
           "2026-03-06": 34,
@@ -5940,9 +6075,9 @@
         }
       },
       "https://businessden.com/2026/03/02/golf-centric-coworking-business-adding-second-location/": {
-        "views": 1265,
+        "views": 1266,
         "users": 1025,
-        "sessions": 1175,
+        "sessions": 1176,
         "daily_views": {
           "2026-03-02": 1015,
           "2026-03-03": 168,
@@ -5960,9 +6095,9 @@
         }
       },
       "https://businessden.com/2026/03/02/brown-palace-hotel-denver-for-sale/": {
-        "views": 2444,
-        "users": 2009,
-        "sessions": 2315,
+        "views": 2445,
+        "users": 2010,
+        "sessions": 2316,
         "daily_views": {
           "2026-03-02": 1728,
           "2026-03-03": 381,
