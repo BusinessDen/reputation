@@ -1,6 +1,54 @@
 {
   "mentions": [
     {
+      "id": "5cb643afa38f4035",
+      "title": "lawsuit – Page 155",
+      "title_raw": "lawsuit – Page 155 - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBZUC1PbUJKVVRWRjJVOWJEYTRnVEU5dHU1dEllamZOVkFMRzR4M1IwNW5WTmM0ZWtIU3FVdVl6dG1TbWRhZkJ5Z04tcFYyaW5ZNFhkVGVsYWYtaEw2?oc=5",
+      "snippet": "lawsuit – Page 155  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-03-23T02:53:08+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"Justin Wingerter\" Denver -site:businessden.com when:2d",
+      "first_seen": "2026-03-23T11:42:07.731874+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiXEFVX3lxTFBZUC1PbUJKVVRWRjJVOWJEYTRnVEU5dHU1dEllamZOVkFMRzR4M1IwNW5WTmM0ZWtIU3FVdVl6dG1TbWRhZkJ5Z04tcFYyaW5ZNFhkVGVsYWYtaEw2",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "d54aaaffd588ead9",
+      "title": "Denver REIT seeks $5B valuation in IPO >> See the full article below ⬇️",
+      "title_raw": "Denver REIT seeks $5B valuation in IPO >> See the full article below ⬇️ - Facebook",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPdVJmYWNHU2lzcXVqTTJlbzFUdmNqWklxM1k1cUpvMGtnbDNrcHhqeUJkUXhhOGdfaVpnMmZOUFNfTDhSdnd2NGw2eUEtY2JzeVVQZkR3a2FwRndUYVVWZDdLSGNlRHIydUFuazNqUWkwNjV4ZGU3dlRhM0NYVjR5cHFFb0JJYjVLNGFna09CckNPNjRQc1JkdFYyaGhSLXhmeUFwUl9hN0hMVmpwMlZ4b2JjY2xTMVR0aF9nQ0h0MktRQWpEMURaRjVYZTB5VVNXRTdxcw?oc=5",
+      "snippet": "Denver REIT seeks $5B valuation in IPO >> See the full article below ⬇️  Facebook",
+      "source": "Facebook",
+      "source_url": "https://www.facebook.com",
+      "source_domain": "facebook.com",
+      "published": "2026-03-22T18:00:48+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-23T11:42:07.731874+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMi1AFBVV95cUxPdVJmYWNHU2lzcXVqTTJlbzFUdmNqWklxM1k1cUpvMGtnbDNrcHhqeUJkUXhhOGdfaVpnMmZOUFNfTDhSdnd2NGw2eUEtY2JzeVVQZkR3a2FwRndUYVVWZDdLSGNlRHIydUFuazNqUWkwNjV4ZGU3dlRhM0NYVjR5cHFFb0JJYjVLNGFna09CckNPNjRQc1JkdFYyaGhSLXhmeUFwUl9hN0hMVmpwMlZ4b2JjY2xTMVR0aF9nQ0h0MktRQWpEMURaRjVYZTB5VVNXRTdxcw",
+      "sentiment": "neutral"
+    },
+    {
       "id": "1f20bc6496a3b3c6",
       "title": "taxes – Page 146",
       "title_raw": "taxes – Page 146 - The Denver Post",
@@ -3197,6 +3245,59 @@
   ],
   "bd_articles": [
     {
+      "url": "https://businessden.com/2026/03/23/denver-angels-founder-says-partners-siphoned-eight-figures-in-theft-scheme/",
+      "title": "Denver Angels founder says partners ‘siphoned’ eight figures in theft scheme",
+      "author": "Justin Wingerter",
+      "published": "2026-03-23T10:50:55+00:00",
+      "categories": [
+        "Startups",
+        "Kenny Monfort",
+        "Monfort"
+      ],
+      "summary": "“We will vigorously defend ourselves against these unfounded accusations,” the defendants told BusinessDen.",
+      "content_preview": "David Prichard at Denver Ventures’ annual meeting in May 2025. (Courtesy Denver Ventures/Kalen Jesse)\nOne of the four founders of Denver Angels, the investing firm now called Denver Ventures, is accusing his three business partners of theft, racketeering and securities fraud.\nPaul Foley, a Boulder-area startup founder and investor, was one of the four managers of Denver Angels between 2019 and 2022 and is still a 20% owner of that firm alongside fellow co-founders Kenneth Monfort of Monfort Cos.",
+      "ingested": "2026-03-23T11:42:15.216548+00:00"
+    },
+    {
+      "url": "https://businessden.com/2026/03/23/denver-rock-drill-owner-byron-weiss-dies-at-86/",
+      "title": "Rock Drill owner Byron Weiss dies at 86",
+      "author": "Thomas Gounley",
+      "published": "2026-03-23T10:46:57+00:00",
+      "categories": [
+        "Commercial Real Estate"
+      ],
+      "summary": "The owner of a warehousing supplier, he spent the final years of his life shepherding his unique RiNo property toward redevelopment.",
+      "content_preview": "Byron Weiss with sons Andy, left, and Brett inside the Rock Drill property in 2022. (BusinessDen file)\nByron Weiss, the owner of a warehousing supplier who spent the final years of his life shepherding his unique property in Denver’s RiNo neighborhood toward redevelopment, has died.\nWeiss was 86 years old when he died March 17, according to his obituary.\nHe was born in Denver in late 1939 and attended East High School, per the obituary. He attended college in Boston for a year before returning t",
+      "ingested": "2026-03-23T11:42:15.216619+00:00"
+    },
+    {
+      "url": "https://businessden.com/2026/03/23/former-bachus-schanker-attorney-launches-florida-firms-denver-office/",
+      "title": "Former Bachus & Schanker attorney launches Florida firm’s Denver office",
+      "author": "Justin Wingerter",
+      "published": "2026-03-23T10:43:22+00:00",
+      "categories": [
+        "Law"
+      ],
+      "summary": "“It’s a great landscape for plaintiffs here,” says Melanie Sulkin.",
+      "content_preview": "An RTD bus featuring a Bachus & Schanker ad is seen on the Metro State University campus on June 30, 2025. (Justin Wingerter/BusinessDen)\nPersonal injury billboards dot Denver’s landscape. How does a new firm in town compete?\n“One of the biggest complaints in personal injury is lack of communication, and I want to make sure that doesn’t happen,” said Melanie Sulkin, who spent seven years at Bachus & Schanker.\n“When you get that big, your clients likely are not going to have direct contact with t",
+      "ingested": "2026-03-23T11:42:15.216658+00:00"
+    },
+    {
+      "url": "https://businessden.com/2026/03/23/colorado-thc-drink-makers-balance-state-optimism-federal-concern/",
+      "title": "Colorado THC drink makers balance state optimism, federal concern",
+      "author": "Max Scheinblum",
+      "published": "2026-03-23T10:42:32+00:00",
+      "categories": [
+        "Brewing",
+        "Government",
+        "Law",
+        "Retail"
+      ],
+      "summary": "If the state increases its THC cap, business \"would explode,” one manufacturer said. Another, meanwhile, is rolling out a nonTHC drink.",
+      "content_preview": "Rhythm is Fabric’s zero-calorie, zero-sugar, 1.5 milligrams of THC “hero product.” (Max Scheinblum/BusinessDen)\nColorado is well known as the first state to legalize recreational marijuana.\nBut when it comes to cannabinoids that stem from its cousin plant hemp, the state has remained restrictive.\n“Most brands on the market were like, ‘Screw that. Let’s sell in Minnesota. If things change in Colorado, maybe we come there,’” said Tom Eddleston, the co-founder and CEO of Golden-based drink brand Fa",
+      "ingested": "2026-03-23T11:42:15.216732+00:00"
+    },
+    {
       "url": "https://businessden.com/2026/03/20/the-pipeline-commercial-real-estate-deals-for-3-20-26/",
       "title": "The Pipeline: Commercial real estate deals for 3.20.26",
       "author": "Matt Geiger",
@@ -4087,6 +4188,12 @@
         "text": "• X.com shared BusinessDen story about Uptown office building facing potential court-appointed receiver if sale doesn't proceed\n\n• Instagram account promoted BusinessDen's \"Cherry Creek restaurant site eyed for redevelopment\" story via link in bio\n\n• Hoodline covered Kwame Spearman's split with Denver Book Society, though connection to BusinessDen reporting unclear from brief mention\n\n• The Denver Post referenced BusinessDen content on page 146 of taxes coverage, specifics not detailed",
         "mention_count": 4,
         "generated": "2026-03-22T11:21:26.829725+00:00"
+      },
+      {
+        "date": "2026-03-23",
+        "text": "• Facebook shared BusinessDen story on Denver REIT seeking $5B IPO valuation\n\n• The Denver Post referenced BusinessDen content in lawsuit coverage on page 155",
+        "mention_count": 2,
+        "generated": "2026-03-23T11:42:07.731874+00:00"
       }
     ],
     "weekly": [
@@ -4105,6 +4212,14 @@
         "text": "# BusinessDen Media Analysis: March 9-16, 2026\n\n## Total Mentions and Top Outlets\n\nBusinessDen generated 42 media mentions across the week of March 9-16, 2026, showing strong pickup across traditional and digital media platforms. The Denver Post dominated coverage with 11 mentions, establishing itself as the primary outlet referencing BusinessDen content. Social media platforms showed significant engagement, with Instagram accounting for 6 mentions, Facebook with 4, and X.com (formerly Twitter) with 4 pickups. Secondary outlets included Hoodline with 4 mentions, while newer platforms like LinkedIn, YouTube, and Colorado Sun each contributed single mentions to the week's coverage.\n\n## Dominant Story Topics\n\nReal estate and development stories commanded the week's coverage, particularly downtown Denver's office market crisis and major development projects. BusinessDen's analysis showing downtown office building owners and lenders lost over $1 billion since the pandemic became a standout story, gaining traction on X.com and generating widespread discussion. Major development stories included the Cherry Creek Shopping Center demolition on the west side, the former Denver7 block hitting the market after PMG abandoned development plans, and the ongoing LoHi Residence Inn site demolition for Kairoi Residential's $39M apartment project. The cryptocurrency sector also drew significant attention with coverage of a $25M dispute between Denver bitcoin pioneers, while restaurant industry stories maintained steady coverage including My Brother's Bar owner's B2B gift card platform launch.\n\n## Reporter Attribution and Content Performance\n\nWhile specific reporter bylines weren't consistently tracked in the monitoring feed, BusinessDen's original reporting on commercial construction activity, cryptocurrency disputes, and downtown office market analysis drove the majority of secondary coverage. The \"State of the Stadiums\" panel featuring Broncos General Counsel Tim Aragon generated positive LinkedIn engagement, while the company's regular \"The Herd\" hiring coverage saw unexpected international pickup through a Peruvian university website republishing 2021 content. Restaurant and hospitality coverage, including the Watercourse Foods owner's Instagram commentary, demonstrated strong industry engagement with BusinessDen's reporting.\n\n## Sentiment Analysis and Coverage Tone\n\nThe week's coverage maintained predominantly neutral sentiment (39 mentions), with professional, fact-based reporting dominating the pickup pattern. Two mentions generated explicitly positive sentiment, both related to BusinessDen's stadium development panel coverage and community engagement initiatives. No negative sentiment was recorded, though several stories covered challenging topics like business closures, foreclosures, and market downturns in objective terms. The neutral tone suggests BusinessDen's content is being treated as credible source material rather than opinion-driven coverage.\n\n## New Outlet Coverage and Platform Expansion\n\nThe week marked notable expansion into new platforms and outlets. Wire hub provided positive coverage of BusinessDen's stadium development content, while Brownstein Hyatt Farber Schreck referenced the publication's event coverage in their professional communications. Most surprisingly, the Peruvian university website upein.edu.pe republished archived BusinessDen hiring content, suggesting international reach for the publication's business coverage. Colorado Sun's inclusion of BusinessDen in media landscape commentary by columnist Mike Littwin also represents new recognition within the state's media ecosystem.\n\n## Notable Trends and Patterns\n\nSeveral key patterns emerged during the week. Real estate coverage consistently drove the highest engagement across multiple platforms, with development stories generating both traditional media pickup and social media discussion. Business disruption stories—from restaurant closures to cryptocurrency disputes—maintained steady coverage, while BusinessDen's event programming (particularly the stadium panel) created positive industry engagement. The publication's role as a primary source for Denver business news became increasingly evident, with outlets regularly citing BusinessDen's original reporting and analysis. Cross-platform content syndication also accelerated, with stories moving from BusinessDen to traditional media to social platforms within 24-48 hours, demonstrating strong market penetration and audience engagement across Denver's business community.",
         "mention_count": 42,
         "generated": "2026-03-16T11:44:04.212616+00:00"
+      },
+      {
+        "key": "week-2026-03-16",
+        "date": "2026-03-23",
+        "week_start": "2026-03-16",
+        "text": "# BusinessDen Media Coverage Summary\n## Week of March 16-23, 2026\n\n**Total Mention Volume and Top Outlets**\nBusinessDen received 48 total mentions across various media outlets this week, representing strong coverage breadth. The Denver Post dominated with 20 mentions, accounting for 42% of all coverage. Social media platforms showed significant engagement, with Instagram contributing 6 mentions, Facebook 5 mentions, and X (formerly Twitter) 2 mentions. Hoodline provided 4 mentions, while international outlets included a Peruvian university website and a Russian site. YouTube and other digital platforms rounded out the coverage mix.\n\n**Dominant Stories and Topics**\nThe biggest story dominating coverage was Denver's homelessness crisis, particularly Mayor Mike Johnston's initiative. City Auditor Tim O'Brien's critical report finding the program cost $20 million more than reported and was \"poorly planned\" generated multiple mentions across Instagram, Facebook, and traditional media. Real estate stories also commanded significant attention, including the Uptown office building facing potential receivership, Cherry Creek redevelopment projects, and a Denver REIT seeking a $5 billion IPO valuation. The Cable Center's sale to University of Denver and Ball Arena's underground tunnel proposal being named a finalist in Elon Musk's Boring Company contest also gained traction.\n\n**Reporter Analysis and Content Performance**\nWhile specific reporter bylines weren't detailed in the tracking data, BusinessDen's real estate and development coverage proved most referential, with multiple outlets citing stories about Uptown receivership cases, Cherry Creek developments, and commercial property transactions. The publication's coverage of city government issues, particularly the homelessness audit, generated substantial secondary reporting. Aaron Kremer's content was specifically mentioned on YouTube, though context was limited.\n\n**Sentiment Breakdown and New Coverage**\nThe overwhelming majority of coverage maintained neutral sentiment (47 of 48 mentions), with only one positive mention from Instagram regarding a fitness center expansion story. This suggests BusinessDen's reporting was treated as straight news rather than generating controversial responses. Hoodline emerged as a notable new outlet providing regular coverage, contributing 4 mentions across various Denver business and development stories. The appearance of international outlets, including a Russian website and Peruvian university site republishing older content, indicates BusinessDen's content has broader digital reach than previously tracked.\n\n**Notable Trends and Patterns**\nSocial media platforms increasingly served as distribution channels for BusinessDen content, with Instagram and Facebook posts frequently directing users to full articles. The Denver Post showed heavy reliance on BusinessDen reporting, particularly for real estate and municipal government stories, suggesting a collaborative or competitive dynamic in local business journalism. International republishing of older BusinessDen content (a 2021 story appearing on upein.edu.pe) indicates the publication's archive has ongoing digital value. The diversity of story topics—from DIA power outages to kosher grocery foreclosures—demonstrates BusinessDen's comprehensive Denver business community coverage.",
+        "mention_count": 48,
+        "generated": "2026-03-23T11:42:07.731874+00:00"
       }
     ],
     "monthly": []
@@ -4338,6 +4453,21 @@
         "John Aguilar"
       ],
       "generated": "2026-03-22T11:21:26.829725+00:00"
+    },
+    {
+      "date": "2026-03-23",
+      "text": "**Aaron Kremer**\nWith just one article published in the tracking period, Kremer achieved a perfect 100% pickup rate when The Denver Post covered his piece about a RiNo coworking space closure. This represents strong performance for a single story, particularly given that commercial real estate transitions typically generate limited external interest. The article's focus on neighborhood business shifts appears to have resonated with The Post's broader coverage of Denver's evolving commercial districts.\n\n**John Aguilar**\nAguilar also maintained a 100% pickup rate with his single article about Thornton shopping center revitalization efforts receiving Facebook engagement. While the social media mention was brief, the story's community development angle and focus on suburban retail challenges aligned with broader discussions about commercial property redevelopment across the metro area.\n\n**Justin Wingerter**\nWingerter demonstrated exceptional pickup performance with 9 of his 17 articles (53%) receiving external coverage, primarily from The Denver Post. His most successful pieces covered legal and financial disputes, including real estate receivership cases and the Cathedral High campus situation, which generated multiple Post articles. The Denver bitcoin pioneers story also gained traction on X.com, suggesting cryptocurrency business coverage resonates across platforms. Wingerter's beat clearly focuses on business litigation, real estate disputes, and corporate conflicts—themes that consistently attract mainstream media attention due to their legal complexity and financial stakes involved.\n\n**Matt Geiger**\nGeiger achieved strong pickup rates with 10 of 14 articles (71%) receiving external coverage, primarily from The Denver Post with additional mentions on social media platforms. His homeless shelter security story generated the most traction, earning coverage from both The Denver Post and Hoodline, likely due to its intersection of business operations with social policy issues. His coverage spans commercial real estate development, nonprofit sector moves, and hospitality expansions, with development-focused stories consistently attracting Post coverage. The data suggests Geiger's community-focused business reporting, particularly stories involving public interest elements like homeless services or neighborhood development, generates broader media interest than pure commercial transactions.\n\n**Max Scheinblum**\nScheinblum maintained a solid 75% pickup rate (9 of 12 articles) with The Denver Post serving as the primary outlet for republishing his work. His \"Shark Tank\" coverage of local grocery startup Nude Foods and restaurant industry stories appear to generate consistent interest, though most received single-outlet pickup. Scheinblum's beat focuses heavily on food and beverage businesses, retail closures, and executive appointments, with restaurant closures and openings representing his most consistently picked-up content. The consistent Post coverage suggests his hospitality and retail reporting fills a valuable niche in Denver's business coverage landscape.\n\n**Miguel Otarola**\nWith one article achieving 100% pickup through Instagram coverage of a new Colfax hotel and restaurant opening, Otarola's limited sample suggests his hospitality-focused reporting resonates on social media platforms where visual content and neighborhood business openings generate organic engagement.\n\n**Sara B. Hansen**\nHansen achieved perfect pickup rates with all 3 articles receiving external coverage, exclusively from The Denver Post. Her luxury real estate coverage, including a $5.8M Cheesman Park penthouse and $9M Country Club sale, consistently attracted Post attention, with one story receiving double coverage. Hansen's focus on high-end residential transactions and architectural features appears to align perfectly with The Post's real estate coverage priorities, making her one of the most reliable sources for generating mainstream media pickup.\n\n**Thomas Gounley**\nGounley led in both volume and pickup rate, with 14 of 18 articles (78%) receiving external coverage across multiple platforms. His Cherry Creek mall demolition story generated the most traction with coverage on Instagram and Hoodline, while his Denver Post rent debt story attracted attention from The Colorado Sun and Hoodline. Major institutional stories like the Cable Center sale and Broncos stadium development plans consistently drew coverage, with the Broncos story reaching LinkedIn and Wire Hub. Gounley's beat encompasses major commercial real estate transactions, sports business, and media industry coverage—themes that generate sustained interest across multiple platforms due to their broader economic and civic implications.",
+      "reporters": [
+        "Justin Wingerter",
+        "Thomas Gounley",
+        "Max Scheinblum",
+        "Matt Geiger",
+        "Sara B. Hansen",
+        "Miguel Otarola",
+        "Aaron Kremer",
+        "John Aguilar"
+      ],
+      "generated": "2026-03-23T11:42:07.731874+00:00"
     }
   ],
   "article_reception": {
@@ -4742,6 +4872,11 @@
         "text": "I don't have access to the full details needed to provide an accurate summary of the 2-day reception for this BusinessDen article. While I can see that The Denver Post picked up the story, I cannot determine from the information provided:\n\n- Whether The Denver Post's coverage was substantial or brief\n- What specific framing differences (if any) existed between the BusinessDen original and The Denver Post version\n- What other coverage may have occurred during the first 2 days\n\nTo properly summarize the article's reception, I would need access to the full text of both articles and a more complete list of outlets that covered the story within that timeframe.",
         "mention_count": 1,
         "generated": "2026-03-18T11:43:22.266104+00:00"
+      },
+      "7day": {
+        "text": "I don't have access to the full article or detailed reception data beyond what you've provided. Based on the single third-party mention shown, The Denver Post picked up the BusinessDen article within the 7-day window, though only a brief mention is indicated by the identical headline reproduction. Both outlets used neutral framing without apparent editorial spin. However, with only one confirmed pickup, this appears to be limited secondary coverage for the cookie shop opening story.",
+        "mention_count": 1,
+        "generated": "2026-03-23T11:42:07.731874+00:00"
       }
     },
     "https://businessden.com/2026/03/16/private-school-says-it-suffered-significant-damage-from-bookkeeper/": {
@@ -4749,6 +4884,11 @@
         "text": "# Summary\n\nThe BusinessDen article about a Lone Tree private school's alleged bookkeeper misconduct received minimal third-party pickup within the 2-day period, with only The Denver Post picking up the story. The Denver Post's coverage appears to have been a brief republication rather than substantial original reporting, using the same headline as the BusinessDen article. Both outlets maintained neutral framing of the school's damage claims.",
         "mention_count": 1,
         "generated": "2026-03-18T11:43:22.266104+00:00"
+      },
+      "7day": {
+        "text": "# 7-Day Reception Summary\n\nThe BusinessDen article received limited third-party pickup, with only **The Denver Post** covering the story within the initial week. The Denver Post's coverage appears to have been a **brief mention** rather than substantial reporting, using the same headline and framing as the original BusinessDen piece. Both outlets maintained a **neutral tone**, simply reporting the school's claims without additional investigation or alternative perspectives.",
+        "mention_count": 1,
+        "generated": "2026-03-23T11:42:07.731874+00:00"
       }
     },
     "https://businessden.com/2026/03/16/south-broadway-gym-expanding-to-highlands/": {
@@ -4756,6 +4896,11 @@
         "text": "# Summary\n\nBusinessDen's article about Traverse Fitness's Highlands expansion received coverage from two outlets over two days. The Denver Post picked it up with a neutral, brief mention using the same headline, while Instagram (likely the gym's own account) shared substantially more positive framing, highlighting specific amenities like the 36-person sauna and new equipment to build excitement among followers.",
         "mention_count": 2,
         "generated": "2026-03-18T11:43:22.266104+00:00"
+      },
+      "7day": {
+        "text": "# Summary\n\nThe BusinessDen article about Traverse Fitness's Highlands expansion received minimal third-party coverage within 7 days, picked up by just two outlets. The Denver Post ran a brief neutral mention with the same headline, while Instagram (likely Traverse Fitness's own account) shared a more substantial, enthusiastically-framed post highlighting the new location's amenities like larger class spaces and a 36-person sauna. Overall coverage was limited to a cursory reprint and a promotional social media post.",
+        "mention_count": 2,
+        "generated": "2026-03-23T11:42:07.731874+00:00"
       }
     },
     "https://businessden.com/2026/03/06/hopes-of-revitalization-for-a-derelict-thornton-shopping-center-we-need-to-have-a-gathering-space/": {
@@ -5014,7 +5159,7 @@
       "b229a28f6292628e"
     ]
   },
-  "last_updated": "2026-03-22T18:29:19.027930+00:00",
+  "last_updated": "2026-03-23T11:42:07.731874+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -5639,16 +5784,28 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-23T11:42:07.731874+00:00",
+      "new_mentions": 2,
+      "total_mentions": 135,
+      "total_bd_articles": 67,
+      "sources": {
+        "google_news_rss": 22,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
   "new_this_run": 2,
   "ga4": {
-    "last_fetched": "2026-03-22T18:29:19.027930+00:00",
+    "last_fetched": "2026-03-23T11:42:07.731874+00:00",
     "article_stats": {
       "https://businessden.com/2026/03/20/the-pipeline-commercial-real-estate-deals-for-3-20-26/": {
-        "views": 482,
-        "users": 434,
-        "sessions": 461,
+        "views": 502,
+        "users": 450,
+        "sessions": 479,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-20": 1
@@ -5656,84 +5813,90 @@
         "daily_views": {
           "2026-03-20": 440,
           "2026-03-21": 40,
-          "2026-03-22": 2
+          "2026-03-22": 19,
+          "2026-03-23": 3
         }
       },
       "https://businessden.com/2026/03/20/doctor-selling-cheesman-park-penthouse-says-view-will-leave-buyer-sleepless/": {
-        "views": 1873,
-        "users": 1572,
-        "sessions": 1741,
+        "views": 1980,
+        "users": 1653,
+        "sessions": 1839,
         "daily_views": {
           "2026-03-20": 1533,
           "2026-03-21": 330,
-          "2026-03-22": 10
+          "2026-03-22": 113,
+          "2026-03-23": 4
         }
       },
       "https://businessden.com/2026/03/20/judge-says-he-will-consider-receiver-for-small-uptown-office-if-it-isnt-sold/": {
-        "views": 494,
-        "users": 438,
-        "sessions": 468,
+        "views": 513,
+        "users": 455,
+        "sessions": 488,
         "daily_views": {
           "2026-03-20": 475,
-          "2026-03-21": 16,
-          "2026-03-22": 3
+          "2026-03-22": 21,
+          "2026-03-21": 16
         }
       },
       "https://businessden.com/2026/03/20/all-in-hotel-restaurant-opening-on-colfax/": {
-        "views": 661,
-        "users": 588,
-        "sessions": 644,
+        "views": 694,
+        "users": 615,
+        "sessions": 679,
         "daily_views": {
           "2026-03-20": 635,
-          "2026-03-21": 24,
-          "2026-03-22": 2
+          "2026-03-22": 35,
+          "2026-03-21": 24
         }
       },
       "https://businessden.com/2026/03/20/nonprofit-putting-final-touches-on-new-hq-with-help-from-local-developers/": {
-        "views": 354,
-        "users": 327,
-        "sessions": 357,
+        "views": 366,
+        "users": 337,
+        "sessions": 368,
         "daily_views": {
           "2026-03-20": 332,
-          "2026-03-21": 21
+          "2026-03-21": 21,
+          "2026-03-22": 13
         }
       },
       "https://businessden.com/2026/03/19/syndeo-institute-cable-center-university-denver-deal-possible-move/": {
-        "views": 1281,
-        "users": 1151,
-        "sessions": 1239,
+        "views": 1314,
+        "users": 1181,
+        "sessions": 1270,
         "daily_views": {
           "2026-03-19": 936,
           "2026-03-20": 224,
           "2026-03-21": 115,
-          "2026-03-22": 6
+          "2026-03-22": 37,
+          "2026-03-23": 2
         }
       },
       "https://businessden.com/2026/03/19/highland-jeweler-bankrupt-after-merchant-cash-advances-spiraled/": {
-        "views": 567,
-        "users": 493,
-        "sessions": 543,
+        "views": 581,
+        "users": 504,
+        "sessions": 556,
         "daily_views": {
           "2026-03-19": 489,
           "2026-03-20": 55,
           "2026-03-21": 20,
-          "2026-03-22": 3
+          "2026-03-22": 15,
+          "2026-03-23": 2
         }
       },
       "https://businessden.com/2026/03/19/first-downtown-businesses-getting-ddda-money-after-convoluted-process/": {
-        "views": 640,
-        "users": 523,
-        "sessions": 587,
+        "views": 650,
+        "users": 532,
+        "sessions": 600,
         "daily_views": {
           "2026-03-19": 508,
           "2026-03-20": 125,
+          "2026-03-22": 10,
           "2026-03-21": 6
         }
       },
       "https://businessden.com/2026/03/19/cherry-hills-members-golf-investment-firm-shifts-to-private-equity-model/": {
-        "views": 1622,
-        "users": 1282,
-        "sessions": 1501,
+        "views": 1653,
+        "users": 1306,
+        "sessions": 1528,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-19": 1
@@ -5741,23 +5904,25 @@
         "daily_views": {
           "2026-03-19": 1207,
           "2026-03-20": 367,
-          "2026-03-21": 48
+          "2026-03-21": 48,
+          "2026-03-22": 31
         }
       },
       "https://businessden.com/2026/03/19/the-docket-real-estate-lawsuit-roundup-for-3-19-26/": {
-        "views": 393,
-        "users": 339,
-        "sessions": 387,
+        "views": 403,
+        "users": 345,
+        "sessions": 397,
         "daily_views": {
           "2026-03-19": 354,
           "2026-03-20": 31,
+          "2026-03-22": 9,
           "2026-03-21": 8
         }
       },
       "https://businessden.com/2026/03/18/apartment-developer-breaks-ground-on-full-city-block-in-rino/": {
-        "views": 1311,
-        "users": 1097,
-        "sessions": 1210,
+        "views": 1318,
+        "users": 1103,
+        "sessions": 1218,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-18": 1
@@ -5767,24 +5932,25 @@
           "2026-03-19": 242,
           "2026-03-20": 117,
           "2026-03-21": 20,
-          "2026-03-22": 2
+          "2026-03-22": 9
         }
       },
       "https://businessden.com/2026/03/18/cu-benson-hotel-anschutz-fitzsimons-owner/": {
-        "views": 1897,
-        "users": 1760,
-        "sessions": 1823,
+        "views": 1906,
+        "users": 1767,
+        "sessions": 1831,
         "daily_views": {
           "2026-03-20": 702,
           "2026-03-19": 664,
           "2026-03-18": 512,
-          "2026-03-21": 19
+          "2026-03-21": 19,
+          "2026-03-22": 9
         }
       },
       "https://businessden.com/2026/03/18/denver-could-extend-key-deadline-for-languishing-apartment-projects/": {
-        "views": 1087,
-        "users": 884,
-        "sessions": 1032,
+        "views": 1100,
+        "users": 893,
+        "sessions": 1045,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-18": 1
@@ -5793,48 +5959,52 @@
           "2026-03-18": 794,
           "2026-03-19": 251,
           "2026-03-20": 33,
+          "2026-03-22": 12,
           "2026-03-21": 9
         }
       },
       "https://businessden.com/2026/03/18/city-seeks-receiver-for-under-contract-cathedral-high-campus-in-uptown/": {
-        "views": 1006,
-        "users": 804,
-        "sessions": 927,
+        "views": 1010,
+        "users": 807,
+        "sessions": 931,
         "daily_views": {
           "2026-03-18": 829,
           "2026-03-19": 155,
           "2026-03-20": 15,
-          "2026-03-21": 6
+          "2026-03-21": 6,
+          "2026-03-22": 5
         }
       },
       "https://businessden.com/2026/03/17/states-only-kosher-grocer-being-sold-amid-foreclosure-threat/": {
-        "views": 1310,
-        "users": 1081,
-        "sessions": 1236,
+        "views": 1327,
+        "users": 1096,
+        "sessions": 1253,
         "daily_views": {
           "2026-03-17": 955,
           "2026-03-18": 287,
           "2026-03-19": 41,
+          "2026-03-22": 17,
           "2026-03-20": 16,
           "2026-03-21": 11
         }
       },
       "https://businessden.com/2026/03/17/these-are-the-contractors-with-the-most-denver-work-in-2025/": {
-        "views": 1345,
-        "users": 1096,
-        "sessions": 1267,
+        "views": 1354,
+        "users": 1104,
+        "sessions": 1278,
         "daily_views": {
           "2026-03-17": 847,
           "2026-03-18": 365,
           "2026-03-19": 80,
           "2026-03-20": 38,
-          "2026-03-21": 15
+          "2026-03-21": 15,
+          "2026-03-22": 9
         }
       },
       "https://businessden.com/2026/03/17/1509-blake-denver-campos-epc-sale/": {
-        "views": 748,
-        "users": 624,
-        "sessions": 722,
+        "views": 750,
+        "users": 625,
+        "sessions": 724,
         "daily_views": {
           "2026-03-17": 659,
           "2026-03-18": 60,
@@ -5844,9 +6014,9 @@
         }
       },
       "https://businessden.com/2026/03/17/daytime-homeless-shelter-cuts-after-hours-security-without-telling-neighbors/": {
-        "views": 4429,
-        "users": 3910,
-        "sessions": 4129,
+        "views": 4447,
+        "users": 3918,
+        "sessions": 4151,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-17": 1
@@ -5856,25 +6026,27 @@
           "2026-03-19": 1382,
           "2026-03-17": 1172,
           "2026-03-20": 35,
-          "2026-03-21": 22
+          "2026-03-21": 22,
+          "2026-03-22": 18
         }
       },
       "https://businessden.com/2026/03/16/denver-summit-rob-cohen-stadium-womens-soccer/": {
-        "views": 915,
-        "users": 760,
-        "sessions": 878,
+        "views": 922,
+        "users": 764,
+        "sessions": 885,
         "daily_views": {
           "2026-03-16": 724,
           "2026-03-17": 143,
           "2026-03-18": 28,
           "2026-03-19": 16,
+          "2026-03-22": 7,
           "2026-03-20": 3
         }
       },
       "https://businessden.com/2026/03/16/cookie-shop-opening-at-former-bakery-space-in-cherry-creek/": {
-        "views": 860,
-        "users": 724,
-        "sessions": 806,
+        "views": 866,
+        "users": 729,
+        "sessions": 813,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-16": 1
@@ -5885,33 +6057,36 @@
           "2026-03-18": 24,
           "2026-03-19": 12,
           "2026-03-20": 7,
+          "2026-03-22": 6,
           "2026-03-21": 2
         }
       },
       "https://businessden.com/2026/03/16/private-school-says-it-suffered-significant-damage-from-bookkeeper/": {
-        "views": 1624,
-        "users": 1362,
-        "sessions": 1508,
+        "views": 1631,
+        "users": 1365,
+        "sessions": 1515,
         "daily_views": {
           "2026-03-16": 1325,
           "2026-03-18": 154,
           "2026-03-17": 112,
           "2026-03-19": 16,
           "2026-03-21": 9,
-          "2026-03-20": 8
+          "2026-03-20": 8,
+          "2026-03-22": 7
         }
       },
       "https://businessden.com/2026/03/16/south-broadway-gym-expanding-to-highlands/": {
-        "views": 669,
-        "users": 564,
-        "sessions": 638,
+        "views": 671,
+        "users": 566,
+        "sessions": 641,
         "daily_views": {
           "2026-03-16": 556,
           "2026-03-18": 62,
           "2026-03-17": 26,
           "2026-03-19": 18,
           "2026-03-20": 5,
-          "2026-03-21": 2
+          "2026-03-21": 2,
+          "2026-03-22": 2
         }
       },
       "https://businessden.com/2026/03/13/architect-lists-7th-ave-new-build-that-replaced-1950s-eyesore/": {
@@ -5931,9 +6106,9 @@
         }
       },
       "https://businessden.com/2026/03/13/grocery-startup-nude-foods-bags-250k-on-shark-tank/": {
-        "views": 1353,
-        "users": 1202,
-        "sessions": 1333,
+        "views": 1356,
+        "users": 1204,
+        "sessions": 1336,
         "daily_views": {
           "2026-03-13": 961,
           "2026-03-16": 214,
@@ -5942,13 +6117,14 @@
           "2026-03-17": 26,
           "2026-03-18": 17,
           "2026-03-19": 12,
-          "2026-03-21": 3
+          "2026-03-21": 3,
+          "2026-03-22": 3
         }
       },
       "https://businessden.com/2026/03/13/the-pipeline-commercial-real-estate-deals-for-3-13-26/": {
-        "views": 618,
-        "users": 528,
-        "sessions": 612,
+        "views": 619,
+        "users": 529,
+        "sessions": 613,
         "daily_views": {
           "2026-03-13": 400,
           "2026-03-16": 96,
@@ -5960,9 +6136,9 @@
         }
       },
       "https://businessden.com/2026/03/13/developer-looks-to-sell-denver7-lot-at-speer-and-lincoln/": {
-        "views": 1263,
-        "users": 1082,
-        "sessions": 1231,
+        "views": 1267,
+        "users": 1086,
+        "sessions": 1235,
         "daily_views": {
           "2026-03-13": 988,
           "2026-03-16": 118,
@@ -5971,13 +6147,14 @@
           "2026-03-17": 17,
           "2026-03-18": 8,
           "2026-03-20": 6,
-          "2026-03-19": 4
+          "2026-03-19": 4,
+          "2026-03-22": 4
         }
       },
       "https://businessden.com/2026/03/12/demolition-cherry-creek-west-shopping-center-project/": {
-        "views": 1330,
-        "users": 1126,
-        "sessions": 1279,
+        "views": 1333,
+        "users": 1128,
+        "sessions": 1282,
         "daily_views": {
           "2026-03-12": 956,
           "2026-03-13": 220,
@@ -5988,13 +6165,14 @@
           "2026-03-21": 11,
           "2026-03-18": 9,
           "2026-03-19": 7,
-          "2026-03-20": 3
+          "2026-03-20": 3,
+          "2026-03-22": 2
         }
       },
       "https://businessden.com/2026/03/12/denver-bitcoin-pioneers-fall-out-amid-25m-crypto-clash/": {
         "views": 707,
         "users": 652,
-        "sessions": 700,
+        "sessions": 701,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-17": 1
@@ -6012,9 +6190,9 @@
         }
       },
       "https://businessden.com/2026/03/12/denver-data-commercial-construction-activity-up-in-2025-but-still-below-recent-peak/": {
-        "views": 498,
-        "users": 425,
-        "sessions": 485,
+        "views": 499,
+        "users": 426,
+        "sessions": 486,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-16": 1
@@ -6032,9 +6210,9 @@
         }
       },
       "https://businessden.com/2026/03/12/tim-aragon-talks-burnham-yard-denver-project/": {
-        "views": 2841,
-        "users": 2365,
-        "sessions": 2657,
+        "views": 2842,
+        "users": 2366,
+        "sessions": 2659,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-12": 1
@@ -6055,7 +6233,7 @@
       "https://businessden.com/2026/03/12/the-docket-real-estate-lawsuit-roundup-for-3-12-26/": {
         "views": 511,
         "users": 428,
-        "sessions": 489,
+        "sessions": 488,
         "daily_views": {
           "2026-03-12": 384,
           "2026-03-13": 61,
@@ -6088,9 +6266,9 @@
         }
       },
       "https://businessden.com/2026/03/11/founder-of-steel-firm-says-her-siblings-are-scaring-away-suppliers/": {
-        "views": 829,
-        "users": 700,
-        "sessions": 783,
+        "views": 830,
+        "users": 701,
+        "sessions": 784,
         "daily_views": {
           "2026-03-11": 726,
           "2026-03-12": 63,
@@ -6115,9 +6293,9 @@
         }
       },
       "https://businessden.com/2026/03/11/denver-posts-rent-bill-owed-to-city-tops-5m/": {
-        "views": 721,
-        "users": 608,
-        "sessions": 685,
+        "views": 722,
+        "users": 609,
+        "sessions": 686,
         "daily_views": {
           "2026-03-11": 537,
           "2026-03-12": 126,
@@ -6133,9 +6311,9 @@
         }
       },
       "https://businessden.com/2026/03/10/rino-coworking-and-retail-spot-closing-up-ahead-of-downtown-debut/": {
-        "views": 1190,
-        "users": 970,
-        "sessions": 1145,
+        "views": 1191,
+        "users": 971,
+        "sessions": 1146,
         "daily_views": {
           "2026-03-10": 794,
           "2026-03-11": 302,
@@ -6150,9 +6328,9 @@
         }
       },
       "https://businessden.com/2026/03/10/neighboring-nursing-homes-squabble-over-spiked-8-5m-sale/": {
-        "views": 739,
-        "users": 614,
-        "sessions": 696,
+        "views": 740,
+        "users": 615,
+        "sessions": 697,
         "daily_views": {
           "2026-03-10": 549,
           "2026-03-11": 151,
@@ -6166,9 +6344,9 @@
         }
       },
       "https://businessden.com/2026/03/10/even-hotel-7380-clinton-foreclosure/": {
-        "views": 613,
-        "users": 525,
-        "sessions": 582,
+        "views": 614,
+        "users": 526,
+        "sessions": 583,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-10": 1
@@ -6185,9 +6363,9 @@
         }
       },
       "https://businessden.com/2026/03/10/newman-launches-b2b-restaurant-gift-card-sharing-site-to-help-raise-all-boats/": {
-        "views": 870,
-        "users": 700,
-        "sessions": 822,
+        "views": 872,
+        "users": 701,
+        "sessions": 823,
         "daily_views": {
           "2026-03-10": 681,
           "2026-03-11": 150,
@@ -6197,13 +6375,14 @@
           "2026-03-15": 4,
           "2026-03-18": 3,
           "2026-03-19": 2,
-          "2026-03-20": 2
+          "2026-03-20": 2,
+          "2026-03-22": 2
         }
       },
       "https://businessden.com/2026/03/09/lohi-beer-garden-adding-second-location-in-east-denver/": {
-        "views": 1757,
+        "views": 1758,
         "users": 1474,
-        "sessions": 1648,
+        "sessions": 1649,
         "daily_views": {
           "2026-03-09": 1223,
           "2026-03-10": 394,
@@ -6219,9 +6398,9 @@
         }
       },
       "https://businessden.com/2026/03/09/homebuilder-loses-lawsuit-calling-denver-affordable-housing-fee-extortion/": {
-        "views": 1676,
+        "views": 1679,
         "users": 1402,
-        "sessions": 1601,
+        "sessions": 1603,
         "daily_views": {
           "2026-03-09": 1329,
           "2026-03-10": 266,
@@ -6234,13 +6413,14 @@
           "2026-03-13": 3,
           "2026-03-17": 3,
           "2026-03-18": 3,
-          "2026-03-19": 3
+          "2026-03-19": 3,
+          "2026-03-22": 3
         }
       },
       "https://businessden.com/2026/03/09/downtown-denver-office-losses-top-a-billion-with-more-to-come/": {
-        "views": 4909,
-        "users": 4278,
-        "sessions": 4811,
+        "views": 4922,
+        "users": 4290,
+        "sessions": 4824,
         "daily_views": {
           "2026-03-09": 2633,
           "2026-03-10": 1454,
@@ -6254,13 +6434,14 @@
           "2026-03-20": 26,
           "2026-03-21": 22,
           "2026-03-19": 21,
-          "2026-03-14": 17
+          "2026-03-14": 17,
+          "2026-03-22": 13
         }
       },
       "https://businessden.com/2026/03/06/9m-country-club-sale-tops-february-home-transactions/": {
-        "views": 1347,
+        "views": 1348,
         "users": 1071,
-        "sessions": 1228,
+        "sessions": 1230,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-06": 1
@@ -6305,9 +6486,9 @@
         }
       },
       "https://businessden.com/2026/03/06/farbers-sell-lohi-apartment-development-site-for-9-5m/": {
-        "views": 2011,
-        "users": 1598,
-        "sessions": 1861,
+        "views": 2012,
+        "users": 1599,
+        "sessions": 1862,
         "daily_views": {
           "2026-03-06": 1315,
           "2026-03-09": 398,
@@ -6325,9 +6506,9 @@
         }
       },
       "https://businessden.com/2026/03/06/five-takeaways-from-denvers-restaurant-report/": {
-        "views": 941,
-        "users": 786,
-        "sessions": 962,
+        "views": 942,
+        "users": 787,
+        "sessions": 963,
         "daily_views": {
           "2026-03-06": 748,
           "2026-03-07": 54,
@@ -6343,9 +6524,9 @@
         }
       },
       "https://businessden.com/2026/03/05/the-docket-real-estate-lawsuit-roundup-for-3-5-26/": {
-        "views": 950,
-        "users": 707,
-        "sessions": 884,
+        "views": 951,
+        "users": 708,
+        "sessions": 885,
         "subscriptions": 1,
         "daily_subs": {
           "2026-03-11": 1
@@ -6435,9 +6616,9 @@
         }
       },
       "https://businessden.com/2026/03/04/ramos-law-buys-southeast-denver-office-for-3m/": {
-        "views": 1052,
-        "users": 869,
-        "sessions": 968,
+        "views": 1053,
+        "users": 870,
+        "sessions": 969,
         "daily_views": {
           "2026-03-04": 825,
           "2026-03-05": 159,
@@ -6606,9 +6787,9 @@
         }
       },
       "https://businessden.com/2026/03/02/chicago-firm-mismanaged-project-before-abandoning-it-rino-developer-says/": {
-        "views": 971,
-        "users": 788,
-        "sessions": 930,
+        "views": 972,
+        "users": 789,
+        "sessions": 931,
         "daily_views": {
           "2026-03-02": 835,
           "2026-03-03": 67,
@@ -6673,9 +6854,9 @@
         }
       },
       "https://businessden.com/2026/03/02/brown-palace-hotel-denver-for-sale/": {
-        "views": 2460,
-        "users": 2025,
-        "sessions": 2333,
+        "views": 2466,
+        "users": 2031,
+        "sessions": 2339,
         "daily_views": {
           "2026-03-02": 1728,
           "2026-03-03": 381,
@@ -6696,6 +6877,7 @@
           "2026-03-20": 7,
           "2026-03-16": 6,
           "2026-03-19": 6,
+          "2026-03-22": 6,
           "2026-03-18": 3
         }
       }
