@@ -1179,7 +1179,7 @@ def scrape():
     print("\n11. Article reception summaries")
     generate_article_reception(data, now)
 
-    generate_byline_analysis(data, now, all_reporters)   # #5, #12
+    # generate_byline_analysis removed — byline tab uses data directly
 
     # --- GA4 Analytics ---
     fetch_ga4_data(data, now)

@@ -987,27 +987,6 @@ function renderByline(){
     sorted.forEach((a,i)=>{authorRank[a.url]=i+1;});
   });
 
-  // Get AI text per reporter if available
-  const bylines=D.byline||[];
-  const latest=bylines.length?bylines[bylines.length-1]:null;
-  let aiSections={};
-  if(latest&&latest.text){
-    // Parse AI text into per-reporter sections
-    const reporters=latest.reporters||Object.keys(reporterData);
-    let currentName='',currentText='';
-    latest.text.split('\n').forEach(line=>{
-      let matched=false;
-      for(const r of reporters){
-        if(line.toLowerCase().includes(r.toLowerCase())&&(line.startsWith('#')||line.startsWith('**')||line.match(/^[A-Z]/))){
-          if(currentName&&currentText.trim())aiSections[currentName]=currentText.trim();
-          currentName=r;currentText='';matched=true;break;
-        }
-      }
-      if(!matched)currentText+=line+'\n';
-    });
-    if(currentName&&currentText.trim())aiSections[currentName]=currentText.trim();
-  }
-
   // Sort reporters: most pickups first
   const sorted=Object.entries(reporterData).sort((a,b)=>b[1].pickedUp-a[1].pickedUp);
 
@@ -1057,7 +1036,6 @@ function renderByline(){
       }
       articlesHtml+='</div>';
     }
-    const aiText=aiSections[name];
     // Calculate avg articles per week
     const pubDates=bdArticles.filter(a=>a.author===name).map(a=>a.published).filter(Boolean).sort();
     let avgPerWeek='–';
@@ -1083,7 +1061,6 @@ function renderByline(){
         '<div class="byline-stat"><span class="bs-val" style="color:#4caf50">'+avgSubs+'</span><span class="bs-label">Avg. subs/article</span></div>'+
         '<div class="byline-stat"><span class="bs-val">'+avgPerWeek+'</span><span class="bs-label">Avg. articles/week</span></div>'+
       '</div>'+
-      (aiText?'<div class="byline-body">'+formatSummary(aiText)+'</div>':'')+
       articlesHtml+
     '</div>';
   }).join('');
