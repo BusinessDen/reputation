@@ -252,6 +252,7 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
       <button class="tab-btn" data-tab="stories">Our Stories</button>
       <button class="tab-btn" data-tab="subscriptions">Subscriptions</button>
       <button class="tab-btn" data-tab="traffic">Website Traffic</button>
+      <button class="tab-btn" data-tab="topics">Topics</button>
       <button class="tab-btn" data-tab="byline">Byline</button>
       <button class="tab-btn" data-tab="summaries">Daily Summaries</button>
     </div>
@@ -453,7 +454,12 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
   </div>
 </div>
 
-<!-- ═══ TAB 5: BYLINE ═══ -->
+<!-- ═══ TAB 5: TOPICS ═══ -->
+<div class="tab-panel" id="panel-topics">
+  <div id="topicsContent"><div class="empty-state"><p>Loading…</p></div></div>
+</div>
+
+<!-- ═══ TAB 6: BYLINE ═══ -->
 <div class="tab-panel" id="panel-byline">
   <div id="bylineContent"><div class="empty-state"><p>Loading…</p></div></div>
 </div>
@@ -491,6 +497,14 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
 
 <script>
 let D={},mentions=[],bdArticles=[],sortCol='published',sortDir='desc',kpiFilter=null,sidebarSource='',outletFilter='';
+const TOPIC_COLORS={
+  'Commercial Real Estate':'#3b82f6','Restaurants':'#f59e0b','Brewing':'#f97316',
+  'Retail':'#c084fc','Startups':'#22c55e','Government':'#ef4444',
+  'Residential Real Estate':'#22d3ee','Law':'#fb923c','Outdoor Recreation':'#34d399',
+  'Education':'#a78bfa','The Pipeline':'#64748b','Uncategorized':'#555'
+};
+const TOPIC_COLOR_LIST=['#3b82f6','#f59e0b','#c084fc','#22c55e','#ef4444','#22d3ee','#f97316','#ec4899','#34d399','#a78bfa','#64748b'];
+function getTopicColor(topic){return TOPIC_COLORS[topic]||TOPIC_COLOR_LIST[Object.keys(TOPIC_COLORS).length%TOPIC_COLOR_LIST.length]||'#555';}
 
 async function init(){
   try{const r=await fetch('mentions-data.json?_='+Date.now());D=await r.json();mentions=D.mentions||[];bdArticles=D.bd_articles||[];renderAll();}
@@ -501,7 +515,7 @@ async function init(){
 
 function renderAll(){
   renderKPIs();renderDailySummary();renderChart();renderOutletChart();renderTable();renderSidebar();
-  renderStories();renderSubscriptions();renderTrafficTab();renderByline();renderSummariesTab();
+  renderStories();renderSubscriptions();renderTrafficTab();renderTopics();renderByline();renderSummariesTab();
   if(D.last_updated)document.getElementById('lastUpdated').textContent='Updated '+new Date(D.last_updated).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
 }
 
@@ -856,11 +870,10 @@ function renderTopicChart(){
   // Top 8 topics, rest grouped as "Other topics"
   const topTopics=sorted.slice(0,8).map(e=>e[0]);
   const hasOther=sorted.length>8;
-
-  const topicColors=['#22c55e','#3b82f6','#c084fc','#f59e0b','#ef4444','#22d3ee','#f97316','#ec4899','#64748b'];
   const layers=hasOther?[...topTopics,'Other topics']:topTopics;
+
   const colorMap={};
-  layers.forEach((t,i)=>{colorMap[t]=topicColors[i%topicColors.length];});
+  layers.forEach(t=>{colorMap[t]=t==='Other topics'?'#64748b':getTopicColor(t);});
 
   // Find max daily total
   const maxTotal=Math.max(...dates.map(d=>{
@@ -923,6 +936,29 @@ function renderTopicChart(){
     if(i%3&&dates.length>14)return'<span></span>';
     return'<span>'+fmtShort(d)+'</span>';
   }).join('');
+
+  // Label peaks on the topic chart
+  ctx.font='bold 13px JetBrains Mono';ctx.textAlign='center';
+  const topicTotalsByDay=dates.map(d=>{const day=topicDaily[d]||{};return Object.values(day).reduce((s,v)=>s+v,0);});
+  const peakPositions=[];
+  for(let i=1;i<dates.length-1;i++){
+    if(topicTotalsByDay[i]>topicTotalsByDay[i-1]&&topicTotalsByDay[i]>=topicTotalsByDay[i+1]){
+      if(topicTotalsByDay[i]>=Math.max(...topicTotalsByDay)*0.4){
+        const x=pad.left+(i/(dates.length-1||1))*cW;
+        const y=pad.top+cH-(topicTotalsByDay[i]/maxTotal)*cH;
+        const label=topicTotalsByDay[i].toLocaleString();
+        const tw=ctx.measureText(label).width;
+        let collides=false;
+        for(const p of peakPositions){if(Math.abs(x-p.x)<tw+10)collides=true;}
+        if(!collides){
+          peakPositions.push({x});
+          ctx.fillStyle='rgba(0,0,0,0.7)';
+          ctx.beginPath();ctx.roundRect(x-tw/2-5,y-20,tw+10,18,4);ctx.fill();
+          ctx.fillStyle='#fff';ctx.fillText(label,x,y-6);
+        }
+      }
+    }
+  }
 
   // Legend
   document.getElementById('topicLegend').innerHTML=layers.map(t=>{
@@ -1112,6 +1148,34 @@ function drawLineChart(canvasId, labelsId, data, dates, color, yFormat, opts){
     ctx.moveTo(pad.left,pad.top+cH-((y0-minVal)/range)*cH);
     ctx.lineTo(pad.left+cW,pad.top+cH-((yN-minVal)/range)*cH);
     ctx.stroke();ctx.setLineDash([]);
+  }
+
+  // Label peaks and valleys
+  ctx.font='bold 11px JetBrains Mono';ctx.textAlign='center';
+  const labelPositions=[];
+  for(let i=1;i<vals.length-1;i++){
+    const isPeak=vals[i]>vals[i-1]&&vals[i]>=vals[i+1];
+    const isValley=vals[i]<vals[i-1]&&vals[i]<=vals[i+1];
+    if(!isPeak&&!isValley)continue;
+    const threshold=(Math.max(...vals)-Math.min(...vals))*0.15;
+    if(isPeak&&vals[i]<Math.max(...vals)*0.4)continue;
+    if(isValley&&vals[i]>Math.min(...vals)+threshold*3)continue;
+    const x=pad.left+(i/(dates.length-1||1))*cW;
+    const y=pad.top+cH-((vals[i]-minVal)/range)*cH;
+    const label=yFormat?yFormat(vals[i]):vals[i].toLocaleString();
+    const tw=ctx.measureText(label).width;
+    const ly=isPeak?y-16:y+14;
+    // Check collision with existing labels
+    let collides=false;
+    for(const lp of labelPositions){
+      if(Math.abs(x-lp.x)<tw+10&&Math.abs(ly-lp.y)<16){collides=true;break;}
+    }
+    if(collides)continue;
+    labelPositions.push({x,y:ly});
+    ctx.fillStyle='rgba(0,0,0,0.7)';
+    ctx.beginPath();ctx.roundRect(x-tw/2-4,ly-10,tw+8,16,3);ctx.fill();
+    ctx.fillStyle='#fff';
+    ctx.fillText(label,x,ly+2);
   }
 
   // X labels
@@ -1308,17 +1372,8 @@ function renderStories(){
 }
 
 function renderStoriesChart(){
-  // Topic color map
-  const topicColors={
-    'Commercial Real Estate':'#3b82f6',
-    'Restaurants':'#f5a623',
-    'Brewing':'#f5a623',
-    'Retail':'#a78bfa',
-    'Startups':'#22c55e',
-    'Government':'#e85454',
-    'Residential Real Estate':'#06b6d4',
-    'Legal':'#fb923c',
-  };
+  // Use global topic colors
+  const topicColors=TOPIC_COLORS;
   const defaultColor='#555';
 
   // Build 30-day window
@@ -1469,6 +1524,143 @@ function doRenderStories(){
 function toggleRefs(btn){const l=btn.nextElementSibling;const open=l.classList.toggle('open');btn.textContent=open?'Hide references':'View online references ('+l.children.length+')';}
 
 // ═══ BYLINE (#5) ═══
+// ═══ TOPICS TAB ═══
+function renderTopics(){
+  const el=document.getElementById('topicsContent');
+  const ga4Stats=(D.ga4&&D.ga4.article_stats)||{};
+  const topicDaily=(D.ga4&&D.ga4.topic_daily)||{};
+  const readers=(D.ga4&&D.ga4.daily_readers)||{};
+
+  const mt=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Denver'}));
+  const todayStr=mt.toISOString().split('T')[0];
+  const yesterdayD=new Date(mt);yesterdayD.setDate(mt.getDate()-1);
+  const yesterdayStr=yesterdayD.toISOString().split('T')[0];
+  const weekAgoD=new Date(mt);weekAgoD.setDate(mt.getDate()-7);
+  const weekAgoStr=weekAgoD.toISOString().split('T')[0];
+  const monthStartStr=todayStr.slice(0,8)+'01';
+  const yearStartStr=mt.getFullYear()+'-01-01';
+
+  // Build per-topic data
+  const topicData={};
+  bdArticles.forEach(a=>{
+    const cats=a.categories||['Uncategorized'];
+    const primary=cats[0];
+    const ga4=ga4Stats[a.url]||{};
+    if(!topicData[primary])topicData[primary]={articles:[],totalViews:0};
+    const views=ga4.views||0;
+    topicData[primary].articles.push({...a,views,subs:ga4.subscriptions||0});
+    topicData[primary].totalViews+=views;
+  });
+
+  const totalAllViews=Object.values(topicData).reduce((s,t)=>s+t.totalViews,0);
+
+  // Compute time-period percentages from topic_daily
+  const allDates=Object.keys(topicDaily).sort();
+  function periodViews(topic,fromDate,toDate){
+    let topicV=0,allV=0;
+    allDates.forEach(d=>{
+      if(d<fromDate||(toDate&&d>toDate))return;
+      const day=topicDaily[d]||{};
+      const dayTotal=Object.values(day).reduce((s,v)=>s+v,0);
+      topicV+=(day[topic]||0);
+      allV+=dayTotal;
+    });
+    return allV?Math.round(topicV/allV*1000)/10:0;
+  }
+
+  // Sort topics by total views
+  const sorted=Object.entries(topicData).sort((a,b)=>b[1].totalViews-a[1].totalViews);
+
+  el.innerHTML=sorted.map(([topic,td])=>{
+    const avgReads=td.articles.length?Math.round(td.totalViews/td.articles.length):0;
+    const pctAll=totalAllViews?Math.round(td.totalViews/totalAllViews*1000)/10:0;
+
+    // Period percentages
+    const pctYesterday=periodViews(topic,yesterdayStr,yesterdayStr);
+    const pctWeek=periodViews(topic,weekAgoStr,yesterdayStr);
+    const pctMonth=periodViews(topic,monthStartStr,yesterdayStr);
+    const pctYear=periodViews(topic,yearStartStr,yesterdayStr);
+
+    // Histogram of article reads
+    const artsSorted=[...td.articles].sort((a,b)=>b.views-a.views);
+    const maxArtViews=Math.max(...artsSorted.map(a=>a.views),1);
+
+    const topicColor=getTopicColor(topic);
+    const histBars=artsSorted.map(a=>{
+      const w=Math.max(2,(a.views/maxArtViews)*100);
+      return '<div style="display:flex;align-items:center;gap:6px;margin:2px 0" title="'+esc(a.title)+'">'+
+        '<div style="flex:1;height:14px;background:#1a1d25;border-radius:3px;overflow:hidden">'+
+          '<div style="width:'+w+'%;height:100%;background:'+topicColor+';border-radius:3px"></div>'+
+        '</div>'+
+        '<span style="font-family:JetBrains Mono;font-size:.75rem;color:#999;min-width:45px;text-align:right">'+a.views.toLocaleString()+'</span>'+
+      '</div>';
+    }).join('');
+
+    // Top 5 articles from past 30 days
+    const thirtyAgo=new Date(mt);thirtyAgo.setDate(mt.getDate()-30);
+    const thirtyAgoStr=thirtyAgo.toISOString().split('T')[0];
+    const recent=artsSorted.filter(a=>(a.published||'')>=thirtyAgoStr).slice(0,5);
+
+    const topArticles=recent.length?recent.map((a,i)=>{
+      return '<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #1a1d25;font-size:.85rem;align-items:baseline">'+
+        '<span style="font-family:JetBrains Mono;color:#555;min-width:20px">'+(i+1)+'.</span>'+
+        '<a href="'+esc(a.url)+'" target="_blank" style="flex:1;color:#c8cad0;text-decoration:none">'+esc(a.title)+'</a>'+
+        '<span style="font-family:JetBrains Mono;color:#3b82f6;min-width:50px;text-align:right">'+a.views.toLocaleString()+'</span>'+
+        '<span style="font-family:JetBrains Mono;color:#4caf50;min-width:30px;text-align:right">'+(a.subs||'–')+'</span>'+
+      '</div>';
+    }).join(''):'<div style="font-size:.85rem;color:#555;padding:6px 0">No articles in the past 30 days</div>';
+
+    return '<div class="chart-card" style="margin-bottom:16px">'+
+      '<h3 style="font-size:1.1rem;margin-bottom:12px">'+esc(topic)+'</h3>'+
+      '<div style="display:flex;gap:16px;align-items:stretch">'+
+        // KPI cards row
+        '<div style="display:flex;flex-direction:column;gap:8px;min-width:100px">'+
+          '<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:8px;padding:10px 14px">'+
+            '<div style="font-family:JetBrains Mono;font-size:1.3rem;font-weight:700;color:#3b82f6">'+avgReads.toLocaleString()+'</div>'+
+            '<div style="font-size:.7rem;color:#999;text-transform:uppercase">Avg reads/article</div>'+
+          '</div>'+
+        '</div>'+
+        // Period percentage cards
+        '<div style="display:flex;flex-direction:column;gap:8px;min-width:80px">'+
+          '<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:8px;padding:8px 12px">'+
+            '<div style="font-family:JetBrains Mono;font-size:1.1rem;font-weight:700;color:#f5a623">'+pctYesterday+'%</div>'+
+            '<div style="font-size:.65rem;color:#999;text-transform:uppercase">Yesterday</div>'+
+          '</div>'+
+          '<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:8px;padding:8px 12px">'+
+            '<div style="font-family:JetBrains Mono;font-size:1.1rem;font-weight:700;color:#f5a623">'+pctWeek+'%</div>'+
+            '<div style="font-size:.65rem;color:#999;text-transform:uppercase">This week</div>'+
+          '</div>'+
+        '</div>'+
+        '<div style="display:flex;flex-direction:column;gap:8px;min-width:80px">'+
+          '<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:8px;padding:8px 12px">'+
+            '<div style="font-family:JetBrains Mono;font-size:1.1rem;font-weight:700;color:#f5a623">'+pctMonth+'%</div>'+
+            '<div style="font-size:.65rem;color:#999;text-transform:uppercase">This month</div>'+
+          '</div>'+
+          '<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:8px;padding:8px 12px">'+
+            '<div style="font-family:JetBrains Mono;font-size:1.1rem;font-weight:700;color:#f5a623">'+pctYear+'%</div>'+
+            '<div style="font-size:.65rem;color:#999;text-transform:uppercase">This year</div>'+
+          '</div>'+
+        '</div>'+
+        // Histogram
+        '<div style="flex:1;min-width:200px">'+
+          '<div style="font-size:.7rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:4px">Reads per article ('+td.articles.length+' articles)</div>'+
+          histBars+
+        '</div>'+
+      '</div>'+
+      // Top 5 articles
+      '<div style="margin-top:14px">'+
+        '<div style="font-size:.75rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:6px">Top articles (past 30 days)</div>'+
+        '<div style="display:flex;gap:10px;padding:4px 0;font-size:.7rem;color:#555">'+
+          '<span style="min-width:20px"></span><span style="flex:1">Title</span>'+
+          '<span style="min-width:50px;text-align:right">Views</span>'+
+          '<span style="min-width:30px;text-align:right">Subs</span>'+
+        '</div>'+
+        topArticles+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
 function renderByline(){
   const el=document.getElementById('bylineContent');
   if(!bdArticles.length){el.innerHTML='<div class="empty-state"><p>No BusinessDen articles tracked yet.</p></div>';return;}
