@@ -251,6 +251,7 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
       <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
       <button class="tab-btn" data-tab="stories">Our Stories</button>
       <button class="tab-btn" data-tab="subscriptions">Subscriptions</button>
+      <button class="tab-btn" data-tab="traffic">Website Traffic</button>
       <button class="tab-btn" data-tab="byline">Byline</button>
       <button class="tab-btn" data-tab="summaries">Daily Summaries</button>
     </div>
@@ -291,22 +292,6 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
       <span><i style="background:#a78bfa"></i> Medium</span>
       <span><i style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3)"></i> BD Published</span>
       <span><i style="background:#e85454;border-radius:50%"></i> 30-Day Avg</span>
-    </div>
-  </div>
-
-  <div class="chart-card">
-    <h3>Page Views by Content Age <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
-    <div style="position:relative">
-      <canvas id="trafficCanvas" height="200" style="width:100%;background:transparent"></canvas>
-    </div>
-    <div class="chart-labels" id="trafficLabels"></div>
-    <div class="chart-legend" style="margin-top:10px">
-      <span><i style="background:#4caf50"></i> Today's news</span>
-      <span><i style="background:#3b82f6"></i> Past 7 days</span>
-      <span><i style="background:#a78bfa"></i> Past 30 days</span>
-      <span><i style="background:#f5a623"></i> Older news</span>
-      <span><i style="background:#555"></i> Homepage</span>
-      <span><i style="background:#333"></i> Other</span>
     </div>
   </div>
 
@@ -412,7 +397,40 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
   <div id="subsDetail" style="display:none"></div>
 </div>
 
-<!-- ═══ TAB 4: BYLINE ═══ -->
+<!-- ═══ TAB 4: WEBSITE TRAFFIC ═══ -->
+<div class="tab-panel" id="panel-traffic">
+  <div class="kpi-grid">
+    <div class="kpi-card amber"><div class="kpi-label">Readers Today</div><div class="kpi-value" id="tReadersToday">–</div><div class="kpi-sub" id="tReadersTodaySub"></div></div>
+    <div class="kpi-card blue"><div class="kpi-label">This Week</div><div class="kpi-value" id="tReadersWeek">–</div><div class="kpi-sub" id="tReadersWeekSub"></div></div>
+    <div class="kpi-card green"><div class="kpi-label">Month to Date</div><div class="kpi-value" id="tReadersMTD">–</div><div class="kpi-sub" id="tReadersMTDSub"></div></div>
+    <div class="kpi-card purple"><div class="kpi-label">Year to Date</div><div class="kpi-value" id="tReadersYTD">–</div><div class="kpi-sub" id="tReadersYTDSub"></div></div>
+  </div>
+  <div class="chart-card">
+    <h3>Page Views by Content Age <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
+    <div style="position:relative">
+      <canvas id="trafficCanvas" height="180" style="width:100%;background:transparent"></canvas>
+    </div>
+    <div class="chart-labels" id="trafficLabels"></div>
+    <div class="chart-legend" style="margin-top:10px">
+      <span><i style="background:#4caf50"></i> Today's news</span>
+      <span><i style="background:#3b82f6"></i> Past 7 days</span>
+      <span><i style="background:#a78bfa"></i> Past 30 days</span>
+      <span><i style="background:#f5a623"></i> Older news</span>
+      <span><i style="background:#555"></i> Homepage</span>
+      <span><i style="background:#333"></i> Other</span>
+    </div>
+  </div>
+  <div class="chart-card">
+    <h3>Non-Article Traffic Breakdown</h3>
+    <div id="otherBreakdownBars"></div>
+    <div style="margin-top:16px">
+      <h3 style="font-size:.82rem;margin-bottom:10px">Top Non-Article Pages</h3>
+      <div id="nonArticleList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 5: BYLINE ═══ -->
 <div class="tab-panel" id="panel-byline">
   <div id="bylineContent"><div class="empty-state"><p>Loading…</p></div></div>
 </div>
@@ -459,8 +477,8 @@ async function init(){
 }
 
 function renderAll(){
-  renderKPIs();renderDailySummary();renderChart();renderTrafficChart();renderOutletChart();renderTable();renderSidebar();
-  renderStories();renderSubscriptions();renderByline();renderSummariesTab();
+  renderKPIs();renderDailySummary();renderChart();renderOutletChart();renderTable();renderSidebar();
+  renderStories();renderSubscriptions();renderTrafficTab();renderByline();renderSummariesTab();
   if(D.last_updated)document.getElementById('lastUpdated').textContent='Updated '+new Date(D.last_updated).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
 }
 
@@ -763,6 +781,107 @@ function renderTrafficChart(){
       'Today\'s news: '+v.today+'\nPast 7d: '+v.week+'\nPast 30d: '+v.month+
       '\nOlder: '+v.older+'\nHomepage: '+v.home+'\nOther: '+v.other;
   };
+}
+
+function renderTrafficTab(){
+  renderTrafficKPIs();
+  renderTrafficChart();
+  renderOtherBreakdown();
+}
+
+function renderTrafficKPIs(){
+  const readers=(D.ga4&&D.ga4.daily_readers)||{};
+  const dates=Object.keys(readers).sort();
+  if(!dates.length)return;
+
+  const mt=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Denver'}));
+  const todayStr=mt.toISOString().split('T')[0];
+
+  // Today
+  const todayReaders=readers[todayStr]||0;
+  document.getElementById('tReadersToday').textContent=todayReaders.toLocaleString();
+
+  // This week (Mon-Sun) vs last week
+  const dow=mt.getDay()||7; // Mon=1 ... Sun=7
+  const weekStart=new Date(mt);weekStart.setDate(mt.getDate()-(dow-1));
+  const lastWeekStart=new Date(weekStart);lastWeekStart.setDate(lastWeekStart.getDate()-7);
+  let thisWeek=0,lastWeek=0;
+  for(let i=0;i<7;i++){
+    const d1=new Date(weekStart);d1.setDate(d1.getDate()+i);
+    const d2=new Date(lastWeekStart);d2.setDate(d2.getDate()+i);
+    thisWeek+=(readers[d1.toISOString().split('T')[0]]||0);
+    lastWeek+=(readers[d2.toISOString().split('T')[0]]||0);
+  }
+  document.getElementById('tReadersWeek').textContent=thisWeek.toLocaleString();
+  document.getElementById('tReadersWeekSub').innerHTML=fmtCompare(thisWeek,lastWeek,'Last week');
+
+  // MTD vs prior month same period
+  const monthStart=todayStr.slice(0,8)+'01';
+  const dayOfMonth=mt.getDate();
+  const lastMonthDate=new Date(mt.getFullYear(),mt.getMonth()-1,1);
+  const lastMonthStart=lastMonthDate.toISOString().split('T')[0];
+  let mtd=0,lastMtd=0;
+  for(let i=0;i<dayOfMonth;i++){
+    const d1=new Date(mt.getFullYear(),mt.getMonth(),i+1);
+    const d2=new Date(lastMonthDate.getFullYear(),lastMonthDate.getMonth(),i+1);
+    mtd+=(readers[d1.toISOString().split('T')[0]]||0);
+    lastMtd+=(readers[d2.toISOString().split('T')[0]]||0);
+  }
+  document.getElementById('tReadersMTD').textContent=mtd.toLocaleString();
+  document.getElementById('tReadersMTDSub').innerHTML=fmtCompare(mtd,lastMtd,'Last month');
+
+  // YTD vs prior year (we only have 60 days of data, so this will be partial)
+  const yearStart=mt.getFullYear()+'-01-01';
+  const lastYearStart=(mt.getFullYear()-1)+'-01-01';
+  const lastYearEnd=(mt.getFullYear()-1)+todayStr.slice(4);
+  let ytd=0,lastYtd=0;
+  dates.forEach(d=>{
+    if(d>=yearStart)ytd+=(readers[d]||0);
+    if(d>=lastYearStart&&d<=lastYearEnd)lastYtd+=(readers[d]||0);
+  });
+  document.getElementById('tReadersYTD').textContent=ytd.toLocaleString();
+  document.getElementById('tReadersYTDSub').innerHTML=lastYtd?fmtCompare(ytd,lastYtd,'Last year'):'since Jan 1';
+}
+
+function fmtCompare(current,prior,priorLabel){
+  if(!prior)return priorLabel+': –';
+  const pct=Math.round(((current-prior)/prior)*100);
+  const arrow=pct>=0?'\u25B2':'\u25BC';
+  const color=pct>=0?'#4caf50':'#e85454';
+  return priorLabel+': '+prior.toLocaleString()+' <span style="color:'+color+'">'+arrow+' '+Math.abs(pct)+'%</span>';
+}
+
+function renderOtherBreakdown(){
+  const ob=(D.ga4&&D.ga4.other_breakdown)||{};
+  const nap=(D.ga4&&D.ga4.non_article_pages)||[];
+  const barsEl=document.getElementById('otherBreakdownBars');
+  const listEl=document.getElementById('nonArticleList');
+
+  // Horizontal bars for page type breakdown
+  const entries=Object.entries(ob).sort((a,b)=>b[1]-a[1]);
+  if(!entries.length){barsEl.innerHTML='<div class="empty-state"><p>No data yet</p></div>';return;}
+  const maxVal=Math.max(...entries.map(e=>e[1]),1);
+  const typeColors={category:'#3b82f6',tag:'#a78bfa',author:'#4caf50',pagination:'#f5a623',
+    feed:'#06b6d4',account:'#fb923c',subscribe:'#22c55e',static:'#555',search:'#e85454',other:'#444'};
+
+  barsEl.innerHTML=entries.map(([type,views])=>{
+    const w=Math.max(2,(views/maxVal)*100);
+    const color=typeColors[type]||'#444';
+    return '<div class="hbar-row"><div class="hbar-label">'+type+'</div>'+
+      '<div class="hbar-track"><div style="width:'+w+'%;height:100%;background:'+color+';border-radius:4px"></div></div>'+
+      '<div class="hbar-count">'+views.toLocaleString()+'</div></div>';
+  }).join('');
+
+  // Top non-article pages list
+  if(!nap.length){listEl.innerHTML='';return;}
+  listEl.innerHTML=nap.slice(0,15).map(p=>{
+    const typeColor=typeColors[p.type]||'#444';
+    return '<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #1a1d25;font-size:.82rem;align-items:baseline">'+
+      '<span style="min-width:50px;font-family:JetBrains Mono;color:#999;text-align:right">'+p.views.toLocaleString()+'</span>'+
+      '<span style="padding:1px 8px;border-radius:10px;font-size:.65rem;font-weight:600;text-transform:uppercase;background:'+typeColor+'22;color:'+typeColor+'">'+p.type+'</span>'+
+      '<span style="flex:1;color:#c8cad0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(p.title||p.path)+'</span>'+
+    '</div>';
+  }).join('');
 }
 
 // ═══ OUTLET PICKUP CHART (#2) ═══

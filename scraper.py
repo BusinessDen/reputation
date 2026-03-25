@@ -1097,6 +1097,21 @@ def fetch_ga4_data(data: dict, now: datetime):
             all_pages[path] = {"title": title, "views": views, "users": users}
         print(f"    → {len(all_pages)} total pages with pageview data")
 
+    # --- Query 8: Daily unique readers (totalUsers) for reader KPIs ---
+    daily_readers = {}  # {date: users}
+    result = ga4_query({
+        "dateRanges": [{"startDate": "60daysAgo", "endDate": "today"}],
+        "dimensions": [{"name": "date"}],
+        "metrics": [{"name": "totalUsers"}],
+        "limit": 70
+    })
+    if result:
+        for row in result.get("rows", []):
+            d = row["dimensionValues"][0]["value"]
+            date_str = f"{d[:4]}-{d[4:6]}-{d[6:8]}"
+            daily_readers[date_str] = int(row["metricValues"][0]["value"])
+        print(f"    → {len(daily_readers)} days with daily reader data")
+
     # --- Match GA4 data to BD articles ---
     if "ga4" not in data:
         data["ga4"] = {}
@@ -1176,8 +1191,13 @@ def fetch_ga4_data(data: dict, now: datetime):
             if not day_count:
                 continue
             pub = article_pub_dates.get(path)
+            # If not a tracked article, try to extract date from URL pattern /YYYY/MM/DD/
             if not pub:
-                continue  # not a tracked article — will fall into "other"
+                url_date_match = re.match(r'^/(\d{4})/(\d{2})/(\d{2})/', path)
+                if url_date_match:
+                    pub = f"{url_date_match.group(1)}-{url_date_match.group(2)}-{url_date_match.group(3)}"
+                else:
+                    continue  # not an article-pattern URL
             # Calculate article age on this day
             try:
                 from datetime import date as date_type
@@ -1210,6 +1230,7 @@ def fetch_ga4_data(data: dict, now: datetime):
         }
 
     data["ga4"]["traffic_breakdown"] = traffic_breakdown
+    data["ga4"]["daily_readers"] = daily_readers
     if traffic_breakdown:
         print(f"    → {len(traffic_breakdown)} days of traffic breakdown data")
 
@@ -1226,6 +1247,9 @@ def fetch_ga4_data(data: dict, now: datetime):
     non_article_pages = []
     for path, info in all_pages.items():
         if path == "/" or path in article_paths:
+            continue
+        # Skip article-pattern URLs (these are news content, just not tracked)
+        if re.match(r'^/\d{4}/\d{2}/\d{2}/', path):
             continue
         # Classify the page type
         ptype = "other"
