@@ -295,6 +295,22 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
   </div>
 
   <div class="chart-card">
+    <h3>Page Views by Content Age <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
+    <div style="position:relative">
+      <canvas id="trafficCanvas" height="200" style="width:100%;background:transparent"></canvas>
+    </div>
+    <div class="chart-labels" id="trafficLabels"></div>
+    <div class="chart-legend" style="margin-top:10px">
+      <span><i style="background:#4caf50"></i> Today's news</span>
+      <span><i style="background:#3b82f6"></i> Past 7 days</span>
+      <span><i style="background:#a78bfa"></i> Past 30 days</span>
+      <span><i style="background:#f5a623"></i> Older news</span>
+      <span><i style="background:#555"></i> Homepage</span>
+      <span><i style="background:#333"></i> Other</span>
+    </div>
+  </div>
+
+  <div class="chart-card">
     <h3>Outlet Pickup <span style="font-weight:400;color:#666;font-size:.75rem" id="outletChartScope">all time</span></h3>
     <div id="outletChartBars"></div>
     <div class="chart-legend" style="margin-top:12px">
@@ -443,7 +459,7 @@ async function init(){
 }
 
 function renderAll(){
-  renderKPIs();renderDailySummary();renderChart();renderOutletChart();renderTable();renderSidebar();
+  renderKPIs();renderDailySummary();renderChart();renderTrafficChart();renderOutletChart();renderTable();renderSidebar();
   renderStories();renderSubscriptions();renderByline();renderSummariesTab();
   if(D.last_updated)document.getElementById('lastUpdated').textContent='Updated '+new Date(D.last_updated).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
 }
@@ -656,6 +672,97 @@ function renderChart(){
 
     svg.innerHTML='<polyline points="'+points.join(' ')+'"/>';
   });
+}
+
+// ═══ TRAFFIC BREAKDOWN CHART ═══
+function renderTrafficChart(){
+  const canvas=document.getElementById('trafficCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const breakdown=(D.ga4&&D.ga4.traffic_breakdown)||{};
+  const dates=Object.keys(breakdown).sort().slice(-30);
+  if(!dates.length){ctx.clearRect(0,0,canvas.width,canvas.height);return;}
+
+  // Set canvas resolution
+  const rect=canvas.getBoundingClientRect();
+  canvas.width=rect.width*2;canvas.height=rect.height*2;
+  ctx.scale(2,2);
+  const W=rect.width,H=rect.height;
+  const pad={top:10,right:10,bottom:5,left:40};
+  const cW=W-pad.left-pad.right,cH=H-pad.top-pad.bottom;
+
+  // Stack order (bottom to top): other, home, older, month, week, today
+  const layers=['other','home','older','month','week','today'];
+  const colors={today:'#4caf50',week:'#3b82f6',month:'#a78bfa',older:'#f5a623',home:'#555',other:'#333'};
+
+  // Find max total
+  const maxTotal=Math.max(...dates.map(d=>breakdown[d].total||0),1);
+
+  // Compute stacked values
+  const stacked=dates.map(d=>{
+    const v=breakdown[d];
+    let cumulative=0;
+    const pts={};
+    for(const layer of layers){
+      cumulative+=(v[layer]||0);
+      pts[layer]=cumulative;
+    }
+    pts._total=v.total||0;
+    return pts;
+  });
+
+  ctx.clearRect(0,0,W,H);
+
+  // Draw stacked areas (top layer first so bottom layers paint over)
+  for(let li=layers.length-1;li>=0;li--){
+    const layer=layers[li];
+    ctx.fillStyle=colors[layer];
+    ctx.beginPath();
+    // Top edge
+    for(let i=0;i<dates.length;i++){
+      const x=pad.left+(i/(dates.length-1||1))*cW;
+      const y=pad.top+cH-(stacked[i][layer]/maxTotal)*cH;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    // Bottom edge (previous layer or baseline)
+    const prevLayer=li>0?layers[li-1]:null;
+    for(let i=dates.length-1;i>=0;i--){
+      const x=pad.left+(i/(dates.length-1||1))*cW;
+      const y=prevLayer?pad.top+cH-(stacked[i][prevLayer]/maxTotal)*cH:pad.top+cH;
+      ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  // Y-axis labels
+  ctx.fillStyle='#555';ctx.font='10px JetBrains Mono';ctx.textAlign='right';
+  for(let i=0;i<=4;i++){
+    const val=Math.round(maxTotal*i/4);
+    const y=pad.top+cH-(i/4)*cH;
+    ctx.fillText(val.toLocaleString(),pad.left-6,y+3);
+    // Grid line
+    ctx.strokeStyle='#1e2028';ctx.lineWidth=0.5;
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+cW,y);ctx.stroke();
+  }
+
+  // X-axis labels
+  document.getElementById('trafficLabels').innerHTML=dates.map((d,i)=>{
+    if(i%3&&dates.length>14)return'<span></span>';
+    return'<span>'+fmtShort(d)+'</span>';
+  }).join('');
+
+  // Tooltip on hover
+  canvas.onmousemove=function(e){
+    const r=canvas.getBoundingClientRect();
+    const mx=e.clientX-r.left;
+    const idx=Math.round(((mx-pad.left)/cW)*(dates.length-1));
+    if(idx<0||idx>=dates.length)return;
+    const d=dates[idx],v=breakdown[d];
+    canvas.title=fmtShort(d)+': '+v.total.toLocaleString()+' total\n'+
+      'Today\'s news: '+v.today+'\nPast 7d: '+v.week+'\nPast 30d: '+v.month+
+      '\nOlder: '+v.older+'\nHomepage: '+v.home+'\nOther: '+v.other;
+  };
 }
 
 // ═══ OUTLET PICKUP CHART (#2) ═══

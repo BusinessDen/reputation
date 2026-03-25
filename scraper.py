@@ -1046,6 +1046,39 @@ def fetch_ga4_data(data: dict, now: datetime):
     else:
         print("    → Query 4 returned no result")
 
+    # --- Query 5: Daily total pageviews (all pages) for traffic breakdown chart ---
+    daily_totals = {}  # {date: total}
+    result = ga4_query({
+        "dateRanges": [{"startDate": "30daysAgo", "endDate": "today"}],
+        "dimensions": [{"name": "date"}],
+        "metrics": [{"name": "screenPageViews"}],
+        "limit": 50
+    })
+    if result:
+        for row in result.get("rows", []):
+            d = row["dimensionValues"][0]["value"]
+            date_str = f"{d[:4]}-{d[4:6]}-{d[6:8]}"
+            daily_totals[date_str] = int(row["metricValues"][0]["value"])
+        print(f"    → {len(daily_totals)} days with total pageview data")
+
+    # --- Query 6: Daily pageviews for homepage/landing pages ---
+    daily_home = {}  # {date: count}
+    result = ga4_query({
+        "dateRanges": [{"startDate": "30daysAgo", "endDate": "today"}],
+        "dimensions": [{"name": "date"}],
+        "metrics": [{"name": "screenPageViews"}],
+        "dimensionFilter": {
+            "filter": {"fieldName": "pagePath", "stringFilter": {"matchType": "EXACT", "value": "/"}}
+        },
+        "limit": 50
+    })
+    if result:
+        for row in result.get("rows", []):
+            d = row["dimensionValues"][0]["value"]
+            date_str = f"{d[:4]}-{d[4:6]}-{d[6:8]}"
+            daily_home[date_str] = int(row["metricValues"][0]["value"])
+        print(f"    → {len(daily_home)} days with homepage pageview data")
+
     # --- Match GA4 data to BD articles ---
     if "ga4" not in data:
         data["ga4"] = {}
@@ -1095,6 +1128,72 @@ def fetch_ga4_data(data: dict, now: datetime):
             matched += 1
 
     print(f"    → {matched} BD articles matched with GA4 data")
+
+    # --- Build daily traffic breakdown for stacked area chart ---
+    # Classify article pageviews by article age relative to each day
+    article_pub_dates = {}
+    for article in data["bd_articles"]:
+        try:
+            path = urlparse(article["url"]).path.rstrip("/")
+            pub = (article.get("published") or "")[:10]
+            if pub:
+                article_pub_dates[path] = pub
+                article_pub_dates[path + "/"] = pub
+        except:
+            pass
+
+    traffic_breakdown = {}  # {date: {today: N, week: N, month: N, older: N, home: N, other: N}}
+    for date_str in sorted(daily_totals.keys()):
+        total = daily_totals.get(date_str, 0)
+        home = daily_home.get(date_str, 0)
+
+        today_views = 0
+        week_views = 0
+        month_views = 0
+        older_views = 0
+
+        # Sum article views by age bucket
+        for path, date_counts in daily_views.items():
+            day_count = date_counts.get(date_str, 0)
+            if not day_count:
+                continue
+            pub = article_pub_dates.get(path)
+            if not pub:
+                continue  # not a tracked article — will fall into "other"
+            # Calculate article age on this day
+            try:
+                from datetime import date as date_type
+                view_date = date_type.fromisoformat(date_str)
+                pub_date = date_type.fromisoformat(pub)
+                age = (view_date - pub_date).days
+            except:
+                continue
+
+            if age == 0:
+                today_views += day_count
+            elif age <= 7:
+                week_views += day_count
+            elif age <= 30:
+                month_views += day_count
+            else:
+                older_views += day_count
+
+        article_total = today_views + week_views + month_views + older_views
+        other_views = max(0, total - home - article_total)
+
+        traffic_breakdown[date_str] = {
+            "total": total,
+            "today": today_views,
+            "week": week_views,
+            "month": month_views,
+            "older": older_views,
+            "home": home,
+            "other": other_views,
+        }
+
+    data["ga4"]["traffic_breakdown"] = traffic_breakdown
+    if traffic_breakdown:
+        print(f"    → {len(traffic_breakdown)} days of traffic breakdown data")
 
 
 # ---------------------------------------------------------------------------
