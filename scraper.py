@@ -1079,6 +1079,24 @@ def fetch_ga4_data(data: dict, now: datetime):
             daily_home[date_str] = int(row["metricValues"][0]["value"])
         print(f"    → {len(daily_home)} days with homepage pageview data")
 
+    # --- Query 7: Top pages by pageviews (all pages, for "other" breakdown) ---
+    all_pages = {}  # {path: views}
+    result = ga4_query({
+        "dateRanges": [{"startDate": "30daysAgo", "endDate": "today"}],
+        "dimensions": [{"name": "pagePath"}, {"name": "pageTitle"}],
+        "metrics": [{"name": "screenPageViews"}, {"name": "totalUsers"}],
+        "orderBys": [{"metric": {"metricName": "screenPageViews"}, "desc": True}],
+        "limit": 500
+    })
+    if result:
+        for row in result.get("rows", []):
+            path = row["dimensionValues"][0]["value"]
+            title = row["dimensionValues"][1]["value"]
+            views = int(row["metricValues"][0]["value"])
+            users = int(row["metricValues"][1]["value"])
+            all_pages[path] = {"title": title, "views": views, "users": users}
+        print(f"    → {len(all_pages)} total pages with pageview data")
+
     # --- Match GA4 data to BD articles ---
     if "ga4" not in data:
         data["ga4"] = {}
@@ -1194,6 +1212,64 @@ def fetch_ga4_data(data: dict, now: datetime):
     data["ga4"]["traffic_breakdown"] = traffic_breakdown
     if traffic_breakdown:
         print(f"    → {len(traffic_breakdown)} days of traffic breakdown data")
+
+    # --- Classify all pages into categories for "other" breakdown ---
+    article_paths = set()
+    for article in data["bd_articles"]:
+        try:
+            p = urlparse(article["url"]).path.rstrip("/")
+            article_paths.add(p)
+            article_paths.add(p + "/")
+        except:
+            pass
+
+    non_article_pages = []
+    for path, info in all_pages.items():
+        if path == "/" or path in article_paths:
+            continue
+        # Classify the page type
+        ptype = "other"
+        if "/category/" in path:
+            ptype = "category"
+        elif "/tag/" in path:
+            ptype = "tag"
+        elif "/author/" in path:
+            ptype = "author"
+        elif "/page/" in path:
+            ptype = "pagination"
+        elif path in ("/feed/", "/feed", "/rss/", "/rss"):
+            ptype = "feed"
+        elif any(x in path for x in ["/wp-", "/login", "/my-account", "/account"]):
+            ptype = "account"
+        elif any(x in path for x in ["/subscribe", "/membership", "/pricing", "/checkout"]):
+            ptype = "subscribe"
+        elif any(x in path for x in ["/about", "/contact", "/advertise", "/privacy", "/terms"]):
+            ptype = "static"
+        elif any(x in path for x in ["/search", "?s="]):
+            ptype = "search"
+
+        non_article_pages.append({
+            "path": path,
+            "title": info["title"],
+            "views": info["views"],
+            "users": info["users"],
+            "type": ptype,
+        })
+
+    non_article_pages.sort(key=lambda x: -x["views"])
+    data["ga4"]["non_article_pages"] = non_article_pages[:100]
+
+    # Aggregate by type
+    type_totals = {}
+    for p in non_article_pages:
+        t = p["type"]
+        type_totals[t] = type_totals.get(t, 0) + p["views"]
+    data["ga4"]["other_breakdown"] = dict(sorted(type_totals.items(), key=lambda x: -x[1]))
+
+    if non_article_pages:
+        print(f"    → {len(non_article_pages)} non-article pages classified")
+        for t, v in sorted(type_totals.items(), key=lambda x: -x[1]):
+            print(f"       {t}: {v:,} views")
 
 
 # ---------------------------------------------------------------------------
