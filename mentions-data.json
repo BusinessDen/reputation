@@ -5576,7 +5576,7 @@
       "1734d0ce2350c9e1"
     ]
   },
-  "last_updated": "2026-03-25T04:50:13.663401+00:00",
+  "last_updated": "2026-03-25T04:58:00.034514+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -6273,11 +6273,23 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-25T04:58:00.034514+00:00",
+      "new_mentions": 0,
+      "total_mentions": 148,
+      "total_bd_articles": 71,
+      "sources": {
+        "google_news_rss": 25,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 3,
+  "new_this_run": 0,
   "ga4": {
-    "last_fetched": "2026-03-25T04:50:13.663401+00:00",
+    "last_fetched": "2026-03-25T04:58:00.034514+00:00",
     "article_stats": {
       "https://businessden.com/2026/03/24/broadway-park-grows-in-size-with-2m-purchase/": {
         "views": 714,
@@ -7789,6 +7801,718 @@
         "home": 1138,
         "other": 2250
       }
+    },
+    "non_article_pages": [
+      {
+        "path": "/2026/02/24/denvers-population-growth-engine-slams-into-reverse/",
+        "title": "(not set)",
+        "views": 4010,
+        "users": 3723,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/23/at-broncos-request-dura-searches-for-blight-around-stadium-site/",
+        "title": "(not set)",
+        "views": 780,
+        "users": 646,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/23/boulder-bike-shop-was-sold-without-owners-ok-he-says/",
+        "title": "(not set)",
+        "views": 742,
+        "users": 691,
+        "type": "other"
+      },
+      {
+        "path": "/hs/preferences-center/en/page",
+        "title": "BusinessDen / Richmond BizSense Email Services",
+        "views": 625,
+        "users": 549,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/27/new-real-estate-group-scoops-up-first-office-property/",
+        "title": "(not set)",
+        "views": 536,
+        "users": 486,
+        "type": "other"
+      },
+      {
+        "path": "/hs/preferences-center/en/direct",
+        "title": "BusinessDen / Richmond BizSense Email Services",
+        "views": 520,
+        "users": 448,
+        "type": "other"
+      },
+      {
+        "path": "/richmond-bizsense-newsletter-sign-up",
+        "title": "RichmondBiz Sense Newsletter Sign Up",
+        "views": 494,
+        "users": 423,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/24/cherry-creek-i-ii-aurora-under-contract/",
+        "title": "(not set)",
+        "views": 493,
+        "users": 437,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/23/formativ-launches-senior-apartment-brand-with-4m-littleton-buy/",
+        "title": "(not set)",
+        "views": 484,
+        "users": 428,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/26/christou-nabs-five-points-church/",
+        "title": "(not set)",
+        "views": 474,
+        "users": 424,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/27/27-year-old-gift-shop-closing-platt-park-union-station-locations/",
+        "title": "(not set)",
+        "views": 436,
+        "users": 392,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/25/ddda-hopes-100k-uli-panel-will-help-plot-denver-pavilions-future/",
+        "title": "(not set)",
+        "views": 433,
+        "users": 373,
+        "type": "other"
+      },
+      {
+        "path": "/recent-stories/",
+        "title": "(not set)",
+        "views": 429,
+        "users": 267,
+        "type": "other"
+      },
+      {
+        "path": "/businessden-newsletter-sign-up",
+        "title": "BusinessDen Newsletter Sign Up",
+        "views": 384,
+        "users": 352,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/24/boulder-vc-firm-adds-partners-targets-eight-figures-for-first-deep-tech-fund/",
+        "title": "(not set)",
+        "views": 322,
+        "users": 299,
+        "type": "other"
+      },
+      {
+        "path": "/login/",
+        "title": "",
+        "views": 309,
+        "users": 150,
+        "type": "account"
+      },
+      {
+        "path": "/2026/02/24/johnston-proposes-pause-on-new-data-centers-in-denver/",
+        "title": "(not set)",
+        "views": 297,
+        "users": 260,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/26/the-docket-real-estate-lawsuit-roundup-for-2-26-26/",
+        "title": "(not set)",
+        "views": 297,
+        "users": 267,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/12/ben-hrouda-flywheel-capital-bankruptcy/",
+        "title": "(not set)",
+        "views": 277,
+        "users": 244,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/26/bikemaker-can-ask-jurors-for-eight-figures-from-gates-corp-judge-says/",
+        "title": "(not set)",
+        "views": 276,
+        "users": 249,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/27/the-pipeline-commercial-real-estate-deals-for-2-27-26/",
+        "title": "The Pipeline: Commercial real estate deals for 2.27.26 - BusinessDen",
+        "views": 255,
+        "users": 446,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/26/apartments-proposed-at-montessori-site-along-federal-in-jefferson-park/",
+        "title": "(not set)",
+        "views": 254,
+        "users": 228,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/27/office-developer-done-for-after-900k-alaska-verdict/",
+        "title": "(not set)",
+        "views": 253,
+        "users": 230,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/25/public-financing-the-focus-as-national-law-firm-opens-denver-office/",
+        "title": "(not set)",
+        "views": 239,
+        "users": 224,
+        "type": "other"
+      },
+      {
+        "path": "/about-us/",
+        "title": "(not set)",
+        "views": 232,
+        "users": 196,
+        "type": "static"
+      },
+      {
+        "path": "/2026/02/25/local-grocer-nude-foods-to-appear-on-shark-tank/",
+        "title": "(not set)",
+        "views": 230,
+        "users": 209,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/25/cole-site-slated-for-apartments-rezoned-despite-concern-from-neighbors/",
+        "title": "Cole site slated for apartments rezoned despite concern from neighbors - BusinessDen",
+        "views": 228,
+        "users": 407,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/26/denver-names-new-county-assessor/",
+        "title": "(not set)",
+        "views": 228,
+        "users": 218,
+        "type": "other"
+      },
+      {
+        "path": "/hs/preferences-center/en/confirm",
+        "title": "BusinessDen / Richmond BizSense Email Services",
+        "views": 227,
+        "users": 195,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/19/the-docket-real-estate-lawsuit-roundup-for-2-19-26/",
+        "title": "(not set)",
+        "views": 178,
+        "users": 162,
+        "type": "other"
+      },
+      {
+        "path": "/2026/03/04/modular-builder-demands-millions-from-developer-of-granby-project/",
+        "title": "(not set)",
+        "views": 171,
+        "users": 151,
+        "type": "other"
+      },
+      {
+        "path": "/LXRlbXBvcm",
+        "title": "(not set)",
+        "views": 159,
+        "users": 160,
+        "type": "other"
+      },
+      {
+        "path": "/2024/08/08/developer-begins-work-reviving-black-hole-in-downtown-littleton/",
+        "title": "Developer begins work reviving ‘black hole’ in downtown Littleton - BusinessDen",
+        "views": 148,
+        "users": 152,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/20/exec-lists-cherry-hills-dream-home-for-18-million/",
+        "title": "(not set)",
+        "views": 131,
+        "users": 121,
+        "type": "other"
+      },
+      {
+        "path": "/corporate-membership-inquiry/",
+        "title": "(not set)",
+        "views": 130,
+        "users": 127,
+        "type": "other"
+      },
+      {
+        "path": "/troubled-towers-breaking-down-denvers-distressed-office-properties/",
+        "title": "Troubled towers: Breaking down Denver’s distressed office properties - BusinessDen",
+        "views": 126,
+        "users": 202,
+        "type": "other"
+      },
+      {
+        "path": "/recent-stories/page/2/",
+        "title": "(not set)",
+        "views": 109,
+        "users": 72,
+        "type": "pagination"
+      },
+      {
+        "path": "/2026/02/27/douglas-county-adopts-law-requiring-stores-to-report-theft-but-drops-fines-for-failing-to-do-so/",
+        "title": "Douglas County adopts law requiring stores to report theft — but drops fines for failing to do so - BusinessDen",
+        "views": 104,
+        "users": 195,
+        "type": "other"
+      },
+      {
+        "path": "/send-a-news-tip/",
+        "title": "Send a News Tip - BusinessDen",
+        "views": 101,
+        "users": 624,
+        "type": "other"
+      },
+      {
+        "path": "/logout/",
+        "title": "BusinessDen Log Out",
+        "views": 99,
+        "users": 390,
+        "type": "other"
+      },
+      {
+        "path": "/2018/10/05/after-brief-hiatus-firstbank-brings-back-20k-business-contest-with-a-twist/",
+        "title": "(not set)",
+        "views": 98,
+        "users": 69,
+        "type": "other"
+      },
+      {
+        "path": "/author/justin-wingerter/",
+        "title": "(not set)",
+        "views": 91,
+        "users": 86,
+        "type": "author"
+      },
+      {
+        "path": "/subscribe/",
+        "title": "",
+        "views": 90,
+        "users": 43,
+        "type": "subscribe"
+      },
+      {
+        "path": "/category/law/",
+        "title": "Denver Law News | Business Den",
+        "views": 83,
+        "users": 161,
+        "type": "category"
+      },
+      {
+        "path": "/events/",
+        "title": "Events - BusinessDen",
+        "views": 82,
+        "users": 206,
+        "type": "other"
+      },
+      {
+        "path": "/category/the-pipeline/",
+        "title": "The Pipeline Archives - BusinessDen",
+        "views": 78,
+        "users": 158,
+        "type": "category"
+      },
+      {
+        "path": "/2024/08/07/denver-neglected-derelict-buildings-list/",
+        "title": "Mapped: These are the properties on Denver’s neglected buildings list - BusinessDen",
+        "views": 77,
+        "users": 60,
+        "type": "other"
+      },
+      {
+        "path": "/2025/11/10/elway-forecloses-on-schultzs-former-tavern-uptown-building/",
+        "title": "Elway forecloses on Schultz’s former Tavern Uptown building - BusinessDen",
+        "views": 72,
+        "users": 74,
+        "type": "other"
+      },
+      {
+        "path": "/author/thomas-gounley/",
+        "title": "Thomas Gounley, Author at BusinessDen",
+        "views": 70,
+        "users": 117,
+        "type": "author"
+      },
+      {
+        "path": "/2026/02/19/centennial-private-school-to-open-next-fall-after-3-6m-buy/",
+        "title": "(not set)",
+        "views": 67,
+        "users": 59,
+        "type": "other"
+      },
+      {
+        "path": "/category/government/",
+        "title": "(not set)",
+        "views": 66,
+        "users": 46,
+        "type": "category"
+      },
+      {
+        "path": "/profile/",
+        "title": "",
+        "views": 56,
+        "users": 28,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/06/auto-exec-buys-cherry-hills-mansion-for-9-3-million-to-lead-january-sales/",
+        "title": "Auto exec buys Cherry Hills mansion for $9.3M to lead January sales - BusinessDen",
+        "views": 56,
+        "users": 116,
+        "type": "other"
+      },
+      {
+        "path": "/category/commercial-real-estate/page/2/",
+        "title": "Denver Commercial Real Estate News | Business Den",
+        "views": 55,
+        "users": 113,
+        "type": "category"
+      },
+      {
+        "path": "/2026/02/17/highlands-ranch-office-landlord-defaults-on-buildings-18m-loan/",
+        "title": "Highlands Ranch office landlord defaults on building’s $18M loan - BusinessDen",
+        "views": 55,
+        "users": 88,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/20/law-firm-expanding-in-downtown-tower/",
+        "title": "Law firm expanding in downtown tower - BusinessDen",
+        "views": 52,
+        "users": 115,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/19/dtc-landlord-defaults-on-loan-amid-beyond-bad-local-office-market/",
+        "title": "DTC landlord defaults on loan amid ‘beyond bad’ local office market - BusinessDen",
+        "views": 50,
+        "users": 87,
+        "type": "other"
+      },
+      {
+        "path": "/2025/03/10/inside-the-la-loma-divorce-brinkerhoffs-split-restaurants-but-lawsuit-continues/",
+        "title": "(not set)",
+        "views": 46,
+        "users": 42,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/09/columbine-place-university-hawaii-foundation-denver-new-owner/",
+        "title": "(not set)",
+        "views": 46,
+        "users": 11,
+        "type": "other"
+      },
+      {
+        "path": "/businessden-thank-you",
+        "title": "BusinessDen Thank You",
+        "views": 46,
+        "users": 32,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/20/blank-barbers-buys-its-cherry-creek-building-for-1-5m/",
+        "title": "Blank Barbers buys its Cherry Creek building for $1.5M - BusinessDen",
+        "views": 44,
+        "users": 84,
+        "type": "other"
+      },
+      {
+        "path": "/2017/02/09/avs-captain-lands-2-5m-hilltop-mansion/",
+        "title": "Avs captain lands $2.5M Hilltop mansion - BusinessDen",
+        "views": 43,
+        "users": 44,
+        "type": "other"
+      },
+      {
+        "path": "/category/the-herd/",
+        "title": "(not set)",
+        "views": 43,
+        "users": 43,
+        "type": "category"
+      },
+      {
+        "path": "/2018/12/17/new-book-to-feature-colorado-artists-200-hand-painted-ski-resort-maps/",
+        "title": "(not set)",
+        "views": 42,
+        "users": 42,
+        "type": "other"
+      },
+      {
+        "path": "/2025/04/03/this-is-going-to-end-judge-threatens-to-fine-lawyers-in-la-loma-case/",
+        "title": "‘This is going to end’: Judge threatens to fine lawyers in La Loma case - BusinessDen",
+        "views": 42,
+        "users": 22,
+        "type": "other"
+      },
+      {
+        "path": "/recent-stories/page/3/",
+        "title": "(not set)",
+        "views": 41,
+        "users": 30,
+        "type": "pagination"
+      },
+      {
+        "path": "/category/startups/",
+        "title": "(not set)",
+        "views": 41,
+        "users": 42,
+        "type": "category"
+      },
+      {
+        "path": "/2026/01/08/the-docket-real-estate-lawsuit-roundup-for-1-8-26/",
+        "title": "(not set)",
+        "views": 39,
+        "users": 34,
+        "type": "other"
+      },
+      {
+        "path": "/2025/02/27/the-docket-real-estate-lawsuit-roundup-for-2-27-25/",
+        "title": "(not set)",
+        "views": 39,
+        "users": 33,
+        "type": "other"
+      },
+      {
+        "path": "/category/commercial-real-estate/",
+        "title": "",
+        "views": 38,
+        "users": 28,
+        "type": "category"
+      },
+      {
+        "path": "/2025/03/13/the-docket-real-estate-lawsuit-roundup-for-3-13-25/",
+        "title": "The Docket: Real estate lawsuit roundup for 3.13.25 - BusinessDen",
+        "views": 38,
+        "users": 41,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/13/the-pipeline-commercial-real-estate-deals-for-2-13-26/",
+        "title": "(not set)",
+        "views": 38,
+        "users": 27,
+        "type": "other"
+      },
+      {
+        "path": "/category/residential-real-estate/",
+        "title": "Denver Residential Real Estate News | Business Den",
+        "views": 36,
+        "users": 69,
+        "type": "category"
+      },
+      {
+        "path": "/author/matthew-geiger/",
+        "title": "Matt Geiger, Author at BusinessDen",
+        "views": 36,
+        "users": 72,
+        "type": "author"
+      },
+      {
+        "path": "/2025/01/08/steakhouse-to-replace-former-red-lobster-by-park-meadows/",
+        "title": "Steakhouse to replace former Red Lobster by Park Meadows - BusinessDen",
+        "views": 36,
+        "users": 35,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/11/legislators-approve-redevelopment-of-11-state-owned-acres-in-lakewood/",
+        "title": "(not set)",
+        "views": 36,
+        "users": 17,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/17/400-inverness-sale-westside-knightbridge/",
+        "title": "(not set)",
+        "views": 36,
+        "users": 29,
+        "type": "other"
+      },
+      {
+        "path": "/2023/03/16/shane-co-founder-created-subsidiary-to-pay-girlfriends-ex-exec-says/",
+        "title": "(not set)",
+        "views": 35,
+        "users": 22,
+        "type": "other"
+      },
+      {
+        "path": "/category/brewing/",
+        "title": "Denver Brewing News | Business Den",
+        "views": 35,
+        "users": 49,
+        "type": "category"
+      },
+      {
+        "path": "/2024/07/19/broncos-quarterback-bo-nix-pays-4m-for-castle-pines-mansion/",
+        "title": "Broncos quarterback Bo Nix pays $4M for Castle Pines mansion - BusinessDen",
+        "views": 35,
+        "users": 36,
+        "type": "other"
+      },
+      {
+        "path": "/2025/10/30/lululemon-closes-west-highland-store-after-eight-years/",
+        "title": "Lululemon closes West Highland store after eight years - BusinessDen",
+        "views": 34,
+        "users": 40,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/20/craft-beer-consolidation-continues-as-left-hand-absorbs-another-colorado-brewery/",
+        "title": "Craft beer consolidation continues as Left Hand absorbs another Colorado brewery - BusinessDen",
+        "views": 33,
+        "users": 66,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/02/downtown-office-complex-sells-at-75-discount/",
+        "title": "(not set)",
+        "views": 33,
+        "users": 21,
+        "type": "other"
+      },
+      {
+        "path": "/category/commercial-real-estate/page/3/",
+        "title": "Denver Commercial Real Estate News | Business Den",
+        "views": 32,
+        "users": 67,
+        "type": "category"
+      },
+      {
+        "path": "/author/max-scheinblum/",
+        "title": "Max Scheinblum, Author at BusinessDen",
+        "views": 32,
+        "users": 69,
+        "type": "author"
+      },
+      {
+        "path": "/2026/01/21/crusoe-expanding-office-lease-denver/",
+        "title": "$10B data center startup Crusoe more than doubling footprint in Cherry Creek - BusinessDen",
+        "views": 32,
+        "users": 51,
+        "type": "other"
+      },
+      {
+        "path": "/2025/05/29/the-docket-real-estate-lawsuit-roundup-for-5-29-25/",
+        "title": "The Docket: Real estate lawsuit roundup for 5.29.25 - BusinessDen",
+        "views": 32,
+        "users": 37,
+        "type": "other"
+      },
+      {
+        "path": "/category/sponsored-content/",
+        "title": "(not set)",
+        "views": 32,
+        "users": 31,
+        "type": "category"
+      },
+      {
+        "path": "/advertise/",
+        "title": "Advertise - BusinessDen",
+        "views": 31,
+        "users": 99,
+        "type": "static"
+      },
+      {
+        "path": "/2024/09/13/kroenkes-16m-cherry-hills-buy-tops-local-home-sales-in-august/",
+        "title": "Kroenke’s $16M Cherry Hills buy tops local home sales in August - BusinessDen",
+        "views": 30,
+        "users": 36,
+        "type": "other"
+      },
+      {
+        "path": "/2025/01/20/has-a-former-fraudster-gone-straight-his-solar-clients-arent-so-sure/",
+        "title": "Has a former fraudster gone straight? His solar clients aren’t so sure - BusinessDen",
+        "views": 30,
+        "users": 24,
+        "type": "other"
+      },
+      {
+        "path": "/2025/05/19/more-than-big-macs-inside-the-illicit-market-at-one-local-mcdonalds/",
+        "title": "More than Big Macs: Inside the illicit market at one local McDonald’s - BusinessDen",
+        "views": 30,
+        "users": 23,
+        "type": "other"
+      },
+      {
+        "path": "/2025/09/02/29m-package-tops-2024-salaries-for-colorado-public-company-ceos/",
+        "title": "$29M package tops 2024 salaries for Colorado public company CEOs - BusinessDen",
+        "views": 30,
+        "users": 36,
+        "type": "other"
+      },
+      {
+        "path": "/2025/12/05/the-docket-real-estate-lawsuit-roundup-for-12-5-25/",
+        "title": "The Docket: Real estate lawsuit roundup for 12.5.25 - BusinessDen",
+        "views": 30,
+        "users": 21,
+        "type": "other"
+      },
+      {
+        "path": "/category/commercial-real-estate/page/4/",
+        "title": "Denver Commercial Real Estate News | Business Den",
+        "views": 29,
+        "users": 51,
+        "type": "category"
+      },
+      {
+        "path": "/2021/08/03/japanese-clothing-retailer-uniqlo-closing-its-downtown-denver-store/",
+        "title": "Japanese clothing retailer Uniqlo closing its downtown Denver store  - BusinessDen",
+        "views": 29,
+        "users": 29,
+        "type": "other"
+      },
+      {
+        "path": "/2025/06/24/tech-firms-second-headquarters-in-denver-dwindling-to-nearly-nothing/",
+        "title": "Tech firm’s 'second headquarters' in Denver dwindling to nearly nothing - BusinessDen",
+        "views": 29,
+        "users": 34,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/05/the-docket-real-estate-lawsuit-roundup-for-2-5-26/",
+        "title": "The Docket: Real estate lawsuit roundup for 2.5.26 - BusinessDen",
+        "views": 28,
+        "users": 62,
+        "type": "other"
+      },
+      {
+        "path": "/2026/02/19/rookie-lawyers-license-suspended-after-he-abandons-client-in-cu-case/",
+        "title": "Rookie lawyer's license suspended after he ‘abandons’ client in CU case - BusinessDen",
+        "views": 28,
+        "users": 51,
+        "type": "other"
+      },
+      {
+        "path": "/2023/12/07/cherry-hills-exec-avoids-prison-as-child-sex-charges-dropped-for-misdemeanor/",
+        "title": "Charles McDaniel avoids prison as child sex charges dropped | BusinessDen",
+        "views": 28,
+        "users": 29,
+        "type": "other"
+      }
+    ],
+    "other_breakdown": {
+      "other": 19811,
+      "category": 725,
+      "account": 309,
+      "author": 272,
+      "static": 263,
+      "pagination": 192,
+      "subscribe": 90,
+      "tag": 24
     }
   }
 }
