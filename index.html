@@ -1909,34 +1909,38 @@ function renderByline(){
       '<div style="display:flex;gap:24px;align-items:start">'+
         // LEFT COLUMN: Donut + avg reads histogram
         '<div style="min-width:280px;flex-shrink:0">'+
-          '<div style="display:flex;gap:14px;align-items:start">'+
+          '<div style="display:flex;gap:16px;align-items:start">'+
             // Donut
             '<div>'+
-              '<canvas id="'+donutId+'" width="180" height="180" style="display:block;margin:0 auto"></canvas>'+
-              '<div style="font-family:JetBrains Mono;font-size:1.1rem;font-weight:700;color:#ccc;text-align:center;margin-top:6px">'+rd.total+' articles</div>'+
+              '<canvas id="'+donutId+'" width="160" height="160" style="display:block;margin:0 auto"></canvas>'+
+              '<div style="font-family:JetBrains Mono;font-size:1rem;font-weight:700;color:#ccc;text-align:center;margin-top:6px">'+rd.total+' articles</div>'+
             '</div>'+
-            // Avg reads histogram
-            (function(){
-              const topicAvgs=topicEntries.map(([t,c])=>{
-                const topicViews=bdArticles.filter(x=>x.author===name&&(x.categories||['Uncategorized'])[0]===t)
-                  .reduce((s,x)=>{const g=ga4Stats[x.url]||{};return s+(g.views||0);},0);
-                return{topic:t,avg:c?Math.round(topicViews/c):0,color:getTopicColor(t)};
-              }).sort((a,b)=>b.avg-a.avg);
-              const maxAvg=Math.max(...topicAvgs.map(t=>t.avg),1);
-              return '<div style="min-width:110px">'+
-                '<div style="font-size:.65rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:6px;text-align:center">Avg reads/article</div>'+
-                topicAvgs.map(t=>{
-                  return '<div style="display:flex;align-items:center;gap:5px;margin:4px 0" title="'+esc(t.topic)+': '+t.avg.toLocaleString()+' avg reads">'+
-                    '<div style="width:60px;height:14px;background:#13151a;border-radius:3px;overflow:hidden">'+
-                      '<div style="width:'+Math.max(4,Math.round(t.avg/maxAvg*100))+'%;height:100%;background:'+t.color+';border-radius:3px"></div>'+
+            // Avg reads per topic — clean horizontal bars with labels
+            '<div style="min-width:160px;padding-top:4px">'+
+              '<div style="font-size:.65rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:8px">Avg reads / article</div>'+
+              (function(){
+                const topicAvgs=topicEntries.map(([t,c])=>{
+                  const topicViews=bdArticles.filter(x=>x.author===name&&(x.categories||['Uncategorized'])[0]===t)
+                    .reduce((s,x)=>{const g=ga4Stats[x.url]||{};return s+(g.views||0);},0);
+                  return{topic:t,avg:c?Math.round(topicViews/c):0,color:getTopicColor(t)};
+                }).sort((a,b)=>b.avg-a.avg);
+                const maxAvg=Math.max(...topicAvgs.map(t=>t.avg),1);
+                return topicAvgs.map(t=>{
+                  const w=Math.max(4,Math.round(t.avg/maxAvg*100));
+                  return '<div style="margin-bottom:5px">'+
+                    '<div style="display:flex;justify-content:space-between;margin-bottom:1px">'+
+                      '<span style="font-size:.7rem;color:#999">'+esc(t.topic)+'</span>'+
+                      '<span style="font-family:JetBrains Mono;font-size:.7rem;color:#ccc">'+t.avg.toLocaleString()+'</span>'+
                     '</div>'+
-                    '<span style="font-family:JetBrains Mono;font-size:.72rem;color:#999">'+t.avg.toLocaleString()+'</span>'+
+                    '<div style="height:8px;background:#13151a;border-radius:4px;overflow:hidden">'+
+                      '<div style="width:'+w+'%;height:100%;background:'+t.color+';border-radius:4px"></div>'+
+                    '</div>'+
                   '</div>';
-                }).join('')+
-              '</div>';
-            })()+
+                }).join('');
+              })()+
+            '</div>'+
           '</div>'+
-          '<div style="padding:4px 0;margin-top:6px">'+topicLegend+'</div>'+
+          '<div style="padding:4px 0;margin-top:8px">'+topicLegend+'</div>'+
         '</div>'+
         // RIGHT COLUMN: KPIs + top articles
         '<div style="flex:1;min-width:0">'+
