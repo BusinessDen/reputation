@@ -45,7 +45,7 @@ button{font-family:inherit;cursor:pointer}input,select{font-family:inherit}
 .kpi-card.red::before{background:#e85454}
 .kpi-label{font-size:.78rem;color:#999;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:6px}
 .kpi-value{font-size:1.8rem;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:-.03em;color:#fff}
-.kpi-sub{font-size:.75rem;color:#666;margin-top:4px}
+.kpi-sub{font-size:.82rem;color:#999;margin-top:4px}
 .show-all-bar{display:none;margin-bottom:16px;align-items:center;gap:12px}
 .show-all-bar.visible{display:flex}
 .show-all-btn{background:#1a1d25;border:1px solid #3b82f6;color:#3b82f6;padding:6px 16px;border-radius:8px;font-size:.82rem;font-weight:600;transition:all .2s}
@@ -82,7 +82,7 @@ button{font-family:inherit;cursor:pointer}input,select{font-family:inherit}
 
 /* Chart card */
 .chart-card{background:#0d0e12;border:1px solid #1e2028;border-radius:10px;padding:20px;margin-bottom:20px}
-.chart-card h3{font-size:.85rem;font-weight:600;margin-bottom:16px}
+.chart-card h3{font-size:1rem;font-weight:600;margin-bottom:16px}
 .chart-area{position:relative}
 .chart-bars{display:flex;align-items:flex-end;gap:2px;height:160px;border-bottom:1px solid #1e2028;position:relative}
 .chart-col{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;cursor:pointer;gap:1px}
@@ -94,9 +94,9 @@ button{font-family:inherit;cursor:pointer}input,select{font-family:inherit}
 .chart-line-svg polyline{fill:none;stroke:#e85454;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 .chart-line-svg circle{fill:#e85454}
 .chart-labels{display:flex;gap:2px;margin-top:8px}
-.chart-labels span{flex:1;font-size:.58rem;color:#444;text-align:center;overflow:hidden}
-.chart-legend{display:flex;gap:14px;margin-top:12px;font-size:.72rem;color:#555;flex-wrap:wrap}
-.chart-legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.chart-labels span{flex:1;font-size:.78rem;color:#888;text-align:center;overflow:hidden}
+.chart-legend{display:flex;gap:14px;margin-top:12px;font-size:.85rem;color:#999;flex-wrap:wrap}
+.chart-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:middle}
 .chart-tooltip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1d25;border:1px solid #2a2d35;color:#c8cad0;font-size:.7rem;padding:4px 10px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10}
 .chart-col:hover .chart-tooltip{opacity:1}
 
@@ -400,7 +400,7 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
 <!-- ═══ TAB 4: WEBSITE TRAFFIC ═══ -->
 <div class="tab-panel" id="panel-traffic">
   <div class="kpi-grid">
-    <div class="kpi-card amber"><div class="kpi-label">Readers Today</div><div class="kpi-value" id="tReadersToday">–</div><div class="kpi-sub" id="tReadersTodaySub"></div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Readers Yesterday</div><div class="kpi-value" id="tReadersToday">–</div><div class="kpi-sub" id="tReadersTodaySub"></div></div>
     <div class="kpi-card blue"><div class="kpi-label">This Week</div><div class="kpi-value" id="tReadersWeek">–</div><div class="kpi-sub" id="tReadersWeekSub"></div></div>
     <div class="kpi-card green"><div class="kpi-label">Month to Date</div><div class="kpi-value" id="tReadersMTD">–</div><div class="kpi-sub" id="tReadersMTDSub"></div></div>
     <div class="kpi-card purple"><div class="kpi-label">Year to Date</div><div class="kpi-value" id="tReadersYTD">–</div><div class="kpi-sub" id="tReadersYTDSub"></div></div>
@@ -408,18 +408,18 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
   <div class="chart-card">
     <h3>Website Traffic <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
     <div style="position:relative">
-      <canvas id="trafficCanvas" height="120" style="width:100%;background:transparent"></canvas>
+      <canvas id="trafficCanvas" height="60" style="width:100%;background:transparent"></canvas>
     </div>
     <div class="chart-labels" id="trafficLabels"></div>
     <div class="chart-legend" style="margin-top:10px">
-      <span><i style="background:#4caf50"></i> Today's news</span>
+      <span><i style="background:#22c55e"></i> Today's news</span>
       <span><i style="background:#3b82f6"></i> Past 7 days</span>
-      <span><i style="background:#a78bfa"></i> Past 30 days</span>
-      <span><i style="background:#f5a623"></i> Older news</span>
-      <span><i style="background:#555"></i> Homepage</span>
-      <span><i style="background:#06b6d4"></i> Browse/navigate</span>
-      <span><i style="background:#22c55e"></i> Newsletter signup</span>
-      <span><i style="background:#333"></i> Other</span>
+      <span><i style="background:#c084fc"></i> Past 30 days</span>
+      <span><i style="background:#f59e0b"></i> Older news</span>
+      <span><i style="background:#94a3b8"></i> Homepage</span>
+      <span><i style="background:#22d3ee"></i> Browse/navigate</span>
+      <span><i style="background:#34d399"></i> Newsletter signup</span>
+      <span><i style="background:#64748b"></i> Other</span>
     </div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
@@ -725,12 +725,12 @@ function renderTrafficChart(){
   canvas.width=rect.width*2;canvas.height=rect.height*2;
   ctx.scale(2,2);
   const W=rect.width,H=rect.height;
-  const pad={top:10,right:10,bottom:5,left:45};
+  const pad={top:10,right:10,bottom:5,left:55};
   const cW=W-pad.left-pad.right,cH=H-pad.top-pad.bottom;
 
   // Stack order (bottom to top): other, newsletter, browse, home, older, month, week, today
   const layers=['other','newsletter','browse','home','older','month','week','today'];
-  const colors={today:'#4caf50',week:'#3b82f6',month:'#a78bfa',older:'#f5a623',home:'#555',browse:'#06b6d4',newsletter:'#22c55e',other:'#333'};
+  const colors={today:'#22c55e',week:'#3b82f6',month:'#c084fc',older:'#f59e0b',home:'#94a3b8',browse:'#22d3ee',newsletter:'#34d399',other:'#64748b'};
 
   // Find max total
   const maxTotal=Math.max(...dates.map(d=>breakdown[d].total||0),1);
@@ -770,7 +770,7 @@ function renderTrafficChart(){
   }
 
   // Y-axis labels
-  ctx.fillStyle='#555';ctx.font='10px JetBrains Mono';ctx.textAlign='right';
+  ctx.fillStyle='#aaa';ctx.font='13px JetBrains Mono';ctx.textAlign='right';
   for(let i=0;i<=4;i++){
     const val=Math.round(maxTotal*i/4);
     const y=pad.top+cH-(i/4)*cH;
@@ -784,6 +784,21 @@ function renderTrafficChart(){
     if(i%3&&dates.length>14)return'<span></span>';
     return'<span>'+fmtShort(d)+'</span>';
   }).join('');
+
+  // Label local peaks with total pageviews
+  ctx.fillStyle='#ddd';ctx.font='bold 12px JetBrains Mono';ctx.textAlign='center';
+  const totals=dates.map(d=>breakdown[d].total||0);
+  for(let i=1;i<dates.length-1;i++){
+    if(totals[i]>totals[i-1]&&totals[i]>=totals[i+1]){
+      // Check it's a meaningful peak (within top 60% of values)
+      const threshold=Math.max(...totals)*0.4;
+      if(totals[i]>=threshold){
+        const x=pad.left+(i/(dates.length-1||1))*cW;
+        const y=pad.top+cH-(totals[i]/maxTotal)*cH;
+        ctx.fillText(totals[i].toLocaleString(),x,y-6);
+      }
+    }
+  }
 
   // Tooltip on hover
   canvas.onmousemove=function(e){
@@ -815,9 +830,11 @@ function renderTrafficKPIs(){
   const mt=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Denver'}));
   const todayStr=mt.toISOString().split('T')[0];
 
-  // Today
-  const todayReaders=readers[todayStr]||0;
-  document.getElementById('tReadersToday').textContent=todayReaders.toLocaleString();
+  // Yesterday
+  const yesterday=new Date(mt);yesterday.setDate(yesterday.getDate()-1);
+  const yesterdayStr=yesterday.toISOString().split('T')[0];
+  const yesterdayReaders=readers[yesterdayStr]||0;
+  document.getElementById('tReadersToday').textContent=yesterdayReaders.toLocaleString();
 
   // This week (Mon-Sun) vs last week
   const dow=mt.getDay()||7; // Mon=1 ... Sun=7
@@ -879,7 +896,7 @@ function drawLineChart(canvasId, labelsId, data, dates, color, yFormat, opts){
   canvas.width=rect.width*2;canvas.height=rect.height*2;
   ctx.scale(2,2);
   const W=rect.width,H=rect.height;
-  const pad={top:10,right:10,bottom:5,left:45};
+  const pad={top:10,right:10,bottom:5,left:55};
   const cW=W-pad.left-pad.right,cH=H-pad.top-pad.bottom;
 
   const vals=dates.map(d=>data[d]||0);
@@ -891,7 +908,7 @@ function drawLineChart(canvasId, labelsId, data, dates, color, yFormat, opts){
 
   // Grid lines + Y labels
   ctx.strokeStyle='#1e2028';ctx.lineWidth=0.5;
-  ctx.fillStyle='#555';ctx.font='10px JetBrains Mono';ctx.textAlign='right';
+  ctx.fillStyle='#aaa';ctx.font='13px JetBrains Mono';ctx.textAlign='right';
   for(let i=0;i<=4;i++){
     const val=minVal+(range*i/4);
     const y=pad.top+cH-(i/4)*cH;
