@@ -5633,7 +5633,7 @@
       "1854a1cbcd340dbf"
     ]
   },
-  "last_updated": "2026-03-25T06:41:13.810080+00:00",
+  "last_updated": "2026-03-25T07:01:51.625610+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -6426,11 +6426,23 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-25T07:01:51.625610+00:00",
+      "new_mentions": 0,
+      "total_mentions": 150,
+      "total_bd_articles": 71,
+      "sources": {
+        "google_news_rss": 23,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 1,
+  "new_this_run": 0,
   "ga4": {
-    "last_fetched": "2026-03-25T06:41:13.810080+00:00",
+    "last_fetched": "2026-03-25T07:01:51.625610+00:00",
     "article_stats": {
       "https://businessden.com/2026/03/24/broadway-park-grows-in-size-with-2m-purchase/": {
         "views": 731,
@@ -6449,11 +6461,11 @@
         }
       },
       "https://businessden.com/2026/03/24/cannabis-investor-says-her-1-6m-was-stolen-spent-on-pickleball-company/": {
-        "views": 598,
-        "users": 530,
-        "sessions": 576,
+        "views": 600,
+        "users": 531,
+        "sessions": 578,
         "daily_views": {
-          "2026-03-24": 598
+          "2026-03-24": 600
         }
       },
       "https://businessden.com/2026/03/24/zeppelin-wells-fargo-settle-litigation-over-rino-office-building-on-eve-of-trial/": {
@@ -6465,9 +6477,9 @@
         }
       },
       "https://businessden.com/2026/03/23/denver-angels-founder-says-partners-siphoned-eight-figures-in-theft-scheme/": {
-        "views": 3097,
-        "users": 2416,
-        "sessions": 2804,
+        "views": 3098,
+        "users": 2417,
+        "sessions": 2805,
         "subscriptions": 4,
         "daily_subs": {
           "2026-03-23": 3,
@@ -6475,7 +6487,7 @@
         },
         "daily_views": {
           "2026-03-23": 2332,
-          "2026-03-24": 765
+          "2026-03-24": 766
         }
       },
       "https://businessden.com/2026/03/23/denver-rock-drill-owner-byron-weiss-dies-at-86/": {
@@ -6626,14 +6638,14 @@
         }
       },
       "https://businessden.com/2026/03/19/the-docket-real-estate-lawsuit-roundup-for-3-19-26/": {
-        "views": 435,
+        "views": 436,
         "users": 368,
-        "sessions": 432,
+        "sessions": 433,
         "daily_views": {
           "2026-03-19": 354,
           "2026-03-20": 31,
           "2026-03-23": 20,
-          "2026-03-24": 13,
+          "2026-03-24": 14,
           "2026-03-22": 9,
           "2026-03-21": 8
         }
@@ -7672,8 +7684,8 @@
         "older": 0,
         "home": 1543,
         "browse": 2196,
-        "newsletter": 1158,
-        "other": 3940
+        "newsletter": 1157,
+        "other": 3941
       },
       "2026-02-24": {
         "total": 17551,
@@ -7682,9 +7694,9 @@
         "month": 0,
         "older": 0,
         "home": 1873,
-        "browse": 4721,
-        "newsletter": 2488,
-        "other": 8469
+        "browse": 4719,
+        "newsletter": 2487,
+        "other": 8472
       },
       "2026-02-25": {
         "total": 10264,
@@ -7693,9 +7705,9 @@
         "month": 0,
         "older": 0,
         "home": 1578,
-        "browse": 2616,
+        "browse": 2615,
         "newsletter": 1378,
-        "other": 4692
+        "other": 4693
       },
       "2026-02-26": {
         "total": 7845,
@@ -7705,8 +7717,8 @@
         "older": 0,
         "home": 1501,
         "browse": 1910,
-        "newsletter": 1007,
-        "other": 3427
+        "newsletter": 1006,
+        "other": 3428
       },
       "2026-02-27": {
         "total": 8110,
@@ -7715,9 +7727,9 @@
         "month": 0,
         "older": 0,
         "home": 1319,
-        "browse": 2045,
-        "newsletter": 1078,
-        "other": 3668
+        "browse": 2044,
+        "newsletter": 1077,
+        "other": 3670
       },
       "2026-02-28": {
         "total": 2720,
@@ -7726,9 +7738,9 @@
         "month": 0,
         "older": 0,
         "home": 586,
-        "browse": 643,
+        "browse": 642,
         "newsletter": 339,
-        "other": 1152
+        "other": 1153
       },
       "2026-03-01": {
         "total": 2574,
@@ -7803,9 +7815,9 @@
         "month": 41,
         "older": 328,
         "home": 590,
-        "browse": 435,
+        "browse": 434,
         "newsletter": 229,
-        "other": 779
+        "other": 780
       },
       "2026-03-08": {
         "total": 3234,
@@ -7815,8 +7827,8 @@
         "older": 269,
         "home": 549,
         "browse": 532,
-        "newsletter": 281,
-        "other": 955
+        "newsletter": 280,
+        "other": 956
       },
       "2026-03-09": {
         "total": 11691,
@@ -7825,9 +7837,9 @@
         "month": 90,
         "older": 510,
         "home": 1487,
-        "browse": 1010,
+        "browse": 1009,
         "newsletter": 532,
-        "other": 1811
+        "other": 1812
       },
       "2026-03-10": {
         "total": 9287,
@@ -7847,9 +7859,9 @@
         "month": 135,
         "older": 493,
         "home": 1420,
-        "browse": 838,
+        "browse": 837,
         "newsletter": 441,
-        "other": 1503
+        "other": 1504
       },
       "2026-03-12": {
         "total": 9357,
@@ -7935,9 +7947,9 @@
         "month": 103,
         "older": 423,
         "home": 1604,
-        "browse": 680,
+        "browse": 679,
         "newsletter": 358,
-        "other": 1219
+        "other": 1220
       },
       "2026-03-20": {
         "total": 8798,
@@ -7947,8 +7959,8 @@
         "older": 396,
         "home": 1424,
         "browse": 494,
-        "newsletter": 261,
-        "other": 887
+        "newsletter": 260,
+        "other": 888
       },
       "2026-03-21": {
         "total": 3082,
@@ -7979,20 +7991,20 @@
         "month": 137,
         "older": 481,
         "home": 1430,
-        "browse": 726,
+        "browse": 725,
         "newsletter": 382,
-        "other": 1302
+        "other": 1303
       },
       "2026-03-24": {
-        "total": 7870,
-        "today": 2899,
-        "week": 1256,
-        "month": 140,
-        "older": 469,
-        "home": 1212,
-        "browse": 570,
-        "newsletter": 301,
-        "other": 1023
+        "total": 7892,
+        "today": 2901,
+        "week": 1258,
+        "month": 141,
+        "older": 471,
+        "home": 1218,
+        "browse": 573,
+        "newsletter": 302,
+        "other": 1028
       }
     },
     "non_article_pages": [
@@ -8006,7 +8018,7 @@
       {
         "path": "/hs/preferences-center/en/direct",
         "title": "BusinessDen / Richmond BizSense Email Services",
-        "views": 519,
+        "views": 520,
         "users": 447,
         "type": "other"
       },
@@ -8048,8 +8060,8 @@
       {
         "path": "/hs/preferences-center/en/confirm",
         "title": "BusinessDen / Richmond BizSense Email Services",
-        "views": 226,
-        "users": 194,
+        "views": 227,
+        "users": 195,
         "type": "other"
       },
       {
@@ -8383,7 +8395,7 @@
       }
     ],
     "other_breakdown": {
-      "other": 3593,
+      "other": 3595,
       "category": 720,
       "account": 310,
       "author": 268,
@@ -8433,7 +8445,7 @@
       "2026-03-11": 3721,
       "2026-03-04": 3641,
       "2026-02-26": 3559,
-      "2026-03-24": 3509,
+      "2026-03-24": 3516,
       "2026-02-11": 3436,
       "2026-01-24": 3182,
       "2026-02-08": 2119,
@@ -12598,7 +12610,7 @@
       "2026-03-21": 0.3,
       "2026-03-22": 0.17,
       "2026-03-23": 1.34,
-      "2026-03-24": 1.16
+      "2026-03-24": 1.17
     },
     "topic_daily": {
       "2026-03-09": {
@@ -12768,15 +12780,15 @@
       },
       "2026-03-24": {
         "Commercial Real Estate": 1933,
-        "Startups": 765,
+        "Startups": 766,
         "Residential Real Estate": 26,
         "Government": 5,
         "Education": 12,
-        "Outdoor Recreation": 608,
+        "Outdoor Recreation": 610,
         "Brewing": 40,
         "Retail": 11,
         "Restaurants": 778,
-        "Law": 71,
+        "Law": 72,
         "The Pipeline": 19,
         "Brinkerhoff": 2
       },
