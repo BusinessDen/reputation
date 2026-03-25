@@ -1801,23 +1801,24 @@ function renderByline(){
     }
   });
 
-  // Compute rankings
+  // Rankings
   const globalRanked=[...bdArticles].map(a=>({url:a.url,mentions:getArticleMatches(a.url).length}));
   globalRanked.sort((a,b)=>b.mentions-a.mentions);
   const globalRank={};globalRanked.forEach((a,i)=>{globalRank[a.url]=i+1;});
 
-  // Sort reporters by total views
   const sorted=Object.entries(reporterData).sort((a,b)=>b[1].totalViews-a[1].totalViews);
 
-  // Donut drawing helper
+  // Donut helper
   function drawBylineDonut(id,topicCounts){
     setTimeout(()=>{
       const canvas=document.getElementById(id);
       if(!canvas)return;
       const ctx=canvas.getContext('2d');
-      const s=canvas.width/2;
-      const r=s*0.42,ir=s*0.26;
-      ctx.clearRect(0,0,s*2,s*2);
+      const size=200;
+      const s=size/2;
+      const r=s*0.45,ir=s*0.28;
+      canvas.width=size;canvas.height=size;
+      ctx.clearRect(0,0,size,size);
       const entries=Object.entries(topicCounts).sort((a,b)=>b[1]-a[1]);
       const total=entries.reduce((s,e)=>s+e[1],0);
       if(!total)return;
@@ -1831,18 +1832,16 @@ function renderByline(){
       });
       ctx.beginPath();ctx.arc(s,s,ir,0,Math.PI*2);
       ctx.fillStyle='#0d0e12';ctx.fill();
-      ctx.fillStyle='#ccc';ctx.font='bold 14px JetBrains Mono';ctx.textAlign='center';
-      ctx.fillText(total,s,s+5);
     },100);
   }
 
   el.innerHTML=sorted.map(([name,rd],ri)=>{
     const avgViews=rd.total?Math.round(rd.totalViews/rd.total):0;
-    const avgSubsPerView=rd.totalViews?(rd.totalSubs/rd.totalViews*100).toFixed(2):0;
+    const avgSubsPerView=rd.totalViews?(rd.totalSubs/rd.totalViews*100).toFixed(2):'0';
     const totalMentions=rd.articles.reduce((s,a)=>s+a.mentions,0);
     const avgMentions=rd.total?(totalMentions/rd.total).toFixed(1):'0';
     const pubDates=bdArticles.filter(a=>a.author===name).map(a=>a.published).filter(Boolean).sort();
-    let avgPerWeek='–';
+    let avgPerWeek='\u2013';
     if(pubDates.length>=2){
       const first=new Date(pubDates[0]),last=new Date(pubDates[pubDates.length-1]);
       const weeks=Math.max(1,(last-first)/(7*86400000));
@@ -1852,78 +1851,95 @@ function renderByline(){
 
     const donutId='bylineDonut'+ri;
 
-    // Topic legend for donut
+    // Topic legend
     const topicEntries=Object.entries(rd.topicCounts).sort((a,b)=>b[1]-a[1]);
-    const topicLegend=topicEntries.slice(0,5).map(([t,c])=>{
-      return '<div style="display:flex;align-items:center;gap:4px;margin:1px 0;font-size:.72rem">'+
-        '<i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'+getTopicColor(t)+'"></i>'+
-        '<span style="color:#999">'+esc(t)+'</span>'+
-        '<span style="font-family:JetBrains Mono;color:#666;margin-left:auto">'+c+'</span></div>';
+    const topicLegend=topicEntries.slice(0,6).map(([t,c])=>{
+      return '<div style="display:flex;align-items:center;gap:6px;margin:3px 0;font-size:.85rem">'+
+        '<i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:'+getTopicColor(t)+';flex-shrink:0"></i>'+
+        '<span style="color:#ccc;flex:1">'+esc(t)+'</span>'+
+        '<span style="font-family:JetBrains Mono;color:#999">'+c+'</span></div>';
     }).join('');
 
-    // KPI card helper
-    const kpi=(val,label,color)=>'<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:10px;padding:12px 14px;min-width:90px;flex:1">'+
-      '<div style="font-family:JetBrains Mono;font-size:1.2rem;font-weight:700;color:'+color+'">'+val+'</div>'+
-      '<div style="font-size:.65rem;color:#999;text-transform:uppercase;margin-top:2px">'+label+'</div></div>';
+    // KPI card helper — all same fixed height
+    const kpi=(val,label,color)=>'<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:10px;padding:14px 12px;flex:1;min-width:100px">'+
+      '<div style="font-family:JetBrains Mono;font-size:1.3rem;font-weight:700;color:'+color+'">'+val+'</div>'+
+      '<div style="font-size:.75rem;color:#999;text-transform:uppercase;margin-top:4px;line-height:1.3">'+label+'</div></div>';
 
-    // Articles list
-    let articlesHtml='';
-    if(rd.articles.length){
-      const byMentions=[...rd.articles].sort((a,b)=>b.mentions-a.mentions);
-      const top3=byMentions.slice(0,3);
-      const allChrono=[...rd.articles].sort((a,b)=>(b.published||'').localeCompare(a.published||''));
-      const uid='byline-arts-'+name.replace(/\W/g,'-');
-      const firstName=name.split(' ')[0];
+    // Top 5 articles by views
+    const allByViews=[...bdArticles].filter(a=>a.author===name).map(a=>{
+      const g=ga4Stats[a.url]||{};
+      return{...a,views:g.views||0,subs:g.subscriptions||0,mentions:getArticleMatches(a.url).length};
+    }).sort((a,b)=>b.views-a.views).slice(0,5);
 
-      const renderArt=a=>{
-        const gR=globalRank[a.url]||'–';
-        return '<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #1a1d25;font-size:.82rem;align-items:baseline">'+
-          '<span style="font-family:JetBrains Mono;color:#555;min-width:30px">#'+gR+'</span>'+
-          '<span style="flex:1;color:#c8cad0">'+esc(a.title)+'</span>'+
-          '<span style="font-family:JetBrains Mono;color:#3b82f6;min-width:50px;text-align:right">'+(a.views||0).toLocaleString()+'</span>'+
-          '<span style="font-family:JetBrains Mono;color:#f5a623;min-width:30px;text-align:right">'+a.mentions+'</span>'+
-          '<span style="font-family:JetBrains Mono;color:#4caf50;min-width:25px;text-align:right">'+(a.subs||'–')+'</span>'+
-        '</div>';
-      };
+    const topArticles=allByViews.map((a,i)=>{
+      return '<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #1a1d25;font-size:.88rem;align-items:baseline">'+
+        '<span style="font-family:JetBrains Mono;color:#555;min-width:22px;font-size:.8rem">'+(i+1)+'.</span>'+
+        '<a href="'+esc(a.url)+'" target="_blank" style="flex:1;color:#ccc;text-decoration:none">'+esc(a.title)+'</a>'+
+        '<span style="font-family:JetBrains Mono;color:#3b82f6;min-width:55px;text-align:right;font-size:.85rem">'+a.views.toLocaleString()+'</span>'+
+        '<span style="font-family:JetBrains Mono;color:#f5a623;min-width:30px;text-align:right;font-size:.85rem">'+a.mentions+'</span>'+
+        '<span style="font-family:JetBrains Mono;color:#4caf50;min-width:25px;text-align:right;font-size:.85rem">'+(a.subs||'\u2013')+'</span>'+
+      '</div>';
+    }).join('');
 
-      articlesHtml='<div style="margin-top:14px">'+
-        '<div style="display:flex;gap:10px;padding:4px 0;font-size:.65rem;color:#555;text-transform:uppercase">'+
-          '<span style="min-width:30px">Rank</span><span style="flex:1">Title</span>'+
-          '<span style="min-width:50px;text-align:right">Views</span>'+
-          '<span style="min-width:30px;text-align:right">Pickups</span>'+
-          '<span style="min-width:25px;text-align:right">Subs</span></div>';
-      top3.forEach(a=>{articlesHtml+=renderArt(a);});
-      if(rd.articles.length>3){
-        articlesHtml+='<div id="'+uid+'" style="display:none">';
-        allChrono.forEach(a=>{articlesHtml+=renderArt(a);});
-        articlesHtml+='</div>';
-        articlesHtml+='<button class="expand-btn" style="margin-top:8px" onclick="var el=document.getElementById(\''+uid+'\');var open=el.style.display!==\'none\';el.style.display=open?\'none\':\'block\';this.textContent=open?\'Top 3 only\':\'Show all ('+(rd.articles.length)+')\'">Show all ('+rd.articles.length+')</button>';
-      }
-      articlesHtml+='</div>';
-    }
-
-    return '<div class="chart-card" style="margin-bottom:16px">'+
-      '<h3 style="font-size:1.1rem;margin-bottom:14px">'+esc(name)+'</h3>'+
-      '<div style="display:flex;gap:16px;align-items:start">'+
-        // Donut + legend
-        '<div style="min-width:140px;text-align:center">'+
-          '<canvas id="'+donutId+'" width="130" height="130" style="display:block;margin:0 auto"></canvas>'+
-          '<div style="margin-top:6px;text-align:left">'+topicLegend+'</div>'+
+    return '<div class="chart-card" style="margin-bottom:20px">'+
+      '<h3 style="font-size:1.2rem;margin-bottom:16px">'+esc(name)+'</h3>'+
+      '<div style="display:flex;gap:24px;align-items:start">'+
+        // LEFT COLUMN: Donut + avg reads histogram
+        '<div style="min-width:200px;flex-shrink:0">'+
+          '<div style="display:flex;gap:12px;align-items:start">'+
+            // Donut
+            '<div style="flex:1">'+
+              '<canvas id="'+donutId+'" width="160" height="160" style="display:block;margin:0 auto"></canvas>'+
+              '<div style="font-size:.8rem;font-weight:600;color:#ccc;text-align:center;margin-top:4px">'+rd.total+' articles</div>'+
+            '</div>'+
+            // Avg reads histogram
+            (function(){
+              const topicAvgs=topicEntries.map(([t,c])=>{
+                const topicViews=bdArticles.filter(x=>x.author===name&&(x.categories||['Uncategorized'])[0]===t)
+                  .reduce((s,x)=>{const g=ga4Stats[x.url]||{};return s+(g.views||0);},0);
+                return{topic:t,avg:c?Math.round(topicViews/c):0,color:getTopicColor(t)};
+              }).sort((a,b)=>b.avg-a.avg);
+              const maxAvg=Math.max(...topicAvgs.map(t=>t.avg),1);
+              return '<div style="min-width:90px">'+
+                '<div style="font-size:.6rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:4px;text-align:center">Avg reads</div>'+
+                topicAvgs.map(t=>{
+                  const h=Math.max(2,Math.round(t.avg/maxAvg*20));
+                  return '<div style="display:flex;align-items:center;gap:4px;margin:3px 0" title="'+esc(t.topic)+': '+t.avg.toLocaleString()+' avg reads">'+
+                    '<div style="width:50px;height:12px;background:#13151a;border-radius:3px;overflow:hidden">'+
+                      '<div style="width:'+Math.max(4,Math.round(t.avg/maxAvg*100))+'%;height:100%;background:'+t.color+';border-radius:3px"></div>'+
+                    '</div>'+
+                    '<span style="font-family:JetBrains Mono;font-size:.65rem;color:#999">'+t.avg.toLocaleString()+'</span>'+
+                  '</div>';
+                }).join('')+
+              '</div>';
+            })()+
+          '</div>'+
+          '<div style="padding:4px 0;margin-top:6px">'+topicLegend+'</div>'+
         '</div>'+
-        // KPI cards grid
-        '<div style="flex:1;display:flex;flex-wrap:wrap;gap:10px">'+
-          kpi(rd.total,'Articles','#c8cad0')+
-          kpi(rd.totalViews.toLocaleString(),'Total views','#3b82f6')+
-          kpi(avgViews.toLocaleString(),'Avg views/article','#3b82f6')+
-          kpi(totalMentions,'Total mentions','#f5a623')+
-          kpi(avgMentions,'Avg mentions/article','#f5a623')+
-          kpi(rd.totalSubs,'Total subscribers','#4caf50')+
-          kpi(avgSubs,'Avg subs/article','#4caf50')+
-          kpi(avgSubsPerView+'%','Subs per 100 views','#4caf50')+
-          kpi(avgPerWeek,'Articles/week','#c8cad0')+
+        // RIGHT COLUMN: KPIs + top articles
+        '<div style="flex:1;min-width:0">'+
+          // KPI grid — 3 columns, all same height
+          '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">'+
+            kpi(rd.totalViews.toLocaleString(),'Total views','#3b82f6')+
+            kpi(avgViews.toLocaleString(),'Avg views / article','#3b82f6')+
+            kpi(totalMentions,'Total mentions','#f5a623')+
+            kpi(avgMentions,'Avg mentions / article','#f5a623')+
+            kpi(rd.totalSubs,'Total subscribers','#4caf50')+
+            kpi(avgSubs,'Avg subs / article','#4caf50')+
+            kpi(avgSubsPerView+'%','Subs per 100 views','#4caf50')+
+            kpi(avgPerWeek,'Articles / week','#ccc')+
+            kpi(rd.pickedUp+' / '+rd.total,'Picked up','#f5a623')+
+          '</div>'+
+          // Top 5 articles header
+          '<div style="font-size:.75rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:6px">Top 5 articles by views</div>'+
+          '<div style="display:flex;gap:10px;padding:4px 0;font-size:.7rem;color:#555">'+
+            '<span style="min-width:22px"></span><span style="flex:1">Title</span>'+
+            '<span style="min-width:55px;text-align:right">Views</span>'+
+            '<span style="min-width:30px;text-align:right">Pickups</span>'+
+            '<span style="min-width:25px;text-align:right">Subs</span></div>'+
+          topArticles+
         '</div>'+
       '</div>'+
-      articlesHtml+
     '</div>';
   }).join('');
 
