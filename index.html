@@ -790,7 +790,7 @@ function renderTrafficChart(){
   }
 
   // Y-axis labels
-  ctx.fillStyle='#aaa';ctx.font='13px JetBrains Mono';ctx.textAlign='right';
+  ctx.fillStyle='#aaa';ctx.font=(W>500?'13':'10')+'px JetBrains Mono';ctx.textAlign='right';
   for(let i=0;i<=4;i++){
     const val=Math.round(maxTotal*i/4);
     const y=pad.top+cH-(i/4)*cH;
@@ -805,25 +805,29 @@ function renderTrafficChart(){
     return'<span>'+fmtShort(d)+'</span>';
   }).join('');
 
-  // Label local peaks with total pageviews
-  ctx.font='bold 13px JetBrains Mono';ctx.textAlign='center';
-  const totals=dates.map(d=>breakdown[d].total||0);
-  for(let i=1;i<dates.length-1;i++){
-    if(totals[i]>totals[i-1]&&totals[i]>=totals[i+1]){
-      const threshold=Math.max(...totals)*0.4;
-      if(totals[i]>=threshold){
-        const x=pad.left+(i/(dates.length-1||1))*cW;
-        const y=pad.top+cH-(totals[i]/maxTotal)*cH;
-        const label=totals[i].toLocaleString();
-        const tw=ctx.measureText(label).width;
-        // Draw background pill
-        ctx.fillStyle='rgba(0,0,0,0.7)';
-        ctx.beginPath();
-        ctx.roundRect(x-tw/2-5,y-20,tw+10,18,4);
-        ctx.fill();
-        // Draw text
-        ctx.fillStyle='#fff';
-        ctx.fillText(label,x,y-6);
+  // Label local peaks with total pageviews (skip on narrow/mobile screens)
+  if(W>500){
+    const fontSize=W>800?13:10;
+    ctx.font='bold '+fontSize+'px JetBrains Mono';ctx.textAlign='center';
+    const totals=dates.map(d=>breakdown[d].total||0);
+    const peakPositions=[];
+    for(let i=1;i<dates.length-1;i++){
+      if(totals[i]>totals[i-1]&&totals[i]>=totals[i+1]){
+        const threshold=Math.max(...totals)*0.5;
+        if(totals[i]>=threshold){
+          const x=pad.left+(i/(dates.length-1||1))*cW;
+          const y=pad.top+cH-(totals[i]/maxTotal)*cH;
+          const label=totals[i].toLocaleString();
+          const tw=ctx.measureText(label).width;
+          let collides=false;
+          for(const p of peakPositions){if(Math.abs(x-p)<tw+20)collides=true;}
+          if(collides)continue;
+          peakPositions.push(x);
+          ctx.fillStyle='rgba(0,0,0,0.75)';
+          ctx.beginPath();ctx.roundRect(x-tw/2-5,y-20,tw+10,18,4);ctx.fill();
+          ctx.fillStyle='#fff';
+          ctx.fillText(label,x,y-6);
+        }
       }
     }
   }
@@ -922,7 +926,7 @@ function renderTopicChart(){
   }
 
   // Y-axis labels
-  ctx.fillStyle='#aaa';ctx.font='13px JetBrains Mono';ctx.textAlign='right';
+  ctx.fillStyle='#aaa';ctx.font=(W>500?'13':'10')+'px JetBrains Mono';ctx.textAlign='right';
   for(let i=0;i<=4;i++){
     const val=Math.round(maxTotal*i/4);
     const y=pad.top+cH-(i/4)*cH;
@@ -937,24 +941,27 @@ function renderTopicChart(){
     return'<span>'+fmtShort(d)+'</span>';
   }).join('');
 
-  // Label peaks on the topic chart
-  ctx.font='bold 13px JetBrains Mono';ctx.textAlign='center';
-  const topicTotalsByDay=dates.map(d=>{const day=topicDaily[d]||{};return Object.values(day).reduce((s,v)=>s+v,0);});
-  const peakPositions=[];
-  for(let i=1;i<dates.length-1;i++){
-    if(topicTotalsByDay[i]>topicTotalsByDay[i-1]&&topicTotalsByDay[i]>=topicTotalsByDay[i+1]){
-      if(topicTotalsByDay[i]>=Math.max(...topicTotalsByDay)*0.4){
-        const x=pad.left+(i/(dates.length-1||1))*cW;
-        const y=pad.top+cH-(topicTotalsByDay[i]/maxTotal)*cH;
-        const label=topicTotalsByDay[i].toLocaleString();
-        const tw=ctx.measureText(label).width;
-        let collides=false;
-        for(const p of peakPositions){if(Math.abs(x-p.x)<tw+10)collides=true;}
-        if(!collides){
-          peakPositions.push({x});
-          ctx.fillStyle='rgba(0,0,0,0.7)';
-          ctx.beginPath();ctx.roundRect(x-tw/2-5,y-20,tw+10,18,4);ctx.fill();
-          ctx.fillStyle='#fff';ctx.fillText(label,x,y-6);
+  // Label peaks on the topic chart (skip on mobile)
+  if(W>500){
+    const fontSize=W>800?13:10;
+    ctx.font='bold '+fontSize+'px JetBrains Mono';ctx.textAlign='center';
+    const topicTotalsByDay=dates.map(d=>{const day=topicDaily[d]||{};return Object.values(day).reduce((s,v)=>s+v,0);});
+    const tPeakPos=[];
+    for(let i=1;i<dates.length-1;i++){
+      if(topicTotalsByDay[i]>topicTotalsByDay[i-1]&&topicTotalsByDay[i]>=topicTotalsByDay[i+1]){
+        if(topicTotalsByDay[i]>=Math.max(...topicTotalsByDay)*0.5){
+          const x=pad.left+(i/(dates.length-1||1))*cW;
+          const y=pad.top+cH-(topicTotalsByDay[i]/maxTotal)*cH;
+          const label=topicTotalsByDay[i].toLocaleString();
+          const tw=ctx.measureText(label).width;
+          let collides=false;
+          for(const p of tPeakPos){if(Math.abs(x-p)<tw+20)collides=true;}
+          if(!collides){
+            tPeakPos.push(x);
+            ctx.fillStyle='rgba(0,0,0,0.75)';
+            ctx.beginPath();ctx.roundRect(x-tw/2-5,y-20,tw+10,18,4);ctx.fill();
+            ctx.fillStyle='#fff';ctx.fillText(label,x,y-6);
+          }
         }
       }
     }
@@ -1089,7 +1096,7 @@ function drawLineChart(canvasId, labelsId, data, dates, color, yFormat, opts){
 
   // Grid lines + Y labels
   ctx.strokeStyle='#1e2028';ctx.lineWidth=0.5;
-  ctx.fillStyle='#aaa';ctx.font='13px JetBrains Mono';ctx.textAlign='right';
+  ctx.fillStyle='#aaa';ctx.font=(W>500?'13':'10')+'px JetBrains Mono';ctx.textAlign='right';
   for(let i=0;i<=4;i++){
     const val=minVal+(range*i/4);
     const y=pad.top+cH-(i/4)*cH;
@@ -1150,32 +1157,45 @@ function drawLineChart(canvasId, labelsId, data, dates, color, yFormat, opts){
     ctx.stroke();ctx.setLineDash([]);
   }
 
-  // Label peaks and valleys
-  ctx.font='bold 11px JetBrains Mono';ctx.textAlign='center';
-  const labelPositions=[];
-  for(let i=1;i<vals.length-1;i++){
-    const isPeak=vals[i]>vals[i-1]&&vals[i]>=vals[i+1];
-    const isValley=vals[i]<vals[i-1]&&vals[i]<=vals[i+1];
-    if(!isPeak&&!isValley)continue;
-    const threshold=(Math.max(...vals)-Math.min(...vals))*0.15;
-    if(isPeak&&vals[i]<Math.max(...vals)*0.4)continue;
-    if(isValley&&vals[i]>Math.min(...vals)+threshold*3)continue;
-    const x=pad.left+(i/(dates.length-1||1))*cW;
-    const y=pad.top+cH-((vals[i]-minVal)/range)*cH;
-    const label=yFormat?yFormat(vals[i]):vals[i].toLocaleString();
-    const tw=ctx.measureText(label).width;
-    const ly=isPeak?y-16:y+14;
-    // Check collision with existing labels
-    let collides=false;
-    for(const lp of labelPositions){
-      if(Math.abs(x-lp.x)<tw+10&&Math.abs(ly-lp.y)<16){collides=true;break;}
+  // Label peaks and valleys (skip on mobile, reduce density on medium screens)
+  if(W>500){
+    const fontSize=W>800?11:9;
+    ctx.font='bold '+fontSize+'px JetBrains Mono';ctx.textAlign='center';
+    const labelPositions=[];
+    const maxLabels=W>800?6:3;
+    const minSpacing=W>800?40:60;
+    // Collect all candidates with significance score
+    const candidates=[];
+    for(let i=1;i<vals.length-1;i++){
+      const isPeak=vals[i]>vals[i-1]&&vals[i]>=vals[i+1];
+      const isValley=vals[i]<vals[i-1]&&vals[i]<=vals[i+1];
+      if(!isPeak&&!isValley)continue;
+      const vRange=Math.max(...vals)-Math.min(...vals);
+      if(!vRange)continue;
+      const significance=isPeak?(vals[i]-Math.min(...vals))/vRange:(Math.max(...vals)-vals[i])/vRange;
+      if(significance<0.3)continue;
+      candidates.push({i,isPeak,significance});
     }
-    if(collides)continue;
-    labelPositions.push({x,y:ly});
-    ctx.fillStyle='rgba(0,0,0,0.7)';
-    ctx.beginPath();ctx.roundRect(x-tw/2-4,ly-10,tw+8,16,3);ctx.fill();
-    ctx.fillStyle='#fff';
-    ctx.fillText(label,x,ly+2);
+    // Sort by significance, take top N
+    candidates.sort((a,b)=>b.significance-a.significance);
+    for(const c of candidates.slice(0,maxLabels)){
+      const i=c.i;
+      const x=pad.left+(i/(dates.length-1||1))*cW;
+      const y=pad.top+cH-((vals[i]-minVal)/range)*cH;
+      const label=yFormat?yFormat(vals[i]):vals[i].toLocaleString();
+      const tw=ctx.measureText(label).width;
+      const ly=c.isPeak?y-16:y+14;
+      let collides=false;
+      for(const lp of labelPositions){
+        if(Math.abs(x-lp.x)<Math.max(tw+10,minSpacing)&&Math.abs(ly-lp.y)<18){collides=true;break;}
+      }
+      if(collides)continue;
+      labelPositions.push({x,y:ly});
+      ctx.fillStyle='rgba(0,0,0,0.75)';
+      ctx.beginPath();ctx.roundRect(x-tw/2-4,ly-10,tw+8,16,3);ctx.fill();
+      ctx.fillStyle='#fff';
+      ctx.fillText(label,x,ly+2);
+    }
   }
 
   // X labels
