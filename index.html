@@ -1575,13 +1575,13 @@ function renderTopics(){
   const sorted=Object.entries(topicData).sort((a,b)=>b[1].totalViews-a[1].totalViews);
 
   // --- Donut charts row at top ---
-  function drawDonut(id,data,title){
+  function drawDonut(id,data){
     setTimeout(()=>{
       const canvas=document.getElementById(id);
       if(!canvas)return;
       const ctx=canvas.getContext('2d');
       const s=canvas.width/2;
-      const r=s*0.38,ir=s*0.22;
+      const r=s*0.44,ir=s*0.28;
       ctx.clearRect(0,0,s*2,s*2);
       const total=data.reduce((s,d)=>s+d.value,0);
       if(!total)return;
@@ -1593,12 +1593,8 @@ function renderTopics(){
         ctx.fillStyle=d.color;ctx.fill();
         angle+=slice;
       });
-      // Inner circle (donut hole)
       ctx.beginPath();ctx.arc(s,s,ir,0,Math.PI*2);
       ctx.fillStyle='#0d0e12';ctx.fill();
-      // Center text
-      ctx.fillStyle='#fff';ctx.font='bold 16px JetBrains Mono';ctx.textAlign='center';
-      ctx.fillText(total.toLocaleString(),s,s+5);
     },100);
   }
 
@@ -1607,23 +1603,49 @@ function renderTopics(){
     articles:td.articles.length,views:td.totalViews,subs:td.totalSubs
   }));
 
-  let html='<div style="display:flex;gap:20px;margin-bottom:20px;justify-content:center;flex-wrap:wrap">';
+  // Avg reads per topic for histogram
+  const topicAvgReads=sorted.map(([topic,td])=>({
+    topic,color:getTopicColor(topic),
+    avg:td.articles.length?Math.round(td.totalViews/td.articles.length):0
+  })).sort((a,b)=>b.avg-a.avg);
+  const maxAvgReads=Math.max(...topicAvgReads.map(t=>t.avg),1);
+
+  let html='<div style="display:flex;gap:16px;margin-bottom:20px;justify-content:center;flex-wrap:wrap;align-items:start">';
   // Three donuts
   ['Total Articles','Total Eyeballs','Total Subscribers'].forEach((title,di)=>{
     const cid='donut'+di;
-    html+='<div class="chart-card" style="text-align:center;min-width:180px;padding:16px">'+
-      '<div style="font-size:.85rem;font-weight:600;color:#c8cad0;margin-bottom:8px">'+title+' <span style="color:#555;font-weight:400">(YTD)</span></div>'+
-      '<canvas id="'+cid+'" width="180" height="180" style="display:block;margin:0 auto"></canvas>'+
-      '<div style="margin-top:8px;text-align:left;font-size:.75rem">'+
-        donutData.slice(0,6).map(d=>{
+    const total=donutData.reduce((s,d)=>s+(di===0?d.articles:di===1?d.views:d.subs),0);
+    html+='<div class="chart-card" style="text-align:center;min-width:220px;padding:16px">'+
+      '<div style="font-size:.9rem;font-weight:600;color:#c8cad0;margin-bottom:8px">'+title+' <span style="color:#555;font-weight:400">(YTD)</span></div>'+
+      '<canvas id="'+cid+'" width="220" height="220" style="display:block;margin:0 auto"></canvas>'+
+      '<div style="font-family:JetBrains Mono;font-size:1.4rem;font-weight:700;color:#fff;margin-top:8px">'+total.toLocaleString()+'</div>'+
+      '<div style="margin-top:10px;text-align:left;font-size:.78rem">'+
+        donutData.slice(0,8).map(d=>{
           const val=di===0?d.articles:di===1?d.views:d.subs;
-          return '<div style="display:flex;align-items:center;gap:4px;margin:2px 0">'+
-            '<i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'+d.color+'"></i>'+
+          if(!val)return'';
+          return '<div style="display:flex;align-items:center;gap:5px;margin:3px 0">'+
+            '<i style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+d.color+'"></i>'+
             '<span style="color:#999;flex:1">'+esc(d.topic)+'</span>'+
             '<span style="font-family:JetBrains Mono;color:#ccc">'+val.toLocaleString()+'</span></div>';
-        }).join('')+
+        }).filter(Boolean).join('')+
       '</div></div>';
   });
+
+  // Avg reads per topic histogram (4th item in row)
+  html+='<div class="chart-card" style="min-width:220px;padding:16px">'+
+    '<div style="font-size:.9rem;font-weight:600;color:#c8cad0;margin-bottom:8px">Avg Reads / Article <span style="color:#555;font-weight:400">(YTD)</span></div>'+
+    topicAvgReads.filter(t=>t.avg>0).map(t=>{
+      const w=Math.max(4,Math.round(t.avg/maxAvgReads*100));
+      return '<div style="display:flex;align-items:center;gap:8px;margin:5px 0" title="'+esc(t.topic)+'">'+
+        '<span style="font-size:.75rem;color:#999;min-width:60px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(t.topic.length>12?t.topic.slice(0,10)+'…':t.topic)+'</span>'+
+        '<div style="flex:1;height:16px;background:#13151a;border-radius:4px;overflow:hidden">'+
+          '<div style="width:'+w+'%;height:100%;background:'+t.color+';border-radius:4px"></div>'+
+        '</div>'+
+        '<span style="font-family:JetBrains Mono;font-size:.8rem;color:#ccc;min-width:45px;text-align:right">'+t.avg.toLocaleString()+'</span>'+
+      '</div>';
+    }).join('')+
+  '</div>';
+
   html+='</div>';
 
   // --- Per-topic sections ---
@@ -1673,48 +1695,51 @@ function renderTopics(){
       '</div>';
     }).join(''):'<div style="font-size:.85rem;color:#555;padding:6px 0">No articles in the past 30 days</div>';
 
-    const kpiCard=(val,label,color)=>'<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:8px;padding:8px 10px;min-width:70px">'+
+    const kpiCard=(val,label,color)=>'<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:8px;padding:8px 10px;min-width:70px;flex:1">'+
       '<div style="font-family:JetBrains Mono;font-size:1rem;font-weight:700;color:'+color+'">'+val+'</div>'+
       '<div style="font-size:.6rem;color:#999;text-transform:uppercase;line-height:1.2">'+label+'</div></div>';
 
     return '<div class="chart-card" style="margin-bottom:16px">'+
       '<h3 style="font-size:1.1rem;margin-bottom:12px"><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:'+topicColor+';margin-right:8px;vertical-align:middle"></span>'+esc(topic)+'</h3>'+
-      '<div style="display:flex;gap:12px;align-items:stretch;flex-wrap:wrap">'+
-        // Avg reads KPI
-        kpiCard(avgReads.toLocaleString(),'Avg reads<br>per article','#3b82f6')+
-        // Eyeball % cards
-        '<div style="display:flex;flex-direction:column;gap:6px">'+
-          '<div style="font-size:.6rem;color:#666;text-transform:uppercase;font-weight:600;text-align:center">% of all eyeballs</div>'+
-          '<div style="display:flex;gap:6px">'+
-            kpiCard(pctYesterday+'%','Yesterday','#f59e0b')+
-            kpiCard(pctWeek+'%','This week','#f59e0b')+
-            kpiCard(pctMonth+'%','This month','#f59e0b')+
-            kpiCard(pctYear+'%','This year','#f59e0b')+
+      '<div style="display:flex;gap:16px;align-items:start">'+
+        // LEFT: KPI cards + top 5 articles
+        '<div style="flex:1;min-width:0">'+
+          '<div style="display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;margin-bottom:14px">'+
+            // Avg reads KPI — same height as grouped cards
+            kpiCard(avgReads.toLocaleString(),'Avg reads / article','#3b82f6')+
+            // Eyeball % cards
+            '<div style="display:flex;flex-direction:column;gap:4px;flex:2">'+
+              '<div style="font-size:.6rem;color:#666;text-transform:uppercase;font-weight:600;text-align:center">% of all eyeballs</div>'+
+              '<div style="display:flex;gap:6px">'+
+                kpiCard(pctYesterday+'%','Yesterday','#f59e0b')+
+                kpiCard(pctWeek+'%','This week','#f59e0b')+
+                kpiCard(pctMonth+'%','This month','#f59e0b')+
+                kpiCard(pctYear+'%','This year','#f59e0b')+
+              '</div>'+
+            '</div>'+
+            // Subscriber KPI cards
+            '<div style="display:flex;flex-direction:column;gap:4px">'+
+              '<div style="font-size:.6rem;color:#666;text-transform:uppercase;font-weight:600;text-align:center">New subscribers</div>'+
+              '<div style="display:flex;gap:6px">'+
+                kpiCard(topicSubs,'All time','#4caf50')+
+                kpiCard(pctSubsAll+'%','% of total','#4caf50')+
+              '</div>'+
+            '</div>'+
           '</div>'+
-        '</div>'+
-        // Subscriber KPI cards
-        '<div style="display:flex;flex-direction:column;gap:6px">'+
-          '<div style="font-size:.6rem;color:#666;text-transform:uppercase;font-weight:600;text-align:center">New subscribers</div>'+
-          '<div style="display:flex;gap:6px">'+
-            kpiCard(topicSubs,'All time','#4caf50')+
-            kpiCard(pctSubsAll+'%','% of total','#4caf50')+
+          // Top 5 articles directly under KPIs
+          '<div style="font-size:.75rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:6px">Top articles (past 30 days)</div>'+
+          '<div style="display:flex;gap:10px;padding:4px 0;font-size:.7rem;color:#555">'+
+            '<span style="min-width:20px"></span><span style="flex:1">Title</span>'+
+            '<span style="min-width:50px;text-align:right">Views</span>'+
+            '<span style="min-width:30px;text-align:right">Subs</span>'+
           '</div>'+
+          topArticles+
         '</div>'+
-        // Histogram
-        '<div style="flex:1;min-width:200px">'+
+        // RIGHT: Histogram
+        '<div style="min-width:250px;max-width:350px">'+
           '<div style="font-size:.7rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:4px">Reads per article ('+td.articles.length+') — click for details</div>'+
           histBars+
         '</div>'+
-      '</div>'+
-      // Top 5 articles
-      '<div style="margin-top:14px">'+
-        '<div style="font-size:.75rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:6px">Top articles (past 30 days)</div>'+
-        '<div style="display:flex;gap:10px;padding:4px 0;font-size:.7rem;color:#555">'+
-          '<span style="min-width:20px"></span><span style="flex:1">Title</span>'+
-          '<span style="min-width:50px;text-align:right">Views</span>'+
-          '<span style="min-width:30px;text-align:right">Subs</span>'+
-        '</div>'+
-        topArticles+
       '</div>'+
     '</div>';
   }).join('');
@@ -1814,11 +1839,9 @@ function renderByline(){
       const canvas=document.getElementById(id);
       if(!canvas)return;
       const ctx=canvas.getContext('2d');
-      const size=200;
-      const s=size/2;
-      const r=s*0.45,ir=s*0.28;
-      canvas.width=size;canvas.height=size;
-      ctx.clearRect(0,0,size,size);
+      const s=canvas.width/2;
+      const r=s*0.44,ir=s*0.28;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
       const entries=Object.entries(topicCounts).sort((a,b)=>b[1]-a[1]);
       const total=entries.reduce((s,e)=>s+e[1],0);
       if(!total)return;
@@ -1837,7 +1860,7 @@ function renderByline(){
 
   el.innerHTML=sorted.map(([name,rd],ri)=>{
     const avgViews=rd.total?Math.round(rd.totalViews/rd.total):0;
-    const avgSubsPerView=rd.totalViews?(rd.totalSubs/rd.totalViews*100).toFixed(2):'0';
+    const avgSubsPerView=rd.totalViews?(rd.totalSubs/rd.totalViews*10000).toFixed(1):'0';
     const totalMentions=rd.articles.reduce((s,a)=>s+a.mentions,0);
     const avgMentions=rd.total?(totalMentions/rd.total).toFixed(1):'0';
     const pubDates=bdArticles.filter(a=>a.author===name).map(a=>a.published).filter(Boolean).sort();
@@ -1885,12 +1908,12 @@ function renderByline(){
       '<h3 style="font-size:1.2rem;margin-bottom:16px">'+esc(name)+'</h3>'+
       '<div style="display:flex;gap:24px;align-items:start">'+
         // LEFT COLUMN: Donut + avg reads histogram
-        '<div style="min-width:200px;flex-shrink:0">'+
-          '<div style="display:flex;gap:12px;align-items:start">'+
+        '<div style="min-width:280px;flex-shrink:0">'+
+          '<div style="display:flex;gap:14px;align-items:start">'+
             // Donut
-            '<div style="flex:1">'+
-              '<canvas id="'+donutId+'" width="160" height="160" style="display:block;margin:0 auto"></canvas>'+
-              '<div style="font-size:.8rem;font-weight:600;color:#ccc;text-align:center;margin-top:4px">'+rd.total+' articles</div>'+
+            '<div>'+
+              '<canvas id="'+donutId+'" width="180" height="180" style="display:block;margin:0 auto"></canvas>'+
+              '<div style="font-family:JetBrains Mono;font-size:1.1rem;font-weight:700;color:#ccc;text-align:center;margin-top:6px">'+rd.total+' articles</div>'+
             '</div>'+
             // Avg reads histogram
             (function(){
@@ -1900,15 +1923,14 @@ function renderByline(){
                 return{topic:t,avg:c?Math.round(topicViews/c):0,color:getTopicColor(t)};
               }).sort((a,b)=>b.avg-a.avg);
               const maxAvg=Math.max(...topicAvgs.map(t=>t.avg),1);
-              return '<div style="min-width:90px">'+
-                '<div style="font-size:.6rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:4px;text-align:center">Avg reads</div>'+
+              return '<div style="min-width:110px">'+
+                '<div style="font-size:.65rem;color:#666;text-transform:uppercase;font-weight:600;margin-bottom:6px;text-align:center">Avg reads/article</div>'+
                 topicAvgs.map(t=>{
-                  const h=Math.max(2,Math.round(t.avg/maxAvg*20));
-                  return '<div style="display:flex;align-items:center;gap:4px;margin:3px 0" title="'+esc(t.topic)+': '+t.avg.toLocaleString()+' avg reads">'+
-                    '<div style="width:50px;height:12px;background:#13151a;border-radius:3px;overflow:hidden">'+
+                  return '<div style="display:flex;align-items:center;gap:5px;margin:4px 0" title="'+esc(t.topic)+': '+t.avg.toLocaleString()+' avg reads">'+
+                    '<div style="width:60px;height:14px;background:#13151a;border-radius:3px;overflow:hidden">'+
                       '<div style="width:'+Math.max(4,Math.round(t.avg/maxAvg*100))+'%;height:100%;background:'+t.color+';border-radius:3px"></div>'+
                     '</div>'+
-                    '<span style="font-family:JetBrains Mono;font-size:.65rem;color:#999">'+t.avg.toLocaleString()+'</span>'+
+                    '<span style="font-family:JetBrains Mono;font-size:.72rem;color:#999">'+t.avg.toLocaleString()+'</span>'+
                   '</div>';
                 }).join('')+
               '</div>';
@@ -1926,7 +1948,7 @@ function renderByline(){
             kpi(avgMentions,'Avg mentions / article','#f5a623')+
             kpi(rd.totalSubs,'Total subscribers','#4caf50')+
             kpi(avgSubs,'Avg subs / article','#4caf50')+
-            kpi(avgSubsPerView+'%','Subs per 100 views','#4caf50')+
+            kpi(avgSubsPerView,'Subs per 10K views','#4caf50')+
             kpi(avgPerWeek,'Articles / week','#ccc')+
             kpi(rd.pickedUp+' / '+rd.total,'Picked up','#f5a623')+
           '</div>'+
