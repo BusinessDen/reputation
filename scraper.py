@@ -1317,6 +1317,40 @@ def fetch_ga4_data(data: dict, now: datetime):
     if traffic_breakdown:
         print(f"    → {len(traffic_breakdown)} days of traffic breakdown data")
 
+    # --- Build daily article views by topic for stacked area chart ---
+    # Map article paths to their primary category
+    article_categories = {}
+    for article in data["bd_articles"]:
+        try:
+            path = urlparse(article["url"]).path.rstrip("/")
+            cats = article.get("categories", [])
+            primary = cats[0] if cats else "Uncategorized"
+            article_categories[path] = primary
+            article_categories[path + "/"] = primary
+        except:
+            pass
+
+    topic_daily = {}  # {date: {topic: views}}
+    for path, date_counts in daily_views.items():
+        cat = article_categories.get(path) or article_categories.get(path.rstrip("/"))
+        if not cat:
+            # Not a tracked article — skip for topic chart
+            continue
+        for date_str, count in date_counts.items():
+            if date_str not in topic_daily:
+                topic_daily[date_str] = {}
+            topic_daily[date_str][cat] = topic_daily[date_str].get(cat, 0) + count
+
+    data["ga4"]["topic_daily"] = topic_daily
+
+    # Collect all topic names for the chart
+    all_topics = set()
+    for day_data in topic_daily.values():
+        all_topics.update(day_data.keys())
+    data["ga4"]["topic_list"] = sorted(all_topics)
+    if topic_daily:
+        print(f"    → {len(topic_daily)} days of topic breakdown data ({len(all_topics)} topics)")
+
     # --- Classify all pages into categories for "other" breakdown ---
     article_paths = set()
     for article in data["bd_articles"]:
