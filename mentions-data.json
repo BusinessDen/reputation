@@ -5609,7 +5609,7 @@
       "1854a1cbcd340dbf"
     ]
   },
-  "last_updated": "2026-03-25T06:26:02.159084+00:00",
+  "last_updated": "2026-03-25T06:38:21.908268+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -6378,26 +6378,38 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-25T06:38:21.908268+00:00",
+      "new_mentions": 0,
+      "total_mentions": 149,
+      "total_bd_articles": 71,
+      "sources": {
+        "google_news_rss": 25,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
   "new_this_run": 0,
   "ga4": {
-    "last_fetched": "2026-03-25T06:26:02.159084+00:00",
+    "last_fetched": "2026-03-25T06:38:21.908268+00:00",
     "article_stats": {
       "https://businessden.com/2026/03/24/broadway-park-grows-in-size-with-2m-purchase/": {
-        "views": 728,
-        "users": 620,
-        "sessions": 685,
+        "views": 731,
+        "users": 623,
+        "sessions": 688,
         "daily_views": {
-          "2026-03-24": 728
+          "2026-03-24": 731
         }
       },
       "https://businessden.com/2026/03/24/call-your-mother-opening-fifth-denver-location-near-union-station/": {
-        "views": 765,
-        "users": 639,
-        "sessions": 716,
+        "views": 767,
+        "users": 641,
+        "sessions": 718,
         "daily_views": {
-          "2026-03-24": 765
+          "2026-03-24": 767
         }
       },
       "https://businessden.com/2026/03/24/cannabis-investor-says-her-1-6m-was-stolen-spent-on-pickleball-company/": {
@@ -6417,9 +6429,9 @@
         }
       },
       "https://businessden.com/2026/03/23/denver-angels-founder-says-partners-siphoned-eight-figures-in-theft-scheme/": {
-        "views": 3096,
-        "users": 2415,
-        "sessions": 2803,
+        "views": 3097,
+        "users": 2416,
+        "sessions": 2804,
         "subscriptions": 4,
         "daily_subs": {
           "2026-03-23": 3,
@@ -6427,7 +6439,7 @@
         },
         "daily_views": {
           "2026-03-23": 2332,
-          "2026-03-24": 764
+          "2026-03-24": 765
         }
       },
       "https://businessden.com/2026/03/23/denver-rock-drill-owner-byron-weiss-dies-at-86/": {
@@ -6752,16 +6764,16 @@
         }
       },
       "https://businessden.com/2026/03/16/private-school-says-it-suffered-significant-damage-from-bookkeeper/": {
-        "views": 1674,
-        "users": 1406,
-        "sessions": 1559,
+        "views": 1676,
+        "users": 1408,
+        "sessions": 1561,
         "daily_views": {
           "2026-03-16": 1325,
           "2026-03-18": 154,
           "2026-03-17": 112,
           "2026-03-23": 33,
           "2026-03-19": 16,
-          "2026-03-24": 10,
+          "2026-03-24": 12,
           "2026-03-21": 9,
           "2026-03-20": 8,
           "2026-03-22": 7
@@ -7753,9 +7765,9 @@
         "today": 0,
         "week": 1187,
         "month": 41,
-        "older": 329,
+        "older": 328,
         "home": 590,
-        "browse": 434,
+        "browse": 435,
         "newsletter": 229,
         "other": 779
       },
@@ -7936,15 +7948,15 @@
         "other": 1302
       },
       "2026-03-24": {
-        "total": 7849,
-        "today": 2894,
-        "week": 1255,
-        "month": 138,
-        "older": 466,
-        "home": 1206,
-        "browse": 569,
-        "newsletter": 300,
-        "other": 1021
+        "total": 7870,
+        "today": 2899,
+        "week": 1256,
+        "month": 140,
+        "older": 469,
+        "home": 1212,
+        "browse": 570,
+        "newsletter": 301,
+        "other": 1023
       }
     },
     "non_article_pages": [
@@ -8385,7 +8397,7 @@
       "2026-03-11": 3721,
       "2026-03-04": 3641,
       "2026-02-26": 3559,
-      "2026-03-24": 3499,
+      "2026-03-24": 3509,
       "2026-02-11": 3436,
       "2026-01-24": 3182,
       "2026-02-08": 2119,
@@ -12551,6 +12563,248 @@
       "2026-03-22": 0.17,
       "2026-03-23": 1.34,
       "2026-03-24": 1.16
-    }
+    },
+    "topic_daily": {
+      "2026-03-09": {
+        "Commercial Real Estate": 4692,
+        "Government": 1333,
+        "Residential Real Estate": 98,
+        "Brewing": 21,
+        "Restaurants": 58,
+        "Law": 49
+      },
+      "2026-03-10": {
+        "Commercial Real Estate": 3882,
+        "Government": 270,
+        "Residential Real Estate": 26,
+        "Brewing": 9,
+        "Restaurants": 714,
+        "Law": 18
+      },
+      "2026-03-11": {
+        "Commercial Real Estate": 1749,
+        "Government": 576,
+        "Restaurants": 1734,
+        "Residential Real Estate": 10,
+        "Brewing": 11,
+        "Law": 22
+      },
+      "2026-03-12": {
+        "Commercial Real Estate": 3431,
+        "Government": 139,
+        "Restaurants": 149,
+        "Residential Real Estate": 21,
+        "Brewing": 14,
+        "Law": 632,
+        "Brinkerhoff": 384
+      },
+      "2026-03-16": {
+        "Commercial Real Estate": 1639,
+        "Government": 10,
+        "Education": 1325,
+        "Residential Real Estate": 339,
+        "Restaurants": 749,
+        "Brewing": 9,
+        "Retail": 214,
+        "Law": 16,
+        "The Pipeline": 96,
+        "Brinkerhoff": 17
+      },
+      "2026-03-13": {
+        "Commercial Real Estate": 2320,
+        "Government": 20,
+        "Residential Real Estate": 1254,
+        "Restaurants": 28,
+        "Brewing": 13,
+        "Retail": 961,
+        "Law": 59,
+        "The Pipeline": 400,
+        "Brinkerhoff": 61
+      },
+      "2026-03-18": {
+        "Commercial Real Estate": 4675,
+        "Government": 838,
+        "Education": 154,
+        "Residential Real Estate": 14,
+        "Restaurants": 316,
+        "Brewing": 2,
+        "Retail": 17,
+        "Law": 11,
+        "The Pipeline": 20,
+        "Brinkerhoff": 2
+      },
+      "2026-03-17": {
+        "Commercial Real Estate": 2996,
+        "Government": 11,
+        "Education": 112,
+        "Residential Real Estate": 48,
+        "Restaurants": 1046,
+        "Brewing": 6,
+        "Retail": 26,
+        "Law": 13,
+        "The Pipeline": 15,
+        "Brinkerhoff": 8
+      },
+      "2026-03-15": {
+        "Commercial Real Estate": 143,
+        "Residential Real Estate": 51,
+        "Restaurants": 13,
+        "Brewing": 4,
+        "Retail": 49,
+        "Law": 4,
+        "Government": 4,
+        "The Pipeline": 14,
+        "Brinkerhoff": 8
+      },
+      "2026-03-20": {
+        "Commercial Real Estate": 2812,
+        "Residential Real Estate": 1539,
+        "Government": 29,
+        "Education": 8,
+        "Outdoor Recreation": 367,
+        "Brewing": 5,
+        "Restaurants": 27,
+        "Law": 33,
+        "Retail": 55,
+        "The Pipeline": 440
+      },
+      "2026-03-21": {
+        "Commercial Real Estate": 331,
+        "Residential Real Estate": 336,
+        "Government": 15,
+        "Education": 9,
+        "Outdoor Recreation": 48,
+        "Brewing": 3,
+        "Retail": 23,
+        "Restaurants": 13,
+        "The Pipeline": 40,
+        "Brinkerhoff": 3,
+        "Law": 8
+      },
+      "2026-03-19": {
+        "Commercial Real Estate": 4171,
+        "Government": 162,
+        "Education": 16,
+        "Residential Real Estate": 7,
+        "Outdoor Recreation": 1207,
+        "Brewing": 4,
+        "Retail": 501,
+        "Restaurants": 59,
+        "Law": 356,
+        "The Pipeline": 3,
+        "Brinkerhoff": 4
+      },
+      "2026-03-23": {
+        "Commercial Real Estate": 1570,
+        "Startups": 2332,
+        "Residential Real Estate": 127,
+        "Government": 27,
+        "Education": 33,
+        "Outdoor Recreation": 39,
+        "Brewing": 300,
+        "Retail": 10,
+        "Restaurants": 16,
+        "The Pipeline": 71,
+        "Law": 455,
+        "Brinkerhoff": 9
+      },
+      "2026-03-14": {
+        "Commercial Real Estate": 278,
+        "Government": 13,
+        "Residential Real Estate": 144,
+        "Restaurants": 21,
+        "Brewing": 9,
+        "Retail": 70,
+        "Law": 18,
+        "The Pipeline": 68,
+        "Brinkerhoff": 23
+      },
+      "2026-03-22": {
+        "Commercial Real Estate": 207,
+        "Residential Real Estate": 113,
+        "Government": 8,
+        "Education": 7,
+        "Outdoor Recreation": 31,
+        "Retail": 18,
+        "Restaurants": 25,
+        "The Pipeline": 19,
+        "Law": 9
+      },
+      "2026-03-24": {
+        "Commercial Real Estate": 1933,
+        "Startups": 765,
+        "Residential Real Estate": 26,
+        "Government": 5,
+        "Education": 12,
+        "Outdoor Recreation": 608,
+        "Brewing": 40,
+        "Retail": 11,
+        "Restaurants": 778,
+        "Law": 71,
+        "The Pipeline": 19,
+        "Brinkerhoff": 2
+      },
+      "2026-03-02": {
+        "Commercial Real Estate": 3578,
+        "Government": 649
+      },
+      "2026-03-03": {
+        "Commercial Real Estate": 2815,
+        "Brewing": 999,
+        "Government": 198
+      },
+      "2026-03-04": {
+        "Commercial Real Estate": 2037,
+        "Brewing": 156,
+        "Restaurants": 847,
+        "Government": 139
+      },
+      "2026-03-05": {
+        "Commercial Real Estate": 1572,
+        "Brewing": 138,
+        "Restaurants": 1009,
+        "Government": 25,
+        "Law": 503,
+        "Residential Real Estate": 345
+      },
+      "2026-03-06": {
+        "Commercial Real Estate": 2042,
+        "Residential Real Estate": 1091,
+        "Brewing": 86,
+        "Restaurants": 827,
+        "Government": 17,
+        "Law": 279
+      },
+      "2026-03-08": {
+        "Commercial Real Estate": 473,
+        "Residential Real Estate": 36,
+        "Brewing": 9,
+        "Restaurants": 63,
+        "Government": 6,
+        "Law": 9
+      },
+      "2026-03-07": {
+        "Commercial Real Estate": 960,
+        "Residential Real Estate": 98,
+        "Brewing": 33,
+        "Restaurants": 68,
+        "Government": 8,
+        "Law": 18
+      }
+    },
+    "topic_list": [
+      "Brewing",
+      "Brinkerhoff",
+      "Commercial Real Estate",
+      "Education",
+      "Government",
+      "Law",
+      "Outdoor Recreation",
+      "Residential Real Estate",
+      "Restaurants",
+      "Retail",
+      "Startups",
+      "The Pipeline"
+    ]
   }
 }
