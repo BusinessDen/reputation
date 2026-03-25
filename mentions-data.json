@@ -5633,7 +5633,7 @@
       "1854a1cbcd340dbf"
     ]
   },
-  "last_updated": "2026-03-25T07:21:41.946547+00:00",
+  "last_updated": "2026-03-25T07:34:40.367942+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -6450,48 +6450,60 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-25T07:34:40.367942+00:00",
+      "new_mentions": 0,
+      "total_mentions": 150,
+      "total_bd_articles": 71,
+      "sources": {
+        "google_news_rss": 26,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
   "new_this_run": 0,
   "ga4": {
-    "last_fetched": "2026-03-25T07:21:41.946547+00:00",
+    "last_fetched": "2026-03-25T07:34:40.367942+00:00",
     "article_stats": {
       "https://businessden.com/2026/03/24/broadway-park-grows-in-size-with-2m-purchase/": {
-        "views": 733,
-        "users": 625,
-        "sessions": 690,
+        "views": 736,
+        "users": 626,
+        "sessions": 693,
         "daily_views": {
-          "2026-03-24": 733
+          "2026-03-24": 736
         }
       },
       "https://businessden.com/2026/03/24/call-your-mother-opening-fifth-denver-location-near-union-station/": {
-        "views": 773,
-        "users": 644,
-        "sessions": 723,
+        "views": 775,
+        "users": 646,
+        "sessions": 725,
         "daily_views": {
-          "2026-03-24": 773
+          "2026-03-24": 775
         }
       },
       "https://businessden.com/2026/03/24/cannabis-investor-says-her-1-6m-was-stolen-spent-on-pickleball-company/": {
-        "views": 605,
-        "users": 536,
-        "sessions": 583,
+        "views": 608,
+        "users": 538,
+        "sessions": 585,
         "daily_views": {
-          "2026-03-24": 605
+          "2026-03-24": 608
         }
       },
       "https://businessden.com/2026/03/24/zeppelin-wells-fargo-settle-litigation-over-rino-office-building-on-eve-of-trial/": {
-        "views": 804,
-        "users": 668,
-        "sessions": 747,
+        "views": 805,
+        "users": 669,
+        "sessions": 748,
         "daily_views": {
-          "2026-03-24": 804
+          "2026-03-24": 805
         }
       },
       "https://businessden.com/2026/03/23/denver-angels-founder-says-partners-siphoned-eight-figures-in-theft-scheme/": {
-        "views": 3109,
-        "users": 2425,
-        "sessions": 2813,
+        "views": 3111,
+        "users": 2426,
+        "sessions": 2814,
         "subscriptions": 4,
         "daily_subs": {
           "2026-03-23": 3,
@@ -6499,34 +6511,34 @@
         },
         "daily_views": {
           "2026-03-23": 2332,
-          "2026-03-24": 777
+          "2026-03-24": 779
         }
       },
       "https://businessden.com/2026/03/23/denver-rock-drill-owner-byron-weiss-dies-at-86/": {
-        "views": 1296,
-        "users": 1071,
-        "sessions": 1186,
+        "views": 1298,
+        "users": 1072,
+        "sessions": 1188,
         "daily_views": {
           "2026-03-23": 1046,
-          "2026-03-24": 250
+          "2026-03-24": 252
         }
       },
       "https://businessden.com/2026/03/23/former-bachus-schanker-attorney-launches-florida-firms-denver-office/": {
-        "views": 487,
-        "users": 427,
-        "sessions": 464,
+        "views": 488,
+        "users": 428,
+        "sessions": 465,
         "daily_views": {
           "2026-03-23": 435,
-          "2026-03-24": 52
+          "2026-03-24": 53
         }
       },
       "https://businessden.com/2026/03/23/colorado-thc-drink-makers-balance-state-optimism-federal-concern/": {
-        "views": 327,
-        "users": 278,
-        "sessions": 316,
+        "views": 328,
+        "users": 279,
+        "sessions": 317,
         "daily_views": {
           "2026-03-23": 294,
-          "2026-03-24": 33
+          "2026-03-24": 34
         }
       },
       "https://businessden.com/2026/03/20/the-pipeline-commercial-real-estate-deals-for-3-20-26/": {
@@ -7695,9 +7707,9 @@
         "month": 0,
         "older": 0,
         "home": 1543,
-        "browse": 2194,
-        "newsletter": 1156,
-        "other": 3944
+        "browse": 2228,
+        "newsletter": 1173,
+        "other": 3893
       },
       "2026-02-24": {
         "total": 17551,
@@ -7706,9 +7718,9 @@
         "month": 0,
         "older": 0,
         "home": 1873,
-        "browse": 4715,
-        "newsletter": 2485,
-        "other": 8478
+        "browse": 4790,
+        "newsletter": 2521,
+        "other": 8367
       },
       "2026-02-25": {
         "total": 10264,
@@ -7717,9 +7729,9 @@
         "month": 0,
         "older": 0,
         "home": 1578,
-        "browse": 2612,
-        "newsletter": 1377,
-        "other": 4697
+        "browse": 2654,
+        "newsletter": 1397,
+        "other": 4635
       },
       "2026-02-26": {
         "total": 7845,
@@ -7728,9 +7740,9 @@
         "month": 0,
         "older": 0,
         "home": 1501,
-        "browse": 1908,
-        "newsletter": 1005,
-        "other": 3431
+        "browse": 1938,
+        "newsletter": 1020,
+        "other": 3386
       },
       "2026-02-27": {
         "total": 8110,
@@ -7739,9 +7751,9 @@
         "month": 0,
         "older": 0,
         "home": 1319,
-        "browse": 2042,
-        "newsletter": 1076,
-        "other": 3673
+        "browse": 2075,
+        "newsletter": 1092,
+        "other": 3624
       },
       "2026-02-28": {
         "total": 2720,
@@ -7750,9 +7762,9 @@
         "month": 0,
         "older": 0,
         "home": 586,
-        "browse": 642,
-        "newsletter": 338,
-        "other": 1154
+        "browse": 652,
+        "newsletter": 343,
+        "other": 1139
       },
       "2026-03-01": {
         "total": 2574,
@@ -7761,9 +7773,9 @@
         "month": 70,
         "older": 1027,
         "home": 595,
-        "browse": 190,
-        "newsletter": 100,
-        "other": 341
+        "browse": 193,
+        "newsletter": 101,
+        "other": 337
       },
       "2026-03-02": {
         "total": 10305,
@@ -7772,9 +7784,9 @@
         "month": 155,
         "older": 1553,
         "home": 1587,
-        "browse": 656,
-        "newsletter": 346,
-        "other": 1179
+        "browse": 666,
+        "newsletter": 351,
+        "other": 1164
       },
       "2026-03-03": {
         "total": 8807,
@@ -7783,9 +7795,9 @@
         "month": 146,
         "older": 1363,
         "home": 1431,
-        "browse": 505,
-        "newsletter": 266,
-        "other": 909
+        "browse": 513,
+        "newsletter": 270,
+        "other": 897
       },
       "2026-03-04": {
         "total": 8220,
@@ -7794,9 +7806,9 @@
         "month": 148,
         "older": 1352,
         "home": 1335,
-        "browse": 503,
-        "newsletter": 265,
-        "other": 906
+        "browse": 511,
+        "newsletter": 269,
+        "other": 894
       },
       "2026-03-05": {
         "total": 8160,
@@ -7805,9 +7817,9 @@
         "month": 151,
         "older": 1392,
         "home": 1294,
-        "browse": 503,
-        "newsletter": 265,
-        "other": 905
+        "browse": 511,
+        "newsletter": 269,
+        "other": 893
       },
       "2026-03-06": {
         "total": 8329,
@@ -7816,9 +7828,9 @@
         "month": 146,
         "older": 1184,
         "home": 1264,
-        "browse": 412,
-        "newsletter": 217,
-        "other": 740
+        "browse": 418,
+        "newsletter": 220,
+        "other": 731
       },
       "2026-03-07": {
         "total": 3589,
@@ -7827,9 +7839,9 @@
         "month": 41,
         "older": 325,
         "home": 590,
-        "browse": 435,
-        "newsletter": 229,
-        "other": 782
+        "browse": 442,
+        "newsletter": 233,
+        "other": 771
       },
       "2026-03-08": {
         "total": 3234,
@@ -7838,9 +7850,9 @@
         "month": 52,
         "older": 269,
         "home": 549,
-        "browse": 532,
-        "newsletter": 280,
-        "other": 956
+        "browse": 540,
+        "newsletter": 284,
+        "other": 944
       },
       "2026-03-09": {
         "total": 11691,
@@ -7849,9 +7861,9 @@
         "month": 90,
         "older": 510,
         "home": 1487,
-        "browse": 1008,
-        "newsletter": 531,
-        "other": 1814
+        "browse": 1024,
+        "newsletter": 539,
+        "other": 1790
       },
       "2026-03-10": {
         "total": 9287,
@@ -7860,9 +7872,9 @@
         "month": 116,
         "older": 417,
         "home": 1317,
-        "browse": 768,
-        "newsletter": 405,
-        "other": 1380
+        "browse": 780,
+        "newsletter": 411,
+        "other": 1362
       },
       "2026-03-11": {
         "total": 8887,
@@ -7871,9 +7883,9 @@
         "month": 135,
         "older": 493,
         "home": 1420,
-        "browse": 837,
-        "newsletter": 441,
-        "other": 1504
+        "browse": 850,
+        "newsletter": 447,
+        "other": 1485
       },
       "2026-03-12": {
         "total": 9357,
@@ -7882,9 +7894,9 @@
         "month": 114,
         "older": 458,
         "home": 1462,
-        "browse": 785,
-        "newsletter": 414,
-        "other": 1411
+        "browse": 797,
+        "newsletter": 420,
+        "other": 1393
       },
       "2026-03-13": {
         "total": 8751,
@@ -7893,9 +7905,9 @@
         "month": 92,
         "older": 356,
         "home": 1311,
-        "browse": 580,
-        "newsletter": 305,
-        "other": 1042
+        "browse": 589,
+        "newsletter": 310,
+        "other": 1028
       },
       "2026-03-14": {
         "total": 2613,
@@ -7904,9 +7916,9 @@
         "month": 97,
         "older": 257,
         "home": 549,
-        "browse": 336,
-        "newsletter": 177,
-        "other": 605
+        "browse": 342,
+        "newsletter": 180,
+        "other": 596
       },
       "2026-03-15": {
         "total": 2569,
@@ -7915,9 +7927,9 @@
         "month": 61,
         "older": 287,
         "home": 543,
-        "browse": 425,
-        "newsletter": 224,
-        "other": 765
+        "browse": 432,
+        "newsletter": 227,
+        "other": 755
       },
       "2026-03-16": {
         "total": 8804,
@@ -7926,9 +7938,9 @@
         "month": 102,
         "older": 507,
         "home": 1384,
-        "browse": 740,
-        "newsletter": 390,
-        "other": 1330
+        "browse": 752,
+        "newsletter": 396,
+        "other": 1312
       },
       "2026-03-17": {
         "total": 8573,
@@ -7937,9 +7949,9 @@
         "month": 146,
         "older": 506,
         "home": 1375,
-        "browse": 713,
-        "newsletter": 376,
-        "other": 1283
+        "browse": 725,
+        "newsletter": 381,
+        "other": 1266
       },
       "2026-03-18": {
         "total": 10248,
@@ -7948,9 +7960,9 @@
         "month": 139,
         "older": 513,
         "home": 1458,
-        "browse": 651,
-        "newsletter": 343,
-        "other": 1172
+        "browse": 662,
+        "newsletter": 348,
+        "other": 1156
       },
       "2026-03-19": {
         "total": 10815,
@@ -7959,9 +7971,9 @@
         "month": 103,
         "older": 423,
         "home": 1604,
-        "browse": 679,
-        "newsletter": 358,
-        "other": 1220
+        "browse": 690,
+        "newsletter": 363,
+        "other": 1204
       },
       "2026-03-20": {
         "total": 8798,
@@ -7970,9 +7982,9 @@
         "month": 112,
         "older": 396,
         "home": 1424,
-        "browse": 494,
-        "newsletter": 260,
-        "other": 888
+        "browse": 502,
+        "newsletter": 264,
+        "other": 876
       },
       "2026-03-21": {
         "total": 3082,
@@ -7981,9 +7993,9 @@
         "month": 104,
         "older": 358,
         "home": 663,
-        "browse": 364,
-        "newsletter": 192,
-        "other": 653
+        "browse": 369,
+        "newsletter": 194,
+        "other": 646
       },
       "2026-03-22": {
         "total": 2130,
@@ -7992,9 +8004,9 @@
         "month": 41,
         "older": 245,
         "home": 554,
-        "browse": 266,
-        "newsletter": 140,
-        "other": 480
+        "browse": 271,
+        "newsletter": 142,
+        "other": 473
       },
       "2026-03-23": {
         "total": 9339,
@@ -8003,20 +8015,20 @@
         "month": 137,
         "older": 481,
         "home": 1430,
-        "browse": 725,
-        "newsletter": 382,
-        "other": 1303
+        "browse": 736,
+        "newsletter": 388,
+        "other": 1286
       },
       "2026-03-24": {
-        "total": 7982,
-        "today": 2915,
-        "week": 1271,
+        "total": 8030,
+        "today": 2924,
+        "week": 1277,
         "month": 149,
-        "older": 485,
-        "home": 1239,
-        "browse": 578,
-        "newsletter": 305,
-        "other": 1040
+        "older": 490,
+        "home": 1247,
+        "browse": 594,
+        "newsletter": 312,
+        "other": 1037
       }
     },
     "non_article_pages": [
@@ -8058,8 +8070,8 @@
       {
         "path": "/login/",
         "title": "",
-        "views": 312,
-        "users": 153,
+        "views": 313,
+        "users": 154,
         "type": "account"
       },
       {
@@ -8105,17 +8117,10 @@
         "type": "pagination"
       },
       {
-        "path": "/send-a-news-tip/",
-        "title": "Send a News Tip - BusinessDen",
-        "views": 101,
-        "users": 618,
-        "type": "other"
-      },
-      {
         "path": "/logout/",
         "title": "BusinessDen Log Out",
         "views": 99,
-        "users": 386,
+        "users": 387,
         "type": "other"
       },
       {
@@ -8135,7 +8140,7 @@
       {
         "path": "/category/law/",
         "title": "Denver Law News | Business Den",
-        "views": 85,
+        "views": 86,
         "users": 159,
         "type": "category"
       },
@@ -8170,8 +8175,8 @@
       {
         "path": "/profile/",
         "title": "",
-        "views": 58,
-        "users": 30,
+        "views": 60,
+        "users": 31,
         "type": "other"
       },
       {
@@ -8203,17 +8208,17 @@
         "type": "category"
       },
       {
+        "path": "/category/commercial-real-estate/",
+        "title": "",
+        "views": 40,
+        "users": 29,
+        "type": "category"
+      },
+      {
         "path": "/category/startups/",
         "title": "(not set)",
         "views": 40,
         "users": 41,
-        "type": "category"
-      },
-      {
-        "path": "/category/commercial-real-estate/",
-        "title": "",
-        "views": 39,
-        "users": 28,
         "type": "category"
       },
       {
@@ -8392,6 +8397,13 @@
         "type": "category"
       },
       {
+        "path": "/send-a-news-tip/",
+        "title": "",
+        "views": 17,
+        "users": 17,
+        "type": "other"
+      },
+      {
         "path": "/-temporary-slug-1ee9d362-530d-4e22-9f33-150df818777e",
         "title": "(not set)",
         "views": 17,
@@ -8407,9 +8419,9 @@
       }
     ],
     "other_breakdown": {
-      "other": 3596,
-      "category": 720,
-      "account": 312,
+      "other": 3514,
+      "category": 722,
+      "account": 313,
       "author": 268,
       "static": 261,
       "pagination": 209,
@@ -8456,8 +8468,8 @@
       "2026-03-05": 3754,
       "2026-03-11": 3721,
       "2026-03-04": 3641,
+      "2026-03-24": 3582,
       "2026-02-26": 3559,
-      "2026-03-24": 3558,
       "2026-02-11": 3436,
       "2026-01-24": 3182,
       "2026-02-08": 2119,
@@ -12791,16 +12803,16 @@
         "Law": 9
       },
       "2026-03-24": {
-        "Commercial Real Estate": 1940,
-        "Startups": 777,
+        "Commercial Real Estate": 1946,
+        "Startups": 779,
         "Residential Real Estate": 26,
         "Government": 6,
         "Education": 16,
-        "Outdoor Recreation": 615,
-        "Brewing": 40,
+        "Outdoor Recreation": 618,
+        "Brewing": 41,
         "Retail": 12,
-        "Restaurants": 784,
-        "Law": 72,
+        "Restaurants": 786,
+        "Law": 73,
         "The Pipeline": 19,
         "Brinkerhoff": 2
       },
