@@ -1104,7 +1104,7 @@ def fetch_ga4_data(data: dict, now: datetime):
         "dimensions": [{"name": "date"}],
         "metrics": [{"name": "totalUsers"}],
         "dimensionFilter": {
-            "filter": {"fieldName": "pagePath", "stringFilter": {"matchType": "FULL_REGEXP", "value": "^/\\d{4}/\\d{2}/\\d{2}/"}}
+            "filter": {"fieldName": "pagePath", "stringFilter": {"matchType": "PARTIAL_REGEXP", "value": "^/[0-9]{4}/[0-9]{2}/[0-9]{2}/"}}
         },
         "limit": 70
     })
