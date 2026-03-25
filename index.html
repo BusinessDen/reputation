@@ -417,15 +417,25 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
       <span><i style="background:#a78bfa"></i> Past 30 days</span>
       <span><i style="background:#f5a623"></i> Older news</span>
       <span><i style="background:#555"></i> Homepage</span>
+      <span><i style="background:#06b6d4"></i> Browse/navigate</span>
+      <span><i style="background:#22c55e"></i> Newsletter signup</span>
       <span><i style="background:#333"></i> Other</span>
     </div>
   </div>
-  <div class="chart-card">
-    <h3>Non-Article Traffic Breakdown</h3>
-    <div id="otherBreakdownBars"></div>
-    <div style="margin-top:16px">
-      <h3 style="font-size:.82rem;margin-bottom:10px">Top Non-Article Pages</h3>
-      <div id="nonArticleList"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div class="chart-card">
+      <h3>Articles per Reader <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
+      <div style="position:relative">
+        <canvas id="aprCanvas" height="140" style="width:100%;background:transparent"></canvas>
+      </div>
+      <div class="chart-labels" id="aprLabels"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Free Newsletter Subscribers <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
+      <div style="position:relative">
+        <canvas id="nlCanvas" height="140" style="width:100%;background:transparent"></canvas>
+      </div>
+      <div class="chart-labels" id="nlLabels"></div>
     </div>
   </div>
 </div>
@@ -703,15 +713,16 @@ function renderTrafficChart(){
 
   // Set canvas resolution
   const rect=canvas.getBoundingClientRect();
+  if(!rect.width||!rect.height)return;
   canvas.width=rect.width*2;canvas.height=rect.height*2;
   ctx.scale(2,2);
   const W=rect.width,H=rect.height;
-  const pad={top:10,right:10,bottom:5,left:40};
+  const pad={top:10,right:10,bottom:5,left:45};
   const cW=W-pad.left-pad.right,cH=H-pad.top-pad.bottom;
 
-  // Stack order (bottom to top): other, home, older, month, week, today
-  const layers=['other','home','older','month','week','today'];
-  const colors={today:'#4caf50',week:'#3b82f6',month:'#a78bfa',older:'#f5a623',home:'#555',other:'#333'};
+  // Stack order (bottom to top): other, newsletter, browse, home, older, month, week, today
+  const layers=['other','newsletter','browse','home','older','month','week','today'];
+  const colors={today:'#4caf50',week:'#3b82f6',month:'#a78bfa',older:'#f5a623',home:'#555',browse:'#06b6d4',newsletter:'#22c55e',other:'#333'};
 
   // Find max total
   const maxTotal=Math.max(...dates.map(d=>breakdown[d].total||0),1);
@@ -725,7 +736,6 @@ function renderTrafficChart(){
       cumulative+=(v[layer]||0);
       pts[layer]=cumulative;
     }
-    pts._total=v.total||0;
     return pts;
   });
 
@@ -736,13 +746,11 @@ function renderTrafficChart(){
     const layer=layers[li];
     ctx.fillStyle=colors[layer];
     ctx.beginPath();
-    // Top edge
     for(let i=0;i<dates.length;i++){
       const x=pad.left+(i/(dates.length-1||1))*cW;
       const y=pad.top+cH-(stacked[i][layer]/maxTotal)*cH;
       if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
     }
-    // Bottom edge (previous layer or baseline)
     const prevLayer=li>0?layers[li-1]:null;
     for(let i=dates.length-1;i>=0;i--){
       const x=pad.left+(i/(dates.length-1||1))*cW;
@@ -759,7 +767,6 @@ function renderTrafficChart(){
     const val=Math.round(maxTotal*i/4);
     const y=pad.top+cH-(i/4)*cH;
     ctx.fillText(val.toLocaleString(),pad.left-6,y+3);
-    // Grid line
     ctx.strokeStyle='#1e2028';ctx.lineWidth=0.5;
     ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+cW,y);ctx.stroke();
   }
@@ -777,16 +784,18 @@ function renderTrafficChart(){
     const idx=Math.round(((mx-pad.left)/cW)*(dates.length-1));
     if(idx<0||idx>=dates.length)return;
     const d=dates[idx],v=breakdown[d];
-    canvas.title=fmtShort(d)+': '+v.total.toLocaleString()+' total\n'+
-      'Today\'s news: '+v.today+'\nPast 7d: '+v.week+'\nPast 30d: '+v.month+
-      '\nOlder: '+v.older+'\nHomepage: '+v.home+'\nOther: '+v.other;
+    canvas.title=fmtShort(d)+': '+(v.total||0).toLocaleString()+' total\n'+
+      'Today\'s news: '+(v.today||0)+'\nPast 7d: '+(v.week||0)+'\nPast 30d: '+(v.month||0)+
+      '\nOlder: '+(v.older||0)+'\nHomepage: '+(v.home||0)+'\nBrowse: '+(v.browse||0)+
+      '\nNewsletter: '+(v.newsletter||0)+'\nOther: '+(v.other||0);
   };
 }
 
 function renderTrafficTab(){
   renderTrafficKPIs();
   renderTrafficChart();
-  renderOtherBreakdown();
+  renderAPRChart();
+  renderNewsletterChart();
 }
 
 function renderTrafficKPIs(){
@@ -851,37 +860,90 @@ function fmtCompare(current,prior,priorLabel){
   return priorLabel+': '+prior.toLocaleString()+' <span style="color:'+color+'">'+arrow+' '+Math.abs(pct)+'%</span>';
 }
 
-function renderOtherBreakdown(){
-  const ob=(D.ga4&&D.ga4.other_breakdown)||{};
-  const nap=(D.ga4&&D.ga4.non_article_pages)||[];
-  const barsEl=document.getElementById('otherBreakdownBars');
-  const listEl=document.getElementById('nonArticleList');
+function drawLineChart(canvasId, labelsId, data, dates, color, yFormat){
+  const canvas=document.getElementById(canvasId);
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const rect=canvas.getBoundingClientRect();
+  if(!rect.width||!rect.height)return;
+  canvas.width=rect.width*2;canvas.height=rect.height*2;
+  ctx.scale(2,2);
+  const W=rect.width,H=rect.height;
+  const pad={top:10,right:10,bottom:5,left:45};
+  const cW=W-pad.left-pad.right,cH=H-pad.top-pad.bottom;
 
-  // Horizontal bars for page type breakdown
-  const entries=Object.entries(ob).sort((a,b)=>b[1]-a[1]);
-  if(!entries.length){barsEl.innerHTML='<div class="empty-state"><p>No data yet</p></div>';return;}
-  const maxVal=Math.max(...entries.map(e=>e[1]),1);
-  const typeColors={category:'#3b82f6',tag:'#a78bfa',author:'#4caf50',pagination:'#f5a623',
-    feed:'#06b6d4',account:'#fb923c',subscribe:'#22c55e',static:'#555',search:'#e85454',other:'#444'};
+  const vals=dates.map(d=>data[d]||0);
+  const maxVal=Math.max(...vals,1);
+  const minVal=Math.min(...vals);
+  const range=maxVal-minVal||1;
 
-  barsEl.innerHTML=entries.map(([type,views])=>{
-    const w=Math.max(2,(views/maxVal)*100);
-    const color=typeColors[type]||'#444';
-    return '<div class="hbar-row"><div class="hbar-label">'+type+'</div>'+
-      '<div class="hbar-track"><div style="width:'+w+'%;height:100%;background:'+color+';border-radius:4px"></div></div>'+
-      '<div class="hbar-count">'+views.toLocaleString()+'</div></div>';
-  }).join('');
+  ctx.clearRect(0,0,W,H);
 
-  // Top non-article pages list
-  if(!nap.length){listEl.innerHTML='';return;}
-  listEl.innerHTML=nap.slice(0,15).map(p=>{
-    const typeColor=typeColors[p.type]||'#444';
-    return '<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #1a1d25;font-size:.82rem;align-items:baseline">'+
-      '<span style="min-width:50px;font-family:JetBrains Mono;color:#999;text-align:right">'+p.views.toLocaleString()+'</span>'+
-      '<span style="padding:1px 8px;border-radius:10px;font-size:.65rem;font-weight:600;text-transform:uppercase;background:'+typeColor+'22;color:'+typeColor+'">'+p.type+'</span>'+
-      '<span style="flex:1;color:#c8cad0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(p.title||p.path)+'</span>'+
-    '</div>';
-  }).join('');
+  // Grid lines
+  ctx.strokeStyle='#1e2028';ctx.lineWidth=0.5;
+  ctx.fillStyle='#555';ctx.font='10px JetBrains Mono';ctx.textAlign='right';
+  for(let i=0;i<=4;i++){
+    const val=minVal+(range*i/4);
+    const y=pad.top+cH-(i/4)*cH;
+    ctx.fillText(yFormat?yFormat(val):val.toLocaleString(),pad.left-6,y+3);
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+cW,y);ctx.stroke();
+  }
+
+  // Line
+  ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();
+  for(let i=0;i<dates.length;i++){
+    const x=pad.left+(i/(dates.length-1||1))*cW;
+    const y=pad.top+cH-((vals[i]-minVal)/range)*cH;
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  // Fill under line
+  ctx.lineTo(pad.left+cW,pad.top+cH);
+  ctx.lineTo(pad.left,pad.top+cH);
+  ctx.closePath();
+  ctx.fillStyle=color+'18';
+  ctx.fill();
+
+  // Dots
+  ctx.fillStyle=color;
+  for(let i=0;i<dates.length;i++){
+    const x=pad.left+(i/(dates.length-1||1))*cW;
+    const y=pad.top+cH-((vals[i]-minVal)/range)*cH;
+    ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);ctx.fill();
+  }
+
+  // X labels
+  const labelsEl=document.getElementById(labelsId);
+  if(labelsEl){
+    labelsEl.innerHTML=dates.map((d,i)=>{
+      if(i%4&&dates.length>14)return'<span></span>';
+      return'<span>'+fmtShort(d)+'</span>';
+    }).join('');
+  }
+
+  // Tooltip
+  canvas.onmousemove=function(e){
+    const r=canvas.getBoundingClientRect();
+    const mx=e.clientX-r.left;
+    const idx=Math.round(((mx-pad.left)/cW)*(dates.length-1));
+    if(idx<0||idx>=dates.length)return;
+    canvas.title=fmtShort(dates[idx])+': '+(yFormat?yFormat(vals[idx]):vals[idx].toLocaleString());
+  };
+}
+
+function renderAPRChart(){
+  const apr=(D.ga4&&D.ga4.articles_per_reader)||{};
+  const dates=Object.keys(apr).sort().slice(-30);
+  if(!dates.length)return;
+  drawLineChart('aprCanvas','aprLabels',apr,dates,'#f5a623',v=>v.toFixed(1));
+}
+
+function renderNewsletterChart(){
+  const nl=(D.ga4&&D.ga4.newsletter_history)||{};
+  const dates=Object.keys(nl).sort().slice(-30);
+  if(!dates.length)return;
+  drawLineChart('nlCanvas','nlLabels',nl,dates,'#3b82f6',v=>Math.round(v).toLocaleString());
 }
 
 // ═══ OUTLET PICKUP CHART (#2) ═══
@@ -1113,7 +1175,6 @@ function doRenderStories(){
   const pickup=document.getElementById('sfPickup').value;
   const sort1=document.getElementById('sfSort1').value;
   const sort2=document.getElementById('sfSort2').value;
-  const reception=D.article_reception||{};
   const el=document.getElementById('storiesList');
 
   // Compute global ranking by mention count (all articles)
@@ -1122,12 +1183,18 @@ function doRenderStories(){
   const globalRank={};
   allRanked.forEach((a,i)=>{globalRank[a.url]=i+1;});
 
-  // Filter
+  // Compute readership ranking (by views)
   const ga4Stats=(D.ga4&&D.ga4.article_stats)||{};
+  const allByViews=[...bdArticles].map(a=>{const g=ga4Stats[a.url]||{};return{url:a.url,views:g.views||0};});
+  allByViews.sort((a,b)=>b.views-a.views);
+  const viewsRank={};
+  allByViews.forEach((a,i)=>{viewsRank[a.url]=i+1;});
+
+  // Filter
   let filtered=bdArticles.map(a=>{
     const ga4=ga4Stats[a.url]||{};
     return{...a,mentionCount:getArticleMatches(a.url).length,rank:globalRank[a.url]||0,
-      views:ga4.views||0,subs:ga4.subscriptions||0};
+      views:ga4.views||0,subs:ga4.subscriptions||0,viewsRank:viewsRank[a.url]||0};
   });
   filtered=filtered.filter(a=>{
     if(auth&&a.author!==auth)return false;
@@ -1160,20 +1227,33 @@ function doRenderStories(){
 
   if(!filtered.length){el.innerHTML='<div class="empty-state"><p>No articles match filters</p></div>';return;}
 
+  const totalArticles=bdArticles.length;
+
   el.innerHTML=filtered.map(a=>{
     const refs=getArticleMatches(a.url);
-    const artRec=reception[a.url]||{};
-    let recText='',recTier='';
-    for(const t of['30day','7day','2day']){if(artRec[t]){recText=artRec[t].text;recTier=t;break;}}
-    const tierLabels={'2day':'2-Day Reception','7day':'1-Week Reception','30day':'1-Month Reception'};
-    const rank=a.rank;
-    const ga4=(D.ga4&&D.ga4.article_stats&&D.ga4.article_stats[a.url])||{};
-    const viewsStr=ga4.views?ga4.views.toLocaleString()+' views':'';
-    const subsStr=ga4.subscriptions?ga4.subscriptions+' subscriber'+(ga4.subscriptions!==1?'s':''):'';
-    const ga4Meta=[viewsStr,subsStr].filter(Boolean).join(' · ');
-    return'<div class="story-card"><div class="sc-header"><span style="font-family:JetBrains Mono;font-size:.75rem;color:#555;min-width:30px">#'+rank+'</span><div class="sc-title"><a href="'+esc(a.url)+'" target="_blank">'+esc(a.title)+'</a></div></div><div class="sc-meta"><span class="sc-author">'+esc(a.author)+'</span><span>'+fmtDate(a.published)+'</span><span>'+a.mentionCount+' mention'+(a.mentionCount!==1?'s':'')+'</span>'+(ga4Meta?'<span style="color:#4caf50">'+ga4Meta+'</span>':'')+'<span>'+esc((a.categories||[]).join(', '))+'</span></div>'+
-      (recText?'<div class="sc-reception has-data"><div class="tier-label">'+(tierLabels[recTier]||'Reception')+'</div>'+formatSummary(recText)+'</div>':(refs.length?'<div class="sc-reception">AI reception summary pending (generated at 2-day, 7-day, 30-day marks).</div>':'<div class="no-pickup">No third-party pickup detected</div>'))+
-      (refs.length?'<button class="expand-btn" onclick="toggleRefs(this)">View online references ('+refs.length+')</button><div class="ref-list">'+refs.map(r=>'<a href="'+esc(r.url)+'" target="_blank">'+esc(r.title)+'<span class="ref-source">'+esc(r.source)+'</span></a>').join('')+'</div>':'')+'</div>';
+    return '<div class="story-card">'+
+      '<div class="sc-header"><div class="sc-title"><a href="'+esc(a.url)+'" target="_blank">'+esc(a.title)+'</a></div></div>'+
+      '<div class="sc-meta"><span class="sc-author">'+esc(a.author)+'</span><span>'+fmtDate(a.published)+'</span><span>'+esc((a.categories||[]).join(', '))+'</span></div>'+
+      '<div style="display:flex;gap:10px;margin:12px 0;flex-wrap:wrap">'+
+        '<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:10px;padding:10px 16px;min-width:90px">'+
+          '<div style="font-family:JetBrains Mono;font-size:1.2rem;font-weight:700;color:#3b82f6">'+a.views.toLocaleString()+'</div>'+
+          '<div style="font-size:.65rem;color:#666;text-transform:uppercase">Readers</div>'+
+        '</div>'+
+        '<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:10px;padding:10px 16px;min-width:90px">'+
+          '<div style="font-family:JetBrains Mono;font-size:1.2rem;font-weight:700;color:#f5a623">'+a.mentionCount+'</div>'+
+          '<div style="font-size:.65rem;color:#666;text-transform:uppercase">Mentions</div>'+
+        '</div>'+
+        '<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:10px;padding:10px 16px;min-width:90px">'+
+          '<div style="font-family:JetBrains Mono;font-size:1.2rem;font-weight:700;color:#4caf50">'+a.subs+'</div>'+
+          '<div style="font-size:.65rem;color:#666;text-transform:uppercase">Subscribers</div>'+
+        '</div>'+
+        '<div style="text-align:center;background:#13151a;border:1px solid #1e2028;border-radius:10px;padding:10px 16px;min-width:90px">'+
+          '<div style="font-family:JetBrains Mono;font-size:1.2rem;font-weight:700;color:#999">#'+a.viewsRank+'</div>'+
+          '<div style="font-size:.65rem;color:#666;text-transform:uppercase">of '+totalArticles+' all time</div>'+
+        '</div>'+
+      '</div>'+
+      (refs.length?'<button class="expand-btn" onclick="toggleRefs(this)">View online references ('+refs.length+')</button><div class="ref-list">'+refs.map(r=>'<a href="'+esc(r.url)+'" target="_blank">'+esc(r.title)+'<span class="ref-source">'+esc(r.source)+'</span></a>').join('')+'</div>':'')+
+    '</div>';
   }).join('');
 }
 ['sfSearch','sfAuthor','sfPickup','sfSort1','sfSort2'].forEach(id=>{document.getElementById(id).addEventListener(id==='sfSearch'?'input':'change',doRenderStories);});

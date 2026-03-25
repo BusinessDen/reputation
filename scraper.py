@@ -1097,12 +1097,15 @@ def fetch_ga4_data(data: dict, now: datetime):
             all_pages[path] = {"title": title, "views": views, "users": users}
         print(f"    → {len(all_pages)} total pages with pageview data")
 
-    # --- Query 8: Daily unique readers (totalUsers) for reader KPIs ---
+    # --- Query 8: Daily unique article readers (totalUsers on article pages only) ---
     daily_readers = {}  # {date: users}
     result = ga4_query({
         "dateRanges": [{"startDate": "60daysAgo", "endDate": "today"}],
         "dimensions": [{"name": "date"}],
         "metrics": [{"name": "totalUsers"}],
+        "dimensionFilter": {
+            "filter": {"fieldName": "pagePath", "stringFilter": {"matchType": "FULL_REGEXP", "value": "^/\\d{4}/\\d{2}/\\d{2}/"}}
+        },
         "limit": 70
     })
     if result:
@@ -1110,7 +1113,20 @@ def fetch_ga4_data(data: dict, now: datetime):
             d = row["dimensionValues"][0]["value"]
             date_str = f"{d[:4]}-{d[4:6]}-{d[6:8]}"
             daily_readers[date_str] = int(row["metricValues"][0]["value"])
-        print(f"    → {len(daily_readers)} days with daily reader data")
+        print(f"    → {len(daily_readers)} days with daily article reader data")
+
+    # --- Fetch newsletter subscriber history from subscriber dashboard ---
+    newsletter_history = {}
+    try:
+        snap_resp = requests.get("https://businessden.github.io/subscriber/data/snapshots.json", timeout=15)
+        snap_resp.raise_for_status()
+        snap_data = snap_resp.json()
+        for snap in snap_data.get("snapshots", []):
+            if snap.get("date") and snap.get("active_free") is not None:
+                newsletter_history[snap["date"]] = snap["active_free"]
+        print(f"    → {len(newsletter_history)} days of newsletter subscriber history")
+    except Exception as e:
+        print(f"    [Newsletter] Error fetching subscriber data: {e}")
 
     # --- Match GA4 data to BD articles ---
     if "ga4" not in data:
@@ -1175,7 +1191,27 @@ def fetch_ga4_data(data: dict, now: datetime):
         except:
             pass
 
-    traffic_breakdown = {}  # {date: {today: N, week: N, month: N, older: N, home: N, other: N}}
+    # Compute aggregate browse and newsletter totals from all_pages for proportional split
+    browse_total = 0
+    newsletter_total = 0
+    other_non_article_total = 0
+    for path, info in all_pages.items():
+        if path == "/":
+            continue
+        if re.match(r'^/\d{4}/\d{2}/\d{2}/', path):
+            continue  # article
+        if path in article_pub_dates or path.rstrip("/") in article_pub_dates:
+            continue
+        v = info["views"]
+        if any(x in path for x in ["/category/", "/tag/", "/author/", "/page/", "/recent-stories"]):
+            browse_total += v
+        elif any(x in path.lower() for x in ["newsletter", "sign-up", "signup"]):
+            newsletter_total += v
+        else:
+            other_non_article_total += v
+    non_article_total = browse_total + newsletter_total + other_non_article_total
+
+    traffic_breakdown = {}
     for date_str in sorted(daily_totals.keys()):
         total = daily_totals.get(date_str, 0)
         home = daily_home.get(date_str, 0)
@@ -1217,7 +1253,17 @@ def fetch_ga4_data(data: dict, now: datetime):
                 older_views += day_count
 
         article_total = today_views + week_views + month_views + older_views
-        other_views = max(0, total - home - article_total)
+        remainder = max(0, total - home - article_total)
+
+        # Split remainder proportionally into browse, newsletter, other
+        if non_article_total > 0:
+            browse_views = round(remainder * browse_total / non_article_total)
+            newsletter_views = round(remainder * newsletter_total / non_article_total)
+            other_views = max(0, remainder - browse_views - newsletter_views)
+        else:
+            browse_views = 0
+            newsletter_views = 0
+            other_views = remainder
 
         traffic_breakdown[date_str] = {
             "total": total,
@@ -1226,11 +1272,28 @@ def fetch_ga4_data(data: dict, now: datetime):
             "month": month_views,
             "older": older_views,
             "home": home,
+            "browse": browse_views,
+            "newsletter": newsletter_views,
             "other": other_views,
         }
 
     data["ga4"]["traffic_breakdown"] = traffic_breakdown
     data["ga4"]["daily_readers"] = daily_readers
+
+    # Compute articles per reader per day from traffic breakdown and daily readers
+    articles_per_reader = {}
+    for date_str, tb in traffic_breakdown.items():
+        article_views = tb.get("today", 0) + tb.get("week", 0) + tb.get("month", 0) + tb.get("older", 0)
+        readers = daily_readers.get(date_str, 0)
+        if readers > 0:
+            articles_per_reader[date_str] = round(article_views / readers, 2)
+    data["ga4"]["articles_per_reader"] = articles_per_reader
+    if articles_per_reader:
+        recent = sorted(articles_per_reader.items())[-1]
+        print(f"    → Articles per reader: {recent[1]} ({recent[0]})")
+
+    # Store newsletter subscriber history
+    data["ga4"]["newsletter_history"] = newsletter_history
     if traffic_breakdown:
         print(f"    → {len(traffic_breakdown)} days of traffic breakdown data")
 
@@ -1376,7 +1439,7 @@ def scrape():
     generate_monthly_summary(data, now)
 
     print("\n11. Article reception summaries")
-    generate_article_reception(data, now)
+    # generate_article_reception removed — Our Stories uses stat cards instead
 
     # generate_byline_analysis removed — byline tab uses data directly
 
