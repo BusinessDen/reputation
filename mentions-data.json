@@ -1,6 +1,30 @@
 {
   "mentions": [
     {
+      "id": "4822910eb1044ab1",
+      "title": "@orderboxbox has opened its dining room on Colfax, transitioning from a pickup and delivery-focused model into a full brick-and-mortar restaurant. The concept centers around customizable, bento-style salad boxes, where customers can mix and match a rota",
+      "title_raw": "@orderboxbox has opened its dining room on Colfax, transitioning from a pickup and delivery-focused model into a full brick-and-mortar restaurant. The concept centers around customizable, bento-style salad boxes, where customers can mix and match a rota - instagram.com",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE50M1ViME5mMFpxdWtMczhYaU9lUzZzeHpENzlwU0NMbXh4UDhGeWhQQWdwRlRYdEtUR3BCZVI3YXNPRXEzUHo0MWlndkMyeUgyZHc?oc=5",
+      "snippet": "@orderboxbox has opened its dining room on Colfax, transitioning from a pickup and delivery-focused model into a full brick-and-mortar restaurant. The concept centers around customizable, bento-style salad boxes, where customers can mix and match a rota  instagram.com",
+      "source": "instagram.com",
+      "source_url": "https://www.instagram.com",
+      "source_domain": "instagram.com",
+      "published": "2026-03-25T03:41:46+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-03-25T06:41:13.810080+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiUkFVX3lxTE50M1ViME5mMFpxdWtMczhYaU9lUzZzeHpENzlwU0NMbXh4UDhGeWhQQWdwRlRYdEtUR3BCZVI3YXNPRXEzUHo0MWlndkMyeUgyZHc",
+      "sentiment": "neutral"
+    },
+    {
       "id": "e329c97ccd893499",
       "title": "Beloved Denver outdoor gear store Wilderness Exchange closing its doors",
       "title_raw": "Beloved Denver outdoor gear store Wilderness Exchange closing its doors - The Denver Post",
@@ -5609,7 +5633,7 @@
       "1854a1cbcd340dbf"
     ]
   },
-  "last_updated": "2026-03-25T06:38:21.908268+00:00",
+  "last_updated": "2026-03-25T06:41:13.810080+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -6390,11 +6414,23 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-03-25T06:41:13.810080+00:00",
+      "new_mentions": 1,
+      "total_mentions": 150,
+      "total_bd_articles": 71,
+      "sources": {
+        "google_news_rss": 26,
+        "wordpress_api": 16,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 0,
+  "new_this_run": 1,
   "ga4": {
-    "last_fetched": "2026-03-25T06:38:21.908268+00:00",
+    "last_fetched": "2026-03-25T06:41:13.810080+00:00",
     "article_stats": {
       "https://businessden.com/2026/03/24/broadway-park-grows-in-size-with-2m-purchase/": {
         "views": 731,
