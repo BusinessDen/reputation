@@ -406,9 +406,9 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
     <div class="kpi-card purple"><div class="kpi-label">Year to Date</div><div class="kpi-value" id="tReadersYTD">–</div><div class="kpi-sub" id="tReadersYTDSub"></div></div>
   </div>
   <div class="chart-card">
-    <h3>Page Views by Content Age <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
+    <h3>Website Traffic <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
     <div style="position:relative">
-      <canvas id="trafficCanvas" height="180" style="width:100%;background:transparent"></canvas>
+      <canvas id="trafficCanvas" height="120" style="width:100%;background:transparent"></canvas>
     </div>
     <div class="chart-labels" id="trafficLabels"></div>
     <div class="chart-legend" style="margin-top:10px">
@@ -422,13 +422,20 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
       <span><i style="background:#333"></i> Other</span>
     </div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
     <div class="chart-card">
       <h3>Articles per Reader <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
       <div style="position:relative">
         <canvas id="aprCanvas" height="140" style="width:100%;background:transparent"></canvas>
       </div>
       <div class="chart-labels" id="aprLabels"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Articles per Subscriber <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
+      <div style="position:relative">
+        <canvas id="apsCanvas" height="140" style="width:100%;background:transparent"></canvas>
+      </div>
+      <div class="chart-labels" id="apsLabels"></div>
     </div>
     <div class="chart-card">
       <h3>Free Newsletter Subscribers <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
@@ -796,6 +803,7 @@ function renderTrafficTab(){
   renderTrafficKPIs();
   renderTrafficChart();
   renderAPRChart();
+  renderAPSChart();
   renderNewsletterChart();
 }
 
@@ -861,7 +869,8 @@ function fmtCompare(current,prior,priorLabel){
   return priorLabel+': '+prior.toLocaleString()+' <span style="color:'+color+'">'+arrow+' '+Math.abs(pct)+'%</span>';
 }
 
-function drawLineChart(canvasId, labelsId, data, dates, color, yFormat){
+function drawLineChart(canvasId, labelsId, data, dates, color, yFormat, opts){
+  opts=opts||{};
   const canvas=document.getElementById(canvasId);
   if(!canvas)return;
   const ctx=canvas.getContext('2d');
@@ -874,13 +883,13 @@ function drawLineChart(canvasId, labelsId, data, dates, color, yFormat){
   const cW=W-pad.left-pad.right,cH=H-pad.top-pad.bottom;
 
   const vals=dates.map(d=>data[d]||0);
-  const maxVal=Math.max(...vals,1);
-  const minVal=Math.min(...vals);
+  const maxVal=Math.max(...vals,1)*1.05;
+  const minVal=opts.zeroBaseline?0:Math.min(...vals)*0.95;
   const range=maxVal-minVal||1;
 
   ctx.clearRect(0,0,W,H);
 
-  // Grid lines
+  // Grid lines + Y labels
   ctx.strokeStyle='#1e2028';ctx.lineWidth=0.5;
   ctx.fillStyle='#555';ctx.font='10px JetBrains Mono';ctx.textAlign='right';
   for(let i=0;i<=4;i++){
@@ -890,7 +899,7 @@ function drawLineChart(canvasId, labelsId, data, dates, color, yFormat){
     ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+cW,y);ctx.stroke();
   }
 
-  // Line
+  // Main line
   ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();
   for(let i=0;i<dates.length;i++){
     const x=pad.left+(i/(dates.length-1||1))*cW;
@@ -911,14 +920,43 @@ function drawLineChart(canvasId, labelsId, data, dates, color, yFormat){
   for(let i=0;i<dates.length;i++){
     const x=pad.left+(i/(dates.length-1||1))*cW;
     const y=pad.top+cH-((vals[i]-minVal)/range)*cH;
-    ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fill();
+  }
+
+  // 7-day trailing average trendline
+  if(opts.trailing7){
+    ctx.strokeStyle='#e85454';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);ctx.beginPath();
+    let started=false;
+    for(let i=0;i<dates.length;i++){
+      let sum=0,count=0;
+      for(let j=Math.max(0,i-6);j<=i;j++){sum+=vals[j];count++;}
+      const avg=sum/count;
+      const x=pad.left+(i/(dates.length-1||1))*cW;
+      const y=pad.top+cH-((avg-minVal)/range)*cH;
+      if(!started){ctx.moveTo(x,y);started=true;}else ctx.lineTo(x,y);
+    }
+    ctx.stroke();ctx.setLineDash([]);
+  }
+
+  // Best-fit (linear regression) trendline
+  if(opts.bestFit){
+    const n=vals.length;
+    let sx=0,sy=0,sxy=0,sxx=0;
+    for(let i=0;i<n;i++){sx+=i;sy+=vals[i];sxy+=i*vals[i];sxx+=i*i;}
+    const slope=(n*sxy-sx*sy)/(n*sxx-sx*sx);
+    const intercept=(sy-slope*sx)/n;
+    ctx.strokeStyle='#e85454';ctx.lineWidth=1.5;ctx.setLineDash([6,4]);ctx.beginPath();
+    const y0=intercept, yN=intercept+slope*(n-1);
+    ctx.moveTo(pad.left,pad.top+cH-((y0-minVal)/range)*cH);
+    ctx.lineTo(pad.left+cW,pad.top+cH-((yN-minVal)/range)*cH);
+    ctx.stroke();ctx.setLineDash([]);
   }
 
   // X labels
   const labelsEl=document.getElementById(labelsId);
   if(labelsEl){
     labelsEl.innerHTML=dates.map((d,i)=>{
-      if(i%4&&dates.length>14)return'<span></span>';
+      if(i%5&&dates.length>14)return'<span></span>';
       return'<span>'+fmtShort(d)+'</span>';
     }).join('');
   }
@@ -937,14 +975,21 @@ function renderAPRChart(){
   const apr=(D.ga4&&D.ga4.articles_per_reader)||{};
   const dates=Object.keys(apr).sort().slice(-30);
   if(!dates.length)return;
-  drawLineChart('aprCanvas','aprLabels',apr,dates,'#f5a623',v=>v.toFixed(1));
+  drawLineChart('aprCanvas','aprLabels',apr,dates,'#f5a623',v=>v.toFixed(1),{trailing7:true});
+}
+
+function renderAPSChart(){
+  const aps=(D.ga4&&D.ga4.articles_per_subscriber)||{};
+  const dates=Object.keys(aps).sort().slice(-30);
+  if(!dates.length)return;
+  drawLineChart('apsCanvas','apsLabels',aps,dates,'#a78bfa',v=>v.toFixed(2),{trailing7:true});
 }
 
 function renderNewsletterChart(){
   const nl=(D.ga4&&D.ga4.newsletter_history)||{};
   const dates=Object.keys(nl).sort().slice(-30);
   if(!dates.length)return;
-  drawLineChart('nlCanvas','nlLabels',nl,dates,'#3b82f6',v=>Math.round(v).toLocaleString());
+  drawLineChart('nlCanvas','nlLabels',nl,dates,'#3b82f6',v=>Math.round(v).toLocaleString(),{zeroBaseline:true,bestFit:true});
 }
 
 // ═══ OUTLET PICKUP CHART (#2) ═══

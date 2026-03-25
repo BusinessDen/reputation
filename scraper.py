@@ -1115,16 +1115,23 @@ def fetch_ga4_data(data: dict, now: datetime):
             daily_readers[date_str] = int(row["metricValues"][0]["value"])
         print(f"    → {len(daily_readers)} days with daily article reader data")
 
-    # --- Fetch newsletter subscriber history from subscriber dashboard ---
+    # --- Fetch subscriber history from subscriber dashboard ---
     newsletter_history = {}
+    total_subscribers_history = {}
     try:
         snap_resp = requests.get("https://businessden.github.io/subscriber/data/snapshots.json", timeout=15)
         snap_resp.raise_for_status()
         snap_data = snap_resp.json()
         for snap in snap_data.get("snapshots", []):
-            if snap.get("date") and snap.get("active_free") is not None:
-                newsletter_history[snap["date"]] = snap["active_free"]
+            d = snap.get("date")
+            if not d:
+                continue
+            if snap.get("active_free") is not None:
+                newsletter_history[d] = snap["active_free"]
+            if snap.get("active_total") is not None:
+                total_subscribers_history[d] = snap["active_total"]
         print(f"    → {len(newsletter_history)} days of newsletter subscriber history")
+        print(f"    → {len(total_subscribers_history)} days of total subscriber history")
     except Exception as e:
         print(f"    [Newsletter] Error fetching subscriber data: {e}")
 
@@ -1294,6 +1301,19 @@ def fetch_ga4_data(data: dict, now: datetime):
 
     # Store newsletter subscriber history
     data["ga4"]["newsletter_history"] = newsletter_history
+    data["ga4"]["total_subscribers_history"] = total_subscribers_history
+
+    # Compute articles per subscriber per day
+    articles_per_subscriber = {}
+    for date_str, tb in traffic_breakdown.items():
+        article_views = tb.get("today", 0) + tb.get("week", 0) + tb.get("month", 0) + tb.get("older", 0)
+        total_subs = total_subscribers_history.get(date_str, 0)
+        if total_subs > 0:
+            articles_per_subscriber[date_str] = round(article_views / total_subs, 2)
+    data["ga4"]["articles_per_subscriber"] = articles_per_subscriber
+    if articles_per_subscriber:
+        recent = sorted(articles_per_subscriber.items())[-1]
+        print(f"    → Articles per subscriber: {recent[1]} ({recent[0]})")
     if traffic_breakdown:
         print(f"    → {len(traffic_breakdown)} days of traffic breakdown data")
 
