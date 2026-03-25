@@ -401,9 +401,9 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
 <div class="tab-panel" id="panel-traffic">
   <div class="kpi-grid">
     <div class="kpi-card amber"><div class="kpi-label">Readers Yesterday</div><div class="kpi-value" id="tReadersToday">–</div><div class="kpi-sub" id="tReadersTodaySub"></div></div>
-    <div class="kpi-card blue"><div class="kpi-label">This Week</div><div class="kpi-value" id="tReadersWeek">–</div><div class="kpi-sub" id="tReadersWeekSub"></div></div>
-    <div class="kpi-card green"><div class="kpi-label">Month to Date</div><div class="kpi-value" id="tReadersMTD">–</div><div class="kpi-sub" id="tReadersMTDSub"></div></div>
-    <div class="kpi-card purple"><div class="kpi-label">Year to Date</div><div class="kpi-value" id="tReadersYTD">–</div><div class="kpi-sub" id="tReadersYTDSub"></div></div>
+    <div class="kpi-card blue"><div class="kpi-label">Avg Daily (This Week)</div><div class="kpi-value" id="tReadersWeek">–</div><div class="kpi-sub" id="tReadersWeekSub"></div></div>
+    <div class="kpi-card green"><div class="kpi-label">Avg Daily (MTD)</div><div class="kpi-value" id="tReadersMTD">–</div><div class="kpi-sub" id="tReadersMTDSub"></div></div>
+    <div class="kpi-card purple"><div class="kpi-label">Avg Daily (YTD)</div><div class="kpi-value" id="tReadersYTD">–</div><div class="kpi-sub" id="tReadersYTDSub"></div></div>
   </div>
   <div class="chart-card">
     <h3>Website Traffic <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
@@ -430,28 +430,26 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
     <div class="chart-labels" id="topicLabels"></div>
     <div class="chart-legend" id="topicLegend" style="margin-top:10px"></div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
-    <div class="chart-card">
-      <h3>Articles per Reader <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
-      <div style="position:relative">
-        <canvas id="aprCanvas" height="140" style="width:100%;background:transparent"></canvas>
-      </div>
-      <div class="chart-labels" id="aprLabels"></div>
+  <div class="chart-card">
+    <h3>Articles per Reader <span style="font-weight:400;color:#555;font-size:.75rem">(90 days)</span></h3>
+    <div style="position:relative">
+      <canvas id="aprCanvas" height="60" style="width:100%;background:transparent"></canvas>
     </div>
-    <div class="chart-card">
-      <h3>Articles per Subscriber <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
-      <div style="position:relative">
-        <canvas id="apsCanvas" height="140" style="width:100%;background:transparent"></canvas>
-      </div>
-      <div class="chart-labels" id="apsLabels"></div>
+    <div class="chart-labels" id="aprLabels"></div>
+  </div>
+  <div class="chart-card">
+    <h3>Articles per Subscriber <span style="font-weight:400;color:#555;font-size:.75rem">(90 days)</span></h3>
+    <div style="position:relative">
+      <canvas id="apsCanvas" height="60" style="width:100%;background:transparent"></canvas>
     </div>
-    <div class="chart-card">
-      <h3>Free Newsletter Subscribers <span style="font-weight:400;color:#555;font-size:.75rem">(30 days)</span></h3>
-      <div style="position:relative">
-        <canvas id="nlCanvas" height="140" style="width:100%;background:transparent"></canvas>
-      </div>
-      <div class="chart-labels" id="nlLabels"></div>
+    <div class="chart-labels" id="apsLabels"></div>
+  </div>
+  <div class="chart-card">
+    <h3>Free Newsletter Subscribers <span style="font-weight:400;color:#555;font-size:.75rem">(90 days)</span></h3>
+    <div style="position:relative">
+      <canvas id="nlCanvas" height="60" style="width:100%;background:transparent"></canvas>
     </div>
+    <div class="chart-labels" id="nlLabels"></div>
   </div>
 </div>
 
@@ -968,52 +966,61 @@ function renderTrafficKPIs(){
   const mt=new Date(new Date().toLocaleString('en-US',{timeZone:'America/Denver'}));
   const todayStr=mt.toISOString().split('T')[0];
 
-  // Yesterday
+  // Yesterday vs a week ago yesterday
   const yesterday=new Date(mt);yesterday.setDate(yesterday.getDate()-1);
   const yesterdayStr=yesterday.toISOString().split('T')[0];
+  const weekAgo=new Date(mt);weekAgo.setDate(weekAgo.getDate()-8);
+  const weekAgoStr=weekAgo.toISOString().split('T')[0];
   const yesterdayReaders=readers[yesterdayStr]||0;
+  const weekAgoReaders=readers[weekAgoStr]||0;
   document.getElementById('tReadersToday').textContent=yesterdayReaders.toLocaleString();
+  document.getElementById('tReadersTodaySub').innerHTML=weekAgoReaders?fmtCompare(yesterdayReaders,weekAgoReaders,'Week ago'):'';
 
-  // This week (Mon-Sun) vs last week
-  const dow=mt.getDay()||7; // Mon=1 ... Sun=7
+  // This week avg daily vs last week avg daily
+  const dow=mt.getDay()||7;
+  const daysThisWeek=dow; // days elapsed this week (Mon=1)
   const weekStart=new Date(mt);weekStart.setDate(mt.getDate()-(dow-1));
   const lastWeekStart=new Date(weekStart);lastWeekStart.setDate(lastWeekStart.getDate()-7);
-  let thisWeek=0,lastWeek=0;
+  let thisWeek=0,lastWeek=0,thisWeekDays=0,lastWeekDays=0;
   for(let i=0;i<7;i++){
     const d1=new Date(weekStart);d1.setDate(d1.getDate()+i);
+    const d1s=d1.toISOString().split('T')[0];
+    if(d1s<=yesterdayStr&&readers[d1s]!==undefined){thisWeek+=readers[d1s];thisWeekDays++;}
     const d2=new Date(lastWeekStart);d2.setDate(d2.getDate()+i);
-    thisWeek+=(readers[d1.toISOString().split('T')[0]]||0);
-    lastWeek+=(readers[d2.toISOString().split('T')[0]]||0);
+    const d2s=d2.toISOString().split('T')[0];
+    if(readers[d2s]!==undefined){lastWeek+=readers[d2s];lastWeekDays++;}
   }
-  document.getElementById('tReadersWeek').textContent=thisWeek.toLocaleString();
-  document.getElementById('tReadersWeekSub').innerHTML=fmtCompare(thisWeek,lastWeek,'Last week');
+  const thisWeekAvg=thisWeekDays?Math.round(thisWeek/thisWeekDays):0;
+  const lastWeekAvg=lastWeekDays?Math.round(lastWeek/lastWeekDays):0;
+  document.getElementById('tReadersWeek').textContent=thisWeekAvg.toLocaleString();
+  document.getElementById('tReadersWeekSub').innerHTML=fmtCompare(thisWeekAvg,lastWeekAvg,'Last week avg');
 
-  // MTD vs prior month same period
-  const monthStart=todayStr.slice(0,8)+'01';
+  // MTD avg daily vs prior month avg daily (same number of days)
   const dayOfMonth=mt.getDate();
   const lastMonthDate=new Date(mt.getFullYear(),mt.getMonth()-1,1);
-  const lastMonthStart=lastMonthDate.toISOString().split('T')[0];
-  let mtd=0,lastMtd=0;
+  let mtd=0,lastMtd=0,mtdDays=0,lastMtdDays=0;
   for(let i=0;i<dayOfMonth;i++){
     const d1=new Date(mt.getFullYear(),mt.getMonth(),i+1);
+    const d1s=d1.toISOString().split('T')[0];
+    if(d1s<=yesterdayStr&&readers[d1s]!==undefined){mtd+=readers[d1s];mtdDays++;}
     const d2=new Date(lastMonthDate.getFullYear(),lastMonthDate.getMonth(),i+1);
-    mtd+=(readers[d1.toISOString().split('T')[0]]||0);
-    lastMtd+=(readers[d2.toISOString().split('T')[0]]||0);
+    const d2s=d2.toISOString().split('T')[0];
+    if(readers[d2s]!==undefined){lastMtd+=readers[d2s];lastMtdDays++;}
   }
-  document.getElementById('tReadersMTD').textContent=mtd.toLocaleString();
-  document.getElementById('tReadersMTDSub').innerHTML=fmtCompare(mtd,lastMtd,'Last month');
+  const mtdAvg=mtdDays?Math.round(mtd/mtdDays):0;
+  const lastMtdAvg=lastMtdDays?Math.round(lastMtd/lastMtdDays):0;
+  document.getElementById('tReadersMTD').textContent=mtdAvg.toLocaleString();
+  document.getElementById('tReadersMTDSub').innerHTML=fmtCompare(mtdAvg,lastMtdAvg,'Last month avg');
 
-  // YTD vs prior year (we only have 60 days of data, so this will be partial)
+  // YTD avg daily
   const yearStart=mt.getFullYear()+'-01-01';
-  const lastYearStart=(mt.getFullYear()-1)+'-01-01';
-  const lastYearEnd=(mt.getFullYear()-1)+todayStr.slice(4);
-  let ytd=0,lastYtd=0;
+  let ytd=0,ytdDays=0;
   dates.forEach(d=>{
-    if(d>=yearStart)ytd+=(readers[d]||0);
-    if(d>=lastYearStart&&d<=lastYearEnd)lastYtd+=(readers[d]||0);
+    if(d>=yearStart&&d<=yesterdayStr){ytd+=readers[d];ytdDays++;}
   });
-  document.getElementById('tReadersYTD').textContent=ytd.toLocaleString();
-  document.getElementById('tReadersYTDSub').innerHTML=lastYtd?fmtCompare(ytd,lastYtd,'Last year'):'since Jan 1';
+  const ytdAvg=ytdDays?Math.round(ytd/ytdDays):0;
+  document.getElementById('tReadersYTD').textContent=ytdAvg.toLocaleString();
+  document.getElementById('tReadersYTDSub').textContent='avg/day since Jan 1';
 }
 
 function fmtCompare(current,prior,priorLabel){
@@ -1111,7 +1118,8 @@ function drawLineChart(canvasId, labelsId, data, dates, color, yFormat, opts){
   const labelsEl=document.getElementById(labelsId);
   if(labelsEl){
     labelsEl.innerHTML=dates.map((d,i)=>{
-      if(i%5&&dates.length>14)return'<span></span>';
+      const skip=dates.length>60?10:dates.length>30?5:3;
+      if(i%skip&&dates.length>14)return'<span></span>';
       return'<span>'+fmtShort(d)+'</span>';
     }).join('');
   }
@@ -1128,21 +1136,21 @@ function drawLineChart(canvasId, labelsId, data, dates, color, yFormat, opts){
 
 function renderAPRChart(){
   const apr=(D.ga4&&D.ga4.articles_per_reader)||{};
-  const dates=Object.keys(apr).sort().slice(-30);
+  const dates=Object.keys(apr).sort().slice(-90);
   if(!dates.length)return;
   drawLineChart('aprCanvas','aprLabels',apr,dates,'#f5a623',v=>v.toFixed(1),{trailing7:true});
 }
 
 function renderAPSChart(){
   const aps=(D.ga4&&D.ga4.articles_per_subscriber)||{};
-  const dates=Object.keys(aps).sort().slice(-30);
+  const dates=Object.keys(aps).sort().slice(-90);
   if(!dates.length)return;
   drawLineChart('apsCanvas','apsLabels',aps,dates,'#a78bfa',v=>v.toFixed(2),{trailing7:true});
 }
 
 function renderNewsletterChart(){
   const nl=(D.ga4&&D.ga4.newsletter_history)||{};
-  const dates=Object.keys(nl).sort().slice(-30);
+  const dates=Object.keys(nl).sort().slice(-90);
   if(!dates.length)return;
   drawLineChart('nlCanvas','nlLabels',nl,dates,'#3b82f6',v=>Math.round(v).toLocaleString(),{zeroBaseline:true,bestFit:true});
 }
