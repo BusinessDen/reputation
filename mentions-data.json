@@ -10073,7 +10073,7 @@
       "3ffe4b23ba047832"
     ]
   },
-  "last_updated": "2026-04-11T03:49:07.709035+00:00",
+  "last_updated": "2026-04-11T03:58:49.335324+00:00",
   "run_log": [
     {
       "timestamp": "2026-03-05T04:36:48.740563+00:00",
@@ -11382,11 +11382,23 @@
         "reddit_rss": 2,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-04-11T03:58:49.335324+00:00",
+      "new_mentions": 0,
+      "total_mentions": 295,
+      "total_bd_articles": 127,
+      "sources": {
+        "google_news_rss": 22,
+        "wordpress_api": 17,
+        "reddit_rss": 2,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 1,
+  "new_this_run": 0,
   "ga4": {
-    "last_fetched": "2026-04-11T03:49:07.709035+00:00",
+    "last_fetched": "2026-04-11T03:58:49.335324+00:00",
     "article_stats": {
       "https://businessden.com/2026/04/10/denver-corporate-center-cress-capital-terracap-deal/": {
         "views": 869,
@@ -11405,17 +11417,17 @@
         }
       },
       "https://businessden.com/2026/04/10/9-8m-mansion-on-cherry-hills-country-club-tops-march-home-sales/": {
-        "views": 1014,
-        "users": 853,
-        "sessions": 909,
+        "views": 1015,
+        "users": 854,
+        "sessions": 910,
         "daily_views": {
           "2026-04-10": 1015
         }
       },
       "https://businessden.com/2026/04/10/the-pipeline-commercial-real-estate-deals-for-4-10-26/": {
-        "views": 394,
-        "users": 359,
-        "sessions": 375,
+        "views": 395,
+        "users": 360,
+        "sessions": 376,
         "daily_views": {
           "2026-04-10": 395
         }
@@ -11462,7 +11474,7 @@
       "https://businessden.com/2026/04/09/the-docket-real-estate-lawsuit-roundup-for-4-9-26/": {
         "views": 752,
         "users": 638,
-        "sessions": 715,
+        "sessions": 716,
         "daily_views": {
           "2026-04-09": 456,
           "2026-04-10": 296
@@ -11498,9 +11510,9 @@
         }
       },
       "https://businessden.com/2026/04/08/could-hemp-derived-thc-drinks-help-colorados-struggling-breweries-and-restaurants/": {
-        "views": 468,
-        "users": 388,
-        "sessions": 445,
+        "views": 469,
+        "users": 389,
+        "sessions": 446,
         "daily_views": {
           "2026-04-08": 349,
           "2026-04-09": 105,
@@ -11546,7 +11558,7 @@
       "https://businessden.com/2026/04/07/upton-residences-lawsuit-downtown-denver-window-8g-solutions-amacon/": {
         "views": 1518,
         "users": 1165,
-        "sessions": 1362,
+        "sessions": 1363,
         "subscriptions": 2,
         "daily_subs": {
           "2026-04-07": 2
@@ -13692,8 +13704,8 @@
         "older": 1165,
         "home": 1462,
         "browse": 501,
-        "newsletter": 323,
-        "other": 1059
+        "newsletter": 324,
+        "other": 1058
       },
       "2026-03-13": {
         "total": 8751,
@@ -13901,8 +13913,8 @@
         "older": 669,
         "home": 1394,
         "browse": 492,
-        "newsletter": 317,
-        "other": 1040
+        "newsletter": 318,
+        "other": 1039
       },
       "2026-04-01": {
         "total": 7073,
@@ -13934,8 +13946,8 @@
         "older": 442,
         "home": 1136,
         "browse": 402,
-        "newsletter": 259,
-        "other": 849
+        "newsletter": 260,
+        "other": 848
       },
       "2026-04-04": {
         "total": 2634,
@@ -13977,9 +13989,9 @@
         "month": 117,
         "older": 455,
         "home": 1339,
-        "browse": 529,
+        "browse": 528,
         "newsletter": 341,
-        "other": 1116
+        "other": 1117
       },
       "2026-04-08": {
         "total": 6846,
@@ -13989,8 +14001,8 @@
         "older": 493,
         "home": 1134,
         "browse": 436,
-        "newsletter": 281,
-        "other": 921
+        "newsletter": 282,
+        "other": 920
       },
       "2026-04-09": {
         "total": 11263,
@@ -14000,19 +14012,19 @@
         "older": 385,
         "home": 1312,
         "browse": 515,
-        "newsletter": 332,
-        "other": 1089
+        "newsletter": 333,
+        "other": 1088
       },
       "2026-04-10": {
-        "total": 6699,
+        "total": 6713,
         "today": 3239,
         "week": 1145,
         "month": 60,
         "older": 200,
-        "home": 804,
-        "browse": 333,
-        "newsletter": 215,
-        "other": 703
+        "home": 807,
+        "browse": 336,
+        "newsletter": 217,
+        "other": 709
       }
     },
     "non_article_pages": [
@@ -14047,8 +14059,8 @@
       {
         "path": "/businessden-newsletter-sign-up",
         "title": "BusinessDen Newsletter Sign Up",
-        "views": 365,
-        "users": 344,
+        "views": 366,
+        "users": 345,
         "type": "other"
       },
       {
@@ -14361,7 +14373,7 @@
       }
     ],
     "other_breakdown": {
-      "other": 3973,
+      "other": 3974,
       "category": 682,
       "static": 303,
       "author": 211,
@@ -14410,7 +14422,7 @@
       "2026-03-04": 3641,
       "2026-03-31": 3610,
       "2026-02-26": 3559,
-      "2026-04-10": 3540,
+      "2026-04-10": 3548,
       "2026-02-11": 3436,
       "2026-04-08": 3348,
       "2026-04-01": 3335,
@@ -45903,10 +45915,10 @@
         "other": 73
       },
       "2026-04-10": {
-        "email": 2661,
-        "direct": 798,
-        "organic": 433,
-        "referral": 216,
+        "email": 2663,
+        "direct": 803,
+        "organic": 435,
+        "referral": 218,
         "other": 22
       },
       "2026-02-12": {
@@ -46524,9 +46536,9 @@
         },
         "13": {
           "email": 42,
-          "direct": 31,
+          "direct": 32,
           "organic": 25,
-          "referral": 7
+          "referral": 8
         },
         "3": {
           "email": 41,
@@ -46541,14 +46553,15 @@
           "referral": 4
         },
         "14": {
-          "organic": 5,
-          "email": 4,
-          "direct": 2,
-          "referral": 1
+          "organic": 7,
+          "email": 6,
+          "direct": 5,
+          "referral": 2
         },
         "15": {
-          "email": 2,
-          "organic": 1
+          "email": 3,
+          "organic": 2,
+          "direct": 1
         }
       }
     }
