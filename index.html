@@ -283,7 +283,7 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
     <div class="chart-card">
       <h3>Yesterday's Readers by Hour</h3>
       <div style="position:relative">
-        <canvas id="dashHourlyCanvas" height="60" style="width:100%;background:transparent"></canvas>
+        <canvas id="dashHourlyCanvas" height="100" style="width:100%;background:transparent"></canvas>
       </div>
       <div class="chart-labels" id="dashHourlyLabels"></div>
       <div class="chart-legend" id="dashHourlyLegend" style="margin-top:8px"></div>
@@ -291,11 +291,11 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
     <div class="chart-card">
       <h3>Yesterday: Newsletter vs. Direct by Hour</h3>
       <div style="position:relative">
-        <canvas id="dashNlvdHourlyCanvas" height="60" style="width:100%;background:transparent"></canvas>
+        <canvas id="dashNlvdHourlyCanvas" height="100" style="width:100%;background:transparent"></canvas>
       </div>
       <div class="chart-labels" id="dashNlvdHourlyLabels"></div>
       <div class="chart-legend" style="margin-top:8px">
-        <span><i style="background:#f59e0b"></i> Newsletter %</span>
+        <span><i style="background:#f59e0b"></i> Newsletter</span><span><i style="background:#6366f1"></i> Direct</span>
       </div>
     </div>
   </div>
@@ -503,7 +503,7 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
     <div class="chart-card">
       <h3>Yesterday's Readers by Hour</h3>
       <div style="position:relative">
-        <canvas id="trafficHourlyCanvas" height="60" style="width:100%;background:transparent"></canvas>
+        <canvas id="trafficHourlyCanvas" height="100" style="width:100%;background:transparent"></canvas>
       </div>
       <div class="chart-labels" id="trafficHourlyLabels"></div>
       <div class="chart-legend" id="trafficHourlyLegend" style="margin-top:8px"></div>
@@ -511,11 +511,11 @@ tbody td:first-child{font-weight:600;margin-bottom:6px;border-bottom:1px solid #
     <div class="chart-card">
       <h3>Yesterday: Newsletter vs. Direct by Hour</h3>
       <div style="position:relative">
-        <canvas id="trafficNlvdHourlyCanvas" height="60" style="width:100%;background:transparent"></canvas>
+        <canvas id="trafficNlvdHourlyCanvas" height="100" style="width:100%;background:transparent"></canvas>
       </div>
       <div class="chart-labels" id="trafficNlvdHourlyLabels"></div>
       <div class="chart-legend" style="margin-top:8px">
-        <span><i style="background:#f59e0b"></i> Newsletter %</span>
+        <span><i style="background:#f59e0b"></i> Newsletter</span><span><i style="background:#6366f1"></i> Direct</span>
       </div>
     </div>
   </div>
@@ -1556,58 +1556,67 @@ function renderHourlySourcesChart(canvasId, labelsId, legendId, hourlyData){
   canvas.width=rect.width*2;canvas.height=rect.height*2;
   ctx.scale(2,2);
   const W=rect.width,H=rect.height;
-  const pad={top:10,right:10,bottom:5,left:45};
+  const pad={top:14,right:10,bottom:5,left:45};
   const cW=W-pad.left-pad.right,cH=H-pad.top-pad.bottom;
 
-  // Build 24 hours
   const hours=Array.from({length:24},(_,i)=>i);
   const layers=['other','paid','social','referral','organic','direct','email'];
   const srcColors={email:'#f59e0b',direct:'#3b82f6',organic:'#22c55e',referral:'#c084fc',social:'#22d3ee',paid:'#ef4444',other:'#64748b'};
   const srcLabels={email:'Newsletter',direct:'Direct',organic:'Organic',referral:'Referral',social:'Social',paid:'Paid',other:'Other'};
 
-  const maxTotal=Math.max(...hours.map(h=>{
-    const s=hourlyData[h]||{};
-    return Object.values(s).reduce((a,v)=>a+v,0);
-  }),1);
-
-  const stacked=hours.map(h=>{
-    const s=hourlyData[h]||{};
-    let cum=0;const pts={};
-    for(const l of layers){cum+=(s[l]||0);pts[l]=cum;}
-    return pts;
-  });
+  const totals=hours.map(h=>{const s=hourlyData[h]||{};return Object.values(s).reduce((a,v)=>a+v,0);});
+  const maxTotal=Math.max(...totals,1);
+  const barW=Math.max(4,cW/24*0.75);
+  const gap=(cW-barW*24)/23;
 
   ctx.clearRect(0,0,W,H);
 
-  for(let li=layers.length-1;li>=0;li--){
-    const layer=layers[li];
-    ctx.fillStyle=srcColors[layer];
-    ctx.beginPath();
-    for(let i=0;i<24;i++){
-      const x=pad.left+(i/23)*cW;
-      const y=pad.top+cH-(stacked[i][layer]/maxTotal)*cH;
-      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  // Draw stacked bars
+  hours.forEach((h,i)=>{
+    const s=hourlyData[h]||{};
+    const x=pad.left+i*(barW+gap);
+    let yBottom=pad.top+cH;
+    for(const layer of layers){
+      const v=s[layer]||0;
+      if(!v)continue;
+      const barH=(v/maxTotal)*cH;
+      ctx.fillStyle=srcColors[layer];
+      ctx.fillRect(x,yBottom-barH,barW,barH);
+      yBottom-=barH;
     }
-    const prev=li>0?layers[li-1]:null;
-    for(let i=23;i>=0;i--){
-      const x=pad.left+(i/23)*cW;
-      const y=prev?pad.top+cH-(stacked[i][prev]/maxTotal)*cH:pad.top+cH;
-      ctx.lineTo(x,y);
-    }
-    ctx.closePath();ctx.fill();
-  }
+  });
 
   // Y-axis
   ctx.fillStyle='#aaa';ctx.font=(W>500?'12':'9')+'px JetBrains Mono';ctx.textAlign='right';
-  for(let i=0;i<=3;i++){
-    const val=Math.round(maxTotal*i/3);
-    const y=pad.top+cH-(i/3)*cH;
+  for(let i=0;i<=4;i++){
+    const val=Math.round(maxTotal*i/4);
+    const y=pad.top+cH-(i/4)*cH;
     ctx.fillText(val.toLocaleString(),pad.left-4,y+3);
     ctx.strokeStyle='#1e2028';ctx.lineWidth=0.5;
     ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+cW,y);ctx.stroke();
   }
 
-  // X labels (every 2 or 3 hours)
+  // Peak labels (top 3 hours)
+  if(W>400){
+    ctx.font='bold '+(W>600?'11':'9')+'px JetBrains Mono';ctx.textAlign='center';
+    const ranked=hours.map((h,i)=>({h,i,total:totals[i]})).sort((a,b)=>b.total-a.total);
+    const peakXs=[];
+    for(const p of ranked.slice(0,3)){
+      const x=pad.left+p.i*(barW+gap)+barW/2;
+      const y=pad.top+cH-(p.total/maxTotal)*cH;
+      const label=p.total.toLocaleString();
+      const tw=ctx.measureText(label).width;
+      let collides=false;
+      for(const px of peakXs){if(Math.abs(x-px)<tw+12)collides=true;}
+      if(collides)continue;
+      peakXs.push(x);
+      ctx.fillStyle='rgba(0,0,0,0.75)';
+      ctx.beginPath();ctx.roundRect(x-tw/2-4,y-16,tw+8,15,3);ctx.fill();
+      ctx.fillStyle='#fff';ctx.fillText(label,x,y-5);
+    }
+  }
+
+  // X labels
   const labelsEl=document.getElementById(labelsId);
   if(labelsEl){
     const skip=W>600?2:3;
@@ -1621,11 +1630,11 @@ function renderHourlySourcesChart(canvasId, labelsId, legendId, hourlyData){
   // Legend
   const legendEl=document.getElementById(legendId);
   if(legendEl){
-    const totals={};
-    hours.forEach(h=>{const s=hourlyData[h]||{};Object.entries(s).forEach(([k,v])=>{totals[k]=(totals[k]||0)+v;});});
+    const lt={};
+    hours.forEach(h=>{const s=hourlyData[h]||{};Object.entries(s).forEach(([k,v])=>{lt[k]=(lt[k]||0)+v;});});
     legendEl.innerHTML=layers.slice().reverse().map(l=>{
-      if(!totals[l])return'';
-      return '<span><i style="background:'+srcColors[l]+'"></i> '+(srcLabels[l]||l)+' ('+totals[l].toLocaleString()+')</span>';
+      if(!lt[l])return'';
+      return '<span><i style="background:'+srcColors[l]+'"></i> '+(srcLabels[l]||l)+' ('+lt[l].toLocaleString()+')</span>';
     }).filter(Boolean).join('');
   }
 
@@ -1633,8 +1642,7 @@ function renderHourlySourcesChart(canvasId, labelsId, legendId, hourlyData){
   canvas.onmousemove=function(e){
     const r=canvas.getBoundingClientRect();
     const mx=e.clientX-r.left;
-    const idx=Math.round(((mx-pad.left)/cW)*23);
-    if(idx<0||idx>23)return;
+    const idx=Math.min(23,Math.max(0,Math.round((mx-pad.left)/(barW+gap))));
     const s=hourlyData[idx]||{};
     const total=Object.values(s).reduce((a,v)=>a+v,0);
     const h=idx;
@@ -1645,18 +1653,8 @@ function renderHourlySourcesChart(canvasId, labelsId, legendId, hourlyData){
   };
 }
 
-// Renders a line chart showing newsletter % vs (newsletter + direct) by hour
+// Newsletter vs Direct bar chart — newsletter amber (#f59e0b), direct distinct blue (#6366f1)
 function renderHourlyNlvdChart(canvasId, labelsId, hourlyData){
-  const hours=Array.from({length:24},(_,i)=>i);
-  const ratioData={};
-  hours.forEach(h=>{
-    const s=hourlyData[h]||{};
-    const email=s.email||0;
-    const direct=s.direct||0;
-    const total=email+direct;
-    ratioData[h]=total?Math.round(email/total*1000)/10:0;
-  });
-  // Use drawLineChart with hour keys
   const canvas=document.getElementById(canvasId);
   if(!canvas)return;
   const ctx=canvas.getContext('2d');
@@ -1665,43 +1663,70 @@ function renderHourlyNlvdChart(canvasId, labelsId, hourlyData){
   canvas.width=rect.width*2;canvas.height=rect.height*2;
   ctx.scale(2,2);
   const W=rect.width,H=rect.height;
-  const pad={top:10,right:10,bottom:5,left:45};
+  const pad={top:14,right:10,bottom:5,left:45};
   const cW=W-pad.left-pad.right,cH=H-pad.top-pad.bottom;
 
-  const vals=hours.map(h=>ratioData[h]||0);
-  const maxVal=Math.max(...vals,1)*1.1;
+  const hours=Array.from({length:24},(_,i)=>i);
+  const maxVal=100; // Y-axis always 0-100%
+  const barW=Math.max(4,cW/24*0.75);
+  const gap=(cW-barW*24)/23;
+  const halfBar=barW/2;
+
+  // Compute values
+  const vals=hours.map(h=>{
+    const s=hourlyData[h]||{};
+    const email=s.email||0;
+    const direct=s.direct||0;
+    return{email,direct,total:email+direct,pct:email+direct?Math.round(email/(email+direct)*1000)/10:0};
+  });
 
   ctx.clearRect(0,0,W,H);
 
-  // Grid
+  // Y-axis grid (0-100%)
   ctx.fillStyle='#aaa';ctx.font=(W>500?'12':'9')+'px JetBrains Mono';ctx.textAlign='right';
   for(let i=0;i<=4;i++){
-    const val=Math.round(maxVal*i/4);
+    const val=i*25;
     const y=pad.top+cH-(i/4)*cH;
     ctx.fillText(val+'%',pad.left-4,y+3);
     ctx.strokeStyle='#1e2028';ctx.lineWidth=0.5;
     ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+cW,y);ctx.stroke();
   }
 
-  // Line
-  ctx.strokeStyle='#f59e0b';ctx.lineWidth=2;ctx.beginPath();
-  for(let i=0;i<24;i++){
-    const x=pad.left+(i/23)*cW;
-    const y=pad.top+cH-(vals[i]/maxVal)*cH;
-    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-  }
-  ctx.stroke();
+  // Draw stacked bars: direct on bottom (indigo), newsletter on top (amber)
+  hours.forEach((h,i)=>{
+    const v=vals[i];
+    const x=pad.left+i*(barW+gap);
+    const totalH=(v.total?1:0)*cH; // full bar = 100%
+    if(!v.total)return;
+    const nlH=(v.email/v.total)*cH;
+    const dirH=cH-nlH;
+    // Direct (bottom)
+    ctx.fillStyle='#6366f1';
+    ctx.fillRect(x,pad.top,barW,dirH);
+    // Newsletter (top portion from bottom)
+    ctx.fillStyle='#f59e0b';
+    ctx.fillRect(x,pad.top+dirH,barW,nlH);
+  });
 
-  // Fill
-  ctx.lineTo(pad.left+cW,pad.top+cH);ctx.lineTo(pad.left,pad.top+cH);ctx.closePath();
-  ctx.fillStyle='#f59e0b18';ctx.fill();
-
-  // Dots
-  ctx.fillStyle='#f59e0b';
-  for(let i=0;i<24;i++){
-    const x=pad.left+(i/23)*cW;
-    const y=pad.top+cH-(vals[i]/maxVal)*cH;
-    ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fill();
+  // Peak labels for newsletter % (top 3)
+  if(W>400){
+    ctx.font='bold '+(W>600?'11':'9')+'px JetBrains Mono';ctx.textAlign='center';
+    const ranked=hours.map((h,i)=>({i,pct:vals[i].pct})).filter(v=>v.pct>0).sort((a,b)=>b.pct-a.pct);
+    const peakXs=[];
+    for(const p of ranked.slice(0,3)){
+      const x=pad.left+p.i*(barW+gap)+barW/2;
+      const nlPortion=vals[p.i].total?(vals[p.i].email/vals[p.i].total):0;
+      const y=pad.top+cH*(1-nlPortion);
+      const label=p.pct+'%';
+      const tw=ctx.measureText(label).width;
+      let collides=false;
+      for(const px of peakXs){if(Math.abs(x-px)<tw+12)collides=true;}
+      if(collides)continue;
+      peakXs.push(x);
+      ctx.fillStyle='rgba(0,0,0,0.75)';
+      ctx.beginPath();ctx.roundRect(x-tw/2-4,y-16,tw+8,15,3);ctx.fill();
+      ctx.fillStyle='#fff';ctx.fillText(label,x,y-5);
+    }
   }
 
   // X labels
@@ -1719,13 +1744,12 @@ function renderHourlyNlvdChart(canvasId, labelsId, hourlyData){
   canvas.onmousemove=function(e){
     const r=canvas.getBoundingClientRect();
     const mx=e.clientX-r.left;
-    const idx=Math.round(((mx-pad.left)/cW)*23);
-    if(idx<0||idx>23)return;
+    const idx=Math.min(23,Math.max(0,Math.round((mx-pad.left)/(barW+gap))));
     const h=idx;
     const label=h===0?'12:00 AM':h<12?h+':00 AM':h===12?'12:00 PM':(h-12)+':00 PM';
-    const s=hourlyData[idx]||{};
-    canvas.title=label+': '+(ratioData[idx]||0)+'% newsletter\n'+
-      'Newsletter: '+(s.email||0)+', Direct: '+(s.direct||0);
+    const v=vals[idx];
+    canvas.title=label+': '+v.pct+'% newsletter\n'+
+      'Newsletter: '+v.email+' | Direct: '+v.direct+' | Total: '+v.total;
   };
 }
 
