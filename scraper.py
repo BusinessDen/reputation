@@ -950,7 +950,13 @@ def fetch_ga4_data(data: dict, now: datetime):
             print(f"    [GA4] Query error: {e}")
             return None
 
-    # --- Query 1: Per-article pageviews (last 30 days, aggregate) ---
+    # Dynamic start date: pull 365 days if no existing data, 30 days otherwise
+    has_history = bool(data.get("ga4", {}).get("daily_readers"))
+    ga4_start = "30daysAgo" if has_history else "365daysAgo"
+    ga4_start_long = "90daysAgo" if has_history else "365daysAgo"
+    print(f"    GA4 lookback: {ga4_start} ({'incremental' if has_history else 'initial backfill'})")
+
+    # --- Query 1: Per-article pageviews (aggregate, always 30 days) ---
     pageviews = {}
     result = ga4_query({
         "dateRanges": [{"startDate": "30daysAgo", "endDate": "today"}],
@@ -979,7 +985,7 @@ def fetch_ga4_data(data: dict, now: datetime):
     # --- Query 2: Subscription events with landing page (aggregate) ---
     subscriptions = {}
     result = ga4_query({
-        "dateRanges": [{"startDate": "2026-03-01", "endDate": "today"}],
+        "dateRanges": [{"startDate": ga4_start, "endDate": "today"}],
         "dimensions": [{"name": "landingPage"}],
         "metrics": [{"name": "eventCount"}],
         "dimensionFilter": {
@@ -997,7 +1003,7 @@ def fetch_ga4_data(data: dict, now: datetime):
     # --- Query 3: Daily subscriptions per landing page (time series) ---
     daily_subs = {}  # {path: {date: count}}
     result = ga4_query({
-        "dateRanges": [{"startDate": "2026-03-01", "endDate": "today"}],
+        "dateRanges": [{"startDate": ga4_start, "endDate": "today"}],
         "dimensions": [{"name": "date"}, {"name": "landingPage"}],
         "metrics": [{"name": "eventCount"}],
         "dimensionFilter": {
@@ -1023,7 +1029,7 @@ def fetch_ga4_data(data: dict, now: datetime):
     # --- Query 4: Daily pageviews per article (time series) ---
     daily_views = {}  # {path: {date: count}}
     result = ga4_query({
-        "dateRanges": [{"startDate": "2026-03-01", "endDate": "today"}],
+        "dateRanges": [{"startDate": ga4_start, "endDate": "today"}],
         "dimensions": [{"name": "date"}, {"name": "pagePath"}],
         "metrics": [{"name": "screenPageViews"}],
         "dimensionFilter": {
@@ -1049,7 +1055,7 @@ def fetch_ga4_data(data: dict, now: datetime):
     # --- Query 5: Daily total pageviews (all pages) for traffic breakdown chart ---
     daily_totals = {}  # {date: total}
     result = ga4_query({
-        "dateRanges": [{"startDate": "30daysAgo", "endDate": "today"}],
+        "dateRanges": [{"startDate": ga4_start, "endDate": "today"}],
         "dimensions": [{"name": "date"}],
         "metrics": [{"name": "screenPageViews"}],
         "limit": 50
@@ -1064,7 +1070,7 @@ def fetch_ga4_data(data: dict, now: datetime):
     # --- Query 6: Daily pageviews for homepage/landing pages ---
     daily_home = {}  # {date: count}
     result = ga4_query({
-        "dateRanges": [{"startDate": "30daysAgo", "endDate": "today"}],
+        "dateRanges": [{"startDate": ga4_start, "endDate": "today"}],
         "dimensions": [{"name": "date"}],
         "metrics": [{"name": "screenPageViews"}],
         "dimensionFilter": {
@@ -1082,7 +1088,7 @@ def fetch_ga4_data(data: dict, now: datetime):
     # --- Query 7: Top pages by pageviews (all pages, for "other" breakdown) ---
     all_pages = {}  # {path: views}
     result = ga4_query({
-        "dateRanges": [{"startDate": "30daysAgo", "endDate": "today"}],
+        "dateRanges": [{"startDate": ga4_start, "endDate": "today"}],
         "dimensions": [{"name": "pagePath"}, {"name": "pageTitle"}],
         "metrics": [{"name": "screenPageViews"}, {"name": "totalUsers"}],
         "orderBys": [{"metric": {"metricName": "screenPageViews"}, "desc": True}],
@@ -1100,7 +1106,7 @@ def fetch_ga4_data(data: dict, now: datetime):
     # --- Query 8: Daily unique article readers (totalUsers on article pages only) ---
     daily_readers = {}  # {date: users}
     result = ga4_query({
-        "dateRanges": [{"startDate": "60daysAgo", "endDate": "today"}],
+        "dateRanges": [{"startDate": ga4_start_long, "endDate": "today"}],
         "dimensions": [{"name": "date"}],
         "metrics": [{"name": "totalUsers"}],
         "dimensionFilter": {
@@ -1115,13 +1121,85 @@ def fetch_ga4_data(data: dict, now: datetime):
             daily_readers[date_str] = int(row["metricValues"][0]["value"])
         print(f"    → {len(daily_readers)} days with daily article reader data")
 
+    # --- Query 9: Daily traffic sources (sessionMedium × date) ---
+    daily_sources = {}  # {date: {email: N, direct: N, organic: N, referral: N, social: N, other: N}}
+    result = ga4_query({
+        "dateRanges": [{"startDate": ga4_start_long, "endDate": "today"}],
+        "dimensions": [{"name": "date"}, {"name": "sessionMedium"}],
+        "metrics": [{"name": "totalUsers"}],
+        "limit": 5000
+    })
+    if result:
+        for row in result.get("rows", []):
+            d = row["dimensionValues"][0]["value"]
+            date_str = f"{d[:4]}-{d[4:6]}-{d[6:8]}"
+            medium = row["dimensionValues"][1]["value"].lower()
+            users = int(row["metricValues"][0]["value"])
+            if date_str not in daily_sources:
+                daily_sources[date_str] = {}
+            # Normalize medium names
+            if medium in ("(none)", "none", "direct"):
+                key = "direct"
+            elif medium == "email":
+                key = "email"
+            elif medium == "organic":
+                key = "organic"
+            elif medium in ("referral",):
+                key = "referral"
+            elif medium in ("social", "social-media"):
+                key = "social"
+            elif medium in ("cpc", "ppc", "paid"):
+                key = "paid"
+            else:
+                key = "other"
+            daily_sources[date_str][key] = daily_sources[date_str].get(key, 0) + users
+        print(f"    → {len(daily_sources)} days with traffic source data")
+
+    # --- Query 10: Hourly traffic for yesterday (for 24-hour chart) ---
+    yesterday_str = (now - timedelta(days=1)).strftime("%Y-%m-%d")
+    hourly_sources = {}  # {hour: {email: N, direct: N, ...}}
+    result = ga4_query({
+        "dateRanges": [{"startDate": yesterday_str, "endDate": yesterday_str}],
+        "dimensions": [{"name": "dateHour"}, {"name": "sessionMedium"}],
+        "metrics": [{"name": "totalUsers"}],
+        "limit": 500
+    })
+    if result:
+        for row in result.get("rows", []):
+            dh = row["dimensionValues"][0]["value"]  # YYYYMMDDHH
+            hour = int(dh[-2:])
+            medium = row["dimensionValues"][1]["value"].lower()
+            users = int(row["metricValues"][0]["value"])
+            if hour not in hourly_sources:
+                hourly_sources[hour] = {}
+            # Normalize medium
+            if medium in ("(none)", "none", "direct"):
+                key = "direct"
+            elif medium == "email":
+                key = "email"
+            elif medium == "organic":
+                key = "organic"
+            elif medium in ("referral",):
+                key = "referral"
+            elif medium in ("social", "social-media"):
+                key = "social"
+            elif medium in ("cpc", "ppc", "paid"):
+                key = "paid"
+            else:
+                key = "other"
+            hourly_sources[hour][key] = hourly_sources[hour].get(key, 0) + users
+        print(f"    → {len(hourly_sources)} hours with traffic source data for {yesterday_str}")
+
     # --- Fetch subscriber history from subscriber dashboard ---
     newsletter_history = {}
     total_subscribers_history = {}
+    subscriber_breakdown = {}  # {date: {monthly, annual, free}}
+    subscriber_deltas = {}  # {date: {monthly_gain, monthly_loss, annual_gain, annual_loss, free_delta}}
     try:
         snap_resp = requests.get("https://businessden.github.io/subscriber/data/snapshots.json", timeout=15)
         snap_resp.raise_for_status()
         snap_data = snap_resp.json()
+        prev_snap = None
         for snap in snap_data.get("snapshots", []):
             d = snap.get("date")
             if not d:
@@ -1130,8 +1208,29 @@ def fetch_ga4_data(data: dict, now: datetime):
                 newsletter_history[d] = snap["active_free"]
             if snap.get("active_total") is not None:
                 total_subscribers_history[d] = snap["active_total"]
+            subscriber_breakdown[d] = {
+                "monthly": snap.get("active_monthly") or 0,
+                "annual": snap.get("active_annual") or 0,
+                "free": snap.get("active_free") or 0,
+            }
+            # Compute daily deltas
+            if prev_snap:
+                for plan in ["monthly", "annual", "free"]:
+                    cur = snap.get(f"active_{plan}") or 0
+                    prev = prev_snap.get(f"active_{plan}") or 0
+                    delta = cur - prev
+                    if d not in subscriber_deltas:
+                        subscriber_deltas[d] = {}
+                    if delta >= 0:
+                        subscriber_deltas[d][f"{plan}_gain"] = delta
+                        subscriber_deltas[d][f"{plan}_loss"] = 0
+                    else:
+                        subscriber_deltas[d][f"{plan}_gain"] = 0
+                        subscriber_deltas[d][f"{plan}_loss"] = abs(delta)
+            prev_snap = snap
         print(f"    → {len(newsletter_history)} days of newsletter subscriber history")
         print(f"    → {len(total_subscribers_history)} days of total subscriber history")
+        print(f"    → {len(subscriber_breakdown)} days of subscriber breakdown")
     except Exception as e:
         print(f"    [Newsletter] Error fetching subscriber data: {e}")
 
@@ -1140,7 +1239,14 @@ def fetch_ga4_data(data: dict, now: datetime):
         data["ga4"] = {}
 
     data["ga4"]["last_fetched"] = now.isoformat()
-    data["ga4"]["article_stats"] = {}
+
+    # Merge helper: update existing dict with new data, preserving old keys
+    def merge_dict(key, new_data):
+        existing = data["ga4"].get(key, {})
+        existing.update(new_data)
+        data["ga4"][key] = existing
+
+    data["ga4"]["article_stats"] = {}  # article stats always overwrite (current snapshot)
 
     def match_path(art_url: str, lookup: dict) -> dict | None:
         try:
@@ -1284,8 +1390,8 @@ def fetch_ga4_data(data: dict, now: datetime):
             "other": other_views,
         }
 
-    data["ga4"]["traffic_breakdown"] = traffic_breakdown
-    data["ga4"]["daily_readers"] = daily_readers
+    merge_dict("traffic_breakdown", traffic_breakdown)
+    merge_dict("daily_readers", daily_readers)
 
     # Compute articles per reader per day from traffic breakdown and daily readers
     articles_per_reader = {}
@@ -1294,14 +1400,23 @@ def fetch_ga4_data(data: dict, now: datetime):
         readers = daily_readers.get(date_str, 0)
         if readers > 0:
             articles_per_reader[date_str] = round(article_views / readers, 2)
-    data["ga4"]["articles_per_reader"] = articles_per_reader
+    merge_dict("articles_per_reader", articles_per_reader)
     if articles_per_reader:
         recent = sorted(articles_per_reader.items())[-1]
         print(f"    → Articles per reader: {recent[1]} ({recent[0]})")
 
     # Store newsletter subscriber history
-    data["ga4"]["newsletter_history"] = newsletter_history
-    data["ga4"]["total_subscribers_history"] = total_subscribers_history
+    merge_dict("newsletter_history", newsletter_history)
+    merge_dict("total_subscribers_history", total_subscribers_history)
+    merge_dict("subscriber_breakdown", subscriber_breakdown)
+    merge_dict("subscriber_deltas", subscriber_deltas)
+    merge_dict("daily_sources", daily_sources)
+
+    # Store hourly data keyed by date so it accumulates
+    if hourly_sources:
+        hourly_by_date = data["ga4"].get("hourly_sources", {})
+        hourly_by_date[yesterday_str] = hourly_sources
+        data["ga4"]["hourly_sources"] = hourly_by_date
 
     # Compute articles per subscriber per day
     articles_per_subscriber = {}
@@ -1310,7 +1425,7 @@ def fetch_ga4_data(data: dict, now: datetime):
         total_subs = total_subscribers_history.get(date_str, 0)
         if total_subs > 0:
             articles_per_subscriber[date_str] = round(article_views / total_subs, 2)
-    data["ga4"]["articles_per_subscriber"] = articles_per_subscriber
+    merge_dict("articles_per_subscriber", articles_per_subscriber)
     if articles_per_subscriber:
         recent = sorted(articles_per_subscriber.items())[-1]
         print(f"    → Articles per subscriber: {recent[1]} ({recent[0]})")
@@ -1341,7 +1456,7 @@ def fetch_ga4_data(data: dict, now: datetime):
                 topic_daily[date_str] = {}
             topic_daily[date_str][cat] = topic_daily[date_str].get(cat, 0) + count
 
-    data["ga4"]["topic_daily"] = topic_daily
+    merge_dict("topic_daily", topic_daily)
 
     # Collect all topic names for the chart
     all_topics = set()
