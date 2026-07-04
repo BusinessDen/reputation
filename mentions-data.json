@@ -1,6 +1,30 @@
 {
   "mentions": [
     {
+      "id": "1972d50b6e8bc339",
+      "title": "The Denver Broncos are investing heavily in the future. Their new headquarters will span more than 320,000 square feet when combined with the existing Pat Bowlen Fieldhouse, featuring expanded player spaces, upgraded recovery and performance areas,",
+      "title_raw": "The Denver Broncos are investing heavily in the future. Their new headquarters will span more than 320,000 square feet when combined with the existing Pat Bowlen Fieldhouse, featuring expanded player spaces, upgraded recovery and performance areas, - facebook.com",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQQllmcWE0b0VrRWo0T2JlT01xdlNWazNacFFzYy1vcGdLWC15ZDl6cDVncHFqSDNicm5icUlucE9XVzhLWVlDNm1NMmlwLVpKQWFiTncyU01IOXExNnZ6ZW4ycWpCQjNTSkRybnNSRC1YQWs1Xy1oM2p5NTZzRzcyOE9sOHF6eTVHQzVJZnF4OVN4NlItWlBKWVVQcktGNFBPNHptMGxKTURKNDU1Mm5iX2VQZnY2UXZkZ1RiS3pYMkdmZUUyb1hTdlpmU2J0YXVBY2ZpM1lnU3NhSC10Rnc?oc=5",
+      "snippet": "The Denver Broncos are investing heavily in the future. Their new headquarters will span more than 320,000 square feet when combined with the existing Pat Bowlen Fieldhouse, featuring expanded player spaces, upgraded recovery and performance areas,  facebook.com",
+      "source": "facebook.com",
+      "source_url": "https://www.facebook.com",
+      "source_domain": "facebook.com",
+      "published": "2026-07-04T13:00:24+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-04T18:20:53.103044+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMi3gFBVV95cUxQQllmcWE0b0VrRWo0T2JlT01xdlNWazNacFFzYy1vcGdLWC15ZDl6cDVncHFqSDNicm5icUlucE9XVzhLWVlDNm1NMmlwLVpKQWFiTncyU01IOXExNnZ6ZW4ycWpCQjNTSkRybnNSRC1YQWs1Xy1oM2p5NTZzRzcyOE9sOHF6eTVHQzVJZnF4OVN4NlItWlBKWVVQcktGNFBPNHptMGxKTURKNDU1Mm5iX2VQZnY2UXZkZ1RiS3pYMkdmZUUyb1hTdlpmU2J0YXVBY2ZpM1lnU3NhSC10Rnc",
+      "sentiment": "neutral"
+    },
+    {
       "id": "0e1872990013201b",
       "title": "Inspirato Ending Sponsorship Of Colorado Open Tournament",
       "title_raw": "Inspirato Ending Sponsorship Of Colorado Open Tournament - deutscher-telefonschutz.de",
@@ -34175,7 +34199,7 @@
       "a770a2ade5bacfc5"
     ]
   },
-  "last_updated": "2026-07-04T11:31:07.732616+00:00",
+  "last_updated": "2026-07-04T18:20:53.103044+00:00",
   "run_log": [
     {
       "timestamp": "2026-04-05T18:36:09.916421+00:00",
@@ -35844,11 +35868,23 @@
         "reddit_rss": 3,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-07-04T18:20:53.103044+00:00",
+      "new_mentions": 1,
+      "total_mentions": 919,
+      "total_bd_articles": 777,
+      "sources": {
+        "google_news_rss": 13,
+        "wordpress_api": 16,
+        "reddit_rss": 3,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 4,
+  "new_this_run": 1,
   "ga4": {
-    "last_fetched": "2026-07-04T11:31:07.732616+00:00",
+    "last_fetched": "2026-07-04T18:20:53.103044+00:00",
     "article_stats": {
       "https://businessden.com/2026/06/26/the-pipeline-commercial-real-estate-deals-for-6-26-26/": {
         "views": 383,
@@ -35943,7 +35979,7 @@
       "https://businessden.com/2026/06/25/denver-lawyer-disbarred-ordered-to-pay-600k-for-stealing-clients-settlement/": {
         "views": 3497,
         "users": 3137,
-        "sessions": 3339,
+        "sessions": 3342,
         "daily_views": {
           "2026-06-25": 2650,
           "2026-06-26": 579,
@@ -36052,7 +36088,7 @@
       "https://businessden.com/2026/06/23/national-retailer-takes-former-safeway-along-colorado-blvd/": {
         "views": 15606,
         "users": 14090,
-        "sessions": 14702,
+        "sessions": 14700,
         "daily_views": {
           "2026-06-23": 5463,
           "2026-06-24": 5122,
@@ -36367,7 +36403,7 @@
       "https://businessden.com/2026/06/16/cherry-creek-shop-owner-sentenced-to-prison-for-1-3m-tax-scheme/": {
         "views": 3750,
         "users": 2893,
-        "sessions": 3558,
+        "sessions": 3561,
         "subscriptions": 1,
         "daily_subs": {
           "2026-06-16": 1
@@ -41330,9 +41366,9 @@
         "month": 125,
         "older": 2453,
         "home": 1977,
-        "browse": 261,
+        "browse": 260,
         "newsletter": 74,
-        "other": 904
+        "other": 905
       },
       "2026-06-10": {
         "total": 10916,
@@ -41396,9 +41432,9 @@
         "month": 88,
         "older": 425,
         "home": 1192,
-        "browse": 287,
+        "browse": 286,
         "newsletter": 81,
-        "other": 995
+        "other": 996
       },
       "2026-06-16": {
         "total": 9434,
@@ -41484,9 +41520,9 @@
         "month": 228,
         "older": 464,
         "home": 1252,
-        "browse": 228,
-        "newsletter": 65,
-        "other": 789
+        "browse": 227,
+        "newsletter": 64,
+        "other": 791
       },
       "2026-06-24": {
         "total": 13454,
@@ -41539,9 +41575,9 @@
         "month": 121,
         "older": 304,
         "home": 599,
-        "browse": 407,
+        "browse": 406,
         "newsletter": 115,
-        "other": 1412
+        "other": 1413
       },
       "2026-06-29": {
         "total": 13041,
@@ -41550,9 +41586,9 @@
         "month": 39,
         "older": 282,
         "home": 1437,
-        "browse": 2231,
-        "newsletter": 633,
-        "other": 7746
+        "browse": 2230,
+        "newsletter": 632,
+        "other": 7748
       },
       "2026-06-30": {
         "total": 10909,
@@ -41561,9 +41597,9 @@
         "month": 46,
         "older": 276,
         "home": 1388,
-        "browse": 1899,
-        "newsletter": 539,
-        "other": 6594
+        "browse": 1898,
+        "newsletter": 538,
+        "other": 6596
       },
       "2026-07-01": {
         "total": 8919,
@@ -41572,9 +41608,9 @@
         "month": 68,
         "older": 285,
         "home": 1346,
-        "browse": 1507,
+        "browse": 1506,
         "newsletter": 427,
-        "other": 5232
+        "other": 5233
       },
       "2026-07-02": {
         "total": 11822,
@@ -41583,9 +41619,9 @@
         "month": 5,
         "older": 8,
         "home": 879,
-        "browse": 2298,
-        "newsletter": 652,
-        "other": 7980
+        "browse": 2297,
+        "newsletter": 651,
+        "other": 7982
       },
       "2026-07-03": {
         "total": 3748,
@@ -41599,30 +41635,30 @@
         "other": 2470
       },
       "2026-07-04": {
-        "total": 96,
+        "total": 347,
         "today": 0,
         "week": 0,
         "month": 0,
         "older": 0,
-        "home": 2,
-        "browse": 20,
-        "newsletter": 6,
-        "other": 68
+        "home": 24,
+        "browse": 68,
+        "newsletter": 19,
+        "other": 236
       }
     },
     "non_article_pages": [
       {
         "path": "/login/",
         "title": "Login - BusinessDen",
-        "views": 1583,
-        "users": 641,
+        "views": 1585,
+        "users": 642,
         "type": "account"
       },
       {
         "path": "/plans/subscriptions/",
         "title": "Subscriptions - BusinessDen",
-        "views": 1566,
-        "users": 403,
+        "views": 1569,
+        "users": 406,
         "type": "other"
       },
       {
@@ -41656,8 +41692,8 @@
       {
         "path": "/hs/preferences-center/en/page",
         "title": "BusinessDen / Richmond BizSense Email Services",
-        "views": 360,
-        "users": 330,
+        "views": 361,
+        "users": 331,
         "type": "other"
       },
       {
@@ -41670,15 +41706,15 @@
       {
         "path": "/category/commercial-real-estate/",
         "title": "Commercial Real Estate Archives - BusinessDen",
-        "views": 258,
+        "views": 259,
         "users": 159,
         "type": "category"
       },
       {
         "path": "/hs/preferences-center/en/confirm",
         "title": "BusinessDen / Richmond BizSense Email Services",
-        "views": 223,
-        "users": 179,
+        "views": 224,
+        "users": 180,
         "type": "other"
       },
       {
@@ -41759,17 +41795,17 @@
         "type": "static"
       },
       {
+        "path": "/LXRlbXBvcm",
+        "title": "(not set)",
+        "views": 71,
+        "users": 71,
+        "type": "other"
+      },
+      {
         "path": "/events/",
         "title": "Events Archive - BusinessDen",
         "views": 70,
         "users": 61,
-        "type": "other"
-      },
-      {
-        "path": "/LXRlbXBvcm",
-        "title": "(not set)",
-        "views": 70,
-        "users": 70,
         "type": "other"
       },
       {
@@ -41983,6 +42019,13 @@
         "type": "category"
       },
       {
+        "path": "/neighbors-sue-owner-of-neglected-poop-protest-house-in-congress-park/",
+        "title": "Neighbors sue owner of neglected ‘poop protest’ house in Congress Park - BusinessDen",
+        "views": 22,
+        "users": 21,
+        "type": "other"
+      },
+      {
         "path": "/news/page/3/",
         "title": "News - Page 3 of 492 - BusinessDen",
         "views": 22,
@@ -42008,13 +42051,6 @@
         "title": "TEST: Auraria begins construction on new police station - BusinessDen",
         "views": 22,
         "users": 9,
-        "type": "other"
-      },
-      {
-        "path": "/neighbors-sue-owner-of-neglected-poop-protest-house-in-congress-park/",
-        "title": "Neighbors sue owner of neglected ‘poop protest’ house in Congress Park - BusinessDen",
-        "views": 21,
-        "users": 20,
         "type": "other"
       },
       {
@@ -42103,9 +42139,9 @@
       }
     ],
     "other_breakdown": {
-      "other": 5164,
-      "account": 2762,
-      "category": 840,
+      "other": 5171,
+      "account": 2764,
+      "category": 841,
       "pagination": 307,
       "author": 197,
       "static": 195,
@@ -76915,15 +76951,15 @@
         "organic": 661,
         "email": 605,
         "referral": 540,
-        "other": 17,
-        "social": 10
+        "social": 10,
+        "other": 10
       },
       "2026-07-04": {
-        "direct": 25,
-        "referral": 24,
-        "organic": 20,
-        "email": 14,
-        "other": 1
+        "direct": 119,
+        "organic": 90,
+        "referral": 64,
+        "email": 40,
+        "other": 3
       }
     },
     "hourly_sources": {
@@ -89359,7 +89395,7 @@
           "email": 52,
           "organic": 39,
           "referral": 30,
-          "other": 2,
+          "other": 1,
           "social": 1
         },
         "5": {
@@ -89381,8 +89417,7 @@
           "email": 52,
           "direct": 49,
           "referral": 46,
-          "organic": 43,
-          "other": 1
+          "organic": 43
         },
         "13": {
           "direct": 50,
@@ -89414,15 +89449,14 @@
           "direct": 45,
           "email": 33,
           "organic": 30,
-          "referral": 13,
-          "other": 1
+          "referral": 13
         },
         "6": {
           "direct": 44,
           "email": 40,
           "organic": 38,
           "referral": 27,
-          "other": 4
+          "other": 1
         },
         "20": {
           "organic": 43,
@@ -89488,7 +89522,7 @@
           "referral": 17,
           "organic": 9,
           "email": 6,
-          "other": 2
+          "other": 1
         },
         "23": {
           "direct": 28,
