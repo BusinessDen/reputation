@@ -34247,20 +34247,8 @@
       "a770a2ade5bacfc5"
     ]
   },
-  "last_updated": "2026-07-05T11:32:22.749007+00:00",
+  "last_updated": "2026-07-05T18:23:00.584250+00:00",
   "run_log": [
-    {
-      "timestamp": "2026-04-06T11:46:28.704248+00:00",
-      "new_mentions": 2,
-      "total_mentions": 249,
-      "total_bd_articles": 110,
-      "sources": {
-        "google_news_rss": 13,
-        "wordpress_api": 17,
-        "reddit_rss": 2,
-        "medium_rss": 0
-      }
-    },
     {
       "timestamp": "2026-04-06T18:50:38.996014+00:00",
       "new_mentions": 3,
@@ -35928,11 +35916,23 @@
         "reddit_rss": 3,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-07-05T18:23:00.584250+00:00",
+      "new_mentions": 0,
+      "total_mentions": 921,
+      "total_bd_articles": 777,
+      "sources": {
+        "google_news_rss": 6,
+        "wordpress_api": 16,
+        "reddit_rss": 3,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 2,
+  "new_this_run": 0,
   "ga4": {
-    "last_fetched": "2026-07-05T11:32:22.749007+00:00",
+    "last_fetched": "2026-07-05T18:23:00.584250+00:00",
     "article_stats": {
       "https://businessden.com/2026/06/26/the-pipeline-commercial-real-estate-deals-for-6-26-26/": {
         "views": 383,
@@ -41390,9 +41390,9 @@
         "month": 121,
         "older": 1356,
         "home": 2092,
-        "browse": 205,
+        "browse": 204,
         "newsletter": 56,
-        "other": 739
+        "other": 740
       },
       "2026-06-09": {
         "total": 13264,
@@ -41412,9 +41412,9 @@
         "month": 125,
         "older": 1449,
         "home": 1655,
-        "browse": 347,
-        "newsletter": 96,
-        "other": 1254
+        "browse": 346,
+        "newsletter": 95,
+        "other": 1256
       },
       "2026-06-11": {
         "total": 8344,
@@ -41434,9 +41434,9 @@
         "month": 81,
         "older": 1027,
         "home": 1929,
-        "browse": 257,
+        "browse": 256,
         "newsletter": 71,
-        "other": 928
+        "other": 929
       },
       "2026-06-13": {
         "total": 3211,
@@ -41478,9 +41478,9 @@
         "month": 89,
         "older": 685,
         "home": 1569,
-        "browse": 276,
+        "browse": 275,
         "newsletter": 76,
-        "other": 996
+        "other": 997
       },
       "2026-06-17": {
         "total": 6669,
@@ -41500,9 +41500,9 @@
         "month": 112,
         "older": 329,
         "home": 1025,
-        "browse": 218,
+        "browse": 217,
         "newsletter": 60,
-        "other": 786
+        "other": 787
       },
       "2026-06-19": {
         "total": 1956,
@@ -41544,9 +41544,9 @@
         "month": 167,
         "older": 394,
         "home": 1070,
-        "browse": 206,
+        "browse": 205,
         "newsletter": 57,
-        "other": 744
+        "other": 745
       },
       "2026-06-23": {
         "total": 12537,
@@ -41610,9 +41610,9 @@
         "month": 121,
         "older": 304,
         "home": 599,
-        "browse": 396,
+        "browse": 395,
         "newsletter": 109,
-        "other": 1429
+        "other": 1430
       },
       "2026-06-29": {
         "total": 13041,
@@ -41621,9 +41621,9 @@
         "month": 39,
         "older": 282,
         "home": 1437,
-        "browse": 2170,
-        "newsletter": 598,
-        "other": 7842
+        "browse": 2164,
+        "newsletter": 596,
+        "other": 7850
       },
       "2026-06-30": {
         "total": 10909,
@@ -41632,9 +41632,9 @@
         "month": 46,
         "older": 276,
         "home": 1388,
-        "browse": 1847,
-        "newsletter": 509,
-        "other": 6676
+        "browse": 1842,
+        "newsletter": 508,
+        "other": 6682
       },
       "2026-07-01": {
         "total": 8919,
@@ -41643,9 +41643,9 @@
         "month": 68,
         "older": 285,
         "home": 1346,
-        "browse": 1466,
-        "newsletter": 404,
-        "other": 5296
+        "browse": 1462,
+        "newsletter": 403,
+        "other": 5301
       },
       "2026-07-02": {
         "total": 11822,
@@ -41654,9 +41654,9 @@
         "month": 5,
         "older": 8,
         "home": 879,
-        "browse": 2236,
-        "newsletter": 616,
-        "other": 8078
+        "browse": 2230,
+        "newsletter": 614,
+        "other": 8086
       },
       "2026-07-03": {
         "total": 3748,
@@ -41665,9 +41665,9 @@
         "month": 4,
         "older": 0,
         "home": 361,
-        "browse": 692,
-        "newsletter": 191,
-        "other": 2500
+        "browse": 690,
+        "newsletter": 190,
+        "other": 2503
       },
       "2026-07-04": {
         "total": 1796,
@@ -41676,36 +41676,36 @@
         "month": 0,
         "older": 0,
         "home": 178,
-        "browse": 331,
+        "browse": 330,
         "newsletter": 91,
-        "other": 1196
+        "other": 1197
       },
       "2026-07-05": {
-        "total": 56,
+        "total": 265,
         "today": 0,
         "week": 0,
         "month": 0,
         "older": 0,
-        "home": 10,
-        "browse": 9,
-        "newsletter": 3,
-        "other": 34
+        "home": 30,
+        "browse": 48,
+        "newsletter": 13,
+        "other": 174
       }
     },
     "non_article_pages": [
+      {
+        "path": "/login/",
+        "title": "Login - BusinessDen",
+        "views": 1622,
+        "users": 657,
+        "type": "account"
+      },
       {
         "path": "/plans/subscriptions/",
         "title": "Subscriptions - BusinessDen",
         "views": 1620,
         "users": 422,
         "type": "other"
-      },
-      {
-        "path": "/login/",
-        "title": "Login - BusinessDen",
-        "views": 1616,
-        "users": 654,
-        "type": "account"
       },
       {
         "path": "/account/",
@@ -41731,7 +41731,7 @@
       {
         "path": "/news/",
         "title": "News - BusinessDen",
-        "views": 355,
+        "views": 356,
         "users": 206,
         "type": "other"
       },
@@ -41822,9 +41822,16 @@
       {
         "path": "/events/",
         "title": "Events Archive - BusinessDen",
-        "views": 73,
-        "users": 62,
+        "views": 74,
+        "users": 63,
         "type": "other"
+      },
+      {
+        "path": "/contact/",
+        "title": "Contact - BusinessDen",
+        "views": 74,
+        "users": 52,
+        "type": "static"
       },
       {
         "path": "/author/max-scheinblum/",
@@ -41832,13 +41839,6 @@
         "views": 73,
         "users": 65,
         "type": "author"
-      },
-      {
-        "path": "/contact/",
-        "title": "Contact - BusinessDen",
-        "views": 73,
-        "users": 51,
-        "type": "static"
       },
       {
         "path": "/category/law/",
@@ -42191,6 +42191,13 @@
         "type": "other"
       },
       {
+        "path": "/gaylord-rockies-looks-to-add-450-rooms-expand-indoor-water-park/",
+        "title": "Gaylord Rockies looks to add 450 rooms, expand indoor water park - BusinessDen",
+        "views": 17,
+        "users": 17,
+        "type": "other"
+      },
+      {
         "path": "/privacy-policy/",
         "title": "Privacy Policy - BusinessDen",
         "views": 17,
@@ -42206,11 +42213,11 @@
       }
     ],
     "other_breakdown": {
-      "other": 5134,
-      "account": 2808,
+      "other": 5153,
+      "account": 2814,
       "category": 829,
       "pagination": 292,
-      "static": 207,
+      "static": 208,
       "author": 182,
       "subscribe": 180,
       "tag": 19
@@ -77037,7 +77044,7 @@
       },
       "2026-07-01": {
         "email": 2025,
-        "direct": 1402,
+        "direct": 1404,
         "organic": 971,
         "referral": 437,
         "other": 14,
@@ -77064,14 +77071,15 @@
         "organic": 487,
         "email": 178,
         "referral": 152,
-        "other": 13,
+        "other": 12,
         "social": 4
       },
       "2026-07-05": {
-        "direct": 26,
-        "organic": 17,
-        "email": 5,
-        "referral": 1
+        "direct": 140,
+        "organic": 56,
+        "email": 17,
+        "referral": 14,
+        "other": 1
       }
     },
     "hourly_sources": {
@@ -89806,7 +89814,7 @@
           "referral": 10,
           "organic": 8,
           "email": 5,
-          "other": 2
+          "other": 1
         }
       }
     }
