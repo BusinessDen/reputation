@@ -1,6 +1,30 @@
 {
   "mentions": [
     {
+      "id": "8f2e9777b51b5407",
+      "title": "Tower Life owners plan retail, restaurant space as housing conversion continues",
+      "title_raw": "Tower Life owners plan retail, restaurant space as housing conversion continues - San Antonio Express-News",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOaHY5Q2RsMlhrMjZvSEt1VGNFT0F5UTQ3YVhoZUhSYmNLcjFXdmdkM3UtWHZVdldrbTdSS0RvUXVIV0JwdDFNYkRmX0ZpR01HZzBMS2FCSHJtOFJyU0lHZ0FyUUUzYUFQbm5oVUhKek1zQlZ3b2pUa0NUMEhjRjdna0RuWjJxTW16ZnN5aDhzNF9DcG9GLVYzc2tVTQ?oc=5",
+      "snippet": "Tower Life owners plan retail, restaurant space as housing conversion continues  San Antonio Express-News",
+      "source": "San Antonio Express-News",
+      "source_url": "https://www.expressnews.com",
+      "source_domain": "expressnews.com",
+      "published": "2026-07-12T14:08:16+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-12T18:18:23.030305+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMimwFBVV95cUxOaHY5Q2RsMlhrMjZvSEt1VGNFT0F5UTQ3YVhoZUhSYmNLcjFXdmdkM3UtWHZVdldrbTdSS0RvUXVIV0JwdDFNYkRmX0ZpR01HZzBMS2FCSHJtOFJyU0lHZ0FyUUUzYUFQbm5oVUhKek1zQlZ3b2pUa0NUMEhjRjdna0RuWjJxTW16ZnN5aDhzNF9DcG9GLVYzc2tVTQ",
+      "sentiment": "neutral"
+    },
+    {
       "id": "760dc32797f33860",
       "title": "Denver Organ Grinder News Segment - Keith Kendall Interview - Vintage 1980s",
       "title_raw": "Denver Organ Grinder News Segment - Keith Kendall Interview - Vintage 1980s - Reddit",
@@ -36393,7 +36417,7 @@
       "3bc73989aeba60e0"
     ]
   },
-  "last_updated": "2026-07-12T11:25:18.940658+00:00",
+  "last_updated": "2026-07-12T18:18:23.030305+00:00",
   "run_log": [
     {
       "timestamp": "2026-04-14T11:55:55.834580+00:00",
@@ -37978,11 +38002,23 @@
         "reddit_rss": 2,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-07-12T18:18:23.030305+00:00",
+      "new_mentions": 1,
+      "total_mentions": 997,
+      "total_bd_articles": 798,
+      "sources": {
+        "google_news_rss": 8,
+        "wordpress_api": 15,
+        "reddit_rss": 2,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 2,
+  "new_this_run": 1,
   "ga4": {
-    "last_fetched": "2026-07-12T11:25:18.940658+00:00",
+    "last_fetched": "2026-07-12T18:18:23.030305+00:00",
     "article_stats": {
       "https://businessden.com/2026/06/26/the-pipeline-commercial-real-estate-deals-for-6-26-26/": {
         "views": 384,
@@ -43335,9 +43371,9 @@
         "month": 107,
         "older": 688,
         "home": 1192,
-        "browse": 165,
+        "browse": 164,
         "newsletter": 47,
-        "other": 869
+        "other": 870
       },
       "2026-06-16": {
         "total": 9434,
@@ -43368,9 +43404,9 @@
         "month": 125,
         "older": 619,
         "home": 1025,
-        "browse": 116,
+        "browse": 115,
         "newsletter": 33,
-        "other": 609
+        "other": 610
       },
       "2026-06-19": {
         "total": 1956,
@@ -43379,9 +43415,9 @@
         "month": 130,
         "older": 467,
         "home": 568,
-        "browse": 46,
+        "browse": 45,
         "newsletter": 13,
-        "other": 240
+        "other": 241
       },
       "2026-06-20": {
         "total": 1300,
@@ -43412,9 +43448,9 @@
         "month": 180,
         "older": 721,
         "home": 1070,
-        "browse": 102,
+        "browse": 101,
         "newsletter": 29,
-        "other": 536
+        "other": 537
       },
       "2026-06-23": {
         "total": 12537,
@@ -43424,8 +43460,8 @@
         "older": 835,
         "home": 1252,
         "browse": 106,
-        "newsletter": 31,
-        "other": 560
+        "newsletter": 30,
+        "other": 561
       },
       "2026-06-24": {
         "total": 13454,
@@ -43478,9 +43514,9 @@
         "month": 143,
         "older": 543,
         "home": 599,
-        "browse": 255,
+        "browse": 254,
         "newsletter": 73,
-        "other": 1342
+        "other": 1343
       },
       "2026-06-29": {
         "total": 13041,
@@ -43489,9 +43525,9 @@
         "month": 52,
         "older": 485,
         "home": 1437,
-        "browse": 1583,
-        "newsletter": 455,
-        "other": 8352
+        "browse": 1580,
+        "newsletter": 454,
+        "other": 8356
       },
       "2026-06-30": {
         "total": 10909,
@@ -43500,9 +43536,9 @@
         "month": 64,
         "older": 541,
         "home": 1388,
-        "browse": 1333,
-        "newsletter": 383,
-        "other": 7032
+        "browse": 1331,
+        "newsletter": 382,
+        "other": 7035
       },
       "2026-07-01": {
         "total": 8919,
@@ -43511,9 +43547,9 @@
         "month": 88,
         "older": 584,
         "home": 1346,
-        "browse": 1043,
-        "newsletter": 300,
-        "other": 5501
+        "browse": 1041,
+        "newsletter": 299,
+        "other": 5504
       },
       "2026-07-02": {
         "total": 11822,
@@ -43522,9 +43558,9 @@
         "month": 8,
         "older": 9,
         "home": 879,
-        "browse": 1665,
-        "newsletter": 479,
-        "other": 8779
+        "browse": 1661,
+        "newsletter": 478,
+        "other": 8784
       },
       "2026-07-03": {
         "total": 3748,
@@ -43533,9 +43569,9 @@
         "month": 6,
         "older": 4,
         "home": 361,
-        "browse": 515,
+        "browse": 513,
         "newsletter": 148,
-        "other": 2713
+        "other": 2715
       },
       "2026-07-04": {
         "total": 1796,
@@ -43566,9 +43602,9 @@
         "month": 5,
         "older": 5,
         "home": 991,
-        "browse": 1092,
-        "newsletter": 314,
-        "other": 5759
+        "browse": 1090,
+        "newsletter": 313,
+        "other": 5762
       },
       "2026-07-07": {
         "total": 10273,
@@ -43577,9 +43613,9 @@
         "month": 5,
         "older": 1,
         "home": 1012,
-        "browse": 1410,
+        "browse": 1408,
         "newsletter": 405,
-        "other": 7440
+        "other": 7442
       },
       "2026-07-08": {
         "total": 7456,
@@ -43588,9 +43624,9 @@
         "month": 5,
         "older": 0,
         "home": 941,
-        "browse": 992,
+        "browse": 990,
         "newsletter": 285,
-        "other": 5233
+        "other": 5235
       },
       "2026-07-09": {
         "total": 10643,
@@ -43599,9 +43635,9 @@
         "month": 2,
         "older": 5,
         "home": 1196,
-        "browse": 1439,
-        "newsletter": 414,
-        "other": 7587
+        "browse": 1436,
+        "newsletter": 413,
+        "other": 7591
       },
       "2026-07-10": {
         "total": 6947,
@@ -43610,9 +43646,9 @@
         "month": 4,
         "older": 3,
         "home": 866,
-        "browse": 926,
+        "browse": 924,
         "newsletter": 266,
-        "other": 4882
+        "other": 4884
       },
       "2026-07-11": {
         "total": 1641,
@@ -43626,23 +43662,23 @@
         "other": 1120
       },
       "2026-07-12": {
-        "total": 192,
+        "total": 342,
         "today": 0,
         "week": 0,
         "month": 0,
         "older": 0,
-        "home": 8,
-        "browse": 28,
-        "newsletter": 8,
-        "other": 148
+        "home": 26,
+        "browse": 48,
+        "newsletter": 14,
+        "other": 254
       }
     },
     "non_article_pages": [
       {
         "path": "/plans/subscriptions/",
         "title": "Subscriptions - BusinessDen",
-        "views": 2714,
-        "users": 959,
+        "views": 2717,
+        "users": 962,
         "type": "other"
       },
       {
@@ -43704,8 +43740,8 @@
       {
         "path": "/subscribe/businessden-annual-membership/",
         "title": "BusinessDen Annual Membership - BusinessDen",
-        "views": 158,
-        "users": 113,
+        "views": 159,
+        "users": 114,
         "type": "subscribe"
       },
       {
@@ -43732,8 +43768,8 @@
       {
         "path": "/LXRlbXBvcm",
         "title": "(not set)",
-        "views": 120,
-        "users": 120,
+        "views": 123,
+        "users": 123,
         "type": "other"
       },
       {
@@ -43758,18 +43794,18 @@
         "type": "static"
       },
       {
+        "path": "/privacy-policy/",
+        "title": "Privacy Policy - BusinessDen",
+        "views": 100,
+        "users": 87,
+        "type": "static"
+      },
+      {
         "path": "/category/startups/",
         "title": "Startups Archives - BusinessDen",
         "views": 98,
         "users": 81,
         "type": "category"
-      },
-      {
-        "path": "/privacy-policy/",
-        "title": "Privacy Policy - BusinessDen",
-        "views": 98,
-        "users": 85,
-        "type": "static"
       },
       {
         "path": "/send-a-news-tip/",
@@ -43802,8 +43838,8 @@
       {
         "path": "/thank-you/",
         "title": "Thank You - BusinessDen",
-        "views": 73,
-        "users": 64,
+        "views": 74,
+        "users": 65,
         "type": "other"
       },
       {
@@ -44290,6 +44326,13 @@
         "type": "other"
       },
       {
+        "path": "/jailed-fraudsters-cherry-hills-village-estate-seized-by-feds-sells-for-7m/",
+        "title": "Jailed fraudster’s Cherry Hills Village estate - seized by feds - sells for $7M - BusinessDen",
+        "views": 15,
+        "users": 12,
+        "type": "other"
+      },
+      {
         "path": "/meet-brumates-dylan-jacob-the-25-year-old-founder-of-colorados-fastest-growing-company/",
         "title": "Meet BruMate’s Dylan Jacob, the 25-year-old founder of Colorado’s fastest-growing company - BusinessDen",
         "views": 15,
@@ -44305,12 +44348,12 @@
       }
     ],
     "other_breakdown": {
-      "other": 6969,
+      "other": 6991,
       "account": 3344,
       "category": 750,
-      "static": 406,
+      "static": 408,
       "author": 365,
-      "subscribe": 291,
+      "subscribe": 292,
       "pagination": 248,
       "tag": 22
     },
@@ -79350,16 +79393,17 @@
       "2026-07-11": {
         "direct": 630,
         "email": 294,
-        "organic": 230,
+        "organic": 231,
         "referral": 124,
-        "other": 14,
+        "other": 13,
         "social": 8
       },
       "2026-07-12": {
-        "direct": 155,
-        "organic": 12,
-        "referral": 5,
-        "email": 4
+        "direct": 248,
+        "organic": 26,
+        "email": 18,
+        "referral": 14,
+        "other": 2
       }
     },
     "hourly_sources": {
@@ -93173,10 +93217,10 @@
         },
         "8": {
           "direct": 24,
-          "organic": 11,
+          "organic": 12,
           "referral": 10,
           "email": 8,
-          "other": 2
+          "other": 1
         },
         "6": {
           "direct": 23,
