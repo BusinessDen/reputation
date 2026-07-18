@@ -1,6 +1,54 @@
 {
   "mentions": [
     {
+      "id": "1ec546471930e447",
+      "title": "Riot House Lawsuit Dismissed — Developers Cleared",
+      "title_raw": "Riot House Lawsuit Dismissed — Developers Cleared - Hoodline",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQSkhYLW9BdHZuZFVPWnYwOUtnR0E2QWcydmJELU9LYUFuT1FjNHlrTzhhaXYzVjVDTWhQYkxPTTJiVmtpQWdFekhlQWphY0R2NjN6eGFfNk1EWXM5Yk5kMjlGQTB4WDJ2LW9LdVFrRmlHTFQ5VFU3bnoxZHhuZmxLWnBxWjU5S0pfcjdDXzhESTAyWW5BSnhnYXVQLU80dnpVN1lQNmpkMVFvMkNRRXZRMA?oc=5",
+      "snippet": "Riot House Lawsuit Dismissed — Developers Cleared  Hoodline",
+      "source": "Hoodline",
+      "source_url": "https://hoodline.com",
+      "source_domain": "hoodline.com",
+      "published": "2026-07-18T15:39:11+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-18T18:18:02.727411+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMisAFBVV95cUxQSkhYLW9BdHZuZFVPWnYwOUtnR0E2QWcydmJELU9LYUFuT1FjNHlrTzhhaXYzVjVDTWhQYkxPTTJiVmtpQWdFekhlQWphY0R2NjN6eGFfNk1EWXM5Yk5kMjlGQTB4WDJ2LW9LdVFrRmlHTFQ5VFU3bnoxZHhuZmxLWnBxWjU5S0pfcjdDXzhESTAyWW5BSnhnYXVQLU80dnpVN1lQNmpkMVFvMkNRRXZRMA",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "079fefb6685d059f",
+      "title": "Denver Weed Giant Shutters Longtime Grow, 50 Workers Left on the Line",
+      "title_raw": "Denver Weed Giant Shutters Longtime Grow, 50 Workers Left on the Line - Hoodline",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPaWZ3bjZsMDVLZ2Vkcks5V013M0ZUdkVHbC1DRHhsaVpHTWxnLVJRTFVFTDhZekk4cFluZVRaNU9hWTJ1WjQwMW9RejlCallSR3hoMlZpeklfUlh1RmRZZ3NKTXY3YzJEajZVS1BHQ1Q3SHg2TDQ4ZVZIWE1WNUg3QmFVdkM0MWl3R0hHSHp6QW02ckJFTXRNemtMV0ZCVUU?oc=5",
+      "snippet": "Denver Weed Giant Shutters Longtime Grow, 50 Workers Left on the Line  Hoodline",
+      "source": "Hoodline",
+      "source_url": "https://hoodline.com",
+      "source_domain": "hoodline.com",
+      "published": "2026-07-18T14:10:51+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-18T18:18:02.727411+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMinwFBVV95cUxPaWZ3bjZsMDVLZ2Vkcks5V013M0ZUdkVHbC1DRHhsaVpHTWxnLVJRTFVFTDhZekk4cFluZVRaNU9hWTJ1WjQwMW9RejlCallSR3hoMlZpeklfUlh1RmRZZ3NKTXY3YzJEajZVS1BHQ1Q3SHg2TDQ4ZVZIWE1WNUg3QmFVdkM0MWl3R0hHSHp6QW02ckJFTXRNemtMV0ZCVUU",
+      "sentiment": "neutral"
+    },
+    {
       "id": "dd941dcdcd97cd8c",
       "title": "Former strip club owner selling Castle Pines mansion for $8M",
       "title_raw": "Former strip club owner selling Castle Pines mansion for $8M - The Denver Post",
@@ -38241,20 +38289,8 @@
       "dd941dcdcd97cd8c"
     ]
   },
-  "last_updated": "2026-07-18T11:22:23.675803+00:00",
+  "last_updated": "2026-07-18T18:18:02.727411+00:00",
   "run_log": [
-    {
-      "timestamp": "2026-04-19T11:33:33.907204+00:00",
-      "new_mentions": 2,
-      "total_mentions": 346,
-      "total_bd_articles": 149,
-      "sources": {
-        "google_news_rss": 17,
-        "wordpress_api": 19,
-        "reddit_rss": 1,
-        "medium_rss": 0
-      }
-    },
     {
       "timestamp": "2026-04-19T18:40:07.613372+00:00",
       "new_mentions": 1,
@@ -39874,11 +39910,23 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-07-18T18:18:02.727411+00:00",
+      "new_mentions": 2,
+      "total_mentions": 1060,
+      "total_bd_articles": 819,
+      "sources": {
+        "google_news_rss": 21,
+        "wordpress_api": 15,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 6,
+  "new_this_run": 2,
   "ga4": {
-    "last_fetched": "2026-07-18T11:22:23.675803+00:00",
+    "last_fetched": "2026-07-18T18:18:02.727411+00:00",
     "article_stats": {},
     "traffic_breakdown": {
       "2026-03-11": {
