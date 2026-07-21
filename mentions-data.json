@@ -1,6 +1,102 @@
 {
   "mentions": [
     {
+      "id": "1b4c85f02c96c53b",
+      "title": "New lender looks to foreclose on Von Miller’s former mansion",
+      "title_raw": "New lender looks to foreclose on Von Miller’s former mansion - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOY3lfdGdta1F4ZDVBQzZxQjQwTTMtakVCT1BiTl8yVGFGZG9rYTN3b1FnWGl1TDFtV0pEWWVyM0M5Z3lyWWFONGtPX0RrODNVYXoxeVVUMWtvckhPVHp2bEdfaVRMUGhtcUoxNjRud1dwbjJlRkdDYjlnMDJHMDBDUTJaQ0FWeDliclZWcktCVVB3ZkE?oc=5",
+      "snippet": "New lender looks to foreclose on Von Miller’s former mansion  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-07-21T17:31:30+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-21T18:27:45.123123+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMikwFBVV95cUxOY3lfdGdta1F4ZDVBQzZxQjQwTTMtakVCT1BiTl8yVGFGZG9rYTN3b1FnWGl1TDFtV0pEWWVyM0M5Z3lyWWFONGtPX0RrODNVYXoxeVVUMWtvckhPVHp2bEdfaVRMUGhtcUoxNjRud1dwbjJlRkdDYjlnMDJHMDBDUTJaQ0FWeDliclZWcktCVVB3ZkE",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "fa90f43474ad9ad3",
+      "title": "Food truck getting brick-and-mortar location along Federal Boulevard in Denver",
+      "title_raw": "Food truck getting brick-and-mortar location along Federal Boulevard in Denver - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5PUjFoNlZTR3Z0a1FLX2VWSFJqMjdCbW5TcndiWTIxT2FpcE9zTU10T19IMkFqNkI3aW1qWXh3aC0xVFk3NzNmeGZEMElVMTZZVEg3Mm5ubWpydVMyZTR3VW5XTmFyNy05NnF3NFlGWDRuMjVkdWRnVUFXT2p6QQ?oc=5",
+      "snippet": "Food truck getting brick-and-mortar location along Federal Boulevard in Denver  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-07-21T16:45:17+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-21T18:27:45.123123+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMifkFVX3lxTE5PUjFoNlZTR3Z0a1FLX2VWSFJqMjdCbW5TcndiWTIxT2FpcE9zTU10T19IMkFqNkI3aW1qWXh3aC0xVFk3NzNmeGZEMElVMTZZVEg3Mm5ubWpydVMyZTR3VW5XTmFyNy05NnF3NFlGWDRuMjVkdWRnVUFXT2p6QQ",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "35ddbc1fcb7292b9",
+      "title": "Mexican restaurant closes after 10 years in Cherry Creek",
+      "title_raw": "Mexican restaurant closes after 10 years in Cherry Creek - Reddit",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQYUFjdjRPY2ZsWEFUX3RELTE5VDd0ZkdtcVcycEdkTnNrb2VqLTdFNDhmeXhaZDZ3dlU3bUkwd2d6ckQzWl9lNExFd2p2QkNaZFhTTzZzU2lwREpEYUUwQ2Y5MFBtVUJ4TUlYdkxjNWt2Rjc2bFlXbzBmckluc1pDY3F4U0V5VDNsQjhkdVFyM0k0WDNyQ29DVA?oc=5",
+      "snippet": "Mexican restaurant closes after 10 years in Cherry Creek  Reddit",
+      "source": "Reddit",
+      "source_url": "https://www.reddit.com",
+      "source_domain": "reddit.com",
+      "published": "2026-07-21T16:08:18+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-21T18:27:45.123123+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMimAFBVV95cUxQYUFjdjRPY2ZsWEFUX3RELTE5VDd0ZkdtcVcycEdkTnNrb2VqLTdFNDhmeXhaZDZ3dlU3bUkwd2d6ckQzWl9lNExFd2p2QkNaZFhTTzZzU2lwREpEYUUwQ2Y5MFBtVUJ4TUlYdkxjNWt2Rjc2bFlXbzBmckluc1pDY3F4U0V5VDNsQjhkdVFyM0k0WDNyQ29DVA",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "08af18743efc0e91",
+      "title": "Former owner of troubled lesbian bar opening restaurant and nightclub in Cap Hill",
+      "title_raw": "Former owner of troubled lesbian bar opening restaurant and nightclub in Cap Hill - Reddit",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNc0NFenFKS3cweTJ4Y1ZTNTQ2d0VvdVF1dUJJZUlTUGlraFQweVNPaWFnUVd2NnFmMklYcTF2VHo2SzdLcy00UFBoZUttQ25idlUyMkdSRVBQLXZQTFE2cHFzRDc1SEhPa21WeUJDVW90MFRhTFRoMTNBbEVneXRDTGxvUFFiaXNlQjZYeXRLZUNPdWkxVTU3SjBB?oc=5",
+      "snippet": "Former owner of troubled lesbian bar opening restaurant and nightclub in Cap Hill  Reddit",
+      "source": "Reddit",
+      "source_url": "https://www.reddit.com",
+      "source_domain": "reddit.com",
+      "published": "2026-07-21T14:19:50+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-21T18:27:45.123123+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMimgFBVV95cUxNc0NFenFKS3cweTJ4Y1ZTNTQ2d0VvdVF1dUJJZUlTUGlraFQweVNPaWFnUVd2NnFmMklYcTF2VHo2SzdLcy00UFBoZUttQ25idlUyMkdSRVBQLXZQTFE2cHFzRDc1SEhPa21WeUJDVW90MFRhTFRoMTNBbEVneXRDTGxvUFFiaXNlQjZYeXRLZUNPdWkxVTU3SjBB",
+      "sentiment": "neutral"
+    },
+    {
       "id": "32bbfcc7130ecde4",
       "title": "How an investor capitalized on Denver’s neglected property problem",
       "title_raw": "How an investor capitalized on Denver’s neglected property problem - The Denver Post",
@@ -217,6 +313,30 @@
       "sentiment": "neutral"
     },
     {
+      "id": "e162c40f42f179e5",
+      "title": "Equity Ventures Commercial Development (@EVC_Dev) / Posts / X",
+      "title_raw": "Equity Ventures Commercial Development (@EVC_Dev) / Posts / X - x.com",
+      "url": "https://news.google.com/rss/articles/CBMiQ0FVX3lxTE53TVNiZktoM3RKT3RRZVdoX3U5ZUF1dHB3eWJ5dmM4UVFDeGJ1cWU0MnhwblhmaXVfR0R0cGNGcVlTYkE?oc=5",
+      "snippet": "Equity Ventures Commercial Development (@EVC_Dev) / Posts / X  x.com",
+      "source": "x.com",
+      "source_url": "https://x.com",
+      "source_domain": "x.com",
+      "published": "2026-07-20T16:56:30+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-21T18:27:45.123123+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiQ0FVX3lxTE53TVNiZktoM3RKT3RRZVdoX3U5ZUF1dHB3eWJ5dmM4UVFDeGJ1cWU0MnhwblhmaXVfR0R0cGNGcVlTYkE",
+      "sentiment": "neutral"
+    },
+    {
       "id": "9a28a4fff73d968f",
       "title": "UCHealth buys two Greenwood Village office buildings for $19M",
       "title_raw": "UCHealth buys two Greenwood Village office buildings for $19M - x.com",
@@ -310,6 +430,30 @@
       "wp_like_count": null,
       "wp_comment_count": null,
       "entry_id": "CBMitgFBVV95cUxOU0ZFcEhNS256akFrNHIwQUdNNnh4UUdLb2tOWWgyM3BEeG0wYXZ3TVJ0MWlmUlFjZGJsdksyamlCSWpGQXZrRmxuS2xfSDdOYk9ZckRmaExIWENfV3JpOUQ3TlpSUVBfUmxqVENVczR4ckdYNnJ4c0RpRW12R2xJS1JBSmZqUi1ROHhUOTZGaE1LdzdMbWtCVGJQTnU1Mm03aTF6OW5HTnBQNHdraUxodU9KaDZYZw",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "254855ceadd6a594",
+      "title": "🏠Home of the Month: The House That Knows How to Host Homes like this don’t come along often in Hilltop—and when they do, they tend to move quickly. This one on South Cherry Street, recently found its next chapter represented by longtime Denver agent",
+      "title_raw": "🏠Home of the Month: The House That Knows How to Host Homes like this don’t come along often in Hilltop—and when they do, they tend to move quickly. This one on South Cherry Street, recently found its next chapter represented by longtime Denver agent - instagram.com",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1BWXJlSFpEYjNGa3VpZzh2Z2t5Ql9CX3hRaXpUZ0ZRM29kazlPWXJRVGpSWW9jeVp2RGRhYkZWeGRZZGdEcEk5S1ZfcGhzLWhaY2YxM1h3?oc=5",
+      "snippet": "🏠Home of the Month: The House That Knows How to Host Homes like this don’t come along often in Hilltop—and when they do, they tend to move quickly. This one on South Cherry Street, recently found its next chapter represented by longtime Denver agent  instagram.com",
+      "source": "instagram.com",
+      "source_url": "https://www.instagram.com",
+      "source_domain": "instagram.com",
+      "published": "2026-07-20T10:00:34+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-21T18:27:45.123123+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiVkFVX3lxTE1BWXJlSFpEYjNGa3VpZzh2Z2t5Ql9CX3hRaXpUZ0ZRM29kazlPWXJRVGpSWW9jeVp2RGRhYkZWeGRZZGdEcEk5S1ZfcGhzLWhaY2YxM1h3",
       "sentiment": "neutral"
     },
     {
@@ -39005,23 +39149,21 @@
       "9e1e4b7118ef4941"
     ],
     "https://businessden.com/mexican-restaurant-closes-after-10-years-in-cherry-creek/": [
-      "cac2f166dd41fe0c"
+      "cac2f166dd41fe0c",
+      "35ddbc1fcb7292b9"
+    ],
+    "https://businessden.com/food-truck-getting-brick-and-mortar-along-federal/": [
+      "fa90f43474ad9ad3"
+    ],
+    "https://businessden.com/new-lender-looks-to-foreclose-on-von-millers-former-mansion/": [
+      "1b4c85f02c96c53b"
+    ],
+    "https://businessden.com/former-owner-of-troubled-lesbian-bar-opening-restaurant-and-nightclub-in-cap-hill/": [
+      "08af18743efc0e91"
     ]
   },
-  "last_updated": "2026-07-21T11:35:30.571549+00:00",
+  "last_updated": "2026-07-21T18:27:45.123123+00:00",
   "run_log": [
-    {
-      "timestamp": "2026-04-22T11:58:34.669201+00:00",
-      "new_mentions": 6,
-      "total_mentions": 361,
-      "total_bd_articles": 161,
-      "sources": {
-        "google_news_rss": 18,
-        "wordpress_api": 19,
-        "reddit_rss": 1,
-        "medium_rss": 0
-      }
-    },
     {
       "timestamp": "2026-04-23T11:58:06.055086+00:00",
       "new_mentions": 13,
@@ -40665,11 +40807,23 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-07-21T18:27:45.123123+00:00",
+      "new_mentions": 6,
+      "total_mentions": 1090,
+      "total_bd_articles": 828,
+      "sources": {
+        "google_news_rss": 23,
+        "wordpress_api": 15,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 9,
+  "new_this_run": 6,
   "ga4": {
-    "last_fetched": "2026-07-21T11:35:30.571549+00:00",
+    "last_fetched": "2026-07-21T18:27:45.123123+00:00",
     "article_stats": {},
     "traffic_breakdown": {
       "2026-03-11": {
