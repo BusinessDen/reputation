@@ -1,6 +1,30 @@
 {
   "mentions": [
     {
+      "id": "fedbc71b41569e9c",
+      "title": "🚧 I stopped by the future Cooper’s Hawk Winery & Restaurant near Park Meadows Mall in Centennial. As you can see construction is well underway! The popular national chain is known for its contemporary American menu Favorites include Dana’s Parmesan",
+      "title_raw": "🚧 I stopped by the future Cooper’s Hawk Winery & Restaurant near Park Meadows Mall in Centennial. As you can see construction is well underway! The popular national chain is known for its contemporary American menu Favorites include Dana’s Parmesan - instagram.com",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1NSjNxRkk3U2F3dG1vZ2tNWF9mQWZEbVNCUkJZcXJYc2xSckZjWVNqWXB5dXRVZEdNUjJPNnZwaWxPSGQtYW5iclJnZ3UyTlFpWUVLR1p3?oc=5",
+      "snippet": "🚧 I stopped by the future Cooper’s Hawk Winery & Restaurant near Park Meadows Mall in Centennial. As you can see construction is well underway! The popular national chain is known for its contemporary American menu Favorites include Dana’s Parmesan  instagram.com",
+      "source": "instagram.com",
+      "source_url": "https://www.instagram.com",
+      "source_domain": "instagram.com",
+      "published": "2026-07-23T14:50:49+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T18:26:37.547788+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiVkFVX3lxTE1NSjNxRkk3U2F3dG1vZ2tNWF9mQWZEbVNCUkJZcXJYc2xSckZjWVNqWXB5dXRVZEdNUjJPNnZwaWxPSGQtYW5iclJnZ3UyTlFpWUVLR1p3",
+      "sentiment": "neutral"
+    },
+    {
       "id": "156edb1f8a0f731b",
       "title": "Recess Beer Garden coming to Auraria Campus",
       "title_raw": "Recess Beer Garden coming to Auraria Campus - The Denver Post",
@@ -46,6 +70,30 @@
       "wp_like_count": null,
       "wp_comment_count": null,
       "entry_id": "CBMinAFBVV95cUxOVjRUeS1FSzJXMVVsUHhKY3hqLTFWRmQwT19OT1ZuOTdvSmo2Zl8xb0gxVkxvbER0MmhnLTYzUlpFbnhjMjA1TEdNUGFVcXoxNDVwOU5zaFdLbXo4QTlmSlY4bE5wODVXSHV4S1pMbFY4bGlRZDI2aGFKTkluX1Y5M25meTdmOTNHODlmN3JYUG8yQTBmZnVtTldNdU8",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "64452c54366fe87c",
+      "title": "MODUS Real Estate (@modusrealestate) · Denver, CO",
+      "title_raw": "MODUS Real Estate (@modusrealestate) · Denver, CO - instagram.com",
+      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE82RHNXV0YzNEh0dFVMRlZqOFgtREhvQ2hqMmNMODlpOFRUMVNkS2U5N3JzNlAwWWY0UG9LUzFhajhrV0N2R2tzczNXZkN1SUVvYnBSYQ?oc=5",
+      "snippet": "MODUS Real Estate (@modusrealestate) · Denver, CO  instagram.com",
+      "source": "instagram.com",
+      "source_url": "https://www.instagram.com",
+      "source_domain": "instagram.com",
+      "published": "2026-07-23T03:36:22+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T18:26:37.547788+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiVEFVX3lxTE82RHNXV0YzNEh0dFVMRlZqOFgtREhvQ2hqMmNMODlpOFRUMVNkS2U5N3JzNlAwWWY0UG9LUzFhajhrV0N2R2tzczNXZkN1SUVvYnBSYQ",
       "sentiment": "neutral"
     },
     {
@@ -39913,20 +39961,8 @@
       "0e2a8140b21bd349"
     ]
   },
-  "last_updated": "2026-07-23T11:37:52.954071+00:00",
+  "last_updated": "2026-07-23T18:26:37.547788+00:00",
   "run_log": [
-    {
-      "timestamp": "2026-04-24T11:55:26.548250+00:00",
-      "new_mentions": 7,
-      "total_mentions": 381,
-      "total_bd_articles": 170,
-      "sources": {
-        "google_news_rss": 17,
-        "wordpress_api": 18,
-        "reddit_rss": 1,
-        "medium_rss": 0
-      }
-    },
     {
       "timestamp": "2026-04-24T18:41:35.595209+00:00",
       "new_mentions": 4,
@@ -41594,11 +41630,23 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-07-23T18:26:37.547788+00:00",
+      "new_mentions": 2,
+      "total_mentions": 1117,
+      "total_bd_articles": 837,
+      "sources": {
+        "google_news_rss": 23,
+        "wordpress_api": 15,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 11,
+  "new_this_run": 2,
   "ga4": {
-    "last_fetched": "2026-07-23T11:37:52.954071+00:00",
+    "last_fetched": "2026-07-23T18:26:37.547788+00:00",
     "article_stats": {},
     "traffic_breakdown": {
       "2026-03-11": {
