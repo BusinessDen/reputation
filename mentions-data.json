@@ -1,6 +1,246 @@
 {
   "mentions": [
     {
+      "id": "156edb1f8a0f731b",
+      "title": "Recess Beer Garden coming to Auraria Campus",
+      "title_raw": "Recess Beer Garden coming to Auraria Campus - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1KdDFSdENRTmhLNUxhM2ZxMXVQZFo4S0RPcHpucEstQ3VvSEtmUU1aVElPd0UzbGgwMC1BbEhkRUYzRTdTb016LVBOb2pMRkxXSkhzbDNSb1QyX1lBaEhoNkVJODN5dGxTVFRlT2dmb0g5V0VYd3c0OEl3SzQ?oc=5",
+      "snippet": "Recess Beer Garden coming to Auraria Campus  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-07-23T10:00:50+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMifEFVX3lxTE1KdDFSdENRTmhLNUxhM2ZxMXVQZFo4S0RPcHpucEstQ3VvSEtmUU1aVElPd0UzbGgwMC1BbEhkRUYzRTdTb016LVBOb2pMRkxXSkhzbDNSb1QyX1lBaEhoNkVJODN5dGxTVFRlT2dmb0g5V0VYd3c0OEl3SzQ",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "0e2a8140b21bd349",
+      "title": "Development firm looks to add new offices, restaurant in Platt Park",
+      "title_raw": "Development firm looks to add new offices, restaurant in Platt Park - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOVjRUeS1FSzJXMVVsUHhKY3hqLTFWRmQwT19OT1ZuOTdvSmo2Zl8xb0gxVkxvbER0MmhnLTYzUlpFbnhjMjA1TEdNUGFVcXoxNDVwOU5zaFdLbXo4QTlmSlY4bE5wODVXSHV4S1pMbFY4bGlRZDI2aGFKTkluX1Y5M25meTdmOTNHODlmN3JYUG8yQTBmZnVtTldNdU8?oc=5",
+      "snippet": "Development firm looks to add new offices, restaurant in Platt Park  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-07-23T10:00:42+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMinAFBVV95cUxOVjRUeS1FSzJXMVVsUHhKY3hqLTFWRmQwT19OT1ZuOTdvSmo2Zl8xb0gxVkxvbER0MmhnLTYzUlpFbnhjMjA1TEdNUGFVcXoxNDVwOU5zaFdLbXo4QTlmSlY4bE5wODVXSHV4S1pMbFY4bGlRZDI2aGFKTkluX1Y5M25meTdmOTNHODlmN3JYUG8yQTBmZnVtTldNdU8",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "68875abccacafdd0",
+      "title": "Another aging office building might soon be redeveloped in cherry creek Plans have been submitted to redevelop a property at the corner of East 3rd Avenue and Clayton Street into a new five-story mixed-use building with restaurant space on bottom and offic",
+      "title_raw": "Another aging office building might soon be redeveloped in cherry creek Plans have been submitted to redevelop a property at the corner of East 3rd Avenue and Clayton Street into a new five-story mixed-use building with restaurant space on bottom and offic - instagram.com",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE55dGliYTVHVy1xMVdBb2xDVElQOFhBZGJXWkZzdlRBbmdtWkxGZlN0T09zaHZUcEtLYmo0OTU0VFhMcFBaRTk4bEdNNXR5anlYaVE?oc=5",
+      "snippet": "Another aging office building might soon be redeveloped in cherry creek Plans have been submitted to redevelop a property at the corner of East 3rd Avenue and Clayton Street into a new five-story mixed-use building with restaurant space on bottom and offic  instagram.com",
+      "source": "instagram.com",
+      "source_url": "https://www.instagram.com",
+      "source_domain": "instagram.com",
+      "published": "2026-07-23T02:21:56+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiUkFVX3lxTE55dGliYTVHVy1xMVdBb2xDVElQOFhBZGJXWkZzdlRBbmdtWkxGZlN0T09zaHZUcEtLYmo0OTU0VFhMcFBaRTk4bEdNNXR5anlYaVE",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "836bf201bd3380b9",
+      "title": "At least 14% of Denver parking hearings are being thrown out before drivers ever get their day in court. Since the city cut its Parking Magistrate Office last year, more than 4,200 cases have been filed — up from 88 in the same period the year before. See this st",
+      "title_raw": "At least 14% of Denver parking hearings are being thrown out before drivers ever get their day in court. Since the city cut its Parking Magistrate Office last year, more than 4,200 cases have been filed — up from 88 in the same period the year before. See this st - instagram.com",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5QTjdvVlRnWkozeGVSVGF5eGgxSmR0RFpxVkVkd29tTjRrQVV0aXhCVzNVRGRSUjZKSlNhY3p4b2dIOGZ4ZVhYbUhZUms1R0Qtdnc?oc=5",
+      "snippet": "At least 14% of Denver parking hearings are being thrown out before drivers ever get their day in court. Since the city cut its Parking Magistrate Office last year, more than 4,200 cases have been filed — up from 88 in the same period the year before. See this st  instagram.com",
+      "source": "instagram.com",
+      "source_url": "https://www.instagram.com",
+      "source_domain": "instagram.com",
+      "published": "2026-07-23T02:15:16+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiUkFVX3lxTE5QTjdvVlRnWkozeGVSVGF5eGgxSmR0RFpxVkVkd29tTjRrQVV0aXhCVzNVRGRSUjZKSlNhY3p4b2dIOGZ4ZVhYbUhZUms1R0Qtdnc",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "c45b20ec3509f79d",
+      "title": "A new affordable housing development broke ground Wednesday morning at Globeville Road and Park Avenue, adding to Denver’s ongoing efforts to combat the homelessness crisis. The complex takes over the former site of La Quinta Inn and Old West Panc",
+      "title_raw": "A new affordable housing development broke ground Wednesday morning at Globeville Road and Park Avenue, adding to Denver’s ongoing efforts to combat the homelessness crisis. The complex takes over the former site of La Quinta Inn and Old West Panc - instagram.com",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBsNzQ3LUhLcUg1ZC0wb0NyNzZXOXo0V2RSNzMyeEJlTFc1TDRZOE9jZ2I5TDB1NTE5cWJCSFh3a3BCLUp3Z0N1YkdyUVNQTFlEV1E?oc=5",
+      "snippet": "A new affordable housing development broke ground Wednesday morning at Globeville Road and Park Avenue, adding to Denver’s ongoing efforts to combat the homelessness crisis. The complex takes over the former site of La Quinta Inn and Old West Panc  instagram.com",
+      "source": "instagram.com",
+      "source_url": "https://www.instagram.com",
+      "source_domain": "instagram.com",
+      "published": "2026-07-22T23:47:21+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiUkFVX3lxTFBsNzQ3LUhLcUg1ZC0wb0NyNzZXOXo0V2RSNzMyeEJlTFc1TDRZOE9jZ2I5TDB1NTE5cWJCSFh3a3BCLUp3Z0N1YkdyUVNQTFlEV1E",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "12f9dbe9d5701399",
+      "title": "Nearly a year after Denver cut city jobs to close a $250 million budget gap, Mayor Mike Johnston used his third State of the City address to promise universal childcare and 20,000 homes as part of a new redevelopment vision connecting seven major sites by tr",
+      "title_raw": "Nearly a year after Denver cut city jobs to close a $250 million budget gap, Mayor Mike Johnston used his third State of the City address to promise universal childcare and 20,000 homes as part of a new redevelopment vision connecting seven major sites by tr - instagram.com",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFA5bUwyWEttem9Qa2pTb1R4dWhGVlZIMXF5UkZVZFNiV2VqajJON081Z2NuYUYtUGhXNmlyMFBiUEZpMU8yY0lQQVhVU1NoRmo1UkE?oc=5",
+      "snippet": "Nearly a year after Denver cut city jobs to close a $250 million budget gap, Mayor Mike Johnston used his third State of the City address to promise universal childcare and 20,000 homes as part of a new redevelopment vision connecting seven major sites by tr  instagram.com",
+      "source": "instagram.com",
+      "source_url": "https://www.instagram.com",
+      "source_domain": "instagram.com",
+      "published": "2026-07-22T21:07:33+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiUkFVX3lxTFA5bUwyWEttem9Qa2pTb1R4dWhGVlZIMXF5UkZVZFNiV2VqajJON081Z2NuYUYtUGhXNmlyMFBiUEZpMU8yY0lQQVhVU1NoRmo1UkE",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "ca8b523a875bfa45",
+      "title": "Plans call for 1960s office in Cherry Creek to be replaced by larger structure",
+      "title_raw": "Plans call for 1960s office in Cherry Creek to be replaced by larger structure - The Denver Post",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1EcTRvQkVjbzRvR2FMWE1yS0hISFJTT1V3RlhjdExxUG9YNlJZMnJyVEtFNzF6c1REdEdaa3ozYllId1dVY094SnRGY3BxRnR1dDNLMmdzWlA2Qk1LdUJrWG1qVXVYZkRQUXJpNm5kTFVTNDRGbGJQeVFoQjUxZw?oc=5",
+      "snippet": "Plans call for 1960s office in Cherry Creek to be replaced by larger structure  The Denver Post",
+      "source": "The Denver Post",
+      "source_url": "https://www.denverpost.com",
+      "source_domain": "denverpost.com",
+      "published": "2026-07-22T21:02:12+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMifkFVX3lxTE1EcTRvQkVjbzRvR2FMWE1yS0hISFJTT1V3RlhjdExxUG9YNlJZMnJyVEtFNzF6c1REdEdaa3ozYllId1dVY094SnRGY3BxRnR1dDNLMmdzWlA2Qk1LdUJrWG1qVXVYZkRQUXJpNm5kTFVTNDRGbGJQeVFoQjUxZw",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "49c713df2b8878bc",
+      "title": "Aging Cherry Creek Office Box On Third Ave Braces For Wrecking Ball",
+      "title_raw": "Aging Cherry Creek Office Box On Third Ave Braces For Wrecking Ball - Hoodline",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOZ2RUSXJScXlvODhKbmgzbmNKWjk0RGp5UGlxbk5vTGpTYnFaZFdFaUI0T0M0emtvRDdwTlUzaGI2U0pJSTJSanhHOFRMZW5tOGctQkM3TDNjckt3OUhTaEg5blI3SC1VYWtMRFNsOGVpNXpNb0RZbDVrODYwaW1FTk1zMWlNempyYTJ3bVhNeG00NlFsRE9ZbDVtMHBQZw?oc=5",
+      "snippet": "Aging Cherry Creek Office Box On Third Ave Braces For Wrecking Ball  Hoodline",
+      "source": "Hoodline",
+      "source_url": "https://hoodline.com",
+      "source_domain": "hoodline.com",
+      "published": "2026-07-22T20:37:20+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMingFBVV95cUxOZ2RUSXJScXlvODhKbmgzbmNKWjk0RGp5UGlxbk5vTGpTYnFaZFdFaUI0T0M0emtvRDdwTlUzaGI2U0pJSTJSanhHOFRMZW5tOGctQkM3TDNjckt3OUhTaEg5blI3SC1VYWtMRFNsOGVpNXpNb0RZbDVrODYwaW1FTk1zMWlNempyYTJ3bVhNeG00NlFsRE9ZbDVtMHBQZw",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "9242253895998d75",
+      "title": "Closure of Denver's oldest tiny-home village sparks concerns about future of model",
+      "title_raw": "Closure of Denver's oldest tiny-home village sparks concerns about future of model - Reddit",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPekVhdVgzWDkyaWFCWGI1ZWpLRlBpRFdmeGYxQmExTUdyb1BrbGpRRXc5NlR0aE93WkRfYlI1Z3R1ckk3NzdxSkVaVUVrcjdORW16ZXhZXzQtcllhaFdtZ0NmT2I2MnltYkJzdGZCWEp2MmowOVNkX2k4emtQVHdrSWVsblBJYzgxU2JBRXl5bEstMUhLS2s4bnFTR2xDai1V?oc=5",
+      "snippet": "Closure of Denver's oldest tiny-home village sparks concerns about future of model  Reddit",
+      "source": "Reddit",
+      "source_url": "https://www.reddit.com",
+      "source_domain": "reddit.com",
+      "published": "2026-07-22T20:10:33+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMioAFBVV95cUxPekVhdVgzWDkyaWFCWGI1ZWpLRlBpRFdmeGYxQmExTUdyb1BrbGpRRXc5NlR0aE93WkRfYlI1Z3R1ckk3NzdxSkVaVUVrcjdORW16ZXhZXzQtcllhaFdtZ0NmT2I2MnltYkJzdGZCWEp2MmowOVNkX2k4emtQVHdrSWVsblBJYzgxU2JBRXl5bEstMUhLS2s4bnFTR2xDai1V",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "d3e28b3fa5379f81",
+      "title": "Renting in central Denver for years, finally ready to buy a house. Which neighborhood am I sleeping on?",
+      "title_raw": "Renting in central Denver for years, finally ready to buy a house. Which neighborhood am I sleeping on? - Reddit",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQNHRlWENJdDc1YXk3enJRNkh1YjRvZWN2am1Ib19jWGhGcm9PUi1QVFh5RzVLRFVxWGhTTUN0VlZNdUN4OUMzdkR6ZnZGVVBUOVVkUGg2ci00dW01NVVranRHWmVmU1FxcnJ1Z3p5N21wLWtleFkzd3FsOEk2cGlRTEI2MzViRjFKb3BVaER5dzliMGNzVVc1aUM5NEtQZld4?oc=5",
+      "snippet": "Renting in central Denver for years, finally ready to buy a house. Which neighborhood am I sleeping on?  Reddit",
+      "source": "Reddit",
+      "source_url": "https://www.reddit.com",
+      "source_domain": "reddit.com",
+      "published": "2026-07-22T19:06:04+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMioAFBVV95cUxQNHRlWENJdDc1YXk3enJRNkh1YjRvZWN2am1Ib19jWGhGcm9PUi1QVFh5RzVLRFVxWGhTTUN0VlZNdUN4OUMzdkR6ZnZGVVBUOVVkUGg2ci00dW01NVVranRHWmVmU1FxcnJ1Z3p5N21wLWtleFkzd3FsOEk2cGlRTEI2MzViRjFKb3BVaER5dzliMGNzVVc1aUM5NEtQZld4",
+      "sentiment": "neutral"
+    },
+    {
       "id": "a00ccdf0040d1044",
       "title": "Thornton may become home to a new location of grocery store chain Aldi. Last month, the company filed planning documents for two proposed locations in Denver, one in the Central Park neighborhood and another off East 57th Avenue and Tower Road. Rea",
       "title_raw": "Thornton may become home to a new location of grocery store chain Aldi. Last month, the company filed planning documents for two proposed locations in Denver, one in the Central Park neighborhood and another off East 57th Avenue and Tower Road. Rea - instagram.com",
@@ -288,6 +528,30 @@
       "wp_like_count": null,
       "wp_comment_count": null,
       "entry_id": "CBMifkFVX3lxTE5PUjFoNlZTR3Z0a1FLX2VWSFJqMjdCbW5TcndiWTIxT2FpcE9zTU10T19IMkFqNkI3aW1qWXh3aC0xVFk3NzNmeGZEMElVMTZZVEg3Mm5ubWpydVMyZTR3VW5XTmFyNy05NnF3NFlGWDRuMjVkdWRnVUFXT2p6QQ",
+      "sentiment": "neutral"
+    },
+    {
+      "id": "2ee6fea7ab338b6a",
+      "title": "Aldi has officially filed plans for a new store in Denver’s Central Park neighborhood 👏 The new grocery store is planned for 9111 E. 40th Ave., on the southeast corner of I-70 and Central Park Blvd 📍 The site is located next to the new Chick-fil-A and Cracker Ba",
+      "title_raw": "Aldi has officially filed plans for a new store in Denver’s Central Park neighborhood 👏 The new grocery store is planned for 9111 E. 40th Ave., on the southeast corner of I-70 and Central Park Blvd 📍 The site is located next to the new Chick-fil-A and Cracker Ba - instagram.com",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBRZFNsZUQzWXFJN0JMZVJTX0Nya1phb09pM01MNVY2bFJ6Z3I4TDY0cks4dWVRWGFESVd2RExxVEJRdmFYMHJ0ODdIYXhiZVdLUnJ1OENR?oc=5",
+      "snippet": "Aldi has officially filed plans for a new store in Denver’s Central Park neighborhood 👏 The new grocery store is planned for 9111 E. 40th Ave., on the southeast corner of I-70 and Central Park Blvd 📍 The site is located next to the new Chick-fil-A and Cracker Ba  instagram.com",
+      "source": "instagram.com",
+      "source_url": "https://www.instagram.com",
+      "source_domain": "instagram.com",
+      "published": "2026-07-21T16:41:34+00:00",
+      "found_via": "google_news_rss",
+      "query_used": "\"BusinessDen\" -site:businessden.com when:2d",
+      "first_seen": "2026-07-23T11:37:52.954071+00:00",
+      "author": "",
+      "subreddit": "",
+      "tags": [],
+      "categories": [],
+      "wp_site_id": null,
+      "wp_post_id": null,
+      "wp_like_count": null,
+      "wp_comment_count": null,
+      "entry_id": "CBMiVkFVX3lxTFBRZFNsZUQzWXFJN0JMZVJTX0Nya1phb09pM01MNVY2bFJ6Z3I4TDY0cks4dWVRWGFESVd2RExxVEJRdmFYMHJ0ODdIYXhiZVdLUnJ1OENR",
       "sentiment": "neutral"
     },
     {
@@ -26517,6 +26781,68 @@
   ],
   "bd_articles": [
     {
+      "url": "https://businessden.com/watson-tells-judge-a-lifetime-investment-ban-inflicts-unnecessary-pain/",
+      "title": "Watson tells judge a lifetime investment ban ‘inflicts unnecessary pain’",
+      "author": "Justin Wingerter",
+      "published": "2026-07-23T11:17:36+00:00",
+      "categories": [
+        "Commercial Real Estate",
+        "Law",
+        "Amazon",
+        "Brian Watson",
+        "Cherry Hills",
+        "Free",
+        "Northstar",
+        "SEC"
+      ],
+      "summary": "The owner of Northstar Commercial Partners has weighed in on what he thinks his penalty should be for committing securities fraud.\nThe post Watson tells judge a lifetime investment ban ‘inflicts unnecessary pain’ appeared first on BusinessDen.",
+      "content_preview": "Brian Watson, center in front, walks into the Byron G. Rogers Federal Building at 1961 Stout St. in Denver on Jan. 28, 2026. His attorney, Paul Vorndran, is on the right and lawyer Javier Heres is in the back. (Justin Wingerter/BusinessDen)\n\nBrian Watson has asked a federal judge not to bar him and his Denver development firm from selling investments and to not fine them $15 million, saying the penalty sought by the U.S. Securities and Exchange Commission is “draconian.”\n\n“A sweeping bar that le",
+      "ingested": "2026-07-23T11:38:03.575475+00:00"
+    },
+    {
+      "url": "https://businessden.com/ddda-dangles-7m-to-lure-ski-giant-from-rino-to-upper-downtown/",
+      "title": "DDDA dangles $7M to lure ski giant from RiNo to Upper Downtown",
+      "author": "Matt Geiger",
+      "published": "2026-07-23T11:16:08+00:00",
+      "categories": [
+        "Commercial Real Estate"
+      ],
+      "summary": "“I think we’re making things interesting,” said Bill Mosher, Denver’s chief projects officer.\nThe post DDDA dangles $7M to lure ski giant from RiNo to Upper Downtown appeared first on BusinessDen.",
+      "content_preview": "This is the easiest green that Alterra Mountain Co. has available. \n\nThe Denver Downtown Development Authority voted unanimously Wednesday to approve a loan of up to $7 million for an office build-out for the publicly traded ski giant, should it relocate headquarters from RiNo to Upper Downtown. Alterra operates the IKON pass and owns three ski resorts in Colorado.\n\n“I think we’re making things interesting,” said Bill Mosher, Denver’s chief projects officer.\n\nThe loan, set at 2% interest, would ",
+      "ingested": "2026-07-23T11:38:03.575543+00:00"
+    },
+    {
+      "url": "https://businessden.com/not-where-were-going-as-a-company-tap-burger-closes-in-dtc/",
+      "title": "‘Not where we’re going as a company’: Tap & Burger closes in DTC",
+      "author": "Max Scheinblum",
+      "published": "2026-07-23T11:14:30+00:00",
+      "categories": [
+        "Restaurants",
+        "DTC"
+      ],
+      "summary": "“This type of restaurant, not locally but nationally, is struggling. Every inflationary product is on those menus: ground beef, avocados, eggs, chicken wings,” Juan Padró said.\nThe post ‘Not where we’re going as a company’: Tap & Burger closes in DTC appeared first on BusinessDen.",
+      "content_preview": "Tap & Burger has tapped out of Denver Tech Center.\n\nThe local chain, which was started by restaurateur Juan Padró with a Highlands location in 2010, served its last burgers and fries earlier this week at 4910 S. Newport St. in Denver, the founder of Culinary Creative Group told BusinessDen.\n\n“It’s just not where we’re going as a company,” Padró said of Tap & Burger, which will remain operating in LoHi and Westminster. \n\n“We’re very focused on growth concepts, like A5, Fox and Hen, Ash’kara, Avia",
+      "ingested": "2026-07-23T11:38:03.575603+00:00"
+    },
+    {
+      "url": "https://businessden.com/the-docket-real-estate-lawsuit-roundup-for-7-23-26/",
+      "title": "The Docket: Real estate lawsuit roundup for 7.23.26",
+      "author": "Justin Wingerter",
+      "published": "2026-07-23T11:13:19+00:00",
+      "categories": [
+        "Law",
+        "The Docket",
+        "Cherry Creek",
+        "Cherry Hills",
+        "Cherry Hills Village",
+        "Free",
+        "RiNo"
+      ],
+      "summary": "An ugly fence dispute in Cherry Hills, RiNo’s Two Moons allegedly owes back rent, a Cherry Creek business sues its landlord, and more.\nThe post The Docket: Real estate lawsuit roundup for 7.23.26 appeared first on BusinessDen.",
+      "content_preview": "The Alfred A. Arraj United States Courthouse in downtown Denver. (Thomas Gounley/BusinessDen)\n\nAdams District Court\n\nEsteban Fierro Gonzalez v. Sayra Veronica Soria; Juan Angel Ontiveros Silva; Azteca Remodeling LLC; M&T Bank; Public Trustee of Adams CountyThe plaintiff says he lent the defendants $100,000 collateralized by 7930 Clarkson Court in Denver and has not been repaid, so he can foreclose on the home.Attorney: Joseph Sanchez, Ragab Law FirmFiled: 7/15/202626cv31402\n\nCentennial Fence Sup",
+      "ingested": "2026-07-23T11:38:03.575769+00:00"
+    },
+    {
       "url": "https://businessden.com/local-developer-looks-to-add-new-offices-restaurant-in-platt-park/",
       "title": "Local developer looks to add new offices, restaurant in Platt Park",
       "author": "Matt Geiger",
@@ -39575,9 +39901,19 @@
     ],
     "https://businessden.com/have-an-issue-with-your-businessden-membership-let-us-know/": [
       "0608dfdf3a7de6fd"
+    ],
+    "https://businessden.com/plans-call-for-1960s-office-in-cherry-creek-to-be-replaced-by-larger-structure/": [
+      "ca8b523a875bfa45",
+      "49c713df2b8878bc"
+    ],
+    "https://businessden.com/recess-beer-garden-coming-to-auraria-campus/": [
+      "156edb1f8a0f731b"
+    ],
+    "https://businessden.com/local-developer-looks-to-add-new-offices-restaurant-in-platt-park/": [
+      "0e2a8140b21bd349"
     ]
   },
-  "last_updated": "2026-07-22T18:25:21.723159+00:00",
+  "last_updated": "2026-07-23T11:37:52.954071+00:00",
   "run_log": [
     {
       "timestamp": "2026-04-24T11:55:26.548250+00:00",
@@ -41246,11 +41582,23 @@
         "reddit_rss": 1,
         "medium_rss": 0
       }
+    },
+    {
+      "timestamp": "2026-07-23T11:37:52.954071+00:00",
+      "new_mentions": 11,
+      "total_mentions": 1115,
+      "total_bd_articles": 837,
+      "sources": {
+        "google_news_rss": 30,
+        "wordpress_api": 15,
+        "reddit_rss": 1,
+        "medium_rss": 0
+      }
     }
   ],
-  "new_this_run": 2,
+  "new_this_run": 11,
   "ga4": {
-    "last_fetched": "2026-07-22T18:25:21.723159+00:00",
+    "last_fetched": "2026-07-23T11:37:52.954071+00:00",
     "article_stats": {},
     "traffic_breakdown": {
       "2026-03-11": {
@@ -45022,7 +45370,8 @@
       "2026-07-18": 135,
       "2026-07-19": 135,
       "2026-07-21": 135,
-      "2026-07-22": 135
+      "2026-07-22": 135,
+      "2026-07-23": 133
     },
     "total_subscribers_history": {
       "2020-08-24": 0,
@@ -47125,7 +47474,8 @@
       "2026-07-18": 4197,
       "2026-07-19": 4194,
       "2026-07-21": 4189,
-      "2026-07-22": 4174
+      "2026-07-22": 4174,
+      "2026-07-23": 4175
     },
     "articles_per_subscriber": {
       "2026-03-11": 1.34,
@@ -59626,6 +59976,11 @@
         "monthly": 1040,
         "annual": 2999,
         "free": 135
+      },
+      "2026-07-23": {
+        "monthly": 1038,
+        "annual": 3004,
+        "free": 133
       }
     },
     "subscriber_deltas": {
@@ -76428,6 +76783,14 @@
         "annual_loss": 14,
         "free_gain": 0,
         "free_loss": 0
+      },
+      "2026-07-23": {
+        "monthly_gain": 0,
+        "monthly_loss": 2,
+        "annual_gain": 5,
+        "annual_loss": 0,
+        "free_gain": 0,
+        "free_loss": 2
       }
     },
     "daily_sources": {
